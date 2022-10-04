@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Roboto+Slab:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+#container_cards {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(
+            150px,
+            1fr
+        )
+    );
+    gap: 10px;
+    margin: 1%;
+}
+  #coe_carta {
+    text-transform: uppercase;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgb(46, 45, 45);
+  }
+  .card-header {
+    font-size: 16pt;
+  }
+  #coe_carta .card-title {
+    font-family: "Roboto Slab", serif;
+    font-size: 50pt;
+  }
+  #coe_carta .card-text {
+    font-family: "Roboto Slab", serif;
+    font-weight: 500;
+    font-size: 20pt;
+  } 
+  #chartsContainer {
+    margin: 1%;
+    border-radius: 30px;
+    border: 1px solid #e10b1c;
+    display: grid;
+    background-color: rgb(247, 247, 247);
+    padding: 2%;
+    justify-content: space-around;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(
+            250px,
+          30%
+        )
+    );
+  }
