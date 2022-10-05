@@ -41,7 +41,7 @@
     flex-direction: column;
     background: rgb(238, 238, 238);
     width: 70%;
-    padding: 30px;
+    padding: 20px;
     max-width: 500px;
   }
   #form_login h3 {
@@ -60,6 +60,8 @@
   #form_login div {
     display: flex;
     width: 100%;
+    justify-content: space-between;
+    padding: 3%;
   }
  #form_login div h4 {
     position: relative;
@@ -73,7 +75,6 @@
 #form_login input {
   width: 70%;
   max-width: 80%;
-  margin: auto;
   margin-left: 2%;
   padding: 5px;
 }

@@ -46,7 +46,7 @@ export default function Login() {
       </AutenticationLoginContext.Provider>
     </div>
   ) : (
-    <div className="container">
+    <div>
       <h3 id="pageTitleLogin">Academia de formación</h3>
       <div id="background">
         <form id="form_login" onSubmit={handleLogin}>

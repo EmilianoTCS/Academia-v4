@@ -36,22 +36,19 @@ export default function SideBar(props) {
             COE - ACADEMIA
             <ul id="COE_Academia" className={isToggledAcademia ? "active" : ""}>
               <li>
-                <Link to="">Reporte General</Link>
+                <Link to="/listadoCursos">Cursos</Link>
               </li>
               <li>
-                <Link to="">Cursos</Link>
+                <Link to="/listadoRamos">Ramos</Link>
               </li>
               <li>
-                <Link to="">Ramos</Link>
+                <Link to="/listadoRelator">Relator</Link>
               </li>
               <li>
-                <Link to="">Relator</Link>
+                <Link to="/listadoClientes">Clientes</Link>
               </li>
               <li>
-                <Link to="">Clientes</Link>
-              </li>
-              <li>
-                <Link to="">Administrador</Link>
+                <Link to="/Administrador">Administrador</Link>
               </li>
               <li>
                 <Link to="">Prerequisitos</Link>
