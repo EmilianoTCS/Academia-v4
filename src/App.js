@@ -7,6 +7,10 @@ import ListadoRamos from "./components/pages/ListadoRamos";
 import ListadoRelator from "./components/pages/ListadoRelator";
 import ListadoClientes from "./components/pages/ListadoClientes";
 import Administrador from "./components/pages/Administrador";
+import Prerequisitos from "./components/pages/Prerequisitos";
+import ListadoColaboradores from "./components/pages/ListadoColaboradores";
+import HomeColaboradores from "./components/pages/HomeColaboradores";
+import MisCursos from "./components/pages/MisCursos";
 function App() {
   return (
     <div className="App">
@@ -18,6 +22,13 @@ function App() {
       <Route component={ListadoRelator} path="/listadoRelator"></Route>
       <Route component={ListadoClientes} path="/listadoClientes"></Route>
       <Route component={Administrador} path="/Administrador"></Route>
+      <Route component={Prerequisitos} path="/Prerequisitos"></Route>
+      <Route component={HomeColaboradores} path="/homeColaboradores"></Route>
+      <Route component={MisCursos} path="/MisCursos"></Route>
+      <Route
+        component={ListadoColaboradores}
+        path="/listadoColaboradores"
+      ></Route>
     </div>
   );
 }

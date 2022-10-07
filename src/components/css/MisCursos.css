@@ -1,0 +1,24 @@
+#CardContainer{
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(
+            200px,
+        500px
+        )
+    );
+    gap: 10px;
+
+}
+.hexagon{
+    width: 40%;
+    margin: 0;
+}
+#statsContent{
+    width: 50%;
+    text-align: center;
+}
+#CardsContent{
+display: flex;
+justify-content: space-around;
+}

@@ -51,10 +51,10 @@ export default function SideBar(props) {
                 <Link to="/Administrador">Administrador</Link>
               </li>
               <li>
-                <Link to="">Prerequisitos</Link>
+                <Link to="/Prerequisitos">Prerequisitos</Link>
               </li>
               <li>
-                <Link to="">Listado de Colaboradores</Link>
+                <Link to="/listadoColaboradores">Listado de Colaboradores</Link>
               </li>
             </ul>
           </li>
@@ -76,10 +76,10 @@ export default function SideBar(props) {
               className={isToggledColaboradores ? "active" : ""}
             >
               <li>
-                <Link to="">Inicio</Link>
+                <Link to="/homeColaboradores">Inicio</Link>
               </li>
               <li>
-                <Link to="">Mis Cursos</Link>
+                <Link to="/MisCursos">Mis Cursos</Link>
               </li>
               <li>
                 <Link to="">Inscribirse a un curso</Link>
