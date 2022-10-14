@@ -50,3 +50,20 @@
     background: #e10b1c;
     color: white;
   }
+  #formButtons{
+    border: none;
+    background: #e10b1c;
+    color: white;
+    border-radius: 5px;
+    margin: 5px;
+    font-family: "Roboto Slab", serif;
+    font-weight: 550;
+  }
+  #formButtons:hover{
+   color: #e10b1c;
+   font-weight: 500;
+   background-color: white;
+   border: solid #e10b1c 2px;
+   transition: all 200ms ease;
+
+  }

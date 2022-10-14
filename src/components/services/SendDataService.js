@@ -8,7 +8,7 @@ export default function SendDataService(url, operationUrl, data) {
     .then((res) => res.json())
     .then((response) => {
       const data = response;
-      console.log(response);
+
       return data;
     });
 }

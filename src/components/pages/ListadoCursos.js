@@ -8,6 +8,9 @@ import Header from "../templates/Header";
 import { BsPencilSquare, BsX, BsTrash } from "react-icons/bs";
 import { BiShowAlt } from "react-icons/bi";
 import "../css/TablasStyles.css";
+import InsertarCurso from "../templates/forms/InsertarCurso";
+import InsertarRamo from "../templates/forms/InsertarRamo";
+import EditarCurso from "../templates/forms/EditarCurso";
 
 export default function ListadoCursos() {
   const [cursos, setCursos] = useState([""]);
@@ -16,6 +19,10 @@ export default function ListadoCursos() {
   const urlPaginador = "paginador/botones_Cuenta.php";
   const operationUrl = "pagina";
   const userData = JSON.parse(localStorage.getItem("loggedUser"));
+  const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
+  const [isActiveEditCurso, setIsActiveEditCurso] = useState(false);
+  const [IDCurso, setIDCurso] = useState(2);
+  const [isActiveInsertRamo, setIsActiveInsertRamo] = useState(false);
 
   function obtenerDatosCursos() {
     getDataService(url).then((cursos) => setCursos(cursos));
@@ -30,6 +37,16 @@ export default function ListadoCursos() {
     var data = { num_boton: targetActual };
     SendDataService(url, operationUrl, data).then((data) => setCursos(data));
   }
+  function insertarCurso() {
+    setIsActiveInsertCurso(!isActiveInsertCurso);
+  }
+  function editarCurso(ID) {
+    setIsActiveEditCurso(true);
+    setIDCurso(ID);
+  }
+  function insertarRamo() {
+    setIsActiveInsertRamo(!isActiveInsertRamo);
+  }
   useEffect(function () {
     obtenerDatosCursos();
     obtenerDatosPaginador();
@@ -39,6 +56,19 @@ export default function ListadoCursos() {
     <>
       <Header></Header>
       <div>
+        <div>
+          <h1 id="TitlesPages">Listado de cursos</h1>
+
+          <button id="formButtons" onClick={insertarCurso}>
+            Insertar Curso
+          </button>
+          <button id="formButtons" onClick={insertarRamo}>
+            Insertar Ramo
+          </button>
+          <InsertarCurso isActive={isActiveInsertCurso}></InsertarCurso>
+          <InsertarRamo isActiveRamo={isActiveInsertRamo}></InsertarRamo>
+          <EditarCurso Props={{ IDCurso, isActiveEditCurso }}></EditarCurso>
+        </div>
         <Table id="mainTable" hover responsive>
           <thead>
             <tr>
@@ -64,7 +94,7 @@ export default function ListadoCursos() {
                   <button
                     title="Editar curso"
                     id="OperationBtns"
-                    onClick={() => this.loadDataEdit(curso.ID)}
+                    onClick={() => editarCurso(curso.ID)}
                   >
                     <BsPencilSquare />
                   </button>

@@ -11,6 +11,7 @@ import Prerequisitos from "./components/pages/Prerequisitos";
 import ListadoColaboradores from "./components/pages/ListadoColaboradores";
 import HomeColaboradores from "./components/pages/HomeColaboradores";
 import MisCursos from "./components/pages/MisCursos";
+
 function App() {
   return (
     <div className="App">
