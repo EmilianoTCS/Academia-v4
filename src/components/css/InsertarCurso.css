@@ -12,6 +12,8 @@
     visibility: visible;
     opacity: 1;
     transition: all 300ms ease;
+    position: absolute;
+    z-index: 1000;
 }
 #form_insertarData{
     background: rgb(238, 238, 238);

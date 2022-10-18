@@ -11,6 +11,7 @@ import Prerequisitos from "./components/pages/Prerequisitos";
 import ListadoColaboradores from "./components/pages/ListadoColaboradores";
 import HomeColaboradores from "./components/pages/HomeColaboradores";
 import MisCursos from "./components/pages/MisCursos";
+import Calendario from "./components/pages/Calendario";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
       <Route component={Prerequisitos} path="/Prerequisitos"></Route>
       <Route component={HomeColaboradores} path="/homeColaboradores"></Route>
       <Route component={MisCursos} path="/MisCursos"></Route>
+      <Route component={Calendario} path="/Calendario"></Route>
       <Route
         component={ListadoColaboradores}
         path="/listadoColaboradores"
