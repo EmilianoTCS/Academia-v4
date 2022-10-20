@@ -56,6 +56,9 @@ export default function SideBar(props) {
               <li>
                 <Link to="/listadoColaboradores">Listado de Colaboradores</Link>
               </li>
+              <li>
+                <Link to="/Calendario">Calendario</Link>
+              </li>
             </ul>
           </li>
           <li id="li_Asistencias" onClick={handleChangeAsistencias}>

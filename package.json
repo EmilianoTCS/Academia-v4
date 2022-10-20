@@ -24,6 +24,7 @@
     "react-scripts": "5.0.1",
     "react-select": "^5.4.0",
     "sweetalert2": "^11.5.1",
+    "sweetalert2-react-content": "^5.0.5",
     "web-vitals": "^3.0.2",
     "wouter": "^2.8.0-alpha.2"
   },

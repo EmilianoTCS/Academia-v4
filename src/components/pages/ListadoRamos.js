@@ -8,6 +8,9 @@ import Header from "../templates/Header";
 import { BsPencilSquare, BsX, BsTrash } from "react-icons/bs";
 import { BiShowAlt } from "react-icons/bi";
 import "../css/TablasStyles.css";
+import InsertarCurso from "../templates/forms/InsertarCurso";
+import InsertarRamo from "../templates/forms/InsertarRamo";
+import EditarCurso from "../templates/forms/EditarCurso";
 
 export default function ListadoRamos() {
   const [ramos, setRamos] = useState([""]);
@@ -16,7 +19,10 @@ export default function ListadoRamos() {
   const urlPaginador = "paginador/botones_Cursos.php";
   const operationUrl = "pagina";
   const userData = JSON.parse(localStorage.getItem("loggedUser"));
-
+  const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
+  const [isActiveInsertRamo, setIsActiveInsertRamo] = useState(false);
+  const [IDCurso, setIDCurso] = useState(2);
+  const [isActiveEditCurso, setIsActiveEditCurso] = useState(false);
   function obtenerDatosRamos() {
     getDataService(url).then((ramos) => setRamos(ramos));
   }
@@ -35,10 +41,32 @@ export default function ListadoRamos() {
     obtenerDatosPaginador();
   }, []);
 
+  function insertarCurso() {
+    setIsActiveInsertCurso(!isActiveInsertCurso);
+  }
+  function editarCurso(ID) {
+    setIsActiveEditCurso(true);
+    setIDCurso(ID);
+  }
+  function insertarRamo() {
+    setIsActiveInsertRamo(!isActiveInsertRamo);
+  }
+
   return userData ? (
     <>
       <Header></Header>
       <div>
+        <h1 id="TitlesPages">Listado de ramos</h1>
+
+        <button id="formButtons" onClick={insertarCurso}>
+          Insertar Curso
+        </button>
+        <button id="formButtons" onClick={insertarRamo}>
+          Insertar Ramo
+        </button>
+        <InsertarCurso isActive={isActiveInsertCurso}></InsertarCurso>
+        <InsertarRamo isActiveRamo={isActiveInsertRamo}></InsertarRamo>
+        <EditarCurso Props={{ IDCurso, isActiveEditCurso }}></EditarCurso>
         <Table id="mainTable" hover responsive>
           <thead>
             <tr>

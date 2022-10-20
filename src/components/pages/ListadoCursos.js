@@ -35,7 +35,10 @@ export default function ListadoCursos() {
   function handleChangePaginador(e) {
     const targetActual = e.target.value;
     var data = { num_boton: targetActual };
-    SendDataService(url, operationUrl, data).then((data) => setCursos(data));
+    SendDataService(url, operationUrl, data).then(
+      (data) => setCursos(data),
+      console.log(cursos)
+    );
   }
   function insertarCurso() {
     setIsActiveInsertCurso(!isActiveInsertCurso);

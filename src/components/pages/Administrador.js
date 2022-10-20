@@ -82,6 +82,8 @@ export default function Administrador() {
     <>
       <Header></Header>
       <div id="adminContainer">
+        <h1 id="TitlesPages">Administración de registros</h1>
+
         <Card id="cardsTables" style={{ position: "unset" }}>
           <h1 id="cardsTitle">Cursos</h1>
           <Table responsive>

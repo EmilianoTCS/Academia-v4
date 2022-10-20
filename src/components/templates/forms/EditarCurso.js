@@ -51,6 +51,7 @@ export default function EditarCurso(props) {
     const url = "TASKS/coe-editCurso.php";
     const operationUrl = "editarCurso";
     var data = {
+      ID: props.Props.IDCurso,
       codigoCuenta: codigoCuenta,
       codigoRamo: codigoRamo,
       fechaInicio: fechaInicio,

@@ -88,6 +88,8 @@ export default function Prerequisitos() {
   return userData ? (
     <>
       <Header></Header>
+      <h1 id="TitlesPages">Administración de prerequisitos</h1>
+
       <Form onSubmit={handleSubmit} id="formPrerequisitos">
         <Card id="CardsPrerequisitos">
           <h1 id="Subtitles"> Selecciona un curso</h1>

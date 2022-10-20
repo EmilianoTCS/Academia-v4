@@ -39,6 +39,7 @@ export default function ListadoClientes() {
     <>
       <Header></Header>
       <div>
+        <h1 id="TitlesPages">Listado de clientes</h1>
         <Table id="mainTable" hover responsive>
           <thead>
             <tr>

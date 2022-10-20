@@ -39,6 +39,8 @@ export default function ListadoRelator() {
     <>
       <Header></Header>
       <div>
+        <h1 id="TitlesPages">Listado de relatores</h1>
+
         <Table id="mainTable" hover responsive>
           <thead>
             <tr>

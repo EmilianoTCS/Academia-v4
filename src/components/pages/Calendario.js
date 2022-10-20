@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import getDataService from "../services/GetDataService";
 import InsertarCurso from "../templates/forms/InsertarCurso";
 import EditarCurso from "../templates/forms/EditarCurso";
-
+import { Tooltip } from "bootstrap";
 export default function Calendario() {
   const userData = localStorage.getItem("loggedUser");
   const [CursosApi, setCursosApi] = useState([""]);
@@ -56,6 +56,7 @@ export default function Calendario() {
     title: label.codigoRamo,
     start: label.inicio + "T" + label.hora_inicio,
     end: label.fin + "T" + label.hora_fin,
+    description: label.codigoCurso,
     sourceId: label.ID,
   }));
   const Eventos = EventosApi.map((label) => ({
@@ -63,8 +64,31 @@ export default function Calendario() {
     start: label.fechaInicio + "T" + label.hora_inicio,
     end: label.fechaFin + "T" + label.hora_fin,
     sourceId: label.ID,
+    description: label.descripcion,
   }));
+  // --------------------ACTIONS  ---------------------
 
+  let tooltipInstance = null;
+  const handleMouseEnter = (info) => {
+    if (info.event.extendedProps.description) {
+      tooltipInstance = new Tooltip(info.el, {
+        title: info.event._def.extendedProps.description,
+        html: true,
+        placement: "top",
+        trigger: "hover",
+        container: "body",
+      });
+
+      tooltipInstance.show();
+    }
+  };
+
+  const handleMouseLeave = (info) => {
+    if (tooltipInstance) {
+      tooltipInstance.dispose();
+      tooltipInstance = null;
+    }
+  };
   // --------------------RENDER---------------------
 
   return userData ? (
@@ -87,7 +111,6 @@ export default function Calendario() {
           aspectRatio={2}
           locales="es"
           events={Cursos}
-          eventClick={editarCurso}
           dateClick={insertarCurso}
           customButtons={{
             añadirCurso: {
@@ -99,6 +122,8 @@ export default function Calendario() {
               click: insertarEvento,
             },
           }}
+          eventMouseEnter={handleMouseEnter}
+          eventMouseLeave={handleMouseLeave}
         />
       </div>
     </>
