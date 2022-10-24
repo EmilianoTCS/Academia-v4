@@ -19,7 +19,12 @@ export default function Header() {
         <header>
           <div id="HeaderContainer">
             <Link to="/home">
-              <img src={tsoftLogo} alt="logo Tsoft" id="logoTsoft"></img>
+              <img
+                src={tsoftLogo}
+                alt="logo Tsoft"
+                id="logoTsoft"
+                style={{ cursor: "pointer" }}
+              ></img>
             </Link>
             <h3 id="tituloPaginaHeader">Academia de formación</h3>
             <img src={logoCoe} alt="logoCoe" id="logoCoe"></img>

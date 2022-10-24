@@ -83,7 +83,7 @@ export default function Calendario() {
     }
   };
 
-  const handleMouseLeave = (info) => {
+  const handleMouseLeave = () => {
     if (tooltipInstance) {
       tooltipInstance.dispose();
       tooltipInstance = null;

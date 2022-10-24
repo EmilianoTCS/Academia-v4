@@ -8,6 +8,8 @@ import Header from "../templates/Header";
 import { BsPencilSquare, BsX, BsTrash } from "react-icons/bs";
 import { BiShowAlt } from "react-icons/bi";
 import "../css/TablasStyles.css";
+import InsertarClientes from "../templates/forms/InsertarClientes";
+import EditarClientes from "../templates/forms/EditarCliente";
 
 export default function ListadoClientes() {
   const [cliente, setCliente] = useState([""]);
@@ -16,6 +18,17 @@ export default function ListadoClientes() {
   const urlPaginador = "paginador/botones_Clientes.php";
   const operationUrl = "pagina";
   const userData = JSON.parse(localStorage.getItem("loggedUser"));
+  const [isActiveInsertCliente, setIsActiveInsertCliente] = useState(false);
+  const [isActiveEditCliente, setIsActiveEditCliente] = useState(false);
+  const [IDCliente, setIDCliente] = useState(1);
+
+  function insertarCliente() {
+    setIsActiveInsertCliente(!isActiveInsertCliente);
+  }
+  function editarCliente(ID) {
+    setIsActiveEditCliente(!isActiveEditCliente);
+    setIDCliente(ID);
+  }
 
   function obtenerDatosClientes() {
     getDataService(url).then((clientes) => setCliente(clientes));
@@ -40,6 +53,13 @@ export default function ListadoClientes() {
       <Header></Header>
       <div>
         <h1 id="TitlesPages">Listado de clientes</h1>
+        <button id="formButtons" onClick={insertarCliente}>
+          Insertar Cliente
+        </button>
+        <InsertarClientes Props={{ isActiveInsertCliente }}></InsertarClientes>
+        <EditarClientes
+          Props={{ isActiveEditCliente, IDCliente }}
+        ></EditarClientes>
         <Table id="mainTable" hover responsive>
           <thead>
             <tr>
@@ -66,7 +86,7 @@ export default function ListadoClientes() {
                   <button
                     title="Editar cliente"
                     id="OperationBtns"
-                    onClick={() => this.loadDataEdit(cliente.ID)}
+                    onClick={() => editarCliente(cliente.ID)}
                   >
                     <BsPencilSquare />
                   </button>

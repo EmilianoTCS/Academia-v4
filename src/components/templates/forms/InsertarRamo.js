@@ -4,6 +4,8 @@ import { BsX } from "react-icons/bs";
 import "../../css/InsertarRamo.css";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
+import TopAlerts from "../alerts/TopAlerts";
+
 export default function InsertarRamo(props) {
   // ----------------------CONSTANTES----------------------------
   const [isActive, setisActive] = useState(props.isActiveRamo);
@@ -12,11 +14,9 @@ export default function InsertarRamo(props) {
   const [listRelatores, setListRelatores] = useState([""]);
   const [codigoCuenta, setCodigoCuenta] = useState("");
   const [codigoRamo, setCodigoRamo] = useState("");
-  const [area, setArea] = useState("");
-  const [nombreCurso, setNombreCurso] = useState("");
+  const [nombreRamo, setNombreRamo] = useState("");
   const [hh_academicas, set_hh_academicas] = useState("");
   const [prerequisito, setPrerequisito] = useState("");
-  const [relator, setRelator] = useState("");
 
   // ----------------------FUNCIONES----------------------------
   function CloseForm() {
@@ -42,15 +42,13 @@ export default function InsertarRamo(props) {
     var data = {
       codigoCuenta: codigoCuenta,
       codigoRamo: codigoRamo,
-      area: area,
-      nombreCurso: nombreCurso,
+      nombreCurso: nombreRamo,
       hh_academicas: hh_academicas,
       prerequisito: prerequisito,
-      relator: relator,
     };
 
     SendDataService(url, operationUrl, data).then((response) =>
-      console.log(response)
+      TopAlerts(response)
     );
   }
   useEffect(
@@ -106,24 +104,15 @@ export default function InsertarRamo(props) {
               onChange={({ target }) => setCodigoRamo(target.value)}
             />
           </div>
+
           <div>
-            <label htmlFor="input_area">Área:</label>
+            <label htmlFor="input_nombreRamo">Nombre del ramo</label>
             <input
               type="text"
               className="form-control"
-              name="input_area"
-              id="input_area"
-              onChange={({ target }) => setArea(target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_nombreCurso">Nombre del Curso</label>
-            <input
-              type="text"
-              className="form-control"
-              name="input_nombreCurso"
-              id="input_nombreCurso"
-              onChange={({ target }) => setNombreCurso(target.value)}
+              name="input_nombreRamo"
+              id="input_nombreRamo"
+              onChange={({ target }) => setNombreRamo(target.value)}
             />
           </div>
           <div>
@@ -143,15 +132,6 @@ export default function InsertarRamo(props) {
               name="cuenta"
               options={optionsPrerequisitos}
               onChange={({ value }) => setPrerequisito(value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_fechaInicio">Relator: </label>
-            <Select
-              placeholder="Elige un relator"
-              name="cuenta"
-              options={optionsRelatores}
-              onChange={({ value }) => setRelator(value)}
             />
           </div>
           <div>

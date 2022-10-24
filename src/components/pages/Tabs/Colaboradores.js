@@ -3,10 +3,18 @@ import { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
+import InsertarColaborador from "../../templates/forms/InsertarColaborador";
+import { BsPencilSquare, BsX, BsTrash } from "react-icons/bs";
+import { BiShowAlt } from "react-icons/bi";
+import EditarColaborador from "../../templates/forms/EditarColaborador";
 
 export default function Colaboradores() {
   const [colaboradores, setColaboradores] = useState([""]);
   const [paginador, setPaginador] = useState([""]);
+  const [isActiveInsertColaborador, setIsActiveInsertColaborador] =
+    useState(false);
+  const [isActiveEditColaborador, setIsActiveEditColaborador] = useState(false);
+  const [IDColaborador, setIDColaborador] = useState(2);
 
   function obtenerDatos() {
     const url = "TASKS/coe-listColaboradores.php";
@@ -14,6 +22,15 @@ export default function Colaboradores() {
       setColaboradores(colaboradores)
     );
   }
+  function insertarColaborador() {
+    setIsActiveInsertColaborador(!isActiveInsertColaborador);
+  }
+
+  function editarColaborador(ID) {
+    setIsActiveEditColaborador(!isActiveEditColaborador);
+    setIDColaborador(ID);
+  }
+
   function obtenerDatosPaginador() {
     const url = "paginador/botones_Colaboradores.php";
     getDataService(url).then((paginador) => setPaginador(paginador));
@@ -34,6 +51,15 @@ export default function Colaboradores() {
 
   return (
     <>
+      <button id="formButtons" onClick={insertarColaborador}>
+        Insertar Colaborador
+      </button>
+      <InsertarColaborador
+        Props={{ isActiveInsertColaborador }}
+      ></InsertarColaborador>
+      <EditarColaborador
+        Props={{ isActiveEditColaborador, IDColaborador }}
+      ></EditarColaborador>
       <Table responsive>
         <thead>
           <tr>
@@ -43,6 +69,7 @@ export default function Colaboradores() {
             <th>Área</th>
             <th>CodigoCuenta</th>
             <th>Correo</th>
+            <th>Operaciones</th>
           </tr>
         </thead>
         <tbody>
@@ -54,6 +81,21 @@ export default function Colaboradores() {
               <td>{colaborador.area}</td>
               <td>{colaborador.codigoCuenta}</td>
               <td>{colaborador.correo}</td>
+              <td>
+                <button
+                  title="Editar ramo"
+                  id="OperationBtns"
+                  onClick={() => editarColaborador(colaborador.ID)}
+                >
+                  <BsPencilSquare />
+                </button>
+                <button title="Examinar curso" id="OperationBtns">
+                  <BiShowAlt />
+                </button>
+                <button title="Eliminar curso" id="OperationBtns">
+                  <BsTrash />
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

@@ -10,7 +10,7 @@ import { BiShowAlt } from "react-icons/bi";
 import "../css/TablasStyles.css";
 import InsertarCurso from "../templates/forms/InsertarCurso";
 import InsertarRamo from "../templates/forms/InsertarRamo";
-import EditarCurso from "../templates/forms/EditarCurso";
+import EditarRamo from "../templates/forms/EditarRamo";
 
 export default function ListadoRamos() {
   const [ramos, setRamos] = useState([""]);
@@ -21,8 +21,8 @@ export default function ListadoRamos() {
   const userData = JSON.parse(localStorage.getItem("loggedUser"));
   const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
   const [isActiveInsertRamo, setIsActiveInsertRamo] = useState(false);
-  const [IDCurso, setIDCurso] = useState(2);
-  const [isActiveEditCurso, setIsActiveEditCurso] = useState(false);
+  const [IDRamo, setIDRamo] = useState(2);
+  const [isActiveEditRamo, setIsActiveEditRamo] = useState(false);
   function obtenerDatosRamos() {
     getDataService(url).then((ramos) => setRamos(ramos));
   }
@@ -44,9 +44,9 @@ export default function ListadoRamos() {
   function insertarCurso() {
     setIsActiveInsertCurso(!isActiveInsertCurso);
   }
-  function editarCurso(ID) {
-    setIsActiveEditCurso(true);
-    setIDCurso(ID);
+  function editarRamo(ID) {
+    setIsActiveEditRamo(!isActiveEditRamo);
+    setIDRamo(ID);
   }
   function insertarRamo() {
     setIsActiveInsertRamo(!isActiveInsertRamo);
@@ -66,7 +66,7 @@ export default function ListadoRamos() {
         </button>
         <InsertarCurso isActive={isActiveInsertCurso}></InsertarCurso>
         <InsertarRamo isActiveRamo={isActiveInsertRamo}></InsertarRamo>
-        <EditarCurso Props={{ IDCurso, isActiveEditCurso }}></EditarCurso>
+        <EditarRamo Props={{ IDRamo, isActiveEditRamo }}></EditarRamo>
         <Table id="mainTable" hover responsive>
           <thead>
             <tr>
@@ -92,18 +92,14 @@ export default function ListadoRamos() {
                   <button
                     title="Editar ramo"
                     id="OperationBtns"
-                    onClick={() => this.loadDataEdit(ramo.ID)}
+                    onClick={() => editarRamo(ramo.ID)}
                   >
                     <BsPencilSquare />
                   </button>
                   <button title="Examinar curso" id="OperationBtns">
                     <BiShowAlt />
                   </button>
-                  <button
-                    title="Eliminar curso"
-                    onClick={() => this.alertDelete(ramo.ID)}
-                    id="OperationBtns"
-                  >
+                  <button title="Eliminar curso" id="OperationBtns">
                     <BsTrash />
                   </button>
                 </td>

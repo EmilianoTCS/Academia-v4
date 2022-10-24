@@ -7,6 +7,7 @@ import { Card, Table } from "react-bootstrap";
 import Header from "../templates/Header";
 import "../css/AdminStyles.css";
 import SwitchToggle from "../templates/SwitchToggle";
+import TopAlerts from "../templates/alerts/TopAlerts";
 
 export default function Administrador() {
   const [cursos, setCursos] = useState([""]);
@@ -43,31 +44,46 @@ export default function Administrador() {
     const url = "TASKS/coe-updateState.php";
     const operationUrl = "updateStateCursos";
     var data = { ID: ID };
-    SendDataService(url, operationUrl, data).then(obtenerDatosCursos());
+    SendDataService(url, operationUrl, data).then(
+      (response) => TopAlerts(response),
+      obtenerDatosCursos()
+    );
   }
   function handleChangeisActiveRamos(ID) {
     const url = "TASKS/coe-updateStateRamos.php";
     const operationUrl = "updateStateRamos";
     var data = { ID: ID };
-    SendDataService(url, operationUrl, data).then(obtenerDatosRamos());
+    SendDataService(url, operationUrl, data).then(
+      (response) => TopAlerts(response),
+      obtenerDatosCursos()
+    );
   }
   function handleChangeisActiveColaborador(ID) {
     const url = "TASKS/coe-updateStateColaborador.php";
     const operationUrl = "updateStateColaborador";
     var data = { ID: ID };
-    SendDataService(url, operationUrl, data).then(obtenerDatosColaboradores());
+    SendDataService(url, operationUrl, data).then(
+      (response) => TopAlerts(response),
+      obtenerDatosCursos()
+    );
   }
   function handleChangeisActiveRelatores(ID) {
     const url = "TASKS/coe-updateStateRelator.php";
     const operationUrl = "updateStateRelator";
     var data = { ID: ID };
-    SendDataService(url, operationUrl, data).then(obtenerDatosRelatores());
+    SendDataService(url, operationUrl, data).then(
+      (response) => TopAlerts(response),
+      obtenerDatosCursos()
+    );
   }
   function handleChangeisActiveClientes(ID) {
     const url = "TASKS/coe-updateStateClientes.php";
     const operationUrl = "updateStateClientes";
     var data = { ID: ID };
-    SendDataService(url, operationUrl, data).then(obtenerDatosClientes());
+    SendDataService(url, operationUrl, data).then(
+      (response) => TopAlerts(response),
+      obtenerDatosCursos()
+    );
   }
   // ------------------------------------------------------------------
   useEffect(function () {

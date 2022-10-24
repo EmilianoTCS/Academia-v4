@@ -1,0 +1,20 @@
+#btn_resetFilters{
+    display: none;
+}
+#btn_resetFilters.active{
+    display: block;
+    border: none;
+    background: #e10b1c;
+    color: white;
+    border-radius: 5px;
+    margin: 5px;
+    font-family: "Roboto Slab", serif;
+    font-weight: 550;
+}
+#btn_resetFilters.active:hover{
+    color: #e10b1c;
+    font-weight: 550;
+    background-color: white;
+    border: solid #e10b1c 1px;
+    transition: all 200ms ease;
+}

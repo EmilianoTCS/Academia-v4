@@ -4,7 +4,16 @@ export default function TopAlerts(props) {
   const MySwal = withReactContent(Swal);
 
   switch (props) {
-    case "success":
+    case "successCreated":
+      return MySwal.fire({
+        title: "Se ha creado el registro",
+        icon: "success",
+        position: "top-right",
+        timer: 2500,
+        toast: true,
+        showConfirmButton: false,
+      });
+    case "successEdited":
       return MySwal.fire({
         title: "Se ha actualizado el registro",
         icon: "success",

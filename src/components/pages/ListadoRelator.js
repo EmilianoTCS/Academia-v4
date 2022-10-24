@@ -5,9 +5,11 @@ import { Redirect } from "wouter";
 import getDataService from "../services/GetDataService";
 import SendDataService from "../services/SendDataService";
 import Header from "../templates/Header";
-import { BsPencilSquare, BsX, BsTrash } from "react-icons/bs";
+import { BsPencilSquare, BsTrash } from "react-icons/bs";
 import { BiShowAlt } from "react-icons/bi";
 import "../css/TablasStyles.css";
+import InsertarRelator from "../templates/forms/InsertarRelator";
+import EditarRelator from "../templates/forms/EditarRelator";
 
 export default function ListadoRelator() {
   const [relator, setRelator] = useState([""]);
@@ -16,6 +18,9 @@ export default function ListadoRelator() {
   const urlPaginador = "paginador/botones_Relator.php";
   const operationUrl = "pagina";
   const userData = JSON.parse(localStorage.getItem("loggedUser"));
+  const [isActiveInsertRelator, setIsActiveInsertRelator] = useState(false);
+  const [IDRelator, setIDRelator] = useState(2);
+  const [isActiveEditRelator, setIsActiveEditRelator] = useState(false);
 
   function obtenerDatosRelator() {
     getDataService(url).then((relatores) => setRelator(relatores));
@@ -24,6 +29,14 @@ export default function ListadoRelator() {
     getDataService(urlPaginador).then((paginador) =>
       setPaginadorRelator(paginador)
     );
+  }
+
+  function insertarRelator() {
+    setIsActiveInsertRelator(!isActiveInsertRelator);
+  }
+  function editarRelator(ID) {
+    setIsActiveEditRelator(!isActiveEditRelator);
+    setIDRelator(ID);
   }
   function handleChangePaginador(e) {
     const targetActual = e.target.value;
@@ -40,7 +53,13 @@ export default function ListadoRelator() {
       <Header></Header>
       <div>
         <h1 id="TitlesPages">Listado de relatores</h1>
-
+        <button id="formButtons" onClick={insertarRelator}>
+          Insertar Relator
+        </button>
+        <InsertarRelator Props={{ isActiveInsertRelator }}></InsertarRelator>
+        <EditarRelator
+          Props={{ isActiveEditRelator, IDRelator }}
+        ></EditarRelator>
         <Table id="mainTable" hover responsive>
           <thead>
             <tr>
@@ -66,7 +85,7 @@ export default function ListadoRelator() {
                   <button
                     title="Editar relator"
                     id="OperationBtns"
-                    onClick={() => this.loadDataEdit(relator.ID)}
+                    onClick={() => editarRelator(relator.ID)}
                   >
                     <BsPencilSquare />
                   </button>

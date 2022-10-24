@@ -4,6 +4,7 @@ import { BsX } from "react-icons/bs";
 import "../../css/InsertarCurso.css";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
+import TopAlerts from "../alerts/TopAlerts";
 export default function EditarCurso(props) {
   // ----------------------CONSTANTES----------------------------
   const [isActive, setisActive] = useState(props.Props.isActiveEditCurso);
@@ -60,7 +61,7 @@ export default function EditarCurso(props) {
       horaFin: horaFin,
     };
     SendDataService(url, operationUrl, data).then((response) =>
-      console.log(response)
+      TopAlerts(response)
     );
   }
   useEffect(
