@@ -12,6 +12,7 @@ import ListadoColaboradores from "./components/pages/ListadoColaboradores";
 import HomeColaboradores from "./components/pages/HomeColaboradores";
 import MisCursos from "./components/pages/MisCursos";
 import Calendario from "./components/pages/Calendario";
+import InscribirseCurso from "./components/pages/InscribirseCurso";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
       <Route component={HomeColaboradores} path="/homeColaboradores"></Route>
       <Route component={MisCursos} path="/MisCursos"></Route>
       <Route component={Calendario} path="/Calendario"></Route>
+      <Route component={InscribirseCurso} path="/InscripcionCurso"></Route>
       <Route
         component={ListadoColaboradores}
         path="/listadoColaboradores"

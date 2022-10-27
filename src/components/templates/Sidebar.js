@@ -85,7 +85,7 @@ export default function SideBar(props) {
                 <Link to="/MisCursos">Mis Cursos</Link>
               </li>
               <li>
-                <Link to="">Inscribirse a un curso</Link>
+                <Link to="/InscripcionCurso">Inscribirse a un curso</Link>
               </li>
             </ul>
           </li>

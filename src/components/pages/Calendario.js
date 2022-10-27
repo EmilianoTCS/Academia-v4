@@ -4,6 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import Header from "../templates/Header";
 import interactionPlugin from "@fullcalendar/interaction";
 import { useEffect, useState } from "react";
+import esLocale from "@fullcalendar/core/locales/es";
 import getDataService from "../services/GetDataService";
 import InsertarCurso from "../templates/forms/InsertarCurso";
 import EditarCurso from "../templates/forms/EditarCurso";
@@ -16,6 +17,8 @@ export default function Calendario() {
   const [isActiveInsertEvento, setIsActiveInsertEvento] = useState(false);
   const [IDCurso, setIDCurso] = useState(2);
   const [isActiveEditCurso, setIsActiveEditCurso] = useState(false);
+  const [randomColorCourses, setRandomColorCourses] = useState("");
+  const [randomColorEvents, setRandomColorEvents] = useState("");
 
   // --------------------FUNCIONES---------------------
   function getDataCursos() {
@@ -32,9 +35,16 @@ export default function Calendario() {
       console.log(EventosApi)
     );
   }
+
+  function randomNum() {
+    setRandomColorCourses(Math.floor(Math.random() * 16777215).toString(16));
+    setRandomColorEvents(Math.floor(Math.random() * 16777215).toString(16));
+  }
+
   useEffect(function () {
     getDataCursos();
     getDataEventos();
+    randomNum();
   }, []);
 
   function insertarCurso() {
@@ -52,12 +62,14 @@ export default function Calendario() {
     console.log(info.event._def.extendedProps.sourceId);
     console.log(info);
   };
+
   const Cursos = CursosApi.map((label) => ({
     title: label.codigoRamo,
     start: label.inicio + "T" + label.hora_inicio,
     end: label.fin + "T" + label.hora_fin,
     description: label.codigoCurso,
     sourceId: label.ID,
+    color: `#${randomColorCourses}`,
   }));
   const Eventos = EventosApi.map((label) => ({
     title: label.titulo,
@@ -65,6 +77,7 @@ export default function Calendario() {
     end: label.fechaFin + "T" + label.hora_fin,
     sourceId: label.ID,
     description: label.descripcion,
+    color: `#${randomColorEvents}`,
   }));
   // --------------------ACTIONS  ---------------------
 
@@ -100,6 +113,7 @@ export default function Calendario() {
 
       <div>
         <FullCalendar
+          locales={esLocale}
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
           headerToolbar={{
@@ -109,8 +123,11 @@ export default function Calendario() {
           }}
           weekends={false}
           aspectRatio={2}
-          locales="es"
-          events={Cursos}
+          droppable={true}
+          dragScroll={true}
+          locale="es"
+          eventSources={[Cursos, Eventos]}
+          themeSystem="bootstrap5"
           dateClick={insertarCurso}
           customButtons={{
             añadirCurso: {
@@ -119,7 +136,7 @@ export default function Calendario() {
             },
             añadirEvento: {
               text: "Añadir Evento",
-              click: insertarEvento,
+              click: randomNum,
             },
           }}
           eventMouseEnter={handleMouseEnter}
