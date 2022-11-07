@@ -46,8 +46,8 @@ export default function InsertarClientes(props) {
   // ----------------------RENDER----------------------------
   return (
     <>
-      <div id="containerForm" className={isActive ? "active" : ""}>
-        <form id="form_insertarData" onSubmit={SendData}>
+      <div id="containerFormCurso" className={isActive ? "active" : ""}>
+        <form id="form_insertarCurso" onSubmit={SendData}>
           <div id="headerForms">
             <h3 id="titleForm">Insertar Cliente</h3>
             <BsX id="btn_close" onClick={CloseForm} />

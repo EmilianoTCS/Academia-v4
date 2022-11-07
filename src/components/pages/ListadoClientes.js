@@ -10,7 +10,8 @@ import { BiShowAlt } from "react-icons/bi";
 import "../css/TablasStyles.css";
 import InsertarClientes from "../templates/forms/InsertarClientes";
 import EditarClientes from "../templates/forms/EditarCliente";
-
+import ConfirmAlert from "../templates/alerts/ConfirmAlert";
+import TopAlerts from "../templates/alerts/TopAlerts";
 export default function ListadoClientes() {
   const [cliente, setCliente] = useState([""]);
   const [paginador, setPaginadorRelator] = useState([""]);
@@ -29,7 +30,19 @@ export default function ListadoClientes() {
     setIsActiveEditCliente(!isActiveEditCliente);
     setIDCliente(ID);
   }
-
+  function eliminar(ID) {
+    ConfirmAlert().then((response) => {
+      if (response === true) {
+        var url = "TASKS/coe-updateStateClientes.php";
+        var operationUrl = "updateStateClientes";
+        var data = { ID: ID };
+        SendDataService(url, operationUrl, data).then(
+          (response) => TopAlerts(response),
+          obtenerDatosClientes()
+        );
+      }
+    });
+  }
   function obtenerDatosClientes() {
     getDataService(url).then((clientes) => setCliente(clientes));
   }
@@ -95,7 +108,7 @@ export default function ListadoClientes() {
                   </button>
                   <button
                     title="Eliminar curso"
-                    onClick={() => this.alertDelete(cliente.ID)}
+                    onClick={() => eliminar(cliente.ID)}
                     id="OperationBtns"
                   >
                     <BsTrash />

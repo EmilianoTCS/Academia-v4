@@ -1,21 +1,18 @@
-#containerForm{
+#containerFormCurso{
+    display: none;
     transform: translate(-50%, -50%);
     position: absolute;
     left: 50%;
     top: 40%;
-    visibility: hidden;
-    opacity: 0;
     transition: all 300ms ease;
-
 }
-#containerForm.active{
-    visibility: visible;
-    opacity: 1;
+#containerFormCurso.active{
+    display: block;
     transition: all 300ms ease;
     position: absolute;
     z-index: 1000;
 }
-#form_insertarData{
+#form_insertarCurso{
     background: rgb(238, 238, 238);
     display: flex;
     width: 500px;
@@ -55,6 +52,21 @@
     float: right;
 }
 @media screen and (max-width: 600px) {
+    #containerFormCurso{
+        transform: translate(-50%, -50%);
+        position: absolute;
+        left: 50%;
+        top: 40%;
+        display: none;
+        transition: all 300ms ease;
+    
+    }
+    #containerFormCurso.active{
+        display: block;
+        transition: all 300ms ease;
+        position: absolute;
+        z-index: 1000;
+    }
     #form_insertarCurso{
         background: rgb(238, 238, 238);
         display: flex;
@@ -62,7 +74,7 @@
         border: solid 1px;
         border-radius: 10px;
         flex-direction: column;
-        max-width: 500px;
         padding: 3%;
     }
+
 }

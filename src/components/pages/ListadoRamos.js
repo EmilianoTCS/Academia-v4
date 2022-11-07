@@ -11,7 +11,8 @@ import "../css/TablasStyles.css";
 import InsertarCurso from "../templates/forms/InsertarCurso";
 import InsertarRamo from "../templates/forms/InsertarRamo";
 import EditarRamo from "../templates/forms/EditarRamo";
-
+import ConfirmAlert from "../templates/alerts/ConfirmAlert";
+import TopAlerts from "../templates/alerts/TopAlerts";
 export default function ListadoRamos() {
   const [ramos, setRamos] = useState([""]);
   const [paginador, setPaginadorRamos] = useState([""]);
@@ -50,6 +51,19 @@ export default function ListadoRamos() {
   }
   function insertarRamo() {
     setIsActiveInsertRamo(!isActiveInsertRamo);
+  }
+  function eliminar(ID) {
+    ConfirmAlert().then((response) => {
+      if (response === true) {
+        var url = "TASKS/coe-updateStateRamos.php";
+        var operationUrl = "updateStateRamos";
+        var data = { ID: ID };
+        SendDataService(url, operationUrl, data).then(
+          (response) => TopAlerts(response),
+          obtenerDatosRamos()
+        );
+      }
+    });
   }
 
   return userData ? (
@@ -99,7 +113,11 @@ export default function ListadoRamos() {
                   <button title="Examinar curso" id="OperationBtns">
                     <BiShowAlt />
                   </button>
-                  <button title="Eliminar curso" id="OperationBtns">
+                  <button
+                    title="Eliminar curso"
+                    id="OperationBtns"
+                    onClick={() => eliminar(ramo.ID)}
+                  >
                     <BsTrash />
                   </button>
                 </td>

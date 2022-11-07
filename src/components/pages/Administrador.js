@@ -8,6 +8,8 @@ import Header from "../templates/Header";
 import "../css/AdminStyles.css";
 import SwitchToggle from "../templates/SwitchToggle";
 import TopAlerts from "../templates/alerts/TopAlerts";
+import { BsTrash } from "react-icons/bs";
+import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 
 export default function Administrador() {
   const [cursos, setCursos] = useState([""]);
@@ -55,7 +57,7 @@ export default function Administrador() {
     var data = { ID: ID };
     SendDataService(url, operationUrl, data).then(
       (response) => TopAlerts(response),
-      obtenerDatosCursos()
+      obtenerDatosRamos()
     );
   }
   function handleChangeisActiveColaborador(ID) {
@@ -64,7 +66,7 @@ export default function Administrador() {
     var data = { ID: ID };
     SendDataService(url, operationUrl, data).then(
       (response) => TopAlerts(response),
-      obtenerDatosCursos()
+      obtenerDatosColaboradores()
     );
   }
   function handleChangeisActiveRelatores(ID) {
@@ -73,7 +75,7 @@ export default function Administrador() {
     var data = { ID: ID };
     SendDataService(url, operationUrl, data).then(
       (response) => TopAlerts(response),
-      obtenerDatosCursos()
+      obtenerDatosRelatores()
     );
   }
   function handleChangeisActiveClientes(ID) {
@@ -82,8 +84,22 @@ export default function Administrador() {
     var data = { ID: ID };
     SendDataService(url, operationUrl, data).then(
       (response) => TopAlerts(response),
-      obtenerDatosCursos()
+      obtenerDatosClientes()
     );
+  }
+
+  function eliminarCurso(ID) {
+    ConfirmAlert().then((response) => {
+      if (response === true) {
+        var url = "TASKS/coe-updateStateClientes.php";
+        var operationUrl = "updateStateClientes";
+        var data = { ID: ID };
+        SendDataService(url, operationUrl, data).then(
+          (response) => TopAlerts(response),
+          obtenerDatosClientes()
+        );
+      }
+    });
   }
   // ------------------------------------------------------------------
   useEffect(function () {
@@ -110,6 +126,7 @@ export default function Administrador() {
                 <th>Código Ramo</th>
                 <th>Fecha de modificación</th>
                 <th id="th_switch">Habilitar o Deshabilitar</th>
+                <th>Eliminar def.</th>
               </tr>
             </thead>
             <tbody>
@@ -121,6 +138,15 @@ export default function Administrador() {
                   <td>{curso.date}</td>
                   <td onChange={() => handleChangeisActiveCursos(curso.ID)}>
                     <SwitchToggle isActive={curso.isActive} />
+                  </td>
+                  <td>
+                    <button
+                      title="Eliminar curso"
+                      onClick={() => eliminarCurso(curso.ID)}
+                      id="OperationBtns"
+                    >
+                      <BsTrash />
+                    </button>
                   </td>
                 </tr>
               ))}

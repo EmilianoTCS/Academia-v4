@@ -6,62 +6,54 @@ import interactionPlugin from "@fullcalendar/interaction";
 import { useEffect, useState } from "react";
 import esLocale from "@fullcalendar/core/locales/es";
 import getDataService from "../services/GetDataService";
-import InsertarCurso from "../templates/forms/InsertarCurso";
-import EditarCurso from "../templates/forms/EditarCurso";
 import { Tooltip } from "bootstrap";
+import getDataExternService from "../services/GetDataExternService";
+
 export default function Calendario() {
   const userData = localStorage.getItem("loggedUser");
   const [CursosApi, setCursosApi] = useState([""]);
   const [EventosApi, setEventosApi] = useState([""]);
   const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
-  const [isActiveInsertEvento, setIsActiveInsertEvento] = useState(false);
-  const [IDCurso, setIDCurso] = useState(2);
-  const [isActiveEditCurso, setIsActiveEditCurso] = useState(false);
   const [randomColorCourses, setRandomColorCourses] = useState("");
   const [randomColorEvents, setRandomColorEvents] = useState("");
+  const [randomColorFeriados, setRandomColorFeriados] = useState("");
+  const [FeriadosApi, setFeriadosApi] = useState([""]);
 
   // --------------------FUNCIONES---------------------
   function getDataCursos() {
     const url = "TASKS/auxiliar/CalendarioCursos.php?Cursos";
-    getDataService(url).then(
-      (response) => setCursosApi(response),
-      console.log(CursosApi)
-    );
+    getDataService(url).then((response) => setCursosApi(response));
   }
   function getDataEventos() {
     const url = "TASKS/auxiliar/CalendarioEventos.php?Eventos";
-    getDataService(url).then(
-      (response) => setEventosApi(response),
-      console.log(EventosApi)
+    getDataService(url).then((response) => setEventosApi(response));
+  }
+  function getDataFeriados() {
+    const urlFeriados = "https://api.victorsanmartin.com/feriados/en.json";
+    getDataExternService(urlFeriados).then(
+      (response) => setFeriadosApi(response.data),
+      console.log(FeriadosApi)
     );
   }
 
   function randomNum() {
     setRandomColorCourses(Math.floor(Math.random() * 16777215).toString(16));
     setRandomColorEvents(Math.floor(Math.random() * 16777215).toString(16));
+    setRandomColorFeriados(Math.floor(Math.random() * 16777215).toString(16));
   }
 
   useEffect(function () {
     getDataCursos();
     getDataEventos();
+    getDataFeriados();
     randomNum();
   }, []);
 
   function insertarCurso() {
     setIsActiveInsertCurso(!isActiveInsertCurso);
   }
-  function insertarEvento() {
-    setIsActiveInsertEvento(!isActiveInsertEvento);
-  }
-  function editarCurso(info) {
-    setIsActiveEditCurso(true);
-    setIDCurso(info.event._def.extendedProps.sourceId);
-  }
+
   // --------------------COSNTANTES MAP---------------------
-  const test = (info) => {
-    console.log(info.event._def.extendedProps.sourceId);
-    console.log(info);
-  };
 
   const Cursos = CursosApi.map((label) => ({
     title: label.codigoRamo,
@@ -78,6 +70,15 @@ export default function Calendario() {
     sourceId: label.ID,
     description: label.descripcion,
     color: `#${randomColorEvents}`,
+  }));
+  const Feriados = FeriadosApi.map((label) => ({
+    title: label.title,
+    start: label.date,
+    end: label.date,
+    description: label.extra,
+    backgroundColor: `#${randomColorFeriados}`,
+    textColor: "white",
+    selectable: false,
   }));
   // --------------------ACTIONS  ---------------------
 
@@ -108,9 +109,6 @@ export default function Calendario() {
     <>
       <Header></Header>
 
-      <InsertarCurso isActive={isActiveInsertCurso}></InsertarCurso>
-      <EditarCurso Props={{ IDCurso, isActiveEditCurso }}></EditarCurso>
-
       <div>
         <FullCalendar
           locales={esLocale}
@@ -121,12 +119,12 @@ export default function Calendario() {
             center: "title",
             left: "dayGridMonth,dayGridWeek,dayGridDay añadirCurso añadirEvento",
           }}
-          weekends={false}
+          weekends={true}
           aspectRatio={2}
           droppable={true}
           dragScroll={true}
           locale="es"
-          eventSources={[Cursos, Eventos]}
+          eventSources={[Cursos, Eventos, Feriados]}
           themeSystem="bootstrap5"
           dateClick={insertarCurso}
           customButtons={{

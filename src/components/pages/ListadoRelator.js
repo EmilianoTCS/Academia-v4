@@ -10,7 +10,8 @@ import { BiShowAlt } from "react-icons/bi";
 import "../css/TablasStyles.css";
 import InsertarRelator from "../templates/forms/InsertarRelator";
 import EditarRelator from "../templates/forms/EditarRelator";
-
+import ConfirmAlert from "../templates/alerts/ConfirmAlert";
+import TopAlerts from "../templates/alerts/TopAlerts";
 export default function ListadoRelator() {
   const [relator, setRelator] = useState([""]);
   const [paginador, setPaginadorRelator] = useState([""]);
@@ -42,6 +43,19 @@ export default function ListadoRelator() {
     const targetActual = e.target.value;
     var data = { num_boton: targetActual };
     SendDataService(url, operationUrl, data).then((data) => setRelator(data));
+  }
+  function eliminar(ID) {
+    ConfirmAlert().then((response) => {
+      if (response === true) {
+        var url = "TASKS/coe-updateStateRelator.php";
+        var operationUrl = "updateStateRelator";
+        var data = { ID: ID };
+        SendDataService(url, operationUrl, data).then(
+          (response) => TopAlerts(response),
+          obtenerDatosRelator()
+        );
+      }
+    });
   }
   useEffect(function () {
     obtenerDatosRelator();
@@ -94,7 +108,7 @@ export default function ListadoRelator() {
                   </button>
                   <button
                     title="Eliminar curso"
-                    onClick={() => this.alertDelete(relator.ID)}
+                    onClick={() => eliminar(relator.ID)}
                     id="OperationBtns"
                   >
                     <BsTrash />

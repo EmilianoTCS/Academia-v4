@@ -79,7 +79,7 @@ export default function InsertarRamo(props) {
   return (
     <>
       <div id="containerFormRamo" className={isActive ? "active" : ""}>
-        <form id="form_insertarData" onSubmit={SendData}>
+        <form id="form_insertarRamo" onSubmit={SendData}>
           <div id="headerForms">
             <h3 id="titleForm">Insertar Ramo</h3>
             <BsX id="btn_close" onClick={CloseForm} />

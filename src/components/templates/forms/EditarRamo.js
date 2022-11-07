@@ -28,12 +28,12 @@ export default function EditarRamo(props) {
     const operationUrl = "ID";
     const data = { ID: props.Props.IDRamo };
     SendDataService(url, operationUrl, data).then(
-      (response) => setResponseID(response),
-      console.log(responseID),
-      setCodigoRamo(responseID[0].codigoRamo),
-      setNombreRamo(responseID[0].nombreRamo),
-      set_hh_academicas(responseID[0].hh_academicas),
-      setPrerequisito(responseID[0].pre_requisitos)
+      (response) => console.log(response)
+      // console.log(responseID),
+      // setCodigoRamo(responseID[0].codigoRamo),
+      // setNombreRamo(responseID[0].nombreRamo),
+      // set_hh_academicas(responseID[0].hh_academicas),
+      // setPrerequisito(responseID[0].pre_requisitos)
     );
   }
 
@@ -69,8 +69,8 @@ export default function EditarRamo(props) {
   // ----------------------RENDER----------------------------
   return (
     <>
-      <div id="containerForm" className={isActive ? "active" : ""}>
-        <form id="form_insertarData" onSubmit={SendData}>
+      <div id="containerFormRamo" className={isActive ? "active" : ""}>
+        <form id="form_insertarRamo" onSubmit={SendData}>
           <div id="headerForms">
             <h3 id="titleForm">Editar Ramo</h3>
             <BsX id="btn_close" onClick={CloseForm} />

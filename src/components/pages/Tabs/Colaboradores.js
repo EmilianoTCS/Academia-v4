@@ -7,7 +7,8 @@ import InsertarColaborador from "../../templates/forms/InsertarColaborador";
 import { BsPencilSquare, BsX, BsTrash } from "react-icons/bs";
 import { BiShowAlt } from "react-icons/bi";
 import EditarColaborador from "../../templates/forms/EditarColaborador";
-
+import ConfirmAlert from "../../templates/alerts/ConfirmAlert";
+import TopAlerts from "../../templates/alerts/TopAlerts";
 export default function Colaboradores() {
   const [colaboradores, setColaboradores] = useState([""]);
   const [paginador, setPaginador] = useState([""]);
@@ -21,6 +22,19 @@ export default function Colaboradores() {
     getDataService(url).then((colaboradores) =>
       setColaboradores(colaboradores)
     );
+  }
+  function eliminar(ID) {
+    ConfirmAlert().then((response) => {
+      if (response === true) {
+        var url = "TASKS/coe-updateStateColaborador.php";
+        var operationUrl = "updateStateColaborador";
+        var data = { ID: ID };
+        SendDataService(url, operationUrl, data).then(
+          (response) => TopAlerts(response),
+          obtenerDatos()
+        );
+      }
+    });
   }
   function insertarColaborador() {
     setIsActiveInsertColaborador(!isActiveInsertColaborador);
@@ -92,7 +106,11 @@ export default function Colaboradores() {
                 <button title="Examinar curso" id="OperationBtns">
                   <BiShowAlt />
                 </button>
-                <button title="Eliminar curso" id="OperationBtns">
+                <button
+                  title="Eliminar curso"
+                  id="OperationBtns"
+                  onClick={() => eliminar(colaborador.ID)}
+                >
                   <BsTrash />
                 </button>
               </td>

@@ -11,6 +11,8 @@ import "../css/TablasStyles.css";
 import InsertarCurso from "../templates/forms/InsertarCurso";
 import InsertarRamo from "../templates/forms/InsertarRamo";
 import EditarCurso from "../templates/forms/EditarCurso";
+import ConfirmAlert from "../templates/alerts/ConfirmAlert";
+import TopAlerts from "../templates/alerts/TopAlerts";
 
 export default function ListadoCursos() {
   const [cursos, setCursos] = useState([""]);
@@ -39,6 +41,19 @@ export default function ListadoCursos() {
       (data) => setCursos(data),
       console.log(cursos)
     );
+  }
+  function eliminar(ID) {
+    ConfirmAlert().then((response) => {
+      if (response === true) {
+        var url = "TASKS/coe-updateState.php";
+        var operationUrl = "updateStateCursos";
+        var data = { ID: ID };
+        SendDataService(url, operationUrl, data).then(
+          (response) => TopAlerts(response),
+          obtenerDatosCursos()
+        );
+      }
+    });
   }
   function insertarCurso() {
     setIsActiveInsertCurso(!isActiveInsertCurso);
@@ -106,7 +121,7 @@ export default function ListadoCursos() {
                   </button>
                   <button
                     title="Eliminar curso"
-                    onClick={() => this.alertDelete(curso.ID)}
+                    onClick={() => eliminar(curso.ID)}
                     id="OperationBtns"
                   >
                     <BsTrash />
