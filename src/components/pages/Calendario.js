@@ -8,6 +8,8 @@ import esLocale from "@fullcalendar/core/locales/es";
 import getDataService from "../services/GetDataService";
 import { Tooltip } from "bootstrap";
 import getDataExternService from "../services/GetDataExternService";
+import "../css/Calendario.css";
+import InsertarCurso from "../templates/forms/InsertarCurso";
 
 export default function Calendario() {
   const userData = localStorage.getItem("loggedUser");
@@ -16,7 +18,6 @@ export default function Calendario() {
   const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
   const [randomColorCourses, setRandomColorCourses] = useState("");
   const [randomColorEvents, setRandomColorEvents] = useState("");
-  const [randomColorFeriados, setRandomColorFeriados] = useState("");
   const [FeriadosApi, setFeriadosApi] = useState([""]);
 
   // --------------------FUNCIONES---------------------
@@ -39,7 +40,6 @@ export default function Calendario() {
   function randomNum() {
     setRandomColorCourses(Math.floor(Math.random() * 16777215).toString(16));
     setRandomColorEvents(Math.floor(Math.random() * 16777215).toString(16));
-    setRandomColorFeriados(Math.floor(Math.random() * 16777215).toString(16));
   }
 
   useEffect(function () {
@@ -76,9 +76,9 @@ export default function Calendario() {
     start: label.date,
     end: label.date,
     description: label.extra,
-    backgroundColor: `#${randomColorFeriados}`,
-    textColor: "white",
     selectable: false,
+    classNames: "Feriados",
+    display: "background",
   }));
   // --------------------ACTIONS  ---------------------
 
@@ -110,6 +110,7 @@ export default function Calendario() {
       <Header></Header>
 
       <div>
+        <InsertarCurso isActive={isActiveInsertCurso}></InsertarCurso>
         <FullCalendar
           locales={esLocale}
           plugins={[dayGridPlugin, interactionPlugin]}
@@ -119,7 +120,7 @@ export default function Calendario() {
             center: "title",
             left: "dayGridMonth,dayGridWeek,dayGridDay añadirCurso añadirEvento",
           }}
-          weekends={true}
+          weekends={false}
           aspectRatio={2}
           droppable={true}
           dragScroll={true}

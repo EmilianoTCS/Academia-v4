@@ -5,7 +5,7 @@ import { Redirect } from "wouter";
 import getDataService from "../services/GetDataService";
 import SendDataService from "../services/SendDataService";
 import Header from "../templates/Header";
-import { BsPencilSquare, BsX, BsTrash } from "react-icons/bs";
+import { BsPencilSquare, BsTrash } from "react-icons/bs";
 import { BiShowAlt } from "react-icons/bi";
 import "../css/TablasStyles.css";
 import InsertarCurso from "../templates/forms/InsertarCurso";
