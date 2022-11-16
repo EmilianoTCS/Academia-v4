@@ -69,20 +69,19 @@ export default function ListadoAsistencias() {
           <thead>
             <tr>
               <th>Usuarios</th>
-              {Array.from(setFechas).map((element) => (
-                <th>{element}</th>
+              {Array.from(setFechas).map((fecha) => (
+                <th>{fecha}</th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {Array.from(setUsuarios).map((usuario) => (
+            {Array.from(setUsuarios).map((usuario, index) => (
               <tr>
                 <td>{usuario}</td>
-                {Array.from(setFechas).forEach(() => {
-                  valores.push(
-                    Array.from(setValor).map((valor) => <td>{valor}</td>)
-                  );
+                {Array.from(setFechas).forEach((valor, index2) => {
+                  valores.push(<td>{[index2]?.[index]}</td>);
                 })}
+                {valores}
               </tr>
             ))}
           </tbody>

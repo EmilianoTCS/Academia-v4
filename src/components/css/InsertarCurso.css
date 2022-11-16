@@ -4,7 +4,6 @@
     position: absolute;
     left: 50%;
     top: 40%;
-
 }
 #containerFormCurso.active{
     display: block;
