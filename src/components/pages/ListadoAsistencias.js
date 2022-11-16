@@ -78,10 +78,9 @@ export default function ListadoAsistencias() {
             {Array.from(setUsuarios).map((usuario, index) => (
               <tr>
                 <td>{usuario}</td>
-                {Array.from(setFechas).forEach((valor, index2) => {
-                  valores.push(<td>{[index2]?.[index]}</td>);
-                })}
-                {valores}
+                {Array.from(setValor).map((item) => (
+                  <td>{item}</td>
+                ))}
               </tr>
             ))}
           </tbody>

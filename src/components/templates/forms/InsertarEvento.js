@@ -21,8 +21,8 @@ export default function InsertarEvento(props) {
 
   function SendData(e) {
     e.preventDefault();
-    const url = "TASKS/coe-insertarCurso.php";
-    const operationUrl = "insertarCurso";
+    const url = "TASKS/coe-insertarEvento.php";
+    const operationUrl = "insertarEvento";
     var data = {
       titulo: titulo,
       descripcion: descripcion,
@@ -31,6 +31,7 @@ export default function InsertarEvento(props) {
       horaInicio: horaInicio,
       horaFin: horaFin,
     };
+    console.log(data);
     SendDataService(url, operationUrl, data).then((response) =>
       TopAlerts(response)
     );
@@ -57,7 +58,7 @@ export default function InsertarEvento(props) {
               placeholder="Elige un titulo"
               name="titulo"
               className="form-control"
-              onChange={({ value }) => setTitulo(value)}
+              onChange={({ target }) => setTitulo(target.value)}
             />
           </div>
           <div>
@@ -66,7 +67,7 @@ export default function InsertarEvento(props) {
               placeholder="Escriba una descripción"
               name="descripcion"
               className="form-control"
-              onChange={({ value }) => setDescripcion(value)}
+              onChange={({ target }) => setDescripcion(target.value)}
             />
           </div>
           <div className="md-form md-outline input-with-post-icon datepicker">

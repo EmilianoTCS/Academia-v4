@@ -12,7 +12,6 @@ import "../css/Calendario.css";
 import InsertarCurso from "../templates/forms/InsertarCurso";
 import InsertarEvento from "../templates/forms/InsertarEvento";
 
-
 export default function Calendario() {
   const userData = localStorage.getItem("loggedUser");
   const [CursosApi, setCursosApi] = useState([""]);
@@ -56,7 +55,7 @@ export default function Calendario() {
     setIsActiveInsertCurso(!isActiveInsertCurso);
   }
 
-  function insertarEvento () {
+  function insertarEvento() {
     setIsActiveInsertEvento(!isActiveInsertEvento);
   }
 
@@ -128,7 +127,7 @@ export default function Calendario() {
             center: "title",
             left: "dayGridMonth,dayGridWeek,dayGridDay añadirCurso añadirEvento",
           }}
-          weekends={false}
+          weekends={true}
           aspectRatio={2}
           droppable={true}
           dragScroll={true}
