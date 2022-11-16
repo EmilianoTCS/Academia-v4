@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react";
-import Select from "react-select";
 import { BsX } from "react-icons/bs";
-import "../../css/InsertarCurso.css";
-import getDataService from "../../services/GetDataService";
+import "../../css/InsertarEvento.css";
 import SendDataService from "../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
 
-export default function InsertarCurso(props) {
+export default function InsertarEvento(props) {
   // ----------------------CONSTANTES----------------------------
   const [isActive, setisActive] = useState(props.isActive);
-  const [listCuentas, setListCuentas] = useState([""]);
-  const [listRamos, setListRamos] = useState([""]);
-  const [codigoCuenta, setCodigoCuenta] = useState("");
-  const [codigoRamo, setCodigoRamo] = useState("");
+  const [titulo, setTitulo] = useState("");
+  const [descripcion, setDescripcion] = useState("");
   const [fechaInicio, setFechaInicio] = useState("");
   const [fechaFin, setFechaFin] = useState("");
   const [horaInicio, setHoraInicio] = useState("");
@@ -28,8 +24,8 @@ export default function InsertarCurso(props) {
     const url = "TASKS/coe-insertarCurso.php";
     const operationUrl = "insertarCurso";
     var data = {
-      codigoCuenta: codigoCuenta,
-      codigoRamo: codigoRamo,
+      titulo: titulo,
+      descripcion: descripcion,
       fechaInicio: fechaInicio,
       fechaFin: fechaFin,
       horaInicio: horaInicio,
@@ -46,40 +42,31 @@ export default function InsertarCurso(props) {
     [props]
   );
 
-  // ----------------------MAPEADOS----------------------------
-  const optionsRamos = listRamos.map((label) => ({
-    label: label.nombreRamo,
-    value: label.codigoRamo,
-  }));
-  const optionsCuentas = listCuentas.map((label) => ({
-    label: label.codigoCuenta,
-    value: label.ID,
-  }));
   // ----------------------RENDER----------------------------
   return (
     <>
-      <div id="containerFormCurso" className={isActive ? "active" : ""}>
-        <form id="form_insertarCurso" onSubmit={SendData}>
+      <div id="containerFormEvento" className={isActive ? "active" : ""}>
+        <form id="form_insertarEvento" onSubmit={SendData}>
           <div id="headerForms">
-            <h3 id="titleForm">Insertar Curso</h3>
+            <h3 id="titleForm">Insertar Evento</h3>
             <BsX id="btn_close" onClick={CloseForm} />
           </div>
           <div>
-            <label htmlFor="input_fechaInicio">Cuenta: </label>
-            <Select
-              placeholder="Elige una cuenta"
-              name="cuenta"
-              options={optionsCuentas}
-              onChange={({ value }) => setCodigoCuenta(value)}
+            <label htmlFor="input_fechaInicio">Titulo: </label>
+            <input
+              placeholder="Elige un titulo"
+              name="titulo"
+              className="form-control"
+              onChange={({ value }) => setTitulo(value)}
             />
           </div>
           <div>
-            <label htmlFor="input_fechaInicio">Ramo: </label>
-            <Select
-              placeholder="Elige un ramo"
-              name="codigoRamo"
-              options={optionsRamos}
-              onChange={({ value }) => setCodigoRamo(value)}
+            <label htmlFor="input_fechaInicio">Descripción: </label>
+            <input
+              placeholder="Escriba una descripción"
+              name="descripcion"
+              className="form-control"
+              onChange={({ value }) => setDescripcion(value)}
             />
           </div>
           <div className="md-form md-outline input-with-post-icon datepicker">

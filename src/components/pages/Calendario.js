@@ -10,12 +10,15 @@ import { Tooltip } from "bootstrap";
 import getDataExternService from "../services/GetDataExternService";
 import "../css/Calendario.css";
 import InsertarCurso from "../templates/forms/InsertarCurso";
+import InsertarEvento from "../templates/forms/InsertarEvento";
+
 
 export default function Calendario() {
   const userData = localStorage.getItem("loggedUser");
   const [CursosApi, setCursosApi] = useState([""]);
   const [EventosApi, setEventosApi] = useState([""]);
   const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
+  const [isActiveInsertEvento, setIsActiveInsertEvento] = useState(false);
   const [randomColorCourses, setRandomColorCourses] = useState("");
   const [randomColorEvents, setRandomColorEvents] = useState("");
   const [FeriadosApi, setFeriadosApi] = useState([""]);
@@ -51,6 +54,10 @@ export default function Calendario() {
 
   function insertarCurso() {
     setIsActiveInsertCurso(!isActiveInsertCurso);
+  }
+
+  function insertarEvento () {
+    setIsActiveInsertEvento(!isActiveInsertEvento);
   }
 
   // --------------------CONSTANTES MAP---------------------
@@ -111,6 +118,7 @@ export default function Calendario() {
 
       <div>
         <InsertarCurso isActive={isActiveInsertCurso}></InsertarCurso>
+        <InsertarEvento isActive={isActiveInsertEvento}></InsertarEvento>
         <FullCalendar
           locales={esLocale}
           plugins={[dayGridPlugin, interactionPlugin]}
@@ -135,7 +143,7 @@ export default function Calendario() {
             },
             añadirEvento: {
               text: "Añadir Evento",
-              click: randomNum,
+              click: insertarEvento,
             },
           }}
           eventMouseEnter={handleMouseEnter}
