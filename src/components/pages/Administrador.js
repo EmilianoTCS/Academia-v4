@@ -126,7 +126,6 @@ export default function Administrador() {
                 <th>Código Ramo</th>
                 <th>Fecha de modificación</th>
                 <th id="th_switch">Habilitar o Deshabilitar</th>
-                <th>Eliminar def.</th>
               </tr>
             </thead>
             <tbody>
@@ -138,15 +137,6 @@ export default function Administrador() {
                   <td>{curso.date}</td>
                   <td onChange={() => handleChangeisActiveCursos(curso.ID)}>
                     <SwitchToggle isActive={curso.isActive} />
-                  </td>
-                  <td>
-                    <button
-                      title="Eliminar curso"
-                      onClick={() => eliminarCurso(curso.ID)}
-                      id="OperationBtns"
-                    >
-                      <BsTrash />
-                    </button>
                   </td>
                 </tr>
               ))}

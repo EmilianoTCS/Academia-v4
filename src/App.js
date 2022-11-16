@@ -13,7 +13,7 @@ import HomeColaboradores from "./components/pages/HomeColaboradores";
 import MisCursos from "./components/pages/MisCursos";
 import Calendario from "./components/pages/Calendario";
 import InscribirseCurso from "./components/pages/InscribirseCurso";
-
+import ListadoAsistencias from "./components/pages/ListadoAsistencias";
 function App() {
   return (
     <div className="App">
@@ -30,6 +30,7 @@ function App() {
       <Route component={MisCursos} path="/MisCursos"></Route>
       <Route component={Calendario} path="/Calendario"></Route>
       <Route component={InscribirseCurso} path="/InscripcionCurso"></Route>
+      <Route component={ListadoAsistencias} path="/ListadoAsistencias"></Route>
       <Route
         component={ListadoColaboradores}
         path="/listadoColaboradores"

@@ -53,7 +53,7 @@ export default function Calendario() {
     setIsActiveInsertCurso(!isActiveInsertCurso);
   }
 
-  // --------------------COSNTANTES MAP---------------------
+  // --------------------CONSTANTES MAP---------------------
 
   const Cursos = CursosApi.map((label) => ({
     title: label.codigoRamo,

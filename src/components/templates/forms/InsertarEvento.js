@@ -22,14 +22,7 @@ export default function InsertarCurso(props) {
   function CloseForm() {
     setisActive(false);
   }
-  function obtenerCuentas() {
-    const url = "TASKS/auxiliar/ListadoCuentas.php?listadoCuentas";
-    getDataService(url).then((cuentas) => setListCuentas(cuentas));
-  }
-  function obtenerRamos() {
-    const url = "TASKS/auxiliar/ListadoNombreRamos.php?listadoRamos";
-    getDataService(url).then((ramos) => setListRamos(ramos));
-  }
+
   function SendData(e) {
     e.preventDefault();
     const url = "TASKS/coe-insertarCurso.php";
@@ -48,8 +41,6 @@ export default function InsertarCurso(props) {
   }
   useEffect(
     function () {
-      obtenerCuentas();
-      obtenerRamos();
       setisActive(props.isActive);
     },
     [props]

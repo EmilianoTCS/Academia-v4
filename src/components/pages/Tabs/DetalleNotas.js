@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Card, Table } from "react-bootstrap";
-import getDataService from "../../services/GetDataService";
+import SendDataService from "../../services/SendDataService";
 
 export default function DetalleNotas() {
+  const userData = JSON.parse(localStorage.getItem("loggedUser"));
   const [data, setData] = useState([""]);
 
   function obtenerDatos() {
     const url = "TASKS/auxiliar/Notas.php";
-    getDataService(url).then((response) => setData(response));
+    const operationUrl = "usuario";
+    var data = { usuario: userData[0].username };
+    SendDataService(url, operationUrl, data).then((response) =>
+      setData(response)
+    );
   }
 
   useEffect(function () {

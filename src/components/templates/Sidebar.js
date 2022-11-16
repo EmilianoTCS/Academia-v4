@@ -59,7 +59,7 @@ export default function SideBar(props) {
             </ul>
           </li>
           <li>
-            <Link to="/Calendario">Calendario</Link>
+            <Link to="/Calendario">CALENDARIO</Link>
           </li>
           <li id="li_Asistencias" onClick={handleChangeAsistencias}>
             ASISTENCIAS
@@ -68,7 +68,7 @@ export default function SideBar(props) {
               className={isToggledAsistencias ? "active" : ""}
             >
               <li>
-                <Link to="">Listado de Asistencias</Link>
+                <Link to="/ListadoAsistencias">Listado de Asistencias</Link>
               </li>
             </ul>
           </li>
