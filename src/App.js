@@ -14,6 +14,7 @@ import MisCursos from "./components/pages/MisCursos";
 import Calendario from "./components/pages/Calendario";
 import InscribirseCurso from "./components/pages/InscribirseCurso";
 import ListadoAsistencias from "./components/pages/ListadoAsistencias";
+import Example from "./components/pages/Example";
 function App() {
   return (
     <div className="App">
@@ -31,6 +32,8 @@ function App() {
       <Route component={Calendario} path="/Calendario"></Route>
       <Route component={InscribirseCurso} path="/InscripcionCurso"></Route>
       <Route component={ListadoAsistencias} path="/ListadoAsistencias"></Route>
+      <Route component={Example} path="/Example"></Route>
+
       <Route
         component={ListadoColaboradores}
         path="/listadoColaboradores"
