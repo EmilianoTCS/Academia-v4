@@ -10,6 +10,8 @@ import SwitchToggle from "../templates/SwitchToggle";
 import DateObject from "react-date-object";
 import "../css/CustomButton.css";
 import "../css/ListadoAsistencias.css";
+import TopAlerts from "../templates/alerts/TopAlerts";
+import { Checkbox } from "@mui/material";
 
 export default function ListadoAsistencias() {
   const userData = localStorage.getItem("loggedUser");
@@ -42,13 +44,20 @@ export default function ListadoAsistencias() {
     );
   }
 
-  useEffect(
-    function () {
-      obtenerDatosCursos();
-      obtenerDatosFechas();
-    },
-    [cursoSeleccionado]
-  );
+  function handleChange(ID) {
+    const url = "TASKS/coe-updateStateAsistencias.php";
+    const operationUrl = "updateStateAsistencias";
+    var data = { ID: ID };
+    SendDataService(url, operationUrl, data).then(
+      (response) => TopAlerts(response),
+      obtenerDatos()
+    );
+  }
+
+  useEffect(function () {
+    obtenerDatosCursos();
+    obtenerDatosFechas();
+  }, []);
 
   //-----------------------COMPONENTES
   function CustomButton() {
@@ -63,7 +72,18 @@ export default function ListadoAsistencias() {
       </>
     );
   }
-
+  function CustomButtonSearch() {
+    return (
+      <>
+        <input
+          type="button"
+          value="Buscar"
+          id="btn_guardarFecha"
+          onClick={obtenerDatos}
+        ></input>
+      </>
+    );
+  }
   // ----------------------MAPEADOS----------------------------
   const mapDays = ({ date }) => {
     let isWeekend = [0, 6].includes(date.weekDay.index);
@@ -92,6 +112,7 @@ export default function ListadoAsistencias() {
         <h1 id="TitlesPages">Listado de asistencias</h1>
         <div id="FiltrosAsistencias">
           <Select
+            className="react-select-container"
             placeholder="Elige un curso"
             name="cuenta"
             options={optionsCursos}
@@ -99,11 +120,13 @@ export default function ListadoAsistencias() {
           />
 
           <Select
+            className="react-select-container"
             placeholder="Elige una fecha"
             name="fechas"
             options={optionsFechas}
             onChange={({ value }) => setfechaSeleccionada(value)}
           />
+          <CustomButtonSearch></CustomButtonSearch>
           <CustomButton></CustomButton>
         </div>
         <Table id="mainTable" hover responsive>
@@ -116,10 +139,14 @@ export default function ListadoAsistencias() {
           </thead>
           <tbody>
             {asistencias.map((item) => (
-              <tr>
+              <tr key={item.ID}>
                 <td>{item.usuario}</td>
                 {item.valor === "1" ? <td>Presente</td> : <td>Ausente</td>}
-                <SwitchToggle isActive={item.valor}></SwitchToggle>
+                <td onClick={() => handleChange(item.ID)}>
+                  <Checkbox
+                    checked={item.valor === "1" ? true : false}
+                  ></Checkbox>
+                </td>
               </tr>
             ))}
           </tbody>
