@@ -7,11 +7,9 @@ import SendDataService from "../services/SendDataService";
 import Header from "../templates/Header";
 import Select from "react-select";
 import SwitchToggle from "../templates/SwitchToggle";
-import DateObject from "react-date-object";
 import "../css/CustomButton.css";
 import "../css/ListadoAsistencias.css";
 import TopAlerts from "../templates/alerts/TopAlerts";
-import { Checkbox } from "@mui/material";
 
 export default function ListadoAsistencias() {
   const userData = localStorage.getItem("loggedUser");
@@ -20,17 +18,20 @@ export default function ListadoAsistencias() {
   const [listadoFechas, setListadoFechas] = useState([""]);
   const [cursoSeleccionado, setCursoSeleccionado] = useState("2");
   const [fechaSeleccionada, setfechaSeleccionada] = useState("");
+  const [IDsChange, setIDsChange] = useState([]);
 
   function obtenerDatosCursos() {
     var url = "TASKS/auxiliar/idCurso.php?idCurso";
-    getDataService(url).then((response) => setListadoCursos(response));
+    getDataService(url).then(
+      (response) => setListadoCursos(response),
+      obtenerDatosFechas()
+    );
   }
 
   function obtenerDatos() {
     var url = "TASKS/coe-listAsistencias.php";
     var operationUrl = "ID";
     var data = { ID: cursoSeleccionado, fecha: fechaSeleccionada };
-    console.log(data);
     SendDataService(url, operationUrl, data).then((response) =>
       setAsistencias(response)
     );
@@ -45,19 +46,26 @@ export default function ListadoAsistencias() {
   }
 
   function handleChange(ID) {
+    IDsChange.push(ID);
+  }
+  function enviarDatos() {
     const url = "TASKS/coe-updateStateAsistencias.php";
     const operationUrl = "updateStateAsistencias";
-    var data = { ID: ID };
+    var data = { IDsChange };
     SendDataService(url, operationUrl, data).then(
       (response) => TopAlerts(response),
+      setIDsChange([]),
       obtenerDatos()
     );
   }
 
-  useEffect(function () {
-    obtenerDatosCursos();
-    obtenerDatosFechas();
-  }, []);
+  useEffect(
+    function () {
+      obtenerDatosCursos();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [cursoSeleccionado]
+  );
 
   //-----------------------COMPONENTES
   function CustomButton() {
@@ -65,9 +73,9 @@ export default function ListadoAsistencias() {
       <>
         <input
           type="button"
-          value="Guardar"
+          value="Guardar cambios"
           id="btn_guardarFecha"
-          onClick={obtenerDatos}
+          onClick={enviarDatos}
         ></input>
       </>
     );
@@ -142,10 +150,8 @@ export default function ListadoAsistencias() {
               <tr key={item.ID}>
                 <td>{item.usuario}</td>
                 {item.valor === "1" ? <td>Presente</td> : <td>Ausente</td>}
-                <td onClick={() => handleChange(item.ID)}>
-                  <Checkbox
-                    checked={item.valor === "1" ? true : false}
-                  ></Checkbox>
+                <td onChange={() => handleChange(item.ID)}>
+                  <SwitchToggle isActive={item.valor} />
                 </td>
               </tr>
             ))}
