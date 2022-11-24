@@ -4,14 +4,13 @@ import { Link } from "wouter";
 import tsoftLogo from "../sources/LOGO-Tsoft-Alpha-FullColor.png";
 import logoCoe from "../sources/logoCoe.png";
 import "../css/HeaderStyles.css";
-import { FaBars } from "react-icons/fa";
 import SideBar from "./Sidebar";
 
 export default function Header() {
   const [toggleSidebar, changeStatusSidebar] = useState(false);
 
   function handleSideBar() {
-    changeStatusSidebar(!toggleSidebar);
+    changeStatusSidebar(true);
   }
   return (
     <>
@@ -30,9 +29,17 @@ export default function Header() {
             <img src={logoCoe} alt="logoCoe" id="logoCoe"></img>
           </div>
         </header>
-        <button id="btnToggleSidebar" onClick={handleSideBar}>
+        {/* <button id="btnToggleSidebar" onClick={handleSideBar}>
           <FaBars></FaBars>
-        </button>
+        </button> */}
+
+        <button
+            className="buttonStyleOpen"
+            variant="primary"
+            onClick={handleSideBar}
+          >
+            <i className="bi bi-arrow-bar-left"></i>
+          </button>
         <SideBar isToggled={toggleSidebar}></SideBar>
       </div>
     </>
