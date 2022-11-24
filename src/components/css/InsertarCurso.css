@@ -10,6 +10,10 @@
     position: absolute;
     z-index: 1000;
 }
+#datePickerContainer{
+    display: flex;
+    flex-direction: column;
+}
 #form_insertarCurso{
     background: rgb(238, 238, 238);
     display: flex;

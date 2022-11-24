@@ -93,14 +93,6 @@ export default function ListadoAsistencias() {
     );
   }
   // ----------------------MAPEADOS----------------------------
-  const mapDays = ({ date }) => {
-    let isWeekend = [0, 6].includes(date.weekDay.index);
-    if (isWeekend)
-      return {
-        disabled: true,
-        style: { color: "#ccc" },
-      };
-  };
 
   const optionsCursos = listadoCursos.map((label) => ({
     label: label.nombreRamo,
