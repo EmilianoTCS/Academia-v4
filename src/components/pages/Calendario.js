@@ -63,11 +63,13 @@ export default function Calendario() {
 
   const Cursos = CursosApi.map((label) => ({
     title: label.codigoRamo,
-    start: label.inicio + "T" + label.hora_inicio,
-    end: label.fin + "T" + label.hora_fin,
-    description: label.codigoCurso,
+    start: label.fecha_hora,
+    end: label.fechaInicio + "T" + label.hora_fin,
+    description:
+      "Curso de " + label.nombreRamo + ", Duración: " + label.duracion,
     sourceId: label.ID,
     color: `#${randomColorCourses}`,
+    display: "block",
   }));
   const Eventos = EventosApi.map((label) => ({
     title: label.titulo,
@@ -127,7 +129,7 @@ export default function Calendario() {
             center: "title",
             left: "dayGridMonth,dayGridWeek,dayGridDay añadirCurso añadirEvento",
           }}
-          weekends={true}
+          weekends={false}
           aspectRatio={2}
           droppable={true}
           dragScroll={true}
