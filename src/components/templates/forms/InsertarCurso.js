@@ -109,7 +109,7 @@ export default function InsertarCurso(props) {
 
   return (
     <>
-      <div id="containerFormCurso" className="">
+      <div id="containerFormCurso" className={isActive ? "active" : ""}>
         <form id="form_insertarCurso" onSubmit={SendData}>
           <div id="headerForms">
             <h3 id="titleForm">Insertar Curso</h3>
