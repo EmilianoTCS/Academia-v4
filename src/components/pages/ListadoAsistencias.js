@@ -16,7 +16,7 @@ export default function ListadoAsistencias() {
   const [asistencias, setAsistencias] = useState([""]);
   const [listadoCursos, setListadoCursos] = useState([""]);
   const [listadoFechas, setListadoFechas] = useState([""]);
-  const [cursoSeleccionado, setCursoSeleccionado] = useState("2");
+  const [cursoSeleccionado, setCursoSeleccionado] = useState();
   const [fechaSeleccionada, setfechaSeleccionada] = useState("");
   const [IDsChange, setIDsChange] = useState([]);
 

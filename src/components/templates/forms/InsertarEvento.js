@@ -3,20 +3,33 @@ import { BsX } from "react-icons/bs";
 import "../../css/InsertarEvento.css";
 import SendDataService from "../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
+import DatePicker from "react-multi-date-picker";
+import DatePanel from "react-multi-date-picker/plugins/date_panel";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
+import DateObject from "react-date-object";
+import Form from "react-bootstrap/Form";
 
 export default function InsertarEvento(props) {
   // ----------------------CONSTANTES----------------------------
   const [isActive, setisActive] = useState(props.isActive);
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
-  const [fechaInicio, setFechaInicio] = useState("");
-  const [fechaFin, setFechaFin] = useState("");
-  const [horaInicio, setHoraInicio] = useState("");
-  const [horaFin, setHoraFin] = useState("");
+  const [duracion, setDuracion] = useState("");
+
+  const [valoresFechas, setValoresFechas] = useState([new DateObject()]);
+  const fechasFormateadas = [];
+  const fechasOrdenadas = [];
 
   // ----------------------FUNCIONES----------------------------
   function CloseForm() {
     setisActive(false);
+  }
+
+  function handleChangeFechas(values) {
+    setValoresFechas(values);
+  }
+  function handleChange(values) {
+    setDuracion(values);
   }
 
   function SendData(e) {
@@ -24,12 +37,10 @@ export default function InsertarEvento(props) {
     const url = "TASKS/coe-insertarEvento.php";
     const operationUrl = "insertarEvento";
     var data = {
+      fechasOrdenadas,
       titulo: titulo,
       descripcion: descripcion,
-      fechaInicio: fechaInicio,
-      fechaFin: fechaFin,
-      horaInicio: horaInicio,
-      horaFin: horaFin,
+      duracion: duracion,
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) =>
@@ -42,6 +53,40 @@ export default function InsertarEvento(props) {
     },
     [props]
   );
+  // ----------------------COMPONENTES----------------------------
+  function CustomButton() {
+    return (
+      <>
+        <input
+          type="button"
+          value="Guardar cambios"
+          id="btn_guardarFecha"
+          onClick={mapeadoFechas}
+          style={{
+            padding: "5px",
+            margin: "1%",
+            marginBottom: "2%",
+          }}
+        ></input>
+      </>
+    );
+  }
+  // ----------------------MAPEADOS----------------------------
+  const mapDays = ({ date }) => {
+    let isWeekend = [0, 6].includes(date.weekDay.index);
+    if (isWeekend)
+      return {
+        disabled: true,
+        style: { color: "#ccc" },
+      };
+  };
+
+  function mapeadoFechas() {
+    valoresFechas.map((item, index) =>
+      fechasFormateadas.push(valoresFechas[index].format())
+    );
+    fechasOrdenadas.push(fechasFormateadas.sort());
+  }
 
   // ----------------------RENDER----------------------------
   return (
@@ -70,45 +115,33 @@ export default function InsertarEvento(props) {
               onChange={({ target }) => setDescripcion(target.value)}
             />
           </div>
-          <div className="md-form md-outline input-with-post-icon datepicker">
-            <label htmlFor="input_fechaInicio">Fecha Inicio: </label>
-            <input
-              type="date"
+          <div>
+            <label>Duración: </label>
+            <Form.Select onChange={({ target }) => handleChange(target.value)}>
+              <option default>Elige la duración</option>
+              <option value="00:30:00">30min</option>
+              <option value="01:00:00">1:00hs</option>
+              <option value="01:30:00">1:30hs</option>
+              <option value="02:00:00">2:00hs</option>
+              <option value="02:30:00">2:30hs</option>
+              <option value="03:00:00">3:00hs</option>
+            </Form.Select>
+          </div>
+          <div id="datePickerContainer">
+            <label>Fecha y hora: </label>
+            <DatePicker
               id="input_fechaInicio"
-              name="input_fechaInicio"
-              className="form-control"
-              onChange={({ target }) => setFechaInicio(target.value)}
-            />
-          </div>
-          <div className="md-form md-outline input-with-post-icon datepicker">
-            <label htmlFor="input_fechaInicio">Fecha Fin: </label>
-            <input
-              type="date"
-              id="input_fechaInicio"
-              name="input_fechaInicio"
-              className="form-control"
-              onChange={({ target }) => setFechaFin(target.value)}
-            />
-          </div>
-          <div className="md-form md-outline">
-            <label htmlFor="input_horaInicio">Hora Inicio: </label>
-            <input
-              type="time"
-              name="input_horaInicio"
-              className="form-control"
-              id="input_horaInicio"
-              onChange={({ target }) => setHoraInicio(target.value)}
-            />
-          </div>
-
-          <div className="md-form md-outline">
-            <label htmlFor="input_horaFin">Hora Fin: </label>
-            <input
-              type="time"
-              name="input_horaFin"
-              className="form-control"
-              id="input_horaFin"
-              onChange={({ target }) => setHoraFin(target.value)}
+              format="YYYY-MM-DD HH:mm:ss"
+              onChange={handleChangeFechas}
+              inputClass="form-control"
+              mapDays={mapDays}
+              multiple
+              placeholder="Elige una fecha y hora"
+              plugins={[
+                <DatePanel />,
+                <TimePicker />,
+                <CustomButton position="bottom" />,
+              ]}
             />
           </div>
           <div>

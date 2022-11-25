@@ -73,10 +73,10 @@ export default function Calendario() {
   }));
   const Eventos = EventosApi.map((label) => ({
     title: label.titulo,
-    start: label.fechaInicio + "T" + label.hora_inicio,
-    end: label.fechaFin + "T" + label.hora_fin,
+    start: label.fecha_hora,
+    end: label.fecha_hora,
     sourceId: label.ID,
-    description: label.descripcion,
+    description: label.descripcion + ", Duración: " + label.duracion,
     color: `#${randomColorEvents}`,
   }));
   const Feriados = FeriadosApi.map((label) => ({

@@ -22,6 +22,7 @@ export default function InsertarCurso(props) {
 
   const [valoresFechas, setValoresFechas] = useState([new DateObject()]);
   const fechasFormateadas = [];
+  const fechasOrdenadas = [];
 
   // ----------------------FUNCIONES----------------------------
   function CloseForm() {
@@ -41,7 +42,7 @@ export default function InsertarCurso(props) {
     const operationUrl = "insertarCurso";
     var data = {
       duracion: duracion,
-      fechasFormateadas,
+      fechasOrdenadas,
       codigoCuenta: codigoCuenta,
       codigoRamo: codigoRamo,
     };
@@ -87,6 +88,7 @@ export default function InsertarCurso(props) {
     valoresFechas.map((item, index) =>
       fechasFormateadas.push(valoresFechas[index].format())
     );
+    fechasOrdenadas.push(fechasFormateadas.sort());
   }
 
   const optionsRamos = listRamos.map((label) => ({
