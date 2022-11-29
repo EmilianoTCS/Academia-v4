@@ -16,6 +16,10 @@ export default function NotasColaboradores() {
   const [num_boton, setNumBoton] = useState("");
   const [resetFilters, setResetFilters] = useState(false);
 
+  const [pageNumberLimit] = useState(5);
+  const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
+  const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
+
   // ----------------------FUNCIONES----------------------------
 
   function obtenerDatosPaginador() {
@@ -64,6 +68,52 @@ export default function NotasColaboradores() {
     label: label.usuario,
     value: label.usuario,
   }));
+
+  const renderNumeros = paginador.map((pagina) => {
+    if (
+      pagina.paginas < maxPageNumberLimit + 1 &&
+      pagina.paginas > minPageNumberLimit
+    ) {
+      return (
+        <li key={pagina.paginas}>
+          <button
+            name="paginas"
+            value={pagina.paginas}
+            onClick={({ target }) => setNumBoton(target.value)}
+          >
+            {pagina.paginas}
+          </button>
+        </li>
+      );
+    } else {
+      return null;
+    }
+  });
+
+  const handlePrevbtn = () => {
+    setNumBoton(num_boton - 1);
+    if ((num_boton - 1) % pageNumberLimit === 0) {
+      setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
+      setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
+    }
+  };
+  const handleNextbtn = () => {
+    setNumBoton(num_boton + 1);
+
+    if (num_boton + 1 > maxPageNumberLimit) {
+      setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+      setminPageNumberLimit(minPageNumberLimit + pageNumberLimit);
+    }
+  };
+  const pageDecrementBtn = () => {
+    if (minPageNumberLimit > 1) {
+      return (
+        <li>
+          <button onClick={handlePrevbtn}> hola</button>
+        </li>
+      );
+    }
+  };
 
   return (
     <>
@@ -115,17 +165,26 @@ export default function NotasColaboradores() {
         </tbody>
       </Table>
       <div id="paginador">
-        {paginador.map((pagina) => (
-          <li key={pagina.paginas}>
-            <button
-              name="paginas"
-              value={pagina.paginas}
-              onClick={({ target }) => setNumBoton(target.value)}
-            >
-              {pagina.paginas}
-            </button>
-          </li>
-        ))}
+        <li>
+          <button
+            onClick={handlePrevbtn}
+            disabled={num_boton === paginador[0] ? true : false}
+          >
+            Prev
+          </button>
+        </li>
+        {pageDecrementBtn}
+        {renderNumeros}
+        <li>
+          <button
+            onClick={handleNextbtn}
+            disabled={
+              num_boton === paginador[paginador.length - 1] ? true : false
+            }
+          >
+            Next
+          </button>
+        </li>
       </div>
     </>
   );
