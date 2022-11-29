@@ -1,35 +1,35 @@
-.pageNumbers {
+#pageNumbers {
     list-style: none;
     display: flex;
   }
   
-  .pageNumbers li {
+  #pageNumbers li {
     padding: 10px;
     border: 1px solid white;
     cursor: pointer;
   }
   
-  .pageNumbers li.active {
-    background-color: white;
+  #pageNumbers li.active {
+    background-color: aqua;
     color: black;
   }
   
-  .pageNumbers li button {
+  #pageNumbers li button {
     background-color: transparent;
     border: none;
-    color: white;
-    font-size: 1.5rem;
+    color: black;
+    font-size: 15px;
     cursor: pointer;
   }
-  .pageNumbers li button:hover {
+  #pageNumbers li button:hover {
     background-color: white;
     color: black;
   }
-  .pageNumbers li button:focus {
+  #pageNumbers li button:focus {
     outline: none;
   }
   
-  .loadmore {
+  #loadmore {
     padding: 1rem;
     background-color: transparent;
   
