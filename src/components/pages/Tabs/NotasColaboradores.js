@@ -14,7 +14,7 @@ export default function NotasColaboradores() {
   const [usuarioSelected, setUsuarioSelected] = useState("");
   const [listCursos, setListCursos] = useState([""]);
   const [listUsuarios, setListUsuarios] = useState([""]);
-  const [num_boton, setNumBoton] = useState(1);
+  const [num_boton, setNumBoton] = useState("");
   const [resetFilters, setResetFilters] = useState(false);
 
   const [pageNumberLimit] = useState(5);
@@ -69,6 +69,9 @@ export default function NotasColaboradores() {
     label: label.usuario,
     value: label.usuario,
   }));
+  const handleClick = (event) => {
+    setNumBoton(Number(event.target.value));
+  };
 
   const renderNumeros = paginador.map((pagina) => {
     if (
@@ -81,7 +84,6 @@ export default function NotasColaboradores() {
             name="paginas"
             value={pagina.paginas}
             onClick={({ target }) => setNumBoton(target.value)}
-            className={num_boton === pagina.paginas ? "active" : ""}
           >
             {pagina.paginas}
           </button>
@@ -170,7 +172,12 @@ export default function NotasColaboradores() {
         <li>
           <button
             onClick={handlePrevbtn}
-            disabled={num_boton === paginador[0] ? true : false}
+            disabled={
+              num_boton === paginador[0].paginas ||
+              num_boton < paginador[0].paginas
+                ? true
+                : false
+            }
           >
             Prev
           </button>
