@@ -44,7 +44,7 @@
     color: #e10b1c;
     border: solid #e10b1c 1px;
   }
-  #paginador button.actual {
+  #paginador button.active {
     transition: all 300ms ease;
     background: #e10b1c;
     color: white;

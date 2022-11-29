@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../css/Pagination.css";
+import "../css/TablasStyles.css";
 const renderData = (data) => {
   return (
     <ul>
@@ -90,10 +90,10 @@ function PaginationComponent() {
 
   return (
     <>
-      <div id="center">
+      <div>
         <h1>Todo List</h1> <br />
         {renderData(currentItems)}
-        <ul id="pageNumbers">
+        <ul id="paginador">
           <li>
             <button
               onClick={handlePrevbtn}
