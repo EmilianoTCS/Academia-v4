@@ -8,7 +8,7 @@ import Header from "../templates/Header";
 import "../css/AdminStyles.css";
 import SwitchToggle from "../templates/SwitchToggle";
 import TopAlerts from "../templates/alerts/TopAlerts";
-import { BsTrash } from "react-icons/bs";
+// import { BsTrash } from "react-icons/bs";
 import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 
 export default function Administrador() {
@@ -88,19 +88,19 @@ export default function Administrador() {
     );
   }
 
-  function eliminarCurso(ID) {
-    ConfirmAlert().then((response) => {
-      if (response === true) {
-        var url = "TASKS/coe-updateStateClientes.php";
-        var operationUrl = "updateStateClientes";
-        var data = { ID: ID };
-        SendDataService(url, operationUrl, data).then(
-          (response) => TopAlerts(response),
-          obtenerDatosClientes()
-        );
-      }
-    });
-  }
+  // function eliminarCurso(ID) {
+  //   ConfirmAlert().then((response) => {
+  //     if (response === true) {
+  //       var url = "TASKS/coe-updateStateClientes.php";
+  //       var operationUrl = "updateStateClientes";
+  //       var data = { ID: ID };
+  //       SendDataService(url, operationUrl, data).then(
+  //         (response) => TopAlerts(response),
+  //         obtenerDatosClientes()
+  //       );
+  //     }
+  //   });
+  // }
   // ------------------------------------------------------------------
   useEffect(function () {
     obtenerDatosClientes();
