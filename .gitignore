@@ -10,7 +10,10 @@
 
 # production
 /build
+<<<<<<< HEAD
 
+=======
+>>>>>>> a032b3a2b0088a86cd6c059190dfadee58863743
 # misc
 .DS_Store
 .env.local
