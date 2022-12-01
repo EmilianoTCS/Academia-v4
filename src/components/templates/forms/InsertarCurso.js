@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import { BsX } from "react-icons/bs";
-import "../../css/InsertarCurso.css";
+import "../../css/InsertarCursoCalendario.css";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
-import TopAlerts from "../alerts/TopAlerts";
 import DatePicker from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import DateObject from "react-date-object";
 import Form from "react-bootstrap/Form";
+
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 export default function InsertarCurso(props) {
   // ----------------------CONSTANTES----------------------------
@@ -24,10 +25,15 @@ export default function InsertarCurso(props) {
   const fechasFormateadas = [];
   const fechasOrdenadas = [];
 
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   // ----------------------FUNCIONES----------------------------
-  function CloseForm() {
-    setisActive(false);
-  }
+  // function CloseForm() {
+  //   setisActive(false);
+  // }
   function obtenerCuentas() {
     const url = "TASKS/auxiliar/ListadoCuentas.php?listadoCuentas";
     getDataService(url).then((cuentas) => setListCuentas(cuentas));
@@ -46,9 +52,8 @@ export default function InsertarCurso(props) {
       codigoCuenta: codigoCuenta,
       codigoRamo: codigoRamo,
     };
-    console.log(data);
     SendDataService(url, operationUrl, data).then((response) =>
-      TopAlerts(response)
+      console.log(response)
     );
   }
   useEffect(
@@ -90,7 +95,6 @@ export default function InsertarCurso(props) {
       fechasFormateadas.push(valoresFechas[index].format())
     );
     fechasOrdenadas.push(fechasFormateadas.sort());
-    console.log(fechasOrdenadas[0]);
   }
 
   const optionsRamos = listRamos.map((label) => ({
@@ -113,12 +117,20 @@ export default function InsertarCurso(props) {
 
   return (
     <>
-      <div id="containerFormCurso" className={isActive ? "active" : ""}>
-        <form id="form_insertarCurso" onSubmit={SendData}>
-          <div id="headerForms">
-            <h3 id="titleForm">Insertar Curso</h3>
-            <BsX id="btn_close" onClick={CloseForm} />
-          </div>
+      <Button id="btnCurso" onClick={handleShow}>
+        Insertar Curso
+      </Button>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Insertar Curso</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <div>
             <label htmlFor="input_fechaInicio">Cuenta: </label>
             <Select
@@ -166,12 +178,19 @@ export default function InsertarCurso(props) {
               ]}
             />
           </div>
-
-          <div>
-            <input type="submit" id="btn_registrar" value="Registrar" />
-          </div>
-        </form>
-      </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            type="submit"
+            id="btn_registrar"
+            value="Registrar"
+            onClick={SendData}
+          >
+            Registrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

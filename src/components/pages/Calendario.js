@@ -127,7 +127,7 @@ export default function Calendario() {
           headerToolbar={{
             right: "prev,next today",
             center: "title",
-            left: "dayGridMonth,dayGridWeek,dayGridDay añadirCurso añadirEvento",
+            left: "dayGridMonth,dayGridWeek,dayGridDay",
           }}
           weekends={false}
           aspectRatio={2}
@@ -137,16 +137,6 @@ export default function Calendario() {
           eventSources={[Cursos, Eventos, Feriados]}
           themeSystem="bootstrap5"
           dateClick={insertarCurso}
-          customButtons={{
-            añadirCurso: {
-              text: "Añadir Curso",
-              click: insertarCurso,
-            },
-            añadirEvento: {
-              text: "Añadir Evento",
-              click: insertarEvento,
-            },
-          }}
           eventMouseEnter={handleMouseEnter}
           eventMouseLeave={handleMouseLeave}
         />
