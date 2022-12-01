@@ -52,7 +52,6 @@ export default function InsertarCurso(props) {
       codigoCuenta: codigoCuenta,
       codigoRamo: codigoRamo,
     };
-    console.log(data);
     SendDataService(url, operationUrl, data).then((response) =>
       console.log(response)
     );
@@ -96,7 +95,6 @@ export default function InsertarCurso(props) {
       fechasFormateadas.push(valoresFechas[index].format())
     );
     fechasOrdenadas.push(fechasFormateadas.sort());
-    console.log(fechasOrdenadas);
   }
 
   const optionsRamos = listRamos.map((label) => ({
