@@ -42,10 +42,11 @@ export default function InsertarCurso(props) {
     const operationUrl = "insertarCurso";
     var data = {
       duracion: duracion,
-      fechasOrdenadas,
+      fechasOrdenadas: fechasOrdenadas[0],
       codigoCuenta: codigoCuenta,
       codigoRamo: codigoRamo,
     };
+    console.log(data);
     SendDataService(url, operationUrl, data).then((response) =>
       TopAlerts(response)
     );
@@ -89,6 +90,7 @@ export default function InsertarCurso(props) {
       fechasFormateadas.push(valoresFechas[index].format())
     );
     fechasOrdenadas.push(fechasFormateadas.sort());
+    console.log(fechasOrdenadas[0]);
   }
 
   const optionsRamos = listRamos.map((label) => ({
