@@ -9,6 +9,9 @@ import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import DateObject from "react-date-object";
 import Form from "react-bootstrap/Form";
 
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+
 export default function InsertarEvento(props) {
   // ----------------------CONSTANTES----------------------------
   const [isActive, setisActive] = useState(props.isActive);
@@ -19,6 +22,11 @@ export default function InsertarEvento(props) {
   const [valoresFechas, setValoresFechas] = useState([new DateObject()]);
   const fechasFormateadas = [];
   const fechasOrdenadas = [];
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   // ----------------------FUNCIONES----------------------------
   function CloseForm() {
@@ -91,12 +99,20 @@ export default function InsertarEvento(props) {
   // ----------------------RENDER----------------------------
   return (
     <>
-      <div id="containerFormEvento" className={isActive ? "active" : ""}>
-        <form id="form_insertarEvento" onSubmit={SendData}>
-          <div id="headerForms">
-            <h3 id="titleForm">Insertar Evento</h3>
-            <BsX id="btn_close" onClick={CloseForm} />
-          </div>
+      <Button id="btnEvento" onClick={handleShow}>
+        Insertar Evento
+      </Button>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Insertar Evento</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <div>
             <label htmlFor="input_fechaInicio">Titulo: </label>
             <input
@@ -144,11 +160,19 @@ export default function InsertarEvento(props) {
               ]}
             />
           </div>
-          <div>
-            <input type="submit" id="btn_registrar" value="Registrar" />
-          </div>
-        </form>
-      </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            type="submit"
+            id="btn_registrar"
+            value="Registrar"
+            onClick={SendData}
+          >
+            Registrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

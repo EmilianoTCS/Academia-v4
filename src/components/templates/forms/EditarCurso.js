@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { BsX } from "react-icons/bs";
-import "../../css/InsertarCurso.css";
+import "../../css/InsertarCursoCalendario.css";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";

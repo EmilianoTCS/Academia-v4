@@ -83,7 +83,8 @@ export default function NotasColaboradores() {
           <button
             name="paginas"
             value={pagina.paginas}
-            onClick={({ target }) => setNumBoton(target.value)}
+            onClick={handleClick}
+            className={num_boton === pagina.paginas ? "active" : null}
           >
             {pagina.paginas}
           </button>
