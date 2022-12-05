@@ -14,7 +14,7 @@ export default function NotasColaboradores() {
   const [usuarioSelected, setUsuarioSelected] = useState("");
   const [listCursos, setListCursos] = useState([""]);
   const [listUsuarios, setListUsuarios] = useState([""]);
-  const [num_boton, setNumBoton] = useState("");
+  const [num_boton, setNumBoton] = useState(1);
   const [resetFilters, setResetFilters] = useState(false);
 
   const [pageNumberLimit] = useState(5);
