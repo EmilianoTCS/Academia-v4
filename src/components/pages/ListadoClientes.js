@@ -12,6 +12,7 @@ import InsertarClientes from "../templates/forms/InsertarClientes";
 import EditarClientes from "../templates/forms/EditarCliente";
 import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 import TopAlerts from "../templates/alerts/TopAlerts";
+import Paginador from "../templates/Paginador";
 import Button from "react-bootstrap/Button";
 import "../css/BtnInsertar.css";
 
@@ -26,6 +27,7 @@ export default function ListadoClientes() {
   const [isActiveInsertCliente, setIsActiveInsertCliente] = useState(false);
   const [isActiveEditCliente, setIsActiveEditCliente] = useState(false);
   const [IDCliente, setIDCliente] = useState(1);
+  const [num_boton, setNumBoton] = useState(1);
 
   function insertarCliente() {
     setIsActiveInsertCliente(!isActiveInsertCliente);
@@ -40,30 +42,37 @@ export default function ListadoClientes() {
         var url = "TASKS/coe-updateStateClientes.php";
         var operationUrl = "updateStateClientes";
         var data = { ID: ID };
-        SendDataService(url, operationUrl, data).then(
-          (response) => TopAlerts(response),
-          obtenerDatosClientes()
+        SendDataService(url, operationUrl, data).then((response) =>
+          TopAlerts(response)
         );
       }
     });
   }
-  function obtenerDatosClientes() {
-    getDataService(url).then((clientes) => setCliente(clientes));
-  }
+
   function obtenerDatosPaginador() {
     getDataService(urlPaginador).then((paginador) =>
       setPaginadorRelator(paginador)
     );
   }
-  function handleChangePaginador(e) {
-    const targetActual = e.target.value;
-    var data = { num_boton: targetActual };
+
+  useEffect(
+    function () {
+      obtenerDatosPaginador();
+      handleChangePaginador();
+    },
+    [num_boton]
+  );
+
+  //PAGINADOR ---------------------
+
+  function handleChangePaginador() {
+    var data = {
+      num_boton: num_boton,
+    };
     SendDataService(url, operationUrl, data).then((data) => setCliente(data));
   }
-  useEffect(function () {
-    obtenerDatosClientes();
-    obtenerDatosPaginador();
-  }, []);
+
+  //PAGINADOR ---------------------
 
   return userData ? (
     <>
@@ -128,19 +137,11 @@ export default function ListadoClientes() {
             ))}
           </tbody>
         </Table>
-        <div id="paginador">
-          {paginador.map((pagina) => (
-            <li key={pagina.paginas}>
-              <button
-                name="paginas"
-                value={pagina.paginas}
-                onClick={handleChangePaginador}
-              >
-                {pagina.paginas}
-              </button>
-            </li>
-          ))}
-        </div>
+        <Paginador
+          paginas={paginador}
+          cambiarNumero={setNumBoton}
+          num_boton={num_boton}
+        ></Paginador>
       </div>
     </>
   ) : (

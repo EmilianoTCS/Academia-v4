@@ -11,6 +11,8 @@ import ConfirmAlert from "../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../templates/alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import "../../css/BtnInsertar.css";
+import Paginador from "../../templates/Paginador";
+
 
 export default function Colaboradores() {
   const [colaboradores, setColaboradores] = useState([""]);
@@ -19,22 +21,16 @@ export default function Colaboradores() {
     useState(false);
   const [isActiveEditColaborador, setIsActiveEditColaborador] = useState(false);
   const [IDColaborador, setIDColaborador] = useState(2);
+  const [num_boton, setNumBoton] = useState(1);
 
-  function obtenerDatos() {
-    const url = "TASKS/coe-listColaboradores.php";
-    getDataService(url).then((colaboradores) =>
-      setColaboradores(colaboradores)
-    );
-  }
   function eliminar(ID) {
     ConfirmAlert().then((response) => {
       if (response === true) {
         var url = "TASKS/coe-updateStateColaborador.php";
         var operationUrl = "updateStateColaborador";
         var data = { ID: ID };
-        SendDataService(url, operationUrl, data).then(
-          (response) => TopAlerts(response),
-          obtenerDatos()
+        SendDataService(url, operationUrl, data).then((response) =>
+          TopAlerts(response)
         );
       }
     });
@@ -52,19 +48,29 @@ export default function Colaboradores() {
     const url = "paginador/botones_Colaboradores.php";
     getDataService(url).then((paginador) => setPaginador(paginador));
   }
-  function handleChangePaginador(e) {
-    const targetActual = e.target.value;
-    var data = { num_boton: targetActual };
+
+  useEffect(
+    function () {
+      handleChangePaginador();
+      obtenerDatosPaginador();
+    },
+    [num_boton]
+  );
+
+  //PAGINADOR ---------------------
+
+  function handleChangePaginador() {
     const url = "TASKS/coe-listColaboradores.php";
     const operationUrl = "pagina";
+    var data = {
+      num_boton: num_boton,
+    };
     SendDataService(url, operationUrl, data).then((data) =>
       setColaboradores(data)
     );
   }
-  useEffect(function () {
-    obtenerDatos();
-    obtenerDatosPaginador();
-  }, []);
+
+  //PAGINADOR ---------------------
 
   return (
     <>
@@ -127,19 +133,11 @@ export default function Colaboradores() {
           ))}
         </tbody>
       </Table>
-      <div id="paginador">
-        {paginador.map((pagina) => (
-          <li key={pagina.paginas}>
-            <button
-              name="paginas"
-              value={pagina.paginas}
-              onClick={handleChangePaginador}
-            >
-              {pagina.paginas}
-            </button>
-          </li>
-        ))}
-      </div>
+      <Paginador
+        paginas={paginador}
+        cambiarNumero={setNumBoton}
+        num_boton={num_boton}
+      ></Paginador>
     </>
   );
 }

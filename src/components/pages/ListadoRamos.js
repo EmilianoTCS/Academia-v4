@@ -15,6 +15,7 @@ import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 import TopAlerts from "../templates/alerts/TopAlerts";
 import "../css/InsertarCursoListadoCursosYRamos.css";
 import Button from "react-bootstrap/Button";
+import Paginador from "../templates/Paginador";
 
 export default function ListadoRamos() {
   const [ramos, setRamos] = useState([""]);
@@ -27,23 +28,16 @@ export default function ListadoRamos() {
   const [isActiveInsertRamo, setIsActiveInsertRamo] = useState(false);
   const [IDRamo, setIDRamo] = useState(2);
   const [isActiveEditRamo, setIsActiveEditRamo] = useState(false);
-  function obtenerDatosRamos() {
-    getDataService(url).then((ramos) => setRamos(ramos));
-  }
-  function obtenerDatosPaginador() {
-    getDataService(urlPaginador).then((paginador) =>
-      setPaginadorRamos(paginador)
-    );
-  }
-  function handleChangePaginador(e) {
-    const targetActual = e.target.value;
-    var data = { num_boton: targetActual };
-    SendDataService(url, operationUrl, data).then((data) => setRamos(data));
-  }
-  useEffect(function () {
-    obtenerDatosRamos();
-    obtenerDatosPaginador();
-  }, []);
+
+  const [num_boton, setNumBoton] = useState(1);
+
+  useEffect(
+    function () {
+      obtenerDatosPaginador();
+      handleChangePaginador();
+    },
+    [num_boton]
+  );
 
   function insertarCurso() {
     setIsActiveInsertCurso(!isActiveInsertCurso);
@@ -63,13 +57,28 @@ export default function ListadoRamos() {
         var url = "TASKS/coe-updateStateRamos.php";
         var operationUrl = "updateStateRamos";
         var data = { ID: ID };
-        SendDataService(url, operationUrl, data).then(
-          (response) => TopAlerts(response),
-          obtenerDatosRamos()
+        SendDataService(url, operationUrl, data).then((response) =>
+          TopAlerts(response)
         );
       }
     });
   }
+
+  //PAGINADOR ---------------------
+
+  function obtenerDatosPaginador() {
+    getDataService(urlPaginador).then((paginador) =>
+      setPaginadorRamos(paginador)
+    );
+  }
+  function handleChangePaginador() {
+    var data = {
+      num_boton: num_boton,
+    };
+    SendDataService(url, operationUrl, data).then((data) => setRamos(data));
+  }
+
+  //PAGINADOR ---------------------
 
   return userData ? (
     <>
@@ -136,19 +145,11 @@ export default function ListadoRamos() {
             ))}
           </tbody>
         </Table>
-        <div id="paginador">
-          {paginador.map((pagina) => (
-            <li key={pagina.paginas}>
-              <button
-                name="paginas"
-                value={pagina.paginas}
-                onClick={handleChangePaginador}
-              >
-                {pagina.paginas}
-              </button>
-            </li>
-          ))}
-        </div>
+        <Paginador
+          paginas={paginador}
+          cambiarNumero={setNumBoton}
+          num_boton={num_boton}
+        ></Paginador>
       </div>
     </>
   ) : (

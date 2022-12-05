@@ -12,6 +12,7 @@ import InsertarRelator from "../templates/forms/InsertarRelator";
 import EditarRelator from "../templates/forms/EditarRelator";
 import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 import TopAlerts from "../templates/alerts/TopAlerts";
+import Paginador from "../templates/Paginador";
 import Button from "react-bootstrap/Button";
 import "../css/BtnInsertar.css";
 
@@ -25,10 +26,8 @@ export default function ListadoRelator() {
   const [isActiveInsertRelator, setIsActiveInsertRelator] = useState(false);
   const [IDRelator, setIDRelator] = useState(2);
   const [isActiveEditRelator, setIsActiveEditRelator] = useState(false);
+  const [num_boton, setNumBoton] = useState(1);
 
-  function obtenerDatosRelator() {
-    getDataService(url).then((relatores) => setRelator(relatores));
-  }
   function obtenerDatosPaginador() {
     getDataService(urlPaginador).then((paginador) =>
       setPaginadorRelator(paginador)
@@ -42,28 +41,35 @@ export default function ListadoRelator() {
     setIsActiveEditRelator(!isActiveEditRelator);
     setIDRelator(ID);
   }
-  function handleChangePaginador(e) {
-    const targetActual = e.target.value;
-    var data = { num_boton: targetActual };
-    SendDataService(url, operationUrl, data).then((data) => setRelator(data));
-  }
+
   function eliminar(ID) {
     ConfirmAlert().then((response) => {
       if (response === true) {
         var url = "TASKS/coe-updateStateRelator.php";
         var operationUrl = "updateStateRelator";
         var data = { ID: ID };
-        SendDataService(url, operationUrl, data).then(
-          (response) => TopAlerts(response),
-          obtenerDatosRelator()
+        SendDataService(url, operationUrl, data).then((response) =>
+          TopAlerts(response)
         );
       }
     });
   }
-  useEffect(function () {
-    obtenerDatosRelator();
-    obtenerDatosPaginador();
-  }, []);
+  useEffect(
+    function () {
+      obtenerDatosPaginador();
+      handleChangePaginador();
+    },
+    [num_boton]
+  );
+
+  //PAGINADOR ---------------------
+  function handleChangePaginador() {
+    var data = {
+      num_boton: num_boton,
+    };
+    SendDataService(url, operationUrl, data).then((data) => setRelator(data));
+  }
+  //PAGINADOR ---------------------
 
   return userData ? (
     <>
@@ -127,19 +133,11 @@ export default function ListadoRelator() {
             ))}
           </tbody>
         </Table>
-        <div id="paginador">
-          {paginador.map((pagina) => (
-            <li key={pagina.paginas}>
-              <button
-                name="paginas"
-                value={pagina.paginas}
-                onClick={handleChangePaginador}
-              >
-                {pagina.paginas}
-              </button>
-            </li>
-          ))}
-        </div>
+        <Paginador
+          paginas={paginador}
+          cambiarNumero={setNumBoton}
+          num_boton={num_boton}
+        ></Paginador>
       </div>
     </>
   ) : (

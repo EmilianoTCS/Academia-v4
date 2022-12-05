@@ -11,14 +11,15 @@ import "../css/TablasStyles.css";
 import "../css/InsertarCursoListadoCursosYRamos.css";
 import InsertarCurso from "../templates/forms/InsertarCurso";
 import InsertarRamo from "../templates/forms/InsertarRamo";
-import EditarCurso from "../templates/forms/EditarCurso";
+// import EditarCurso from "../templates/forms/EditarCurso";
 import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 import TopAlerts from "../templates/alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
+import Paginador from "../templates/Paginador";
 
 export default function ListadoCursos() {
   const [cursos, setCursos] = useState([""]);
-  const [paginador, setPaginadorCursos] = useState([""]);
+  const [paginador, setPaginadorCursos] = useState([]);
   const url = "TASKS/coe-listCuentas.php";
   const urlPaginador = "paginador/botones_Cuenta.php";
   const operationUrl = "pagina";
@@ -28,31 +29,32 @@ export default function ListadoCursos() {
   const [IDCurso, setIDCurso] = useState(2);
   const [isActiveInsertRamo, setIsActiveInsertRamo] = useState(false);
 
-  function obtenerDatosCursos() {
-    getDataService(url).then((cursos) => setCursos(cursos));
-  }
+  //PAGINADOR ---------------------
+
+  const [num_boton, setNumBoton] = useState(1);
+
   function obtenerDatosPaginador() {
     getDataService(urlPaginador).then((paginador) =>
       setPaginadorCursos(paginador)
     );
   }
-  function handleChangePaginador(e) {
-    const targetActual = e.target.value;
-    var data = { num_boton: targetActual };
-    SendDataService(url, operationUrl, data).then(
-      (data) => setCursos(data),
-      console.log(cursos)
-    );
+  function handleChangePaginador() {
+    var data = {
+      num_boton: num_boton,
+    };
+    SendDataService(url, operationUrl, data).then((data) => setCursos(data));
   }
+
+  //PAGINADOR ---------------------
+
   function eliminar(ID) {
     ConfirmAlert().then((response) => {
       if (response === true) {
         var url = "TASKS/coe-updateState.php";
         var operationUrl = "updateStateCursos";
         var data = { ID: ID };
-        SendDataService(url, operationUrl, data).then(
-          (response) => TopAlerts(response),
-          obtenerDatosCursos()
+        SendDataService(url, operationUrl, data).then((response) =>
+          TopAlerts(response)
         );
       }
     });
@@ -69,10 +71,14 @@ export default function ListadoCursos() {
     setIsActiveInsertRamo(!isActiveInsertRamo);
     setIsActiveInsertCurso(false);
   }
-  useEffect(function () {
-    obtenerDatosCursos();
-    obtenerDatosPaginador();
-  }, []);
+
+  useEffect(
+    function () {
+      obtenerDatosPaginador();
+      handleChangePaginador();
+    },
+    [num_boton]
+  );
 
   return userData ? (
     <>
@@ -140,19 +146,11 @@ export default function ListadoCursos() {
             ))}
           </tbody>
         </Table>
-        <div id="paginador">
-          {paginador.map((pagina) => (
-            <li key={pagina.paginas}>
-              <button
-                name="paginas"
-                value={pagina.paginas}
-                onClick={handleChangePaginador}
-              >
-                {pagina.paginas}
-              </button>
-            </li>
-          ))}
-        </div>
+        <Paginador
+          paginas={paginador}
+          cambiarNumero={setNumBoton}
+          num_boton={num_boton}
+        ></Paginador>
       </div>
     </>
   ) : (

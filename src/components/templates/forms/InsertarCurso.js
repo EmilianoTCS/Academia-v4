@@ -27,9 +27,6 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
   const handleClose = () => cambiarEstado(false);
 
   // ----------------------FUNCIONES----------------------------
-  // function CloseForm() {
-  //   setisActive(false);
-  // }
 
   function obtenerCuentas() {
     const url = "TASKS/auxiliar/ListadoCuentas.php?listadoCuentas";
@@ -53,13 +50,11 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
       console.log(response)
     );
   }
-  useEffect(
-    function () {
-      obtenerCuentas();
-      obtenerRamos();
-    },
-    []
-  );
+  useEffect(function () {
+    obtenerCuentas();
+    obtenerRamos();
+  }, []);
+
   function handleChangeFechas(values) {
     setValoresFechas(values);
   }

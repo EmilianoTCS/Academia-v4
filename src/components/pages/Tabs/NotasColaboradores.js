@@ -4,7 +4,7 @@ import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import Select from "react-select";
 import "../../css/NotasColaboradores.css";
-
+import Paginador from "../../templates/Paginador";
 export default function NotasColaboradores() {
   // ----------------------CONSTANTES----------------------------
 
@@ -14,12 +14,8 @@ export default function NotasColaboradores() {
   const [usuarioSelected, setUsuarioSelected] = useState("");
   const [listCursos, setListCursos] = useState([""]);
   const [listUsuarios, setListUsuarios] = useState([""]);
-  const [num_boton, setNumBoton] = useState("");
+  const [num_boton, setNumBoton] = useState(1);
   const [resetFilters, setResetFilters] = useState(false);
-
-  const [pageNumberLimit] = useState(5);
-  const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
-  const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
 
   // ----------------------FUNCIONES----------------------------
 
@@ -69,56 +65,6 @@ export default function NotasColaboradores() {
     label: label.usuario,
     value: label.usuario,
   }));
-  const handleClick = (event) => {
-    setNumBoton(Number(event.target.value));
-  };
-
-  const renderNumeros = paginador.map((pagina) => {
-    if (
-      pagina.paginas < maxPageNumberLimit + 1 &&
-      pagina.paginas > minPageNumberLimit
-    ) {
-      return (
-        <li key={pagina.paginas}>
-          <button
-            name="paginas"
-            value={pagina.paginas}
-            onClick={handleClick}
-            className={num_boton === pagina.paginas ? "active" : null}
-          >
-            {pagina.paginas}
-          </button>
-        </li>
-      );
-    } else {
-      return null;
-    }
-  });
-
-  const handlePrevbtn = () => {
-    setNumBoton(num_boton - 1);
-    if ((num_boton - 1) % pageNumberLimit === 0) {
-      setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
-      setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
-    }
-  };
-  const handleNextbtn = () => {
-    setNumBoton(num_boton + 1);
-
-    if (num_boton + 1 > maxPageNumberLimit) {
-      setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
-      setminPageNumberLimit(minPageNumberLimit + pageNumberLimit);
-    }
-  };
-  const pageDecrementBtn = () => {
-    if (minPageNumberLimit > 1) {
-      return (
-        <li>
-          <button onClick={handlePrevbtn}> hola</button>
-        </li>
-      );
-    }
-  };
 
   return (
     <>
@@ -169,33 +115,11 @@ export default function NotasColaboradores() {
           ))}
         </tbody>
       </Table>
-      <div id="paginador">
-        <li>
-          <button
-            onClick={handlePrevbtn}
-            disabled={
-              num_boton === paginador[0].paginas ||
-              num_boton < paginador[0].paginas
-                ? true
-                : false
-            }
-          >
-            Prev
-          </button>
-        </li>
-        {pageDecrementBtn}
-        {renderNumeros}
-        <li>
-          <button
-            onClick={handleNextbtn}
-            disabled={
-              num_boton === paginador[paginador.length - 1] ? true : false
-            }
-          >
-            Next
-          </button>
-        </li>
-      </div>
+      <Paginador
+        paginas={paginador}
+        cambiarNumero={setNumBoton}
+        num_boton={num_boton}
+      ></Paginador>
     </>
   );
 }
