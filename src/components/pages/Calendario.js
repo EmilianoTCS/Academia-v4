@@ -11,6 +11,8 @@ import getDataExternService from "../services/GetDataExternService";
 import "../css/Calendario.css";
 import InsertarCurso from "../templates/forms/InsertarCurso";
 import InsertarEvento from "../templates/forms/InsertarEvento";
+import Button from "react-bootstrap/Button";
+import "../css/InsertarCursoCalendario.css";
 
 export default function Calendario() {
   const userData = localStorage.getItem("loggedUser");
@@ -53,10 +55,12 @@ export default function Calendario() {
 
   function insertarCurso() {
     setIsActiveInsertCurso(!isActiveInsertCurso);
+    setIsActiveInsertEvento(false);
   }
 
   function insertarEvento() {
     setIsActiveInsertEvento(!isActiveInsertEvento);
+    setIsActiveInsertCurso(false);
   }
 
   // --------------------CONSTANTES MAP---------------------
@@ -116,10 +120,22 @@ export default function Calendario() {
   return userData ? (
     <>
       <Header></Header>
+      <Button id="btnCurso" onClick={insertarCurso}>
+        Insertar Curso
+      </Button>
+      <Button id="btnCurso" onClick={insertarEvento}>
+        Insertar Evento
+      </Button>
 
+      <InsertarCurso
+        isActiveCurso={isActiveInsertCurso}
+        cambiarEstado={setIsActiveInsertCurso}
+      ></InsertarCurso>
+      <InsertarEvento
+        isActiveEvento={isActiveInsertEvento}
+        cambiarEstado={setIsActiveInsertEvento}
+      ></InsertarEvento>
       <div>
-        <InsertarCurso isActive={isActiveInsertCurso}></InsertarCurso>
-        <InsertarEvento isActive={isActiveInsertEvento}></InsertarEvento>
         <FullCalendar
           locales={esLocale}
           plugins={[dayGridPlugin, interactionPlugin]}

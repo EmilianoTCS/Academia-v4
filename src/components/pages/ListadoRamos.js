@@ -13,6 +13,9 @@ import InsertarRamo from "../templates/forms/InsertarRamo";
 import EditarRamo from "../templates/forms/EditarRamo";
 import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 import TopAlerts from "../templates/alerts/TopAlerts";
+import "../css/InsertarCursoListadoCursosYRamos.css";
+import Button from "react-bootstrap/Button";
+
 export default function ListadoRamos() {
   const [ramos, setRamos] = useState([""]);
   const [paginador, setPaginadorRamos] = useState([""]);
@@ -44,6 +47,7 @@ export default function ListadoRamos() {
 
   function insertarCurso() {
     setIsActiveInsertCurso(!isActiveInsertCurso);
+    setIsActiveInsertRamo(false);
   }
   function editarRamo(ID) {
     setIsActiveEditRamo(!isActiveEditRamo);
@@ -51,6 +55,7 @@ export default function ListadoRamos() {
   }
   function insertarRamo() {
     setIsActiveInsertRamo(!isActiveInsertRamo);
+    setIsActiveInsertCurso(false);
   }
   function eliminar(ID) {
     ConfirmAlert().then((response) => {
@@ -71,16 +76,22 @@ export default function ListadoRamos() {
       <Header></Header>
       <div>
         <h1 id="TitlesPages">Listado de ramos</h1>
-
-        <button id="formButtons" onClick={insertarCurso}>
+        <Button id="btnCursoListado" onClick={insertarCurso}>
           Insertar Curso
-        </button>
-        <button id="formButtons" onClick={insertarRamo}>
-          Insertar Ramo
-        </button>
-        <InsertarCurso isActive={isActiveInsertCurso}></InsertarCurso>
-        <InsertarRamo isActiveRamo={isActiveInsertRamo}></InsertarRamo>
-        <EditarRamo Props={{ IDRamo, isActiveEditRamo }}></EditarRamo>
+        </Button>
+        <Button id="btnCursoListado" onClick={insertarRamo}>
+          Insertar Ramos
+        </Button>
+
+        <InsertarCurso
+          isActiveCurso={isActiveInsertCurso}
+          cambiarEstado={setIsActiveInsertCurso}
+        ></InsertarCurso>
+        <InsertarRamo
+          isActiveRamo={isActiveInsertRamo}
+          cambiarEstado={setIsActiveInsertRamo}
+        ></InsertarRamo>
+        {/* <EditarRamo Props={{ IDRamo, isActiveEditRamo }}></EditarRamo> */}
         <Table id="mainTable" hover responsive>
           <thead>
             <tr>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import "../../css/InsertarCursoCalendario.css";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import DatePicker from "react-multi-date-picker";
@@ -8,13 +7,11 @@ import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import DateObject from "react-date-object";
 import Form from "react-bootstrap/Form";
-
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-export default function InsertarCurso(props) {
+const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
   // ----------------------CONSTANTES----------------------------
-  const [isActive, setisActive] = useState(props.isActive);
   const [listCuentas, setListCuentas] = useState([""]);
   const [listRamos, setListRamos] = useState([""]);
   const [codigoCuenta, setCodigoCuenta] = useState("");
@@ -25,15 +22,15 @@ export default function InsertarCurso(props) {
   const fechasFormateadas = [];
   const fechasOrdenadas = [];
 
-  const [show, setShow] = useState(false);
+  const show = isActiveCurso;
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => cambiarEstado(false);
 
   // ----------------------FUNCIONES----------------------------
   // function CloseForm() {
   //   setisActive(false);
   // }
+
   function obtenerCuentas() {
     const url = "TASKS/auxiliar/ListadoCuentas.php?listadoCuentas";
     getDataService(url).then((cuentas) => setListCuentas(cuentas));
@@ -48,7 +45,7 @@ export default function InsertarCurso(props) {
     const operationUrl = "insertarCurso";
     var data = {
       duracion: duracion,
-      fechasOrdenadas: fechasOrdenadas[0],
+      fechasOrdenadas,
       codigoCuenta: codigoCuenta,
       codigoRamo: codigoRamo,
     };
@@ -60,9 +57,8 @@ export default function InsertarCurso(props) {
     function () {
       obtenerCuentas();
       obtenerRamos();
-      setisActive(props.isActive);
     },
-    [props]
+    []
   );
   function handleChangeFechas(values) {
     setValoresFechas(values);
@@ -117,10 +113,6 @@ export default function InsertarCurso(props) {
 
   return (
     <>
-      <Button id="btnCurso" onClick={handleShow}>
-        Insertar Curso
-      </Button>
-
       <Modal
         show={show}
         onHide={handleClose}
@@ -193,4 +185,5 @@ export default function InsertarCurso(props) {
       </Modal>
     </>
   );
-}
+};
+export default InsertarCurso;

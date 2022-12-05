@@ -3,21 +3,24 @@ import { BsX } from "react-icons/bs";
 import "../../css/InsertarRamo.css";
 import SendDataService from "../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
-export default function InsertarClientes(props) {
+const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => { 
   // ----------------------CONSTANTES----------------------------
-  const [isActive, setisActive] = useState(props.Props.isActiveInsertCliente);
   const [tipo_cliente, setTipoClientes] = useState("");
   const [nombreCliente, setNombreCliente] = useState("");
   const [referente, setReferente] = useState("");
   const [correoReferente, setCorreoReferente] = useState("");
   const [cargoReferente, setCargoReferente] = useState("");
   const [telefonoReferente, setTelefonoReferente] = useState("");
+  
+  const show = isActiveCliente;
+
+  const handleClose = () => cambiarEstado(false);
+
 
   // ----------------------FUNCIONES----------------------------
-  function CloseForm() {
-    setisActive(!isActive);
-  }
 
   function SendData(e) {
     e.preventDefault();
@@ -36,23 +39,21 @@ export default function InsertarClientes(props) {
       TopAlerts(response)
     );
   }
-  useEffect(
-    function () {
-      setisActive(props.Props.isActiveInsertCliente);
-    },
-    [props]
-  );
+
 
   // ----------------------RENDER----------------------------
   return (
     <>
-      <div id="containerFormCurso" className={isActive ? "active" : ""}>
-        <form id="form_insertarCurso" onSubmit={SendData}>
-          <div id="headerForms">
-            <h3 id="titleForm">Insertar Cliente</h3>
-            <BsX id="btn_close" onClick={CloseForm} />
-          </div>
-
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Insertar Cliente</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <div className="form-group">
             <label htmlFor="input_tipoCliente">Tipo de cliente: </label>
             <select
@@ -119,11 +120,20 @@ export default function InsertarClientes(props) {
               onChange={({ target }) => setTelefonoReferente(target.value)}
             />
           </div>
-          <div>
-            <input type="submit" id="btn_registrar" value="Registrar" />
-          </div>
-        </form>
-      </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            type="submit"
+            id="btn_registrar"
+            value="Registrar"
+            onClick={SendData}
+          >
+            Registrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }
+export default InsertarClientes;
