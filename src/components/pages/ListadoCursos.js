@@ -8,11 +8,13 @@ import Header from "../templates/Header";
 import { BsPencilSquare, BsTrash } from "react-icons/bs";
 import { BiShowAlt } from "react-icons/bi";
 import "../css/TablasStyles.css";
+import "../css/InsertarCursoListadoCursosYRamos.css";
 import InsertarCurso from "../templates/forms/InsertarCurso";
 import InsertarRamo from "../templates/forms/InsertarRamo";
 import EditarCurso from "../templates/forms/EditarCurso";
 import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 import TopAlerts from "../templates/alerts/TopAlerts";
+import Button from "react-bootstrap/Button";
 
 export default function ListadoCursos() {
   const [cursos, setCursos] = useState([""]);
@@ -76,16 +78,11 @@ export default function ListadoCursos() {
       <div>
         <div>
           <h1 id="TitlesPages">Listado de cursos</h1>
-
-          <button id="formButtons" onClick={insertarCurso}>
-            Insertar Curso
-          </button>
-          <button id="formButtons" onClick={insertarRamo}>
-            Insertar Ramo
-          </button>
+          <Button id="btnCursoListado" onClick={insertarCurso}>Insertar Curso</Button>
+          <Button id="btnCursoListado" onClick={insertarEvento}>Insertar Ramos</Button>
           <InsertarCurso isActive={isActiveInsertCurso}></InsertarCurso>
           <InsertarRamo isActiveRamo={isActiveInsertRamo}></InsertarRamo>
-          <EditarCurso Props={{ IDCurso, isActiveEditCurso }}></EditarCurso>
+          {/* <EditarCurso Props={{ IDCurso, isActiveEditCurso }}></EditarCurso> */}
         </div>
         <Table id="mainTable" hover responsive>
           <thead>

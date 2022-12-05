@@ -23,7 +23,7 @@ export default function InsertarEvento(props) {
   const fechasFormateadas = [];
   const fechasOrdenadas = [];
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(props.isActive);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -57,7 +57,7 @@ export default function InsertarEvento(props) {
   }
   useEffect(
     function () {
-      setisActive(props.isActive);
+      setShow(props.isActiveEvento);
     },
     [props]
   );
@@ -99,10 +99,6 @@ export default function InsertarEvento(props) {
   // ----------------------RENDER----------------------------
   return (
     <>
-      <Button id="btnEvento" onClick={handleShow}>
-        Insertar Evento
-      </Button>
-
       <Modal
         show={show}
         onHide={handleClose}
