@@ -14,6 +14,9 @@ import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 import TopAlerts from "../templates/alerts/TopAlerts";
 import Paginador from "../templates/Paginador";
 
+import Button from "react-bootstrap/Button";
+import "../css/BtnInsertar.css";
+
 export default function ListadoClientes() {
   const [cliente, setCliente] = useState([""]);
   const [paginador, setPaginadorRelator] = useState([""]);
@@ -76,13 +79,19 @@ export default function ListadoClientes() {
       <Header></Header>
       <div>
         <h1 id="TitlesPages">Listado de clientes</h1>
-        <button id="formButtons" onClick={insertarCliente}>
+
+        <Button id="btn" onClick={insertarCliente}>
           Insertar Cliente
-        </button>
-        <InsertarClientes Props={{ isActiveInsertCliente }}></InsertarClientes>
-        <EditarClientes
+        </Button>
+
+        <InsertarClientes
+          isActiveCliente={isActiveInsertCliente}
+          cambiarEstado={setIsActiveInsertCliente}
+        ></InsertarClientes>
+
+        {/* <EditarClientes
           Props={{ isActiveEditCliente, IDCliente }}
-        ></EditarClientes>
+        ></EditarClientes> */}
         <Table id="mainTable" hover responsive>
           <thead>
             <tr>

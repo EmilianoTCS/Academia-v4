@@ -40,9 +40,7 @@ const Paginador = ({ paginas, cambiarNumero, num_boton }) => {
         <li>
           <button
             onClick={handlePrevbtn}
-            // disabled={
-            //   num_boton === paginas[0] || num_boton < paginas[0] ? true : false
-            // }
+            // disabled={num_boton === 0 || num_boton < 1 ? true : false}
           >
             Prev
           </button>

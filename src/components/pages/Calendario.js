@@ -126,13 +126,16 @@ export default function Calendario() {
       <Button id="btnCurso" onClick={insertarEvento}>
         Insertar Evento
       </Button>
-      <div>
-        <InsertarCurso
-          isActiveCurso={isActiveInsertCurso}
-          cambiarEstado={setIsActiveInsertCurso}
-        ></InsertarCurso>
-        <InsertarEvento isActiveEvento={isActiveInsertEvento}></InsertarEvento>
 
+      <InsertarCurso
+        isActiveCurso={isActiveInsertCurso}
+        cambiarEstado={setIsActiveInsertCurso}
+      ></InsertarCurso>
+      <InsertarEvento
+        isActiveEvento={isActiveInsertEvento}
+        cambiarEstado={setIsActiveInsertEvento}
+      ></InsertarEvento>
+      <div>
         <FullCalendar
           locales={esLocale}
           plugins={[dayGridPlugin, interactionPlugin]}

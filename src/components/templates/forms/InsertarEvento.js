@@ -12,9 +12,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-export default function InsertarEvento(props) {
+const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
   // ----------------------CONSTANTES----------------------------
-  const [isActive, setisActive] = useState(props.isActive);
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [duracion, setDuracion] = useState("");
@@ -23,10 +22,10 @@ export default function InsertarEvento(props) {
   const fechasFormateadas = [];
   const fechasOrdenadas = [];
 
-  const [show, setShow] = useState(props.isActive);
+  const show = isActiveEvento;
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => cambiarEstado(false);
+
 
   // ----------------------FUNCIONES----------------------------
   function CloseForm() {
@@ -55,12 +54,7 @@ export default function InsertarEvento(props) {
       TopAlerts(response)
     );
   }
-  useEffect(
-    function () {
-      setShow(props.isActiveEvento);
-    },
-    [props]
-  );
+
   // ----------------------COMPONENTES----------------------------
   function CustomButton() {
     return (
@@ -172,3 +166,4 @@ export default function InsertarEvento(props) {
     </>
   );
 }
+export default InsertarEvento;

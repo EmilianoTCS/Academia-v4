@@ -54,7 +54,6 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
     obtenerCuentas();
     obtenerRamos();
   }, []);
-
   function handleChangeFechas(values) {
     setValoresFechas(values);
   }

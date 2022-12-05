@@ -4,11 +4,10 @@ import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
 import Select from "react-select";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
-export default function InsertarColaborador(props) {
-  const [isActive, setisActive] = useState(
-    props.Props.isActiveInsertColaborador
-  );
+const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
   const [codigoCuenta, setCodigoCuenta] = useState("");
   const [nombreCompleto, setNombreCompleto] = useState("");
   const [usuario, setUsuario] = useState("");
@@ -16,6 +15,10 @@ export default function InsertarColaborador(props) {
   const [subgerencia, setSubgerencia] = useState("");
   const [correo, setCorreo] = useState("");
   const [listCuentas, setListCuentas] = useState([""]);
+
+  const show = isActiveColaborador;
+
+  const handleClose = () => cambiarEstado(false);
 
   // ----------------------FUNCIONES----------------------------
 
@@ -39,17 +42,6 @@ export default function InsertarColaborador(props) {
     const url = "TASKS/auxiliar/ListadoCuentas.php?listadoCuentas";
     getDataService(url).then((cuentas) => setListCuentas(cuentas));
   }
-  function CloseForm() {
-    setisActive(!isActive);
-  }
-
-  useEffect(
-    function () {
-      setisActive(props.Props.isActiveInsertColaborador);
-      obtenerCuentas();
-    },
-    [props]
-  );
 
   // ----------------------MAPEADOS----------------------------
 
@@ -57,14 +49,19 @@ export default function InsertarColaborador(props) {
     label: label.codigoCuenta,
     value: label.ID,
   }));
+
   return (
     <>
-      <div id="containerFormCurso" className={isActive ? "active" : ""}>
-        <form id="form_insertarCurso" onSubmit={SendData}>
-          <div id="headerForms">
-            <h3 id="titleForm">Insertar Colaborador</h3>
-            <BsX id="btn_close" onClick={CloseForm} />
-          </div>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Insertar Ramo</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <div>
             <label htmlFor="input_fechaInicio">Cuenta: </label>
             <Select
@@ -124,11 +121,21 @@ export default function InsertarColaborador(props) {
               onChange={({ target }) => setCorreo(target.value)}
             />
           </div>
-          <div>
-            <input type="submit" id="btn_registrar" value="Registrar" />
-          </div>
-        </form>
-      </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            type="submit"
+            id="btn_registrar"
+            value="Registrar"
+            onClick={SendData}
+          >
+            Registrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
-}
+};
+
+export default InsertarColaborador;

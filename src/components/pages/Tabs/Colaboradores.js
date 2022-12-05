@@ -9,6 +9,8 @@ import { BiShowAlt } from "react-icons/bi";
 import EditarColaborador from "../../templates/forms/EditarColaborador";
 import ConfirmAlert from "../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../templates/alerts/TopAlerts";
+import Button from "react-bootstrap/Button";
+import "../../css/BtnInsertar.css";
 import Paginador from "../../templates/Paginador";
 
 export default function Colaboradores() {
@@ -71,15 +73,21 @@ export default function Colaboradores() {
 
   return (
     <>
-      <button id="formButtons" onClick={insertarColaborador}>
+      <Button
+        id="btn"
+        style={{ marginTop: "10px " }}
+        onClick={insertarColaborador}
+      >
         Insertar Colaborador
-      </button>
+      </Button>
       <InsertarColaborador
-        Props={{ isActiveInsertColaborador }}
+        isActiveColaborador={isActiveInsertColaborador}
+        cambiarEstado={setIsActiveInsertColaborador}
       ></InsertarColaborador>
-      <EditarColaborador
+
+      {/* <EditarColaborador
         Props={{ isActiveEditColaborador, IDColaborador }}
-      ></EditarColaborador>
+      ></EditarColaborador> */}
       <Table responsive>
         <thead>
           <tr>
