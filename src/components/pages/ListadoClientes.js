@@ -13,9 +13,9 @@ import EditarClientes from "../templates/forms/EditarCliente";
 import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 import TopAlerts from "../templates/alerts/TopAlerts";
 import Paginador from "../templates/Paginador";
-
 import Button from "react-bootstrap/Button";
 import "../css/BtnInsertar.css";
+
 
 export default function ListadoClientes() {
   const [cliente, setCliente] = useState([""]);

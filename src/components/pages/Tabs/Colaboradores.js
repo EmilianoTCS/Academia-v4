@@ -13,6 +13,7 @@ import Button from "react-bootstrap/Button";
 import "../../css/BtnInsertar.css";
 import Paginador from "../../templates/Paginador";
 
+
 export default function Colaboradores() {
   const [colaboradores, setColaboradores] = useState([""]);
   const [paginador, setPaginador] = useState([""]);
