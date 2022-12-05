@@ -13,6 +13,11 @@ import InsertarRamo from "../templates/forms/InsertarRamo";
 import EditarRamo from "../templates/forms/EditarRamo";
 import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 import TopAlerts from "../templates/alerts/TopAlerts";
+import "../css/InsertarCursoListadoCursosYRamos.css";
+import Button from "react-bootstrap/Button";
+
+
+
 export default function ListadoRamos() {
   const [ramos, setRamos] = useState([""]);
   const [paginador, setPaginadorRamos] = useState([""]);
@@ -71,16 +76,12 @@ export default function ListadoRamos() {
       <Header></Header>
       <div>
         <h1 id="TitlesPages">Listado de ramos</h1>
+        <Button id="btnCursoListado">Insertar Curso</Button>
+        <Button id="btnCursoListado">Insertar Ramos</Button>
 
-        <button id="formButtons" onClick={insertarCurso}>
-          Insertar Curso
-        </button>
-        <button id="formButtons" onClick={insertarRamo}>
-          Insertar Ramo
-        </button>
         <InsertarCurso isActive={isActiveInsertCurso}></InsertarCurso>
         <InsertarRamo isActiveRamo={isActiveInsertRamo}></InsertarRamo>
-        <EditarRamo Props={{ IDRamo, isActiveEditRamo }}></EditarRamo>
+        {/* <EditarRamo Props={{ IDRamo, isActiveEditRamo }}></EditarRamo> */}
         <Table id="mainTable" hover responsive>
           <thead>
             <tr>
