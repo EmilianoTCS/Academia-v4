@@ -9,6 +9,8 @@ import { BiShowAlt } from "react-icons/bi";
 import EditarColaborador from "../../templates/forms/EditarColaborador";
 import ConfirmAlert from "../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../templates/alerts/TopAlerts";
+import Paginador from "../../templates/Paginador";
+
 export default function Colaboradores() {
   const [colaboradores, setColaboradores] = useState([""]);
   const [paginador, setPaginador] = useState([""]);
@@ -16,11 +18,7 @@ export default function Colaboradores() {
     useState(false);
   const [isActiveEditColaborador, setIsActiveEditColaborador] = useState(false);
   const [IDColaborador, setIDColaborador] = useState(2);
-
   const [num_boton, setNumBoton] = useState(1);
-  const [pageNumberLimit] = useState(5);
-  const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
-  const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
 
   function eliminar(ID) {
     ConfirmAlert().then((response) => {
@@ -57,55 +55,6 @@ export default function Colaboradores() {
   );
 
   //PAGINADOR ---------------------
-
-  const handleClick = (event) => {
-    setNumBoton(Number(event.target.value));
-  };
-  const renderNumeros = paginador.map((pagina) => {
-    if (
-      pagina.paginas < maxPageNumberLimit + 1 &&
-      pagina.paginas > minPageNumberLimit
-    ) {
-      return (
-        <li key={pagina.paginas}>
-          <button
-            name="paginas"
-            value={pagina.paginas}
-            onClick={handleClick}
-            className={num_boton === pagina.paginas ? "active" : null}
-          >
-            {pagina.paginas}
-          </button>
-        </li>
-      );
-    } else {
-      return null;
-    }
-  });
-  const handlePrevbtn = () => {
-    setNumBoton(num_boton - 1);
-    if ((num_boton - 1) % pageNumberLimit === 0) {
-      setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
-      setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
-    }
-  };
-  const handleNextbtn = () => {
-    setNumBoton(num_boton + 1);
-
-    if (num_boton + 1 > maxPageNumberLimit) {
-      setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
-      setminPageNumberLimit(minPageNumberLimit + pageNumberLimit);
-    }
-  };
-  const pageDecrementBtn = () => {
-    if (minPageNumberLimit > 1) {
-      return (
-        <li>
-          <button onClick={handlePrevbtn}> hola</button>
-        </li>
-      );
-    }
-  };
 
   function handleChangePaginador() {
     const url = "TASKS/coe-listColaboradores.php";
@@ -175,31 +124,11 @@ export default function Colaboradores() {
           ))}
         </tbody>
       </Table>
-      <div id="paginador">
-        <li>
-          <button
-            onClick={handlePrevbtn}
-            disabled={
-              num_boton === paginador[0].paginas ||
-              num_boton < paginador[0].paginas
-                ? true
-                : false
-            }
-          >
-            Prev
-          </button>
-        </li>
-        {pageDecrementBtn}
-        {renderNumeros}
-        <li>
-          <button
-            onClick={handleNextbtn}
-            disabled={num_boton === paginador.length ? true : false}
-          >
-            Next
-          </button>
-        </li>
-      </div>
+      <Paginador
+        paginas={paginador}
+        cambiarNumero={setNumBoton}
+        num_boton={num_boton}
+      ></Paginador>
     </>
   );
 }

@@ -1,55 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-export default function Paginador(props) {
-  const [num_boton, setNumBoton] = useState("");
+const Paginador = ({ paginas, cambiarNumero, num_boton }) => {
   const [pageNumberLimit] = useState(5);
   const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
   const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
-  const [paginador, setPaginador] = useState([]);
 
   const handleClick = (event) => {
-    setNumBoton(Number(event.target.value));
+    cambiarNumero(Number(event.target.value));
   };
-  useEffect(
-    function () {
-      setPaginador(props.Paginador);
-      renderNumeros();
-    },
-    [paginador]
-  );
-  function renderNumeros() {
-    paginador.map((pagina) => {
-      if (
-        pagina.paginas < maxPageNumberLimit + 1 &&
-        pagina.paginas > minPageNumberLimit
-      ) {
-        return (
-          <li key={pagina.paginas}>
-            <button
-              name="paginas"
-              value={pagina.paginas}
-              onClick={handleClick}
-              className={num_boton === pagina.paginas ? "active" : null}
-            >
-              {pagina.paginas}
-            </button>
-          </li>
-        );
-      } else {
-        return null;
-      }
-    });
-  }
 
   const handlePrevbtn = () => {
-    setNumBoton(num_boton - 1);
+    cambiarNumero(num_boton - 1);
     if ((num_boton - 1) % pageNumberLimit === 0) {
       setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
       setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
     }
   };
   const handleNextbtn = () => {
-    setNumBoton(num_boton + 1);
+    cambiarNumero(num_boton + 1);
 
     if (num_boton + 1 > maxPageNumberLimit) {
       setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
@@ -69,32 +37,48 @@ export default function Paginador(props) {
   return (
     <>
       <div id="paginador">
-        {/* <li>
+        <li>
           <button
             onClick={handlePrevbtn}
-            disabled={
-              num_boton === paginador[0].paginas ||
-              num_boton < paginador[0].paginas
-                ? true
-                : false
-            }
+            // disabled={
+            //   num_boton === paginas[0] || num_boton < paginas[0] ? true : false
+            // }
           >
             Prev
           </button>
-        </li> */}
+        </li>
         {pageDecrementBtn}
-        {renderNumeros}
-        {/* <li>
+        {paginas.map((pagina) => {
+          if (
+            pagina.paginas < maxPageNumberLimit + 1 &&
+            pagina.paginas > minPageNumberLimit
+          ) {
+            return (
+              <li key={pagina.paginas}>
+                <button
+                  name="paginas"
+                  value={pagina.paginas}
+                  onClick={handleClick}
+                  className={num_boton === pagina.paginas ? "active" : null}
+                >
+                  {pagina.paginas}
+                </button>
+              </li>
+            );
+          } else {
+            return null;
+          }
+        })}
+        <li>
           <button
             onClick={handleNextbtn}
-            disabled={
-              num_boton === paginador[paginador.length - 1] ? true : false
-            }
+            disabled={num_boton === paginas.length ? true : false}
           >
-            Next
+            Sig
           </button>
-        </li> */}
+        </li>
       </div>
     </>
   );
-}
+};
+export default Paginador;

@@ -15,7 +15,7 @@ import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 import TopAlerts from "../templates/alerts/TopAlerts";
 import "../css/InsertarCursoListadoCursosYRamos.css";
 import Button from "react-bootstrap/Button";
-
+import Paginador from "../templates/Paginador";
 export default function ListadoRamos() {
   const [ramos, setRamos] = useState([""]);
   const [paginador, setPaginadorRamos] = useState([""]);
@@ -29,9 +29,6 @@ export default function ListadoRamos() {
   const [isActiveEditRamo, setIsActiveEditRamo] = useState(false);
 
   const [num_boton, setNumBoton] = useState(1);
-  const [pageNumberLimit] = useState(5);
-  const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
-  const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
 
   useEffect(
     function () {
@@ -65,55 +62,6 @@ export default function ListadoRamos() {
   }
 
   //PAGINADOR ---------------------
-
-  const handleClick = (event) => {
-    setNumBoton(Number(event.target.value));
-  };
-  const renderNumeros = paginador.map((pagina) => {
-    if (
-      pagina.paginas < maxPageNumberLimit + 1 &&
-      pagina.paginas > minPageNumberLimit
-    ) {
-      return (
-        <li key={pagina.paginas}>
-          <button
-            name="paginas"
-            value={pagina.paginas}
-            onClick={handleClick}
-            className={num_boton === pagina.paginas ? "active" : null}
-          >
-            {pagina.paginas}
-          </button>
-        </li>
-      );
-    } else {
-      return null;
-    }
-  });
-  const handlePrevbtn = () => {
-    setNumBoton(num_boton - 1);
-    if ((num_boton - 1) % pageNumberLimit === 0) {
-      setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
-      setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
-    }
-  };
-  const handleNextbtn = () => {
-    setNumBoton(num_boton + 1);
-
-    if (num_boton + 1 > maxPageNumberLimit) {
-      setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
-      setminPageNumberLimit(minPageNumberLimit + pageNumberLimit);
-    }
-  };
-  const pageDecrementBtn = () => {
-    if (minPageNumberLimit > 1) {
-      return (
-        <li>
-          <button onClick={handlePrevbtn}> hola</button>
-        </li>
-      );
-    }
-  };
 
   function obtenerDatosPaginador() {
     getDataService(urlPaginador).then((paginador) =>
@@ -188,31 +136,11 @@ export default function ListadoRamos() {
             ))}
           </tbody>
         </Table>
-        <div id="paginador">
-          <li>
-            <button
-              onClick={handlePrevbtn}
-              disabled={
-                num_boton === paginador[0].paginas ||
-                num_boton < paginador[0].paginas
-                  ? true
-                  : false
-              }
-            >
-              Prev
-            </button>
-          </li>
-          {pageDecrementBtn}
-          {renderNumeros}
-          <li>
-            <button
-              onClick={handleNextbtn}
-              disabled={num_boton === paginador.length ? true : false}
-            >
-              Next
-            </button>
-          </li>
-        </div>
+        <Paginador
+          paginas={paginador}
+          cambiarNumero={setNumBoton}
+          num_boton={num_boton}
+        ></Paginador>
       </div>
     </>
   ) : (
