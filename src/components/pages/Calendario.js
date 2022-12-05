@@ -56,10 +56,6 @@ export default function Calendario() {
   function insertarCurso() {
     setIsActiveInsertCurso(!isActiveInsertCurso);
     setIsActiveInsertEvento(false);
-
-    // setTimeout(function () {
-    //   setIsActiveInsertCurso(false);
-    // }, 5000);
   }
 
   function insertarEvento() {
@@ -130,10 +126,16 @@ export default function Calendario() {
       <Button id="btnCurso" onClick={insertarEvento}>
         Insertar Evento
       </Button>
-      <div>
-        <InsertarCurso isActiveCurso={isActiveInsertCurso}></InsertarCurso>
-        <InsertarEvento isActiveEvento={isActiveInsertEvento}></InsertarEvento>
 
+      <InsertarCurso
+        isActiveCurso={isActiveInsertCurso}
+        cambiarEstado={setIsActiveInsertCurso}
+      ></InsertarCurso>
+      <InsertarEvento
+        isActiveEvento={isActiveInsertEvento}
+        cambiarEstado={setIsActiveInsertEvento}
+      ></InsertarEvento>
+      <div>
         <FullCalendar
           locales={esLocale}
           plugins={[dayGridPlugin, interactionPlugin]}

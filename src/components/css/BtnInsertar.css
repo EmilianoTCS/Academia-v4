@@ -1,17 +1,13 @@
-#btnCursoListado{
+#btn{
     background-color: #e10b1c;
-    border-color: white; 
     margin-left: 10px;
     border: none;
     border:#e10b1c solid 1px;
+    
 }
 
-#btnCursoListado:hover{
+#btn:hover{
     background-color: #ffffff;
     color: #e10b1c;
-}
 
-#datePickerContainer{
-    display: flex;
-    flex-direction: column;
 }

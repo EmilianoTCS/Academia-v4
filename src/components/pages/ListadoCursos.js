@@ -59,6 +59,7 @@ export default function ListadoCursos() {
   }
   function insertarCurso() {
     setIsActiveInsertCurso(!isActiveInsertCurso);
+    setIsActiveInsertRamo(false);
   }
   function editarCurso(ID) {
     setIsActiveEditCurso(true);
@@ -66,6 +67,7 @@ export default function ListadoCursos() {
   }
   function insertarRamo() {
     setIsActiveInsertRamo(!isActiveInsertRamo);
+    setIsActiveInsertCurso(false);
   }
   useEffect(function () {
     obtenerDatosCursos();
@@ -78,10 +80,20 @@ export default function ListadoCursos() {
       <div>
         <div>
           <h1 id="TitlesPages">Listado de cursos</h1>
-          <Button id="btnCursoListado" onClick={insertarCurso}>Insertar Curso</Button>
-          <Button id="btnCursoListado" onClick={insertarEvento}>Insertar Ramos</Button>
-          <InsertarCurso isActive={isActiveInsertCurso}></InsertarCurso>
-          <InsertarRamo isActiveRamo={isActiveInsertRamo}></InsertarRamo>
+          <Button id="btnCursoListado" onClick={insertarCurso}>
+            Insertar Curso
+          </Button>
+          <Button id="btnCursoListado" onClick={insertarRamo}>
+            Insertar Ramos
+          </Button>
+          <InsertarCurso
+            isActiveCurso={isActiveInsertCurso}
+            cambiarEstado={setIsActiveInsertCurso}
+          ></InsertarCurso>
+          <InsertarRamo
+            isActiveRamo={isActiveInsertRamo}
+            cambiarEstado={setIsActiveInsertRamo}
+          ></InsertarRamo>
           {/* <EditarCurso Props={{ IDCurso, isActiveEditCurso }}></EditarCurso> */}
         </div>
         <Table id="mainTable" hover responsive>

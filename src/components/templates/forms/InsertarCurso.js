@@ -10,9 +10,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-export default function InsertarCurso(props) {
+const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
   // ----------------------CONSTANTES----------------------------
-  // const [isActive, setisActive] = useState(props.isActive);
   const [listCuentas, setListCuentas] = useState([""]);
   const [listRamos, setListRamos] = useState([""]);
   const [codigoCuenta, setCodigoCuenta] = useState("");
@@ -23,10 +22,9 @@ export default function InsertarCurso(props) {
   const fechasFormateadas = [];
   const fechasOrdenadas = [];
 
-  const [show, setShow] = useState(props.isActiveCurso);
+  const show = isActiveCurso;
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => cambiarEstado(false);
 
   // ----------------------FUNCIONES----------------------------
   // function CloseForm() {
@@ -59,9 +57,8 @@ export default function InsertarCurso(props) {
     function () {
       obtenerCuentas();
       obtenerRamos();
-      setShow(props.isActiveCurso);
     },
-    [props.isActiveCurso]
+    []
   );
   function handleChangeFechas(values) {
     setValoresFechas(values);
@@ -188,4 +185,5 @@ export default function InsertarCurso(props) {
       </Modal>
     </>
   );
-}
+};
+export default InsertarCurso;

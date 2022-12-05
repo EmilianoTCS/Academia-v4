@@ -12,6 +12,9 @@ import InsertarRelator from "../templates/forms/InsertarRelator";
 import EditarRelator from "../templates/forms/EditarRelator";
 import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 import TopAlerts from "../templates/alerts/TopAlerts";
+import Button from "react-bootstrap/Button";
+import "../css/BtnInsertar.css";
+
 export default function ListadoRelator() {
   const [relator, setRelator] = useState([""]);
   const [paginador, setPaginadorRelator] = useState([""]);
@@ -67,13 +70,19 @@ export default function ListadoRelator() {
       <Header></Header>
       <div>
         <h1 id="TitlesPages">Listado de relatores</h1>
-        <button id="formButtons" onClick={insertarRelator}>
+
+        <Button id="btn" onClick={insertarRelator}>
           Insertar Relator
-        </button>
-        <InsertarRelator Props={{ isActiveInsertRelator }}></InsertarRelator>
-        <EditarRelator
+        </Button>
+        <InsertarRelator
+          isActiveRelator={isActiveInsertRelator}
+          cambiarEstado={setIsActiveInsertRelator}
+        ></InsertarRelator>
+
+        {/* <EditarRelator
           Props={{ isActiveEditRelator, IDRelator }}
-        ></EditarRelator>
+        ></EditarRelator> */}
+
         <Table id="mainTable" hover responsive>
           <thead>
             <tr>
