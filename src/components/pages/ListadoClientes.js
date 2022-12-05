@@ -23,6 +23,11 @@ export default function ListadoClientes() {
   const [isActiveEditCliente, setIsActiveEditCliente] = useState(false);
   const [IDCliente, setIDCliente] = useState(1);
 
+  const [num_boton, setNumBoton] = useState(1);
+  const [pageNumberLimit] = useState(5);
+  const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
+  const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
+
   function insertarCliente() {
     setIsActiveInsertCliente(!isActiveInsertCliente);
   }
@@ -36,30 +41,86 @@ export default function ListadoClientes() {
         var url = "TASKS/coe-updateStateClientes.php";
         var operationUrl = "updateStateClientes";
         var data = { ID: ID };
-        SendDataService(url, operationUrl, data).then(
-          (response) => TopAlerts(response),
-          obtenerDatosClientes()
+        SendDataService(url, operationUrl, data).then((response) =>
+          TopAlerts(response)
         );
       }
     });
   }
-  function obtenerDatosClientes() {
-    getDataService(url).then((clientes) => setCliente(clientes));
-  }
+
   function obtenerDatosPaginador() {
     getDataService(urlPaginador).then((paginador) =>
       setPaginadorRelator(paginador)
     );
   }
-  function handleChangePaginador(e) {
-    const targetActual = e.target.value;
-    var data = { num_boton: targetActual };
+
+  useEffect(
+    function () {
+      obtenerDatosPaginador();
+      handleChangePaginador();
+    },
+    [num_boton]
+  );
+
+  //PAGINADOR ---------------------
+
+  const handleClick = (event) => {
+    setNumBoton(Number(event.target.value));
+  };
+  const renderNumeros = paginador.map((pagina) => {
+    if (
+      pagina.paginas < maxPageNumberLimit + 1 &&
+      pagina.paginas > minPageNumberLimit
+    ) {
+      return (
+        <li key={pagina.paginas}>
+          <button
+            name="paginas"
+            value={pagina.paginas}
+            onClick={handleClick}
+            className={num_boton === pagina.paginas ? "active" : null}
+          >
+            {pagina.paginas}
+          </button>
+        </li>
+      );
+    } else {
+      return null;
+    }
+  });
+  const handlePrevbtn = () => {
+    setNumBoton(num_boton - 1);
+    if ((num_boton - 1) % pageNumberLimit === 0) {
+      setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
+      setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
+    }
+  };
+  const handleNextbtn = () => {
+    setNumBoton(num_boton + 1);
+
+    if (num_boton + 1 > maxPageNumberLimit) {
+      setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+      setminPageNumberLimit(minPageNumberLimit + pageNumberLimit);
+    }
+  };
+  const pageDecrementBtn = () => {
+    if (minPageNumberLimit > 1) {
+      return (
+        <li>
+          <button onClick={handlePrevbtn}> hola</button>
+        </li>
+      );
+    }
+  };
+
+  function handleChangePaginador() {
+    var data = {
+      num_boton: num_boton,
+    };
     SendDataService(url, operationUrl, data).then((data) => setCliente(data));
   }
-  useEffect(function () {
-    obtenerDatosClientes();
-    obtenerDatosPaginador();
-  }, []);
+
+  //PAGINADOR ---------------------
 
   return userData ? (
     <>
@@ -119,17 +180,29 @@ export default function ListadoClientes() {
           </tbody>
         </Table>
         <div id="paginador">
-          {paginador.map((pagina) => (
-            <li key={pagina.paginas}>
-              <button
-                name="paginas"
-                value={pagina.paginas}
-                onClick={handleChangePaginador}
-              >
-                {pagina.paginas}
-              </button>
-            </li>
-          ))}
+          <li>
+            <button
+              onClick={handlePrevbtn}
+              disabled={
+                num_boton === paginador[0].paginas ||
+                num_boton < paginador[0].paginas
+                  ? true
+                  : false
+              }
+            >
+              Prev
+            </button>
+          </li>
+          {pageDecrementBtn}
+          {renderNumeros}
+          <li>
+            <button
+              onClick={handleNextbtn}
+              disabled={num_boton === paginador.length ? true : false}
+            >
+              Next
+            </button>
+          </li>
         </div>
       </div>
     </>

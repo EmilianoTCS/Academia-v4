@@ -11,7 +11,7 @@ import "../css/TablasStyles.css";
 import "../css/InsertarCursoListadoCursosYRamos.css";
 import InsertarCurso from "../templates/forms/InsertarCurso";
 import InsertarRamo from "../templates/forms/InsertarRamo";
-import EditarCurso from "../templates/forms/EditarCurso";
+// import EditarCurso from "../templates/forms/EditarCurso";
 import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 import TopAlerts from "../templates/alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
@@ -28,31 +28,84 @@ export default function ListadoCursos() {
   const [IDCurso, setIDCurso] = useState(2);
   const [isActiveInsertRamo, setIsActiveInsertRamo] = useState(false);
 
-  function obtenerDatosCursos() {
-    getDataService(url).then((cursos) => setCursos(cursos));
-  }
+  //PAGINADOR ---------------------
+
+  const [num_boton, setNumBoton] = useState(1);
+  const [pageNumberLimit] = useState(5);
+  const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
+  const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
+
+  const handleClick = (event) => {
+    setNumBoton(Number(event.target.value));
+  };
+  const renderNumeros = paginador.map((pagina) => {
+    if (
+      pagina.paginas < maxPageNumberLimit + 1 &&
+      pagina.paginas > minPageNumberLimit
+    ) {
+      return (
+        <li key={pagina.paginas}>
+          <button
+            name="paginas"
+            value={pagina.paginas}
+            onClick={handleClick}
+            className={num_boton === pagina.paginas ? "active" : null}
+          >
+            {pagina.paginas}
+          </button>
+        </li>
+      );
+    } else {
+      return null;
+    }
+  });
+  const handlePrevbtn = () => {
+    setNumBoton(num_boton - 1);
+    if ((num_boton - 1) % pageNumberLimit === 0) {
+      setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
+      setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
+    }
+  };
+  const handleNextbtn = () => {
+    setNumBoton(num_boton + 1);
+
+    if (num_boton + 1 > maxPageNumberLimit) {
+      setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+      setminPageNumberLimit(minPageNumberLimit + pageNumberLimit);
+    }
+  };
+  const pageDecrementBtn = () => {
+    if (minPageNumberLimit > 1) {
+      return (
+        <li>
+          <button onClick={handlePrevbtn}> hola</button>
+        </li>
+      );
+    }
+  };
+
   function obtenerDatosPaginador() {
     getDataService(urlPaginador).then((paginador) =>
       setPaginadorCursos(paginador)
     );
   }
-  function handleChangePaginador(e) {
-    const targetActual = e.target.value;
-    var data = { num_boton: targetActual };
-    SendDataService(url, operationUrl, data).then(
-      (data) => setCursos(data),
-      console.log(cursos)
-    );
+  function handleChangePaginador() {
+    var data = {
+      num_boton: num_boton,
+    };
+    SendDataService(url, operationUrl, data).then((data) => setCursos(data));
   }
+
+  //PAGINADOR ---------------------
+
   function eliminar(ID) {
     ConfirmAlert().then((response) => {
       if (response === true) {
         var url = "TASKS/coe-updateState.php";
         var operationUrl = "updateStateCursos";
         var data = { ID: ID };
-        SendDataService(url, operationUrl, data).then(
-          (response) => TopAlerts(response),
-          obtenerDatosCursos()
+        SendDataService(url, operationUrl, data).then((response) =>
+          TopAlerts(response)
         );
       }
     });
@@ -67,10 +120,15 @@ export default function ListadoCursos() {
   function insertarRamo() {
     setIsActiveInsertRamo(!isActiveInsertRamo);
   }
-  useEffect(function () {
-    obtenerDatosCursos();
-    obtenerDatosPaginador();
-  }, []);
+
+  useEffect(
+    function () {
+      // obtenerDatosCursos();
+      obtenerDatosPaginador();
+      handleChangePaginador();
+    },
+    [num_boton]
+  );
 
   return userData ? (
     <>
@@ -78,8 +136,12 @@ export default function ListadoCursos() {
       <div>
         <div>
           <h1 id="TitlesPages">Listado de cursos</h1>
-          <Button id="btnCursoListado" onClick={insertarCurso}>Insertar Curso</Button>
-          <Button id="btnCursoListado" onClick={insertarEvento}>Insertar Ramos</Button>
+          <Button id="btnCursoListado" onClick={insertarCurso}>
+            Insertar Curso
+          </Button>
+          <Button id="btnCursoListado" onClick={insertarRamo}>
+            Insertar Ramos
+          </Button>
           <InsertarCurso isActive={isActiveInsertCurso}></InsertarCurso>
           <InsertarRamo isActiveRamo={isActiveInsertRamo}></InsertarRamo>
           {/* <EditarCurso Props={{ IDCurso, isActiveEditCurso }}></EditarCurso> */}
@@ -129,17 +191,29 @@ export default function ListadoCursos() {
           </tbody>
         </Table>
         <div id="paginador">
-          {paginador.map((pagina) => (
-            <li key={pagina.paginas}>
-              <button
-                name="paginas"
-                value={pagina.paginas}
-                onClick={handleChangePaginador}
-              >
-                {pagina.paginas}
-              </button>
-            </li>
-          ))}
+          <li>
+            <button
+              onClick={handlePrevbtn}
+              disabled={
+                num_boton === paginador[0].paginas ||
+                num_boton < paginador[0].paginas
+                  ? true
+                  : false
+              }
+            >
+              Prev
+            </button>
+          </li>
+          {pageDecrementBtn}
+          {renderNumeros}
+          <li>
+            <button
+              onClick={handleNextbtn}
+              disabled={num_boton === paginador.length ? true : false}
+            >
+              Next
+            </button>
+          </li>
         </div>
       </div>
     </>

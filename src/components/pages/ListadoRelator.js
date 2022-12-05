@@ -12,6 +12,7 @@ import InsertarRelator from "../templates/forms/InsertarRelator";
 import EditarRelator from "../templates/forms/EditarRelator";
 import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 import TopAlerts from "../templates/alerts/TopAlerts";
+
 export default function ListadoRelator() {
   const [relator, setRelator] = useState([""]);
   const [paginador, setPaginadorRelator] = useState([""]);
@@ -23,9 +24,11 @@ export default function ListadoRelator() {
   const [IDRelator, setIDRelator] = useState(2);
   const [isActiveEditRelator, setIsActiveEditRelator] = useState(false);
 
-  function obtenerDatosRelator() {
-    getDataService(url).then((relatores) => setRelator(relatores));
-  }
+  const [num_boton, setNumBoton] = useState(1);
+  const [pageNumberLimit] = useState(5);
+  const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
+  const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
+
   function obtenerDatosPaginador() {
     getDataService(urlPaginador).then((paginador) =>
       setPaginadorRelator(paginador)
@@ -39,28 +42,86 @@ export default function ListadoRelator() {
     setIsActiveEditRelator(!isActiveEditRelator);
     setIDRelator(ID);
   }
-  function handleChangePaginador(e) {
-    const targetActual = e.target.value;
-    var data = { num_boton: targetActual };
-    SendDataService(url, operationUrl, data).then((data) => setRelator(data));
-  }
+
   function eliminar(ID) {
     ConfirmAlert().then((response) => {
       if (response === true) {
         var url = "TASKS/coe-updateStateRelator.php";
         var operationUrl = "updateStateRelator";
         var data = { ID: ID };
-        SendDataService(url, operationUrl, data).then(
-          (response) => TopAlerts(response),
-          obtenerDatosRelator()
+        SendDataService(url, operationUrl, data).then((response) =>
+          TopAlerts(response)
         );
       }
     });
   }
-  useEffect(function () {
-    obtenerDatosRelator();
-    obtenerDatosPaginador();
-  }, []);
+  useEffect(
+    function () {
+      obtenerDatosPaginador();
+      handleChangePaginador();
+    },
+    [num_boton]
+  );
+
+  //PAGINADOR ---------------------
+
+  const handleClick = (event) => {
+    setNumBoton(Number(event.target.value));
+  };
+  const renderNumeros = paginador.map((pagina) => {
+    if (
+      pagina.paginas < maxPageNumberLimit + 1 &&
+      pagina.paginas > minPageNumberLimit
+    ) {
+      return (
+        <li key={pagina.paginas}>
+          <button
+            name="paginas"
+            value={pagina.paginas}
+            onClick={handleClick}
+            className={num_boton === pagina.paginas ? "active" : null}
+          >
+            {pagina.paginas}
+          </button>
+        </li>
+      );
+    } else {
+      return null;
+    }
+  });
+  const handlePrevbtn = () => {
+    setNumBoton(num_boton - 1);
+    if ((num_boton - 1) % pageNumberLimit === 0) {
+      setmaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
+      setminPageNumberLimit(minPageNumberLimit - pageNumberLimit);
+    }
+  };
+  const handleNextbtn = () => {
+    setNumBoton(num_boton + 1);
+
+    if (num_boton + 1 > maxPageNumberLimit) {
+      setmaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+      setminPageNumberLimit(minPageNumberLimit + pageNumberLimit);
+    }
+  };
+  const pageDecrementBtn = () => {
+    if (minPageNumberLimit > 1) {
+      return (
+        <li>
+          <button onClick={handlePrevbtn}> hola</button>
+        </li>
+      );
+    }
+  };
+
+  function handleChangePaginador() {
+    var data = {
+      num_boton: num_boton,
+    };
+    SendDataService(url, operationUrl, data).then((data) => setRelator(data));
+  }
+
+  //PAGINADOR ---------------------
 
   return userData ? (
     <>
@@ -119,17 +180,29 @@ export default function ListadoRelator() {
           </tbody>
         </Table>
         <div id="paginador">
-          {paginador.map((pagina) => (
-            <li key={pagina.paginas}>
-              <button
-                name="paginas"
-                value={pagina.paginas}
-                onClick={handleChangePaginador}
-              >
-                {pagina.paginas}
-              </button>
-            </li>
-          ))}
+          <li>
+            <button
+              onClick={handlePrevbtn}
+              disabled={
+                num_boton === paginador[0].paginas ||
+                num_boton < paginador[0].paginas
+                  ? true
+                  : false
+              }
+            >
+              Prev
+            </button>
+          </li>
+          {pageDecrementBtn}
+          {renderNumeros}
+          <li>
+            <button
+              onClick={handleNextbtn}
+              disabled={num_boton === paginador.length ? true : false}
+            >
+              Next
+            </button>
+          </li>
         </div>
       </div>
     </>
