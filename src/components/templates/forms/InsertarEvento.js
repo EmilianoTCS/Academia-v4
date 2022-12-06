@@ -44,7 +44,7 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
     const url = "TASKS/coe-insertarEvento.php";
     const operationUrl = "insertarEvento";
     var data = {
-      fechasOrdenadas,
+      fechasOrdenadas: fechasOrdenadas[0],
       titulo: titulo,
       descripcion: descripcion,
       duracion: duracion,

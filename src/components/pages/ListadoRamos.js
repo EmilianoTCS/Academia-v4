@@ -83,7 +83,7 @@ export default function ListadoRamos() {
   return userData ? (
     <>
       <Header></Header>
-      <div>
+      <div id="containerTablas">
         <h1 id="TitlesPages">Listado de ramos</h1>
         <Button id="btnCursoListado" onClick={insertarCurso}>
           Insertar Curso

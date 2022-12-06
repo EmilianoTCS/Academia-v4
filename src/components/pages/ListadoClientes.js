@@ -77,9 +77,8 @@ export default function ListadoClientes() {
   return userData ? (
     <>
       <Header></Header>
-      <div>
+      <div id="containerTablas">
         <h1 id="TitlesPages">Listado de clientes</h1>
-
         <Button id="btn" onClick={insertarCliente}>
           Insertar Cliente
         </Button>

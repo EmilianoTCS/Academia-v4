@@ -4,12 +4,15 @@
     width: 98%;
     margin: 1%;
     overflow:scroll;
+  padding: 15px 20px;
 }
 #OperationBtns{
     border: none;
     background: none;
 }
-
+#containerTablas{
+  padding: 15px 20px
+}
 #paginador {
     display: flex;
     width: min-content;

@@ -17,7 +17,7 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
   const [codigoCuenta, setCodigoCuenta] = useState("");
   const [codigoRamo, setCodigoRamo] = useState("");
   const [duracion, setDuracion] = useState("");
-
+  const respuestaServidor = new Set()
   const [valoresFechas, setValoresFechas] = useState([new DateObject()]);
   const fechasFormateadas = [];
   const fechasOrdenadas = [];
@@ -42,12 +42,13 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
     const operationUrl = "insertarCurso";
     var data = {
       duracion: duracion,
-      fechasOrdenadas,
+      fechasOrdenadas: fechasOrdenadas[0],
       codigoCuenta: codigoCuenta,
       codigoRamo: codigoRamo,
     };
     SendDataService(url, operationUrl, data).then((response) =>
-      console.log(response)
+    respuestaServidor.add(response),
+      console.log(respuestaServidor)
     );
   }
   useEffect(function () {
@@ -86,6 +87,7 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
       fechasFormateadas.push(valoresFechas[index].format())
     );
     fechasOrdenadas.push(fechasFormateadas.sort());
+    console.log(fechasOrdenadas[0])
   }
 
   const optionsRamos = listRamos.map((label) => ({

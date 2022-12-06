@@ -74,9 +74,8 @@ export default function ListadoRelator() {
   return userData ? (
     <>
       <Header></Header>
-      <div>
+      <div id="containerTablas">
         <h1 id="TitlesPages">Listado de relatores</h1>
-
         <Button id="btn" onClick={insertarRelator}>
           Insertar Relator
         </Button>

@@ -108,7 +108,7 @@ export default function ListadoAsistencias() {
   return userData ? (
     <>
       <Header></Header>
-      <div>
+      <div id="containerTablas">
         <h1 id="TitlesPages">Listado de asistencias</h1>
         <div id="FiltrosAsistencias">
           <Select

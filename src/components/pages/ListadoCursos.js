@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import { Redirect } from "wouter";
+import { Redirect, Link } from "wouter";
 import getDataService from "../services/GetDataService";
 import SendDataService from "../services/SendDataService";
 import Header from "../templates/Header";
@@ -84,7 +84,7 @@ export default function ListadoCursos() {
     <>
       <Header></Header>
       <div>
-        <div>
+        <div id="containerTablas">
           <h1 id="TitlesPages">Listado de cursos</h1>
           <Button id="btnCursoListado" onClick={insertarCurso}>
             Insertar Curso
@@ -131,9 +131,9 @@ export default function ListadoCursos() {
                   >
                     <BsPencilSquare />
                   </button>
-                  <button title="Examinar curso" id="OperationBtns">
+                  <Link to={`/test/${curso.codigoCurso}`} ><button title="Examinar curso" id="OperationBtns">
                     <BiShowAlt />
-                  </button>
+                  </button></Link>
                   <button
                     title="Eliminar curso"
                     onClick={() => eliminar(curso.ID)}
