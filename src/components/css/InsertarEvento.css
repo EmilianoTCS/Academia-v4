@@ -1,0 +1,11 @@
+#btnEvento{
+    background-color: #2C3E50;
+    border-color: black;  
+    margin-bottom: -60px; 
+    position: relative;
+}
+
+#btnEvento:hover{
+    background-color: #1E2B37;
+}
+

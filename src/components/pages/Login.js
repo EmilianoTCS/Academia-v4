@@ -32,7 +32,7 @@ export default function Login() {
 
   useEffect(() => {
     const loggedStatus = window.localStorage.getItem("loggedUser", user);
-    if ("loggedUser") {
+    if (loggedStatus) {
       const user = JSON.parse(loggedStatus);
       setUser(user);
     }

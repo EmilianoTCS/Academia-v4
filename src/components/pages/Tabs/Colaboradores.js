@@ -4,9 +4,15 @@ import { Table } from "react-bootstrap";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import InsertarColaborador from "../../templates/forms/InsertarColaborador";
-import { BsPencilSquare, BsX, BsTrash } from "react-icons/bs";
+import { BsPencilSquare, BsTrash } from "react-icons/bs";
 import { BiShowAlt } from "react-icons/bi";
 import EditarColaborador from "../../templates/forms/EditarColaborador";
+import ConfirmAlert from "../../templates/alerts/ConfirmAlert";
+import TopAlerts from "../../templates/alerts/TopAlerts";
+import Button from "react-bootstrap/Button";
+import "../../css/BtnInsertar.css";
+import Paginador from "../../templates/Paginador";
+
 
 export default function Colaboradores() {
   const [colaboradores, setColaboradores] = useState([""]);
@@ -15,12 +21,19 @@ export default function Colaboradores() {
     useState(false);
   const [isActiveEditColaborador, setIsActiveEditColaborador] = useState(false);
   const [IDColaborador, setIDColaborador] = useState(2);
+  const [num_boton, setNumBoton] = useState(1);
 
-  function obtenerDatos() {
-    const url = "TASKS/coe-listColaboradores.php";
-    getDataService(url).then((colaboradores) =>
-      setColaboradores(colaboradores)
-    );
+  function eliminar(ID) {
+    ConfirmAlert().then((response) => {
+      if (response === true) {
+        var url = "TASKS/coe-updateStateColaborador.php";
+        var operationUrl = "updateStateColaborador";
+        var data = { ID: ID };
+        SendDataService(url, operationUrl, data).then((response) =>
+          TopAlerts(response)
+        );
+      }
+    });
   }
   function insertarColaborador() {
     setIsActiveInsertColaborador(!isActiveInsertColaborador);
@@ -35,31 +48,47 @@ export default function Colaboradores() {
     const url = "paginador/botones_Colaboradores.php";
     getDataService(url).then((paginador) => setPaginador(paginador));
   }
-  function handleChangePaginador(e) {
-    const targetActual = e.target.value;
-    var data = { num_boton: targetActual };
+
+  useEffect(
+    function () {
+      handleChangePaginador();
+      obtenerDatosPaginador();
+    },
+    [num_boton]
+  );
+
+  //PAGINADOR ---------------------
+
+  function handleChangePaginador() {
     const url = "TASKS/coe-listColaboradores.php";
     const operationUrl = "pagina";
+    var data = {
+      num_boton: num_boton,
+    };
     SendDataService(url, operationUrl, data).then((data) =>
       setColaboradores(data)
     );
   }
-  useEffect(function () {
-    obtenerDatos();
-    obtenerDatosPaginador();
-  }, []);
+
+  //PAGINADOR ---------------------
 
   return (
     <>
-      <button id="formButtons" onClick={insertarColaborador}>
+      <Button
+        id="btn"
+        style={{ marginTop: "10px " }}
+        onClick={insertarColaborador}
+      >
         Insertar Colaborador
-      </button>
+      </Button>
       <InsertarColaborador
-        Props={{ isActiveInsertColaborador }}
+        isActiveColaborador={isActiveInsertColaborador}
+        cambiarEstado={setIsActiveInsertColaborador}
       ></InsertarColaborador>
-      <EditarColaborador
+
+      {/* <EditarColaborador
         Props={{ isActiveEditColaborador, IDColaborador }}
-      ></EditarColaborador>
+      ></EditarColaborador> */}
       <Table responsive>
         <thead>
           <tr>
@@ -92,7 +121,11 @@ export default function Colaboradores() {
                 <button title="Examinar curso" id="OperationBtns">
                   <BiShowAlt />
                 </button>
-                <button title="Eliminar curso" id="OperationBtns">
+                <button
+                  title="Eliminar curso"
+                  id="OperationBtns"
+                  onClick={() => eliminar(colaborador.ID)}
+                >
                   <BsTrash />
                 </button>
               </td>
@@ -100,19 +133,11 @@ export default function Colaboradores() {
           ))}
         </tbody>
       </Table>
-      <div id="paginador">
-        {paginador.map((pagina) => (
-          <li key={pagina.paginas}>
-            <button
-              name="paginas"
-              value={pagina.paginas}
-              onClick={handleChangePaginador}
-            >
-              {pagina.paginas}
-            </button>
-          </li>
-        ))}
-      </div>
+      <Paginador
+        paginas={paginador}
+        cambiarNumero={setNumBoton}
+        num_boton={num_boton}
+      ></Paginador>
     </>
   );
 }

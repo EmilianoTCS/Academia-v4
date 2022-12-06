@@ -1,0 +1,18 @@
+#btnCurso{
+    background-color: #2C3E50;
+    margin-left: 180px;   
+    margin-bottom: -60px;
+    margin-right: -170px;
+    position: relative; 
+    border: none;
+    padding: 0.51em !important;
+}
+
+#btnCurso:hover{
+    background-color: #1E2B37;
+}
+
+#datePickerContainer{
+    display: flex;
+    flex-direction: column;
+}

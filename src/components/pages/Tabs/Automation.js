@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import { Redirect } from "wouter";
-import getDataService from "../../services/GetDataService";
 import Hexagon from "react-hexagon";
 import "../../css/MisCursos.css";
+import SendDataService from "../../services/SendDataService";
 export default function Automation() {
-  const userData = localStorage.getItem("loggedUser");
+  const userData = JSON.parse(localStorage.getItem("loggedUser"));
+
   const [data, setData] = useState([""]);
 
   function obtenerDatos() {
     const url = "TASKS/SubCards.php";
-    getDataService(url).then((data) => setData(data));
-    console.log(data);
+    const operationUrl = "usuario";
+    var data = { usuario: userData[0].username };
+    SendDataService(url, operationUrl, data).then((response) =>
+      setData(response)
+    );
   }
 
   useEffect(function () {

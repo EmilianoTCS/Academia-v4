@@ -4,6 +4,7 @@ import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import Select from "react-select";
 import "../../css/NotasColaboradores.css";
+import Paginador from "../../templates/Paginador";
 export default function NotasColaboradores() {
   // ----------------------CONSTANTES----------------------------
 
@@ -13,7 +14,7 @@ export default function NotasColaboradores() {
   const [usuarioSelected, setUsuarioSelected] = useState("");
   const [listCursos, setListCursos] = useState([""]);
   const [listUsuarios, setListUsuarios] = useState([""]);
-  const [num_boton, setNumBoton] = useState("");
+  const [num_boton, setNumBoton] = useState(1);
   const [resetFilters, setResetFilters] = useState(false);
 
   // ----------------------FUNCIONES----------------------------
@@ -114,19 +115,11 @@ export default function NotasColaboradores() {
           ))}
         </tbody>
       </Table>
-      <div id="paginador">
-        {paginador.map((pagina) => (
-          <li key={pagina.paginas}>
-            <button
-              name="paginas"
-              value={pagina.paginas}
-              onClick={({ target }) => setNumBoton(target.value)}
-            >
-              {pagina.paginas}
-            </button>
-          </li>
-        ))}
-      </div>
+      <Paginador
+        paginas={paginador}
+        cambiarNumero={setNumBoton}
+        num_boton={num_boton}
+      ></Paginador>
     </>
   );
 }

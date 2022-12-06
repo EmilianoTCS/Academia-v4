@@ -2,6 +2,7 @@ import getDataService from "./GetDataService";
 import React from "react";
 import { useState } from "react";
 import { Redirect } from "wouter";
+
 export default function Logout() {
   const url = "logout.php?logout";
   const [response, setResponse] = useState([""]);

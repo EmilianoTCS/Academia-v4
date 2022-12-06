@@ -5,10 +5,12 @@ import "../../css/InsertarRamo.css";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
-export default function InsertarRamo(props) {
+const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
   // ----------------------CONSTANTES----------------------------
-  const [isActive, setisActive] = useState(props.isActiveRamo);
+
   const [listCuentas, setListCuentas] = useState([""]);
   const [listPrerequisitos, setListPrerequisitos] = useState([""]);
   const [listRelatores, setListRelatores] = useState([""]);
@@ -17,6 +19,10 @@ export default function InsertarRamo(props) {
   const [nombreRamo, setNombreRamo] = useState("");
   const [hh_academicas, set_hh_academicas] = useState("");
   const [prerequisito, setPrerequisito] = useState("");
+
+  const show = isActiveRamo;
+
+  const handleClose = () => cambiarEstado(false);
 
   // ----------------------FUNCIONES----------------------------
   function CloseForm() {
@@ -56,9 +62,8 @@ export default function InsertarRamo(props) {
       obtenerCuentas();
       obtenerRelatores();
       obtenerPrerequisitos();
-      setisActive(props.isActiveRamo);
     },
-    [props]
+    []
   );
 
   // ----------------------MAPEADOS----------------------------
@@ -78,12 +83,16 @@ export default function InsertarRamo(props) {
   // ----------------------RENDER----------------------------
   return (
     <>
-      <div id="containerFormRamo" className={isActive ? "active" : ""}>
-        <form id="form_insertarData" onSubmit={SendData}>
-          <div id="headerForms">
-            <h3 id="titleForm">Insertar Ramo</h3>
-            <BsX id="btn_close" onClick={CloseForm} />
-          </div>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Insertar Ramo</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <div>
             <label htmlFor="input_fechaInicio">Cuenta: </label>
             <Select
@@ -134,11 +143,20 @@ export default function InsertarRamo(props) {
               onChange={({ value }) => setPrerequisito(value)}
             />
           </div>
-          <div>
-            <input type="submit" id="btn_registrar" value="Registrar" />
-          </div>
-        </form>
-      </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            type="submit"
+            id="btn_registrar"
+            value="Registrar"
+            onClick={SendData}
+          >
+            Registrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
-}
+};
+export default InsertarRamo;

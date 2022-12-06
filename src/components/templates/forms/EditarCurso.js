@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { BsX } from "react-icons/bs";
-import "../../css/InsertarCurso.css";
+import "../../css/InsertarCursoCalendario.css";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
@@ -86,8 +86,11 @@ export default function EditarCurso(props) {
 
   return (
     <>
-      <div id="containerForm" className={isActive ? "active" : ""}>
-        <form id="form_insertarData" onSubmit={SendData}>
+      <div
+        id="containerFormCurso"
+        className={isActive ? "active" : "containerFormCurso"}
+      >
+        <form id="form_insertarCurso" onSubmit={SendData}>
           <div id="headerForms">
             <h3 id="titleForm">Editar Curso</h3>
             <BsX id="btn_close" onClick={CloseForm} />

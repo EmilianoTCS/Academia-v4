@@ -10,6 +10,11 @@ import { BiShowAlt } from "react-icons/bi";
 import "../css/TablasStyles.css";
 import InsertarRelator from "../templates/forms/InsertarRelator";
 import EditarRelator from "../templates/forms/EditarRelator";
+import ConfirmAlert from "../templates/alerts/ConfirmAlert";
+import TopAlerts from "../templates/alerts/TopAlerts";
+import Paginador from "../templates/Paginador";
+import Button from "react-bootstrap/Button";
+import "../css/BtnInsertar.css";
 
 export default function ListadoRelator() {
   const [relator, setRelator] = useState([""]);
@@ -21,10 +26,8 @@ export default function ListadoRelator() {
   const [isActiveInsertRelator, setIsActiveInsertRelator] = useState(false);
   const [IDRelator, setIDRelator] = useState(2);
   const [isActiveEditRelator, setIsActiveEditRelator] = useState(false);
+  const [num_boton, setNumBoton] = useState(1);
 
-  function obtenerDatosRelator() {
-    getDataService(url).then((relatores) => setRelator(relatores));
-  }
   function obtenerDatosPaginador() {
     getDataService(urlPaginador).then((paginador) =>
       setPaginadorRelator(paginador)
@@ -38,28 +41,54 @@ export default function ListadoRelator() {
     setIsActiveEditRelator(!isActiveEditRelator);
     setIDRelator(ID);
   }
-  function handleChangePaginador(e) {
-    const targetActual = e.target.value;
-    var data = { num_boton: targetActual };
+
+  function eliminar(ID) {
+    ConfirmAlert().then((response) => {
+      if (response === true) {
+        var url = "TASKS/coe-updateStateRelator.php";
+        var operationUrl = "updateStateRelator";
+        var data = { ID: ID };
+        SendDataService(url, operationUrl, data).then((response) =>
+          TopAlerts(response)
+        );
+      }
+    });
+  }
+  useEffect(
+    function () {
+      obtenerDatosPaginador();
+      handleChangePaginador();
+    },
+    [num_boton]
+  );
+
+  //PAGINADOR ---------------------
+  function handleChangePaginador() {
+    var data = {
+      num_boton: num_boton,
+    };
     SendDataService(url, operationUrl, data).then((data) => setRelator(data));
   }
-  useEffect(function () {
-    obtenerDatosRelator();
-    obtenerDatosPaginador();
-  }, []);
+  //PAGINADOR ---------------------
 
   return userData ? (
     <>
       <Header></Header>
       <div>
         <h1 id="TitlesPages">Listado de relatores</h1>
-        <button id="formButtons" onClick={insertarRelator}>
+
+        <Button id="btn" onClick={insertarRelator}>
           Insertar Relator
-        </button>
-        <InsertarRelator Props={{ isActiveInsertRelator }}></InsertarRelator>
-        <EditarRelator
+        </Button>
+        <InsertarRelator
+          isActiveRelator={isActiveInsertRelator}
+          cambiarEstado={setIsActiveInsertRelator}
+        ></InsertarRelator>
+
+        {/* <EditarRelator
           Props={{ isActiveEditRelator, IDRelator }}
-        ></EditarRelator>
+        ></EditarRelator> */}
+
         <Table id="mainTable" hover responsive>
           <thead>
             <tr>
@@ -94,7 +123,7 @@ export default function ListadoRelator() {
                   </button>
                   <button
                     title="Eliminar curso"
-                    onClick={() => this.alertDelete(relator.ID)}
+                    onClick={() => eliminar(relator.ID)}
                     id="OperationBtns"
                   >
                     <BsTrash />
@@ -104,19 +133,11 @@ export default function ListadoRelator() {
             ))}
           </tbody>
         </Table>
-        <div id="paginador">
-          {paginador.map((pagina) => (
-            <li key={pagina.paginas}>
-              <button
-                name="paginas"
-                value={pagina.paginas}
-                onClick={handleChangePaginador}
-              >
-                {pagina.paginas}
-              </button>
-            </li>
-          ))}
-        </div>
+        <Paginador
+          paginas={paginador}
+          cambiarNumero={setNumBoton}
+          num_boton={num_boton}
+        ></Paginador>
       </div>
     </>
   ) : (

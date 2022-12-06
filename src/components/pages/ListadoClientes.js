@@ -5,11 +5,17 @@ import { Redirect } from "wouter";
 import getDataService from "../services/GetDataService";
 import SendDataService from "../services/SendDataService";
 import Header from "../templates/Header";
-import { BsPencilSquare, BsX, BsTrash } from "react-icons/bs";
+import { BsPencilSquare, BsTrash } from "react-icons/bs";
 import { BiShowAlt } from "react-icons/bi";
 import "../css/TablasStyles.css";
 import InsertarClientes from "../templates/forms/InsertarClientes";
 import EditarClientes from "../templates/forms/EditarCliente";
+import ConfirmAlert from "../templates/alerts/ConfirmAlert";
+import TopAlerts from "../templates/alerts/TopAlerts";
+import Paginador from "../templates/Paginador";
+import Button from "react-bootstrap/Button";
+import "../css/BtnInsertar.css";
+
 
 export default function ListadoClientes() {
   const [cliente, setCliente] = useState([""]);
@@ -21,6 +27,7 @@ export default function ListadoClientes() {
   const [isActiveInsertCliente, setIsActiveInsertCliente] = useState(false);
   const [isActiveEditCliente, setIsActiveEditCliente] = useState(false);
   const [IDCliente, setIDCliente] = useState(1);
+  const [num_boton, setNumBoton] = useState(1);
 
   function insertarCliente() {
     setIsActiveInsertCliente(!isActiveInsertCliente);
@@ -29,37 +36,62 @@ export default function ListadoClientes() {
     setIsActiveEditCliente(!isActiveEditCliente);
     setIDCliente(ID);
   }
-
-  function obtenerDatosClientes() {
-    getDataService(url).then((clientes) => setCliente(clientes));
+  function eliminar(ID) {
+    ConfirmAlert().then((response) => {
+      if (response === true) {
+        var url = "TASKS/coe-updateStateClientes.php";
+        var operationUrl = "updateStateClientes";
+        var data = { ID: ID };
+        SendDataService(url, operationUrl, data).then((response) =>
+          TopAlerts(response)
+        );
+      }
+    });
   }
+
   function obtenerDatosPaginador() {
     getDataService(urlPaginador).then((paginador) =>
       setPaginadorRelator(paginador)
     );
   }
-  function handleChangePaginador(e) {
-    const targetActual = e.target.value;
-    var data = { num_boton: targetActual };
+
+  useEffect(
+    function () {
+      obtenerDatosPaginador();
+      handleChangePaginador();
+    },
+    [num_boton]
+  );
+
+  //PAGINADOR ---------------------
+
+  function handleChangePaginador() {
+    var data = {
+      num_boton: num_boton,
+    };
     SendDataService(url, operationUrl, data).then((data) => setCliente(data));
   }
-  useEffect(function () {
-    obtenerDatosClientes();
-    obtenerDatosPaginador();
-  }, []);
+
+  //PAGINADOR ---------------------
 
   return userData ? (
     <>
       <Header></Header>
       <div>
         <h1 id="TitlesPages">Listado de clientes</h1>
-        <button id="formButtons" onClick={insertarCliente}>
+
+        <Button id="btn" onClick={insertarCliente}>
           Insertar Cliente
-        </button>
-        <InsertarClientes Props={{ isActiveInsertCliente }}></InsertarClientes>
-        <EditarClientes
+        </Button>
+
+        <InsertarClientes
+          isActiveCliente={isActiveInsertCliente}
+          cambiarEstado={setIsActiveInsertCliente}
+        ></InsertarClientes>
+
+        {/* <EditarClientes
           Props={{ isActiveEditCliente, IDCliente }}
-        ></EditarClientes>
+        ></EditarClientes> */}
         <Table id="mainTable" hover responsive>
           <thead>
             <tr>
@@ -95,7 +127,7 @@ export default function ListadoClientes() {
                   </button>
                   <button
                     title="Eliminar curso"
-                    onClick={() => this.alertDelete(cliente.ID)}
+                    onClick={() => eliminar(cliente.ID)}
                     id="OperationBtns"
                   >
                     <BsTrash />
@@ -105,19 +137,11 @@ export default function ListadoClientes() {
             ))}
           </tbody>
         </Table>
-        <div id="paginador">
-          {paginador.map((pagina) => (
-            <li key={pagina.paginas}>
-              <button
-                name="paginas"
-                value={pagina.paginas}
-                onClick={handleChangePaginador}
-              >
-                {pagina.paginas}
-              </button>
-            </li>
-          ))}
-        </div>
+        <Paginador
+          paginas={paginador}
+          cambiarNumero={setNumBoton}
+          num_boton={num_boton}
+        ></Paginador>
       </div>
     </>
   ) : (

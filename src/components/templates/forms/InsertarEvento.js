@@ -1,65 +1,58 @@
 import React, { useState, useEffect } from "react";
-import Select from "react-select";
-import getDataService from "../../services/GetDataService";
+import { BsX } from "react-icons/bs";
+import "../../css/InsertarEvento.css";
 import SendDataService from "../../services/SendDataService";
+import TopAlerts from "../alerts/TopAlerts";
 import DatePicker from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import DateObject from "react-date-object";
 import Form from "react-bootstrap/Form";
+
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
+const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
   // ----------------------CONSTANTES----------------------------
-  const [listCuentas, setListCuentas] = useState([""]);
-  const [listRamos, setListRamos] = useState([""]);
-  const [codigoCuenta, setCodigoCuenta] = useState("");
-  const [codigoRamo, setCodigoRamo] = useState("");
+  const [titulo, setTitulo] = useState("");
+  const [descripcion, setDescripcion] = useState("");
   const [duracion, setDuracion] = useState("");
 
   const [valoresFechas, setValoresFechas] = useState([new DateObject()]);
   const fechasFormateadas = [];
   const fechasOrdenadas = [];
 
-  const show = isActiveCurso;
+  const show = isActiveEvento;
 
   const handleClose = () => cambiarEstado(false);
 
-  // ----------------------FUNCIONES----------------------------
 
-  function obtenerCuentas() {
-    const url = "TASKS/auxiliar/ListadoCuentas.php?listadoCuentas";
-    getDataService(url).then((cuentas) => setListCuentas(cuentas));
+  // ----------------------FUNCIONES----------------------------
+  function CloseForm() {
+    setisActive(false);
   }
-  function obtenerRamos() {
-    const url = "TASKS/auxiliar/ListadoNombreRamos.php?listadoRamos";
-    getDataService(url).then((ramos) => setListRamos(ramos));
-  }
-  function SendData(e) {
-    e.preventDefault();
-    const url = "TASKS/coe-insertarCurso.php";
-    const operationUrl = "insertarCurso";
-    var data = {
-      duracion: duracion,
-      fechasOrdenadas,
-      codigoCuenta: codigoCuenta,
-      codigoRamo: codigoRamo,
-    };
-    SendDataService(url, operationUrl, data).then((response) =>
-      console.log(response)
-    );
-  }
-  useEffect(function () {
-    obtenerCuentas();
-    obtenerRamos();
-  }, []);
 
   function handleChangeFechas(values) {
     setValoresFechas(values);
   }
   function handleChange(values) {
     setDuracion(values);
+  }
+
+  function SendData(e) {
+    e.preventDefault();
+    const url = "TASKS/coe-insertarEvento.php";
+    const operationUrl = "insertarEvento";
+    var data = {
+      fechasOrdenadas,
+      titulo: titulo,
+      descripcion: descripcion,
+      duracion: duracion,
+    };
+    console.log(data);
+    SendDataService(url, operationUrl, data).then((response) =>
+      TopAlerts(response)
+    );
   }
 
   // ----------------------COMPONENTES----------------------------
@@ -81,22 +74,6 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
     );
   }
   // ----------------------MAPEADOS----------------------------
-  function mapeadoFechas() {
-    valoresFechas.map((item, index) =>
-      fechasFormateadas.push(valoresFechas[index].format())
-    );
-    fechasOrdenadas.push(fechasFormateadas.sort());
-  }
-
-  const optionsRamos = listRamos.map((label) => ({
-    label: label.nombreRamo,
-    value: label.codigoRamo,
-  }));
-  const optionsCuentas = listCuentas.map((label) => ({
-    label: label.codigoCuenta,
-    value: label.ID,
-  }));
-  // ----------------------RENDER----------------------------
   const mapDays = ({ date }) => {
     let isWeekend = [0, 6].includes(date.weekDay.index);
     if (isWeekend)
@@ -106,6 +83,14 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
       };
   };
 
+  function mapeadoFechas() {
+    valoresFechas.map((item, index) =>
+      fechasFormateadas.push(valoresFechas[index].format())
+    );
+    fechasOrdenadas.push(fechasFormateadas.sort());
+  }
+
+  // ----------------------RENDER----------------------------
   return (
     <>
       <Modal
@@ -115,25 +100,25 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Insertar Curso</Modal.Title>
+          <Modal.Title>Insertar Evento</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div>
-            <label htmlFor="input_fechaInicio">Cuenta: </label>
-            <Select
-              placeholder="Elige una cuenta"
-              name="cuenta"
-              options={optionsCuentas}
-              onChange={({ value }) => setCodigoCuenta(value)}
+            <label htmlFor="input_fechaInicio">Titulo: </label>
+            <input
+              placeholder="Elige un titulo"
+              name="titulo"
+              className="form-control"
+              onChange={({ target }) => setTitulo(target.value)}
             />
           </div>
           <div>
-            <label htmlFor="input_fechaInicio">Ramo: </label>
-            <Select
-              placeholder="Elige un ramo"
-              name="codigoRamo"
-              options={optionsRamos}
-              onChange={({ value }) => setCodigoRamo(value)}
+            <label htmlFor="input_fechaInicio">Descripción: </label>
+            <input
+              placeholder="Escriba una descripción"
+              name="descripcion"
+              className="form-control"
+              onChange={({ target }) => setDescripcion(target.value)}
             />
           </div>
           <div>
@@ -180,5 +165,5 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
       </Modal>
     </>
   );
-};
-export default InsertarCurso;
+}
+export default InsertarEvento;

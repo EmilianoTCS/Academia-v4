@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { BsX } from "react-icons/bs";
-
 import SendDataService from "../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
-export default function InsertarRelator(props) {
-  const [isActive, setisActive] = useState(props.Props.isActiveInsertRelator);
+const InsertarRelator = ({ isActiveRelator, cambiarEstado }) => {
   const [relator, setRelator] = useState("");
   const [area, setArea] = useState("");
+
+  const show = isActiveRelator;
+
+  const handleClose = () => cambiarEstado(false);
 
   function SendData(e) {
     e.preventDefault();
@@ -21,25 +25,19 @@ export default function InsertarRelator(props) {
       TopAlerts(response)
     );
   }
-  function CloseForm() {
-    setisActive(!isActive);
-  }
-
-  useEffect(
-    function () {
-      setisActive(props.Props.isActiveInsertRelator);
-    },
-    [props]
-  );
 
   return (
     <>
-      <div id="containerForm" className={isActive ? "active" : ""}>
-        <form id="form_insertarData" onSubmit={SendData}>
-          <div id="headerForms">
-            <h3 id="titleForm">Insertar Relator</h3>
-            <BsX id="btn_close" onClick={CloseForm} />
-          </div>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Insertar Ramo</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <div>
             <label htmlFor="input_Relator">Relator:</label>
             <input
@@ -60,11 +58,20 @@ export default function InsertarRelator(props) {
               onChange={({ target }) => setArea(target.value)}
             />
           </div>
-          <div>
-            <input type="submit" id="btn_registrar" value="Registrar" />
-          </div>
-        </form>
-      </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            type="submit"
+            id="btn_registrar"
+            value="Registrar"
+            onClick={SendData}
+          >
+            Registrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
-}
+};
+export default InsertarRelator;

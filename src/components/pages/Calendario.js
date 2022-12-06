@@ -6,33 +6,38 @@ import interactionPlugin from "@fullcalendar/interaction";
 import { useEffect, useState } from "react";
 import esLocale from "@fullcalendar/core/locales/es";
 import getDataService from "../services/GetDataService";
-import InsertarCurso from "../templates/forms/InsertarCurso";
-import EditarCurso from "../templates/forms/EditarCurso";
 import { Tooltip } from "bootstrap";
+import getDataExternService from "../services/GetDataExternService";
+import "../css/Calendario.css";
+import InsertarCurso from "../templates/forms/InsertarCurso";
+import InsertarEvento from "../templates/forms/InsertarEvento";
+import Button from "react-bootstrap/Button";
+import "../css/InsertarCursoCalendario.css";
+
 export default function Calendario() {
   const userData = localStorage.getItem("loggedUser");
   const [CursosApi, setCursosApi] = useState([""]);
   const [EventosApi, setEventosApi] = useState([""]);
   const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
   const [isActiveInsertEvento, setIsActiveInsertEvento] = useState(false);
-  const [IDCurso, setIDCurso] = useState(2);
-  const [isActiveEditCurso, setIsActiveEditCurso] = useState(false);
   const [randomColorCourses, setRandomColorCourses] = useState("");
   const [randomColorEvents, setRandomColorEvents] = useState("");
+  const [FeriadosApi, setFeriadosApi] = useState([""]);
 
   // --------------------FUNCIONES---------------------
   function getDataCursos() {
     const url = "TASKS/auxiliar/CalendarioCursos.php?Cursos";
-    getDataService(url).then(
-      (response) => setCursosApi(response),
-      console.log(CursosApi)
-    );
+    getDataService(url).then((response) => setCursosApi(response));
   }
   function getDataEventos() {
     const url = "TASKS/auxiliar/CalendarioEventos.php?Eventos";
-    getDataService(url).then(
-      (response) => setEventosApi(response),
-      console.log(EventosApi)
+    getDataService(url).then((response) => setEventosApi(response));
+  }
+  function getDataFeriados() {
+    const urlFeriados = "https://api.victorsanmartin.com/feriados/en.json";
+    getDataExternService(urlFeriados).then(
+      (response) => setFeriadosApi(response.data),
+      console.log(FeriadosApi)
     );
   }
 
@@ -44,40 +49,48 @@ export default function Calendario() {
   useEffect(function () {
     getDataCursos();
     getDataEventos();
+    getDataFeriados();
     randomNum();
   }, []);
 
   function insertarCurso() {
     setIsActiveInsertCurso(!isActiveInsertCurso);
+    setIsActiveInsertEvento(false);
   }
+
   function insertarEvento() {
     setIsActiveInsertEvento(!isActiveInsertEvento);
+    setIsActiveInsertCurso(false);
   }
-  function editarCurso(info) {
-    setIsActiveEditCurso(true);
-    setIDCurso(info.event._def.extendedProps.sourceId);
-  }
-  // --------------------COSNTANTES MAP---------------------
-  const test = (info) => {
-    console.log(info.event._def.extendedProps.sourceId);
-    console.log(info);
-  };
+
+  // --------------------CONSTANTES MAP---------------------
 
   const Cursos = CursosApi.map((label) => ({
     title: label.codigoRamo,
-    start: label.inicio + "T" + label.hora_inicio,
-    end: label.fin + "T" + label.hora_fin,
-    description: label.codigoCurso,
+    start: label.fecha_hora,
+    end: label.fechaInicio + "T" + label.hora_fin,
+    description:
+      "Curso de " + label.nombreRamo + ", Duración: " + label.duracion,
     sourceId: label.ID,
     color: `#${randomColorCourses}`,
+    display: "block",
   }));
   const Eventos = EventosApi.map((label) => ({
     title: label.titulo,
-    start: label.fechaInicio + "T" + label.hora_inicio,
-    end: label.fechaFin + "T" + label.hora_fin,
+    start: label.fecha_hora,
+    end: label.fecha_hora,
     sourceId: label.ID,
-    description: label.descripcion,
+    description: label.descripcion + ", Duración: " + label.duracion,
     color: `#${randomColorEvents}`,
+  }));
+  const Feriados = FeriadosApi.map((label) => ({
+    title: label.title,
+    start: label.date,
+    end: label.date,
+    description: label.extra,
+    selectable: false,
+    classNames: "Feriados",
+    display: "background",
   }));
   // --------------------ACTIONS  ---------------------
 
@@ -107,10 +120,21 @@ export default function Calendario() {
   return userData ? (
     <>
       <Header></Header>
+      <Button id="btnCurso" onClick={insertarCurso}>
+        Insertar Curso
+      </Button>
+      <Button id="btnCurso" onClick={insertarEvento}>
+        Insertar Evento
+      </Button>
 
-      <InsertarCurso isActive={isActiveInsertCurso}></InsertarCurso>
-      <EditarCurso Props={{ IDCurso, isActiveEditCurso }}></EditarCurso>
-
+      <InsertarCurso
+        isActiveCurso={isActiveInsertCurso}
+        cambiarEstado={setIsActiveInsertCurso}
+      ></InsertarCurso>
+      <InsertarEvento
+        isActiveEvento={isActiveInsertEvento}
+        cambiarEstado={setIsActiveInsertEvento}
+      ></InsertarEvento>
       <div>
         <FullCalendar
           locales={esLocale}
@@ -119,26 +143,16 @@ export default function Calendario() {
           headerToolbar={{
             right: "prev,next today",
             center: "title",
-            left: "dayGridMonth,dayGridWeek,dayGridDay añadirCurso añadirEvento",
+            left: "dayGridMonth,dayGridWeek,dayGridDay",
           }}
           weekends={false}
           aspectRatio={2}
           droppable={true}
           dragScroll={true}
           locale="es"
-          eventSources={[Cursos, Eventos]}
+          eventSources={[Cursos, Eventos, Feriados]}
           themeSystem="bootstrap5"
           dateClick={insertarCurso}
-          customButtons={{
-            añadirCurso: {
-              text: "Añadir Curso",
-              click: insertarCurso,
-            },
-            añadirEvento: {
-              text: "Añadir Evento",
-              click: randomNum,
-            },
-          }}
           eventMouseEnter={handleMouseEnter}
           eventMouseLeave={handleMouseLeave}
         />

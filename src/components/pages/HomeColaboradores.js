@@ -2,16 +2,21 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Card, CardGroup } from "react-bootstrap";
 import { Redirect } from "wouter";
-import getDataService from "../services/GetDataService";
 import Header from "../templates/Header";
 import Hexagon from "react-hexagon";
 import "../css/HomeColaboradores.css";
+import SendDataService from "../services/SendDataService";
+
 export default function HomeColaboradores() {
-  const userData = localStorage.getItem("loggedUser");
+  const userData = JSON.parse(localStorage.getItem("loggedUser"));
   const [datos, setDatos] = useState([""]);
   function obtenerDatos() {
     const url = "TASKS/auxiliar/HomeColaboradores.php";
-    getDataService(url).then((data) => setDatos(data));
+    const operationUrl = "usuario";
+    var data = { usuario: userData[0].username };
+    SendDataService(url, operationUrl, data).then((response) =>
+      setDatos(response)
+    );
   }
 
   useEffect(function () {

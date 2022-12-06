@@ -5,12 +5,17 @@ import { Redirect } from "wouter";
 import getDataService from "../services/GetDataService";
 import SendDataService from "../services/SendDataService";
 import Header from "../templates/Header";
-import { BsPencilSquare, BsX, BsTrash } from "react-icons/bs";
+import { BsPencilSquare, BsTrash } from "react-icons/bs";
 import { BiShowAlt } from "react-icons/bi";
 import "../css/TablasStyles.css";
 import InsertarCurso from "../templates/forms/InsertarCurso";
 import InsertarRamo from "../templates/forms/InsertarRamo";
 import EditarRamo from "../templates/forms/EditarRamo";
+import ConfirmAlert from "../templates/alerts/ConfirmAlert";
+import TopAlerts from "../templates/alerts/TopAlerts";
+import "../css/InsertarCursoListadoCursosYRamos.css";
+import Button from "react-bootstrap/Button";
+import Paginador from "../templates/Paginador";
 
 export default function ListadoRamos() {
   const [ramos, setRamos] = useState([""]);
@@ -23,26 +28,20 @@ export default function ListadoRamos() {
   const [isActiveInsertRamo, setIsActiveInsertRamo] = useState(false);
   const [IDRamo, setIDRamo] = useState(2);
   const [isActiveEditRamo, setIsActiveEditRamo] = useState(false);
-  function obtenerDatosRamos() {
-    getDataService(url).then((ramos) => setRamos(ramos));
-  }
-  function obtenerDatosPaginador() {
-    getDataService(urlPaginador).then((paginador) =>
-      setPaginadorRamos(paginador)
-    );
-  }
-  function handleChangePaginador(e) {
-    const targetActual = e.target.value;
-    var data = { num_boton: targetActual };
-    SendDataService(url, operationUrl, data).then((data) => setRamos(data));
-  }
-  useEffect(function () {
-    obtenerDatosRamos();
-    obtenerDatosPaginador();
-  }, []);
+
+  const [num_boton, setNumBoton] = useState(1);
+
+  useEffect(
+    function () {
+      obtenerDatosPaginador();
+      handleChangePaginador();
+    },
+    [num_boton]
+  );
 
   function insertarCurso() {
     setIsActiveInsertCurso(!isActiveInsertCurso);
+    setIsActiveInsertRamo(false);
   }
   function editarRamo(ID) {
     setIsActiveEditRamo(!isActiveEditRamo);
@@ -50,23 +49,58 @@ export default function ListadoRamos() {
   }
   function insertarRamo() {
     setIsActiveInsertRamo(!isActiveInsertRamo);
+    setIsActiveInsertCurso(false);
   }
+  function eliminar(ID) {
+    ConfirmAlert().then((response) => {
+      if (response === true) {
+        var url = "TASKS/coe-updateStateRamos.php";
+        var operationUrl = "updateStateRamos";
+        var data = { ID: ID };
+        SendDataService(url, operationUrl, data).then((response) =>
+          TopAlerts(response)
+        );
+      }
+    });
+  }
+
+  //PAGINADOR ---------------------
+
+  function obtenerDatosPaginador() {
+    getDataService(urlPaginador).then((paginador) =>
+      setPaginadorRamos(paginador)
+    );
+  }
+  function handleChangePaginador() {
+    var data = {
+      num_boton: num_boton,
+    };
+    SendDataService(url, operationUrl, data).then((data) => setRamos(data));
+  }
+
+  //PAGINADOR ---------------------
 
   return userData ? (
     <>
       <Header></Header>
       <div>
         <h1 id="TitlesPages">Listado de ramos</h1>
-
-        <button id="formButtons" onClick={insertarCurso}>
+        <Button id="btnCursoListado" onClick={insertarCurso}>
           Insertar Curso
-        </button>
-        <button id="formButtons" onClick={insertarRamo}>
-          Insertar Ramo
-        </button>
-        <InsertarCurso isActive={isActiveInsertCurso}></InsertarCurso>
-        <InsertarRamo isActiveRamo={isActiveInsertRamo}></InsertarRamo>
-        <EditarRamo Props={{ IDRamo, isActiveEditRamo }}></EditarRamo>
+        </Button>
+        <Button id="btnCursoListado" onClick={insertarRamo}>
+          Insertar Ramos
+        </Button>
+
+        <InsertarCurso
+          isActiveCurso={isActiveInsertCurso}
+          cambiarEstado={setIsActiveInsertCurso}
+        ></InsertarCurso>
+        <InsertarRamo
+          isActiveRamo={isActiveInsertRamo}
+          cambiarEstado={setIsActiveInsertRamo}
+        ></InsertarRamo>
+        {/* <EditarRamo Props={{ IDRamo, isActiveEditRamo }}></EditarRamo> */}
         <Table id="mainTable" hover responsive>
           <thead>
             <tr>
@@ -99,7 +133,11 @@ export default function ListadoRamos() {
                   <button title="Examinar curso" id="OperationBtns">
                     <BiShowAlt />
                   </button>
-                  <button title="Eliminar curso" id="OperationBtns">
+                  <button
+                    title="Eliminar curso"
+                    id="OperationBtns"
+                    onClick={() => eliminar(ramo.ID)}
+                  >
                     <BsTrash />
                   </button>
                 </td>
@@ -107,19 +145,11 @@ export default function ListadoRamos() {
             ))}
           </tbody>
         </Table>
-        <div id="paginador">
-          {paginador.map((pagina) => (
-            <li key={pagina.paginas}>
-              <button
-                name="paginas"
-                value={pagina.paginas}
-                onClick={handleChangePaginador}
-              >
-                {pagina.paginas}
-              </button>
-            </li>
-          ))}
-        </div>
+        <Paginador
+          paginas={paginador}
+          cambiarNumero={setNumBoton}
+          num_boton={num_boton}
+        ></Paginador>
       </div>
     </>
   ) : (
