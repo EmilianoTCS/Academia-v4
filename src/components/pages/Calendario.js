@@ -68,7 +68,7 @@ export default function Calendario() {
   const Cursos = CursosApi.map((label) => ({
     title: label.codigoRamo,
     start: label.fecha_hora,
-    end: label.fechaInicio + "T" + label.hora_fin,
+    end: label.fecha_hora,
     description:
       "Curso de " + label.nombreRamo + ", Duración: " + label.duracion,
     sourceId: label.ID,
