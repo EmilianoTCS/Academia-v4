@@ -136,9 +136,11 @@ export default function ListadoCursos() {
                   >
                     <BsPencilSquare />
                   </button>
-                  <button title="Examinar curso" id="OperationBtns">
-                    <BiShowAlt />
-                  </button>
+                  <Link to={`/Examinar/${curso.codigoCurso}`}>
+                    <button title="Examinar curso" id="OperationBtns">
+                      <BiShowAlt />
+                    </button>
+                  </Link>
                   <button
                     title="Eliminar curso"
                     onClick={() => eliminar(curso.ID)}

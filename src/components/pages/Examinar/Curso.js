@@ -1,55 +1,59 @@
+import React, { useState, useEffect } from "react";
 import { useRoute } from "wouter";
 import Header from "../../templates/Header";
+import { Table } from "react-bootstrap";
+import SendDataService from "../../services/SendDataService";
+import { BsPencilSquare, BsTrash } from "react-icons/bs";
 
 export default function Curso(){
 
-    const [match, params] = useRoute("/test/:params");
+    const [match, params] = useRoute("/Examinar/:params");
     const userData = localStorage.getItem("loggedUser");
+    const [CursoSeleccionado, setCursoSeleccionado] = useState([])
 
-    console.log(params.params);
+    function obtenerDatos(){
+        var url = "TASKS/coe-list_infoidCurso.php";
+        var operationUrl = "codigoCurso";
+        var data = {codigoCurso: params.params}
+        SendDataService(url, operationUrl, data).then((response) => setCursoSeleccionado(response))
+    }
+
+    useEffect(function(){
+        obtenerDatos();
+        console.log(params.params);
+        console.log(CursoSeleccionado);
+    },[])
+
+
+
 
     return userData ? (
         <>
           <Header></Header>
           <div>
             <div id="containerTablas">
-              <h1 id="TitlesPages">Listado de cursos</h1>
-              <Button id="btnCursoListado" onClick={insertarCurso}>
-                Insertar Curso
-              </Button>
-              <Button id="btnCursoListado" onClick={insertarRamo}>
-                Insertar Ramos
-              </Button>
-              <InsertarCurso
-                isActiveCurso={isActiveInsertCurso}
-                cambiarEstado={setIsActiveInsertCurso}
-              ></InsertarCurso>
-              <InsertarRamo
-                isActiveRamo={isActiveInsertRamo}
-                cambiarEstado={setIsActiveInsertRamo}
-              ></InsertarRamo>
-              {/* <EditarCurso Props={{ IDCurso, isActiveEditCurso }}></EditarCurso> */}
+              <h1 id="TitlesPages">Información por curso</h1>
             </div>
             <Table id="mainTable" hover responsive>
               <thead>
                 <tr>
                   <th>Código del curso</th>
-                  <th>Código de la Cuenta</th>
-                  <th>Nombre del curso</th>
-                  <th>Inicio</th>
-                  <th>Fin</th>
+                  <th>Fecha y hora</th>
+                  <th>Código del ramo</th>
+                  <th>Hora Inicio</th>
+                  <th>Hora Fin</th>
                   <th>Estado</th>
                   <th>Operaciones</th>
                 </tr>
               </thead>
               <tbody>
-                {cursos.map((curso) => (
+                {CursoSeleccionado.map((curso) => (
                   <tr key={curso.ID}>
                     <td>{curso.codigoCurso}</td>
-                    <td>{curso.codigoCuenta}</td>
-                    <td>{curso.nombreRamo}</td>
-                    <td>{curso.inicio}</td>
-                    <td>{curso.fin}</td>
+                    <td>{curso.fecha_hora}</td>
+                    <td>{curso.codigoRamo}</td>
+                    <td>{curso.hora_inicio}</td>
+                    <td>{curso.hora_fin}</td>
                     <td>{curso.estado}</td>
                     <td>
                       <button
@@ -59,9 +63,6 @@ export default function Curso(){
                       >
                         <BsPencilSquare />
                       </button>
-                      <Link to={`/test/${curso.codigoCurso}`} ><button title="Examinar curso" id="OperationBtns">
-                        <BiShowAlt />
-                      </button></Link>
                       <button
                         title="Eliminar curso"
                         onClick={() => eliminar(curso.ID)}
@@ -74,11 +75,6 @@ export default function Curso(){
                 ))}
               </tbody>
             </Table>
-            <Paginador
-              paginas={paginador}
-              cambiarNumero={setNumBoton}
-              num_boton={num_boton}
-            ></Paginador>
           </div>
         </>
       ) : (

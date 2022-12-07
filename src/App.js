@@ -34,7 +34,7 @@ function App() {
       <Route component={InscribirseCurso} path="/InscripcionCurso"></Route>
       <Route component={ListadoAsistencias} path="/ListadoAsistencias"></Route>
       <Route component={Example} path="/Example"></Route>
-      <Route component={Curso} path="/test/:params"></Route>
+      <Route component={Curso} path="/Examinar/:params"></Route>
 
       <Route
         component={ListadoColaboradores}
