@@ -3,10 +3,11 @@ import { BsX } from "react-icons/bs";
 import "../../css/InsertarRamo.css";
 import SendDataService from "../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
-export default function EditarClientes(props) {
+const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
   // ----------------------CONSTANTES----------------------------
-  const [isActive, setisActive] = useState(props.Props.isActiveEditCliente);
   const [tipo_cliente, setTipoClientes] = useState("");
   const [nombreCliente, setNombreCliente] = useState("");
   const [referente, setReferente] = useState("");
@@ -15,15 +16,16 @@ export default function EditarClientes(props) {
   const [telefonoReferente, setTelefonoReferente] = useState("");
   const [responseID, setResponseID] = useState([""]);
 
+  const show = isActiveEditCliente;
+
+  const handleClose = () => cambiarEstado(false);
+
   // ----------------------FUNCIONES----------------------------
-  function CloseForm() {
-    setisActive(false);
-  }
 
   function getData() {
     const url = "TASKS/coe-selectClientes.php";
     const operationUrl = "ID";
-    const data = { ID: props.Props.IDCliente };
+    const data = { ID: IDCliente };
     SendDataService(url, operationUrl, data).then(
       (response) => setResponseID(response),
       setTipoClientes(responseID[0].tipo_cliente),
@@ -38,9 +40,10 @@ export default function EditarClientes(props) {
   function SendData(e) {
     e.preventDefault();
     const url = "TASKS/coe-editClientes.php";
+
     const operationUrl = "editarCliente";
     var data = {
-      ID: props.Props.IDCliente,
+      ID: IDCliente,
       tipo_cliente: tipo_cliente,
       nombreCliente: nombreCliente,
       referente: referente,
@@ -53,24 +56,27 @@ export default function EditarClientes(props) {
       TopAlerts(response)
     );
   }
+
   useEffect(
     function () {
-      setisActive(props.Props.isActiveEditCliente);
       getData();
     },
-    [props]
+    [IDCliente]
   );
 
   // ----------------------RENDER----------------------------
   return (
     <>
-      <div id="containerFormCurso" className={isActive ? "active" : ""}>
-        <form id="form_insertarDataCurso" onSubmit={SendData}>
-          <div id="headerForms">
-            <h3 id="titleForm">Actualiazr Cliente</h3>
-            <BsX id="btn_close" onClick={CloseForm} />
-          </div>
-
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Actualizar Cliente</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <div className="form-group">
             <label htmlFor="input_tipoCliente">Tipo de cliente: </label>
             <select
@@ -143,11 +149,21 @@ export default function EditarClientes(props) {
               onChange={({ target }) => setTelefonoReferente(target.value)}
             />
           </div>
-          <div>
-            <input type="submit" id="btn_registrar" value="Actualizar" />
-          </div>
-        </form>
-      </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            type="submit"
+            id="btn_registrar"
+            value="Registrar"
+            onClick={SendData}
+          >
+            Registrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
-}
+};
+
+export default EditarClientes;
