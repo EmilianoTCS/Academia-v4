@@ -131,7 +131,7 @@ export default function ListadoCursos() {
                   >
                     <BsPencilSquare />
                   </button>
-                  <Link to={`/test/${curso.codigoCurso}`} ><button title="Examinar curso" id="OperationBtns">
+                  <Link to={`/Examinar/${curso.codigoCurso}`} ><button title="Examinar curso" id="OperationBtns">
                     <BiShowAlt />
                   </button></Link>
                   <button
