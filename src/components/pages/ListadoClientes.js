@@ -16,7 +16,6 @@ import Paginador from "../templates/Paginador";
 import Button from "react-bootstrap/Button";
 import "../css/BtnInsertar.css";
 
-
 export default function ListadoClientes() {
   const [cliente, setCliente] = useState([""]);
   const [paginador, setPaginadorRelator] = useState([""]);
@@ -100,6 +99,7 @@ export default function ListadoClientes() {
               <th>Cuenta</th>
               <th>Código Ramo</th>
               <th>Nombre del ramo</th>
+              <th>Teléfono</th>
               <th>Operaciones</th>
             </tr>
           </thead>
