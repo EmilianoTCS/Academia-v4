@@ -5,9 +5,11 @@ import "../../css/InsertarCursoCalendario.css";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
-export default function EditarCurso(props) {
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+
+const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
   // ----------------------CONSTANTES----------------------------
-  const [isActive, setisActive] = useState(props.Props.isActiveEditCurso);
   const [responseID, setResponseID] = useState([""]);
   const [listCuentas, setListCuentas] = useState([""]);
   const [listRamos, setListRamos] = useState([""]);
@@ -18,17 +20,18 @@ export default function EditarCurso(props) {
   const [horaInicio, setHoraInicio] = useState("");
   const [horaFin, setHoraFin] = useState("");
 
+  const show = isActiveEditCurso;
+
+  const handleClose = () => cambiarEstado(false);
+
   // ----------------------FUNCIONES----------------------------
-  function CloseForm() {
-    setisActive(false);
-  }
+
   function getData() {
     const url = "TASKS/coe-selectCuentas.php";
     const operationUrl = "ID";
-    const data = { ID: props.Props.IDCurso };
+    const data = { ID: IDCurso };
     SendDataService(url, operationUrl, data).then(
       (response) => setResponseID(response),
-      console.log(responseID),
       setFechaInicio(responseID[0].fechaInicioEdit),
       setFechaFin(responseID[0].fechaFinEdit),
       setHoraInicio(responseID[0].horaInicioEdit),
@@ -52,7 +55,7 @@ export default function EditarCurso(props) {
     const url = "TASKS/coe-editCurso.php";
     const operationUrl = "editarCurso";
     var data = {
-      ID: props.Props.IDCurso,
+      ID: IDCurso,
       codigoCuenta: codigoCuenta,
       codigoRamo: codigoRamo,
       fechaInicio: fechaInicio,
@@ -64,13 +67,12 @@ export default function EditarCurso(props) {
       TopAlerts(response)
     );
   }
+
   useEffect(
     function () {
-      getData();
-      setisActive(props.Props.isActiveEditCurso);
-      console.log(props.Props.IDCurso);
+      IDCurso !== "undefined" ? getData() : null;
     },
-    [props.Props.IDCurso]
+    [IDCurso]
   );
 
   // ----------------------MAPEADOS----------------------------
@@ -86,15 +88,16 @@ export default function EditarCurso(props) {
 
   return (
     <>
-      <div
-        id="containerFormCurso"
-        className={isActive ? "active" : "containerFormCurso"}
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
       >
-        <form id="form_insertarCurso" onSubmit={SendData}>
-          <div id="headerForms">
-            <h3 id="titleForm">Editar Curso</h3>
-            <BsX id="btn_close" onClick={CloseForm} />
-          </div>
+        <Modal.Header closeButton>
+          <Modal.Title>Editar Curso</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <div>
             <label htmlFor="input_fechaInicio">Cuenta: </label>
             <Select
@@ -160,11 +163,21 @@ export default function EditarCurso(props) {
               value={horaFin}
             />
           </div>
-          <div>
-            <input type="submit" id="btn_registrar" value="Actualizar" />
-          </div>
-        </form>
-      </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            type="submit"
+            id="btn_registrar"
+            value="Registrar"
+            onClick={SendData}
+          >
+            Registrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
-}
+};
+
+export default EditarCurso;

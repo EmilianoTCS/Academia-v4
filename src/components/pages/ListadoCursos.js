@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import { Redirect, Link } from "wouter";
+import { Redirect } from "wouter";
 import getDataService from "../services/GetDataService";
 import SendDataService from "../services/SendDataService";
 import Header from "../templates/Header";
@@ -11,7 +11,7 @@ import "../css/TablasStyles.css";
 import "../css/InsertarCursoListadoCursosYRamos.css";
 import InsertarCurso from "../templates/forms/InsertarCurso";
 import InsertarRamo from "../templates/forms/InsertarRamo";
-// import EditarCurso from "../templates/forms/EditarCurso";
+import EditarCurso from "../templates/forms/EditarCurso";
 import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 import TopAlerts from "../templates/alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
@@ -26,7 +26,7 @@ export default function ListadoCursos() {
   const userData = JSON.parse(localStorage.getItem("loggedUser"));
   const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
   const [isActiveEditCurso, setIsActiveEditCurso] = useState(false);
-  const [IDCurso, setIDCurso] = useState(2);
+  const [IDCurso, setIDCurso] = useState();
   const [isActiveInsertRamo, setIsActiveInsertRamo] = useState(false);
 
   //PAGINADOR ---------------------
@@ -84,7 +84,7 @@ export default function ListadoCursos() {
     <>
       <Header></Header>
       <div>
-        <div id="containerTablas">
+        <div>
           <h1 id="TitlesPages">Listado de cursos</h1>
           <Button id="btnCursoListado" onClick={insertarCurso}>
             Insertar Curso
@@ -100,7 +100,12 @@ export default function ListadoCursos() {
             isActiveRamo={isActiveInsertRamo}
             cambiarEstado={setIsActiveInsertRamo}
           ></InsertarRamo>
-          {/* <EditarCurso Props={{ IDCurso, isActiveEditCurso }}></EditarCurso> */}
+
+          <EditarCurso
+            isActiveEditCurso={isActiveEditCurso}
+            cambiarEstado={setIsActiveEditCurso}
+            IDCurso={IDCurso}
+          ></EditarCurso>
         </div>
         <Table id="mainTable" hover responsive>
           <thead>
@@ -131,9 +136,9 @@ export default function ListadoCursos() {
                   >
                     <BsPencilSquare />
                   </button>
-                  <Link to={`/test/${curso.codigoCurso}`} ><button title="Examinar curso" id="OperationBtns">
+                  <button title="Examinar curso" id="OperationBtns">
                     <BiShowAlt />
-                  </button></Link>
+                  </button>
                   <button
                     title="Eliminar curso"
                     onClick={() => eliminar(curso.ID)}

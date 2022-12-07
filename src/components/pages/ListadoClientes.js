@@ -16,7 +16,6 @@ import Paginador from "../templates/Paginador";
 import Button from "react-bootstrap/Button";
 import "../css/BtnInsertar.css";
 
-
 export default function ListadoClientes() {
   const [cliente, setCliente] = useState([""]);
   const [paginador, setPaginadorRelator] = useState([""]);
@@ -77,8 +76,9 @@ export default function ListadoClientes() {
   return userData ? (
     <>
       <Header></Header>
-      <div id="containerTablas">
+      <div>
         <h1 id="TitlesPages">Listado de clientes</h1>
+
         <Button id="btn" onClick={insertarCliente}>
           Insertar Cliente
         </Button>
@@ -88,9 +88,12 @@ export default function ListadoClientes() {
           cambiarEstado={setIsActiveInsertCliente}
         ></InsertarClientes>
 
-        {/* <EditarClientes
-          Props={{ isActiveEditCliente, IDCliente }}
-        ></EditarClientes> */}
+        <EditarClientes
+          isActiveEditCliente={isActiveEditCliente}
+          cambiarEstado={setIsActiveEditCliente}
+          IDCliente={IDCliente}
+        ></EditarClientes>
+
         <Table id="mainTable" hover responsive>
           <thead>
             <tr>
