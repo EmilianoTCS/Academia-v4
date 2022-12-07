@@ -5,9 +5,11 @@ import "../../css/InsertarCursoCalendario.css";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
-export default function EditarCurso(props) {
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+
+const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
   // ----------------------CONSTANTES----------------------------
-  const [isActive, setisActive] = useState(props.Props.isActiveEditCurso);
   const [responseID, setResponseID] = useState([""]);
   const [listCuentas, setListCuentas] = useState([""]);
   const [listRamos, setListRamos] = useState([""]);
@@ -18,23 +20,18 @@ export default function EditarCurso(props) {
   const [horaInicio, setHoraInicio] = useState("");
   const [horaFin, setHoraFin] = useState("");
 
+  const show = isActiveEditCurso;
+
+  const handleClose = () => cambiarEstado(false);
+
   // ----------------------FUNCIONES----------------------------
-  function CloseForm() {
-    setisActive(false);
-  }
+
   function getData() {
     const url = "TASKS/coe-selectCuentas.php";
     const operationUrl = "ID";
-    const data = { ID: props.Props.IDCurso };
-    SendDataService(url, operationUrl, data).then(
-      (response) => setResponseID(response),
-      console.log(responseID),
-      setFechaInicio(responseID[0].fechaInicioEdit),
-      setFechaFin(responseID[0].fechaFinEdit),
-      setHoraInicio(responseID[0].horaInicioEdit),
-      setHoraFin(responseID[0].horaFinEdit),
-      setCodigoCuenta(responseID[0].codigoCuentaEdit),
-      setCodigoRamo(responseID[0].codigoRamoEdit)
+    const data = { ID: IDCurso };
+    SendDataService(url, operationUrl, data).then((response) =>
+      setResponseID(response)
     );
     obtenerCuentas();
     obtenerRamos();
@@ -52,7 +49,7 @@ export default function EditarCurso(props) {
     const url = "TASKS/coe-editCurso.php";
     const operationUrl = "editarCurso";
     var data = {
-      ID: props.Props.IDCurso,
+      ID: IDCurso,
       codigoCuenta: codigoCuenta,
       codigoRamo: codigoRamo,
       fechaInicio: fechaInicio,
@@ -64,13 +61,12 @@ export default function EditarCurso(props) {
       TopAlerts(response)
     );
   }
+
   useEffect(
     function () {
-      getData();
-      setisActive(props.Props.isActiveEditCurso);
-      console.log(props.Props.IDCurso);
+      IDCurso !== null ? getData() : null;
     },
-    [props.Props.IDCurso]
+    [IDCurso]
   );
 
   // ----------------------MAPEADOS----------------------------
@@ -86,15 +82,16 @@ export default function EditarCurso(props) {
 
   return (
     <>
-      <div
-        id="containerFormCurso"
-        className={isActive ? "active" : "containerFormCurso"}
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
       >
-        <form id="form_insertarCurso" onSubmit={SendData}>
-          <div id="headerForms">
-            <h3 id="titleForm">Editar Curso</h3>
-            <BsX id="btn_close" onClick={CloseForm} />
-          </div>
+        <Modal.Header closeButton>
+          <Modal.Title>Editar Curso</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <div>
             <label htmlFor="input_fechaInicio">Cuenta: </label>
             <Select
@@ -102,7 +99,7 @@ export default function EditarCurso(props) {
               name="cuenta"
               options={optionsCuentas}
               onChange={({ value }) => setCodigoCuenta(value)}
-              defaultInputValue={codigoCuenta}
+              value={responseID[0].codigoCuentaEdit || ""}
             />
           </div>
           <div>
@@ -112,7 +109,7 @@ export default function EditarCurso(props) {
               name="codigoRamo"
               options={optionsRamos}
               onChange={({ value }) => setCodigoRamo(value)}
-              defaultInputValue={codigoRamo}
+              value={responseID[0].codigoRamoEdit || ""}
             />
           </div>
           <div className="md-form md-outline input-with-post-icon datepicker">
@@ -123,7 +120,7 @@ export default function EditarCurso(props) {
               name="input_fechaInicio"
               className="form-control"
               onChange={({ target }) => setFechaInicio(target.value)}
-              value={fechaInicio}
+              value={responseID[0].fechaInicioEdit || ""}
             />
           </div>
           <div className="md-form md-outline input-with-post-icon datepicker">
@@ -134,7 +131,7 @@ export default function EditarCurso(props) {
               name="input_fechaInicio"
               className="form-control"
               onChange={({ target }) => setFechaFin(target.value)}
-              value={fechaFin}
+              value={responseID[0].fechaFinEdit || ""}
             />
           </div>
           <div className="md-form md-outline">
@@ -144,7 +141,7 @@ export default function EditarCurso(props) {
               name="input_horaInicio"
               className="form-control"
               id="input_horaInicio"
-              value={horaInicio}
+              value={responseID[0].horaInicioEdit || ""}
               onChange={({ target }) => setHoraInicio(target.value)}
             />
           </div>
@@ -157,14 +154,24 @@ export default function EditarCurso(props) {
               className="form-control"
               id="input_horaFin"
               onChange={({ target }) => setHoraFin(target.value)}
-              value={horaFin}
+              value={responseID[0].horaFinEdit || ""}
             />
           </div>
-          <div>
-            <input type="submit" id="btn_registrar" value="Actualizar" />
-          </div>
-        </form>
-      </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            type="submit"
+            id="btn_registrar"
+            value="Registrar"
+            onClick={SendData}
+          >
+            Registrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
-}
+};
+
+export default EditarCurso;

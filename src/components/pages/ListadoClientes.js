@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import { Redirect } from "wouter";
+import { Redirect, Link } from "wouter";
 import getDataService from "../services/GetDataService";
 import SendDataService from "../services/SendDataService";
 import Header from "../templates/Header";
@@ -76,8 +76,9 @@ export default function ListadoClientes() {
   return userData ? (
     <>
       <Header></Header>
-      <div id="containerTablas">
+      <div>
         <h1 id="TitlesPages">Listado de clientes</h1>
+
         <Button id="btn" onClick={insertarCliente}>
           Insertar Cliente
         </Button>
@@ -87,9 +88,12 @@ export default function ListadoClientes() {
           cambiarEstado={setIsActiveInsertCliente}
         ></InsertarClientes>
 
-        {/* <EditarClientes
-          Props={{ isActiveEditCliente, IDCliente }}
-        ></EditarClientes> */}
+        <EditarClientes
+          isActiveEditCliente={isActiveEditCliente}
+          cambiarEstado={setIsActiveEditCliente}
+          IDCliente={IDCliente}
+        ></EditarClientes>
+
         <Table id="mainTable" hover responsive>
           <thead>
             <tr>

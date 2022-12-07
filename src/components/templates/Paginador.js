@@ -24,15 +24,6 @@ const Paginador = ({ paginas, cambiarNumero, num_boton }) => {
       setminPageNumberLimit(minPageNumberLimit + pageNumberLimit);
     }
   };
-  const pageDecrementBtn = () => {
-    if (minPageNumberLimit > 1) {
-      return (
-        <li>
-          <button onClick={handlePrevbtn}> hola</button>
-        </li>
-      );
-    }
-  };
 
   return (
     <>
@@ -40,12 +31,11 @@ const Paginador = ({ paginas, cambiarNumero, num_boton }) => {
         <li>
           <button
             onClick={handlePrevbtn}
-            // disabled={num_boton === 0 || num_boton < 1 ? true : false}
+            disabled={num_boton === 1 || num_boton < 1 ? true : false}
           >
             Prev
           </button>
         </li>
-        {pageDecrementBtn}
         {paginas.map((pagina) => {
           if (
             pagina.paginas < maxPageNumberLimit + 1 &&

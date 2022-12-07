@@ -11,7 +11,7 @@ import "../css/TablasStyles.css";
 import "../css/InsertarCursoListadoCursosYRamos.css";
 import InsertarCurso from "../templates/forms/InsertarCurso";
 import InsertarRamo from "../templates/forms/InsertarRamo";
-// import EditarCurso from "../templates/forms/EditarCurso";
+import EditarCurso from "../templates/forms/EditarCurso";
 import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 import TopAlerts from "../templates/alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
@@ -26,7 +26,7 @@ export default function ListadoCursos() {
   const userData = JSON.parse(localStorage.getItem("loggedUser"));
   const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
   const [isActiveEditCurso, setIsActiveEditCurso] = useState(false);
-  const [IDCurso, setIDCurso] = useState(2);
+  const [IDCurso, setIDCurso] = useState(null);
   const [isActiveInsertRamo, setIsActiveInsertRamo] = useState(false);
 
   //PAGINADOR ---------------------
@@ -84,7 +84,7 @@ export default function ListadoCursos() {
     <>
       <Header></Header>
       <div>
-        <div id="containerTablas">
+        <div>
           <h1 id="TitlesPages">Listado de cursos</h1>
           <Button id="btnCursoListado" onClick={insertarCurso}>
             Insertar Curso
@@ -100,11 +100,17 @@ export default function ListadoCursos() {
             isActiveRamo={isActiveInsertRamo}
             cambiarEstado={setIsActiveInsertRamo}
           ></InsertarRamo>
-          {/* <EditarCurso Props={{ IDCurso, isActiveEditCurso }}></EditarCurso> */}
+
+          <EditarCurso
+            isActiveEditCurso={isActiveEditCurso}
+            cambiarEstado={setIsActiveEditCurso}
+            IDCurso={IDCurso}
+          ></EditarCurso>
         </div>
         <Table id="mainTable" hover responsive>
           <thead>
             <tr>
+              <th>ID</th>
               <th>Código del curso</th>
               <th>Código de la Cuenta</th>
               <th>Nombre del curso</th>
@@ -117,6 +123,7 @@ export default function ListadoCursos() {
           <tbody>
             {cursos.map((curso) => (
               <tr key={curso.ID}>
+                <td>{curso.ID}</td>
                 <td>{curso.codigoCurso}</td>
                 <td>{curso.codigoCuenta}</td>
                 <td>{curso.nombreRamo}</td>
@@ -131,9 +138,11 @@ export default function ListadoCursos() {
                   >
                     <BsPencilSquare />
                   </button>
-                  <Link to={`/Examinar/${curso.codigoCurso}`} ><button title="Examinar curso" id="OperationBtns">
-                    <BiShowAlt />
-                  </button></Link>
+                  <Link to={`/Examinar/${curso.codigoCurso}`}>
+                    <button title="Examinar curso" id="OperationBtns">
+                      <BiShowAlt />
+                    </button>
+                  </Link>
                   <button
                     title="Eliminar curso"
                     onClick={() => eliminar(curso.ID)}
