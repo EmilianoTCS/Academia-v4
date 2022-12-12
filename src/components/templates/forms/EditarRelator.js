@@ -14,7 +14,10 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
 
   const show = isActiveEditRelator;
 
-  const handleClose = () => cambiarEstado(false);
+  const handleClose = () => {
+    cambiarEstado(false);
+    resetStates();
+  };
 
   function getData() {
     const url = "TASKS/coe-selectRelatores.php";
@@ -23,6 +26,10 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
     SendDataService(url, operationUrl, data).then((response) =>
       setResponseID(response)
     );
+  }
+  function resetStates() {
+    setRelator("");
+    setArea("");
   }
 
   function SendData(e) {
@@ -34,8 +41,9 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
       nombre: relator === "" ? responseID[0].nombre : relator,
       idArea: area === "" ? responseID[0].idArea : area,
     };
-    SendDataService(url, operationUrl, data).then((response) =>
-      TopAlerts(response)
+    SendDataService(url, operationUrl, data).then(
+      (response) => TopAlerts(response),
+      resetStates()
     );
   }
   function obtenerAreas() {
@@ -70,39 +78,42 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
           <Modal.Title>Editar Relator</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div>
-            <label htmlFor="input_Relator">Relator:</label>
-            <input
-              type="text"
-              className="form-control"
-              name="input_Relator"
-              id="input_Relator"
-              onChange={({ target }) => setRelator(target.value)}
-              value={responseID[0].nombre || ""}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_area">Área:</label>
-            <Select
-              placeholder="Elige el área"
-              name="cuenta"
-              options={optionsAreas}
-              onChange={({ value }) => setArea(value)}
-              defaultInputValue={responseID[0].nombreArea || ""}
-            />
-          </div>
+          <form onSubmit={SendData}>
+            <div>
+              <label htmlFor="input_Relator">Relator:</label>
+              <input
+                type="text"
+                className="form-control"
+                name="input_Relator"
+                id="input_Relator"
+                onChange={({ target }) => setRelator(target.value)}
+                value={relator === "" ? responseID[0].nombre : relator}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_area">Área:</label>
+              <Select
+                placeholder="Elige el área"
+                name="cuenta"
+                options={optionsAreas}
+                onChange={({ value }) => setArea(value)}
+                defaultInputValue={
+                  area === "" ? responseID[0].nombreArea : area
+                }
+                required
+              />
+            </div>
+            <Button
+              variant="secondary"
+              type="submit"
+              id="btn_registrar"
+              value="Registrar"
+            >
+              Registrar
+            </Button>
+          </form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            type="submit"
-            id="btn_registrar"
-            value="Registrar"
-            onClick={SendData}
-          >
-            Registrar
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );

@@ -16,7 +16,10 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
 
   const show = isActiveEditRamo;
 
-  const handleClose = () => cambiarEstado(false);
+  const handleClose = () => {
+    cambiarEstado(false);
+    resetStates();
+  };
 
   // ----------------------FUNCIONES----------------------------
 
@@ -27,6 +30,11 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
     SendDataService(url, operationUrl, data).then((response) =>
       setResponseID(response)
     );
+  }
+  function resetStates() {
+    setCodigoRamo("");
+    setNombreRamo("");
+    set_hh_academicas("");
   }
 
   function SendData(e) {
@@ -76,30 +84,45 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
                 name="input_codigoRamo"
                 className="form-control"
                 onChange={({ target }) => setCodigoRamo(target.value)}
-                value={responseID[0].codigoRamo || ""}
+                value={
+                  codigoRamo === ""
+                    ? responseID[0].codigoRamo || ""
+                    : codigoRamo || ""
+                }
+                required
               />
             </div>
             <div>
               <label htmlFor="input_nombreRamo">Nombre del ramo: </label>
               <input
-                value={responseID[0].nombreRamo || ""}
+                value={
+                  nombreRamo === ""
+                    ? responseID[0].nombreRamo || ""
+                    : nombreRamo || ""
+                }
                 type="text"
                 placeholder="Ejemplo: JAV"
                 id="input_nombreRamo"
                 name="input_nombreRamo"
                 className="form-control"
                 onChange={({ target }) => setNombreRamo(target.value)}
+                required
               />
             </div>
             <div>
               <label htmlFor="input_hhAcademicas">Horas académicas</label>
               <input
-                value={responseID[0].hh_academicas || ""}
+                value={
+                  hh_academicas === ""
+                    ? responseID[0].hh_academicas || ""
+                    : hh_academicas || ""
+                }
                 type="text"
                 className="form-control"
                 name="input_hhAcademicas"
                 id="input_hhAcademicas"
                 onChange={({ target }) => set_hh_academicas(target.value)}
+                required
               />
             </div>
             <Button

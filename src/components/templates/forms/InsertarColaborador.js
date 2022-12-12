@@ -136,7 +136,6 @@ const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
               type="submit"
               id="btn_registrar"
               value="Registrar"
-              onClick={SendData}
             >
               Registrar
             </Button>

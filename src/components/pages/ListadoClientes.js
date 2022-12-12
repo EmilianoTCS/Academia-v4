@@ -25,7 +25,7 @@ export default function ListadoClientes() {
   const userData = JSON.parse(localStorage.getItem("loggedUser"));
   const [isActiveInsertCliente, setIsActiveInsertCliente] = useState(false);
   const [isActiveEditCliente, setIsActiveEditCliente] = useState(false);
-  const [IDCliente, setIDCliente] = useState(1);
+  const [IDCliente, setIDCliente] = useState(null);
   const [num_boton, setNumBoton] = useState(1);
 
   function insertarCliente() {

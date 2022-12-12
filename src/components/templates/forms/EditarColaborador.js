@@ -22,7 +22,10 @@ const EditarColaborador = ({
 
   const show = isActiveEditColaborador;
 
-  const handleClose = () => cambiarEstado(false);
+  const handleClose = () => {
+    cambiarEstado(false);
+    resetStates();
+  };
   // ----------------------FUNCIONES----------------------------
 
   function getData() {
@@ -32,6 +35,15 @@ const EditarColaborador = ({
     SendDataService(url, operationUrl, data).then((response) =>
       setResponseID(response)
     );
+  }
+  function resetStates() {
+    setCodigoCuenta("");
+    setNombreCompleto("");
+    setUsuario("");
+    setArea("");
+    setSubgerencia("");
+    setCorreo("");
+    setListCuentas("");
   }
 
   function SendData(e) {
@@ -49,8 +61,9 @@ const EditarColaborador = ({
       subgerencia: subgerencia === "" ? responseID[0].subgerencia : subgerencia,
       correo: correo === "" ? responseID[0].correo : correo,
     };
-    SendDataService(url, operationUrl, data).then((response) =>
-      TopAlerts(response)
+    SendDataService(url, operationUrl, data).then(
+      (response) => TopAlerts(response),
+      resetStates()
     );
   }
   function obtenerCuentas() {
@@ -86,83 +99,109 @@ const EditarColaborador = ({
           <Modal.Title>Editar Colaborador</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div>
-            <label htmlFor="input_fechaInicio">Cuenta: </label>
-            <Select
-              placeholder="Elige una cuenta"
-              name="cuenta"
-              options={optionsCuentas}
-              onChange={({ value }) => setCodigoCuenta(value)}
-              defaultInputValue={responseID[0].codigoCuentaEdit || ""}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_nombreCompleto">Nombre completo:</label>
-            <input
-              type="text"
-              value={responseID[0].nombre_completo || ""}
-              className="form-control"
-              name="input_nombreCompleto"
-              id="input_nombreCompleto"
-              onChange={({ target }) => setNombreCompleto(target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_usuario">Usuario:</label>
-            <input
-              type="text"
-              value={responseID[0].usuario || ""}
-              className="form-control"
-              name="input_usuario"
-              id="input_usuario"
-              onChange={({ target }) => setUsuario(target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_area">Área:</label>
-            <input
-              type="text"
-              value={responseID[0].area || ""}
-              className="form-control"
-              name="input_area"
-              id="input_area"
-              onChange={({ target }) => setArea(target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_subgerencia">Subgerencia:</label>
-            <input
-              type="text"
-              className="form-control"
-              name="input_subgerencia"
-              value={responseID[0].subgerencia || ""}
-              id="input_subgerencia"
-              onChange={({ target }) => setSubgerencia(target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_correo">Correo:</label>
-            <input
-              type="text"
-              className="form-control"
-              name="input_correo"
-              value={responseID[0].correo || ""}
-              id="input_correo"
-              onChange={({ target }) => setCorreo(target.value)}
-            />
-          </div>
+          <form onSubmit={SendData}>
+            <div>
+              <label htmlFor="input_fechaInicio">Cuenta: </label>
+              <Select
+                placeholder="Elige una cuenta"
+                name="cuenta"
+                options={optionsCuentas}
+                onChange={({ value }) => setCodigoCuenta(value)}
+                defaultInputValue={
+                  codigoCuenta === ""
+                    ? responseID[0].codigoCuentaEdit || ""
+                    : codigoCuenta || ""
+                }
+                defaultValue={
+                  codigoCuenta === ""
+                    ? responseID[0].codigoCuentaEdit || ""
+                    : codigoCuenta || ""
+                }
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_nombreCompleto">Nombre completo:</label>
+              <input
+                type="text"
+                value={
+                  nombreCompleto === ""
+                    ? responseID[0].nombre_completo || ""
+                    : nombreCompleto || ""
+                }
+                className="form-control"
+                name="input_nombreCompleto"
+                id="input_nombreCompleto"
+                onChange={({ target }) => setNombreCompleto(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_usuario">Usuario:</label>
+              <input
+                type="text"
+                value={
+                  usuario === "" ? responseID[0].usuario || "" : usuario || ""
+                }
+                className="form-control"
+                name="input_usuario"
+                id="input_usuario"
+                onChange={({ target }) => setUsuario(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_area">Área:</label>
+              <input
+                type="text"
+                value={area === "" ? responseID[0].area || "" : area || ""}
+                className="form-control"
+                name="input_area"
+                id="input_area"
+                onChange={({ target }) => setArea(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_subgerencia">Subgerencia:</label>
+              <input
+                type="text"
+                className="form-control"
+                name="input_subgerencia"
+                value={
+                  subgerencia === ""
+                    ? responseID[0].subgerencia || ""
+                    : subgerencia || ""
+                }
+                id="input_subgerencia"
+                onChange={({ target }) => setSubgerencia(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_correo">Correo:</label>
+              <input
+                type="email"
+                className="form-control"
+                name="input_correo"
+                value={
+                  correo === "" ? responseID[0].correo || "" : correo || ""
+                }
+                id="input_correo"
+                onChange={({ target }) => setCorreo(target.value)}
+                required
+              />
+            </div>
+            <Button
+              variant="secondary"
+              type="submit"
+              id="btn_registrar"
+              value="Registrar"
+            >
+              Registrar
+            </Button>
+          </form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            type="submit"
-            id="btn_registrar"
-            value="Registrar"
-            onClick={SendData}
-          >
-            Registrar
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );

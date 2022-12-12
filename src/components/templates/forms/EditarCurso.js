@@ -21,7 +21,10 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
 
   const show = isActiveEditCurso;
 
-  const handleClose = () => cambiarEstado(false);
+  const handleClose = () => {
+    cambiarEstado(false);
+    resetStates();
+  };
 
   // ----------------------FUNCIONES----------------------------
 
@@ -44,16 +47,8 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
     setFechaFin("");
     setHoraInicio("");
     setHoraFin("");
-    var data = {
-      codigoCuenta,
-      codigoRamo,
-      fechaInicio,
-      fechaFin,
-      horaInicio,
-      horaFin,
-    };
-    console.log(data);
   }
+
   function obtenerRamos() {
     const url = "TASKS/auxiliar/ListadoNombreRamos.php?listadoRamos";
     getDataService(url).then((ramos) => setListRamos(ramos));
@@ -117,85 +112,115 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
           <Modal.Title>Editar Curso</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div>
-            <label htmlFor="input_fechaInicio">Cuenta: </label>
-            <Select
-              placeholder="Elige una cuenta"
-              name="cuenta"
-              options={optionsCuentas}
-              onChange={({ value }) => setCodigoCuenta(value)}
-              defaultInputValue={responseID[0].codigoCuentaEdit || ""}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_fechaInicio">Ramo: </label>
-            <Select
-              placeholder="Elige un ramo"
-              name="codigoRamo"
-              options={optionsRamos}
-              onChange={({ value }) => setCodigoRamo(value)}
-              defaultValue={responseID[0].codigoRamoEdit || ""}
-            />
-          </div>
-          <div className="md-form md-outline input-with-post-icon datepicker">
-            <label htmlFor="input_fechaInicio">Fecha Inicio: </label>
-            <input
-              type="date"
-              id="input_fechaInicio"
-              name="input_fechaInicio"
-              className="form-control"
-              onChange={({ target }) => setFechaInicio(target.value)}
-              value={responseID[0].fechaInicioEdit || ""}
-            />
-          </div>
-          <div className="md-form md-outline input-with-post-icon datepicker">
-            <label htmlFor="input_fechaInicio">Fecha Fin: </label>
-            <input
-              type="date"
-              id="input_fechaInicio"
-              name="input_fechaInicio"
-              className="form-control"
-              onChange={({ target }) => setFechaFin(target.value)}
-              value={
-                fechaInicio === "" ? responseID[0].fechaInicioEdit : fechaInicio
-              }
-            />
-          </div>
-          <div className="md-form md-outline">
-            <label htmlFor="input_horaInicio">Hora Inicio: </label>
-            <input
-              type="time"
-              name="input_horaInicio"
-              className="form-control"
-              id="input_horaInicio"
-              onChange={({ target }) => setHoraInicio(target.value)}
-              value={responseID[0].horaInicioEdit || ""}
-            />
-          </div>
+          <form onSubmit={SendData}>
+            <div>
+              <label htmlFor="input_fechaInicio">Cuenta: </label>
+              <Select
+                placeholder="Elige una cuenta"
+                name="cuenta"
+                options={optionsCuentas}
+                onChange={({ value }) => setCodigoCuenta(value)}
+                defaultValue={
+                  codigoCuenta === ""
+                    ? responseID[0].codigoCuentaEdit || ""
+                    : codigoCuenta || ""
+                }
+                defaultInputValue={responseID[0].codigoCuentaEdit}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_fechaInicio">Ramo: </label>
+              <Select
+                placeholder="Elige un ramo"
+                name="codigoRamo"
+                options={optionsRamos}
+                onChange={({ value }) => setCodigoRamo(value)}
+                defaultValue={
+                  codigoRamo === ""
+                    ? responseID[0].codigoRamoEdit || ""
+                    : codigoRamo || ""
+                }
+                defaultInputValue={responseID[0].codigoRamoEdit}
+                required
+              />
+            </div>
+            <div className="md-form md-outline input-with-post-icon datepicker">
+              <label htmlFor="input_fechaInicio">Fecha Inicio: </label>
+              <input
+                type="date"
+                id="input_fechaInicio"
+                name="input_fechaInicio"
+                className="form-control"
+                onChange={({ target }) => setFechaInicio(target.value)}
+                value={
+                  fechaInicio === ""
+                    ? responseID[0].fechaInicioEdit || ""
+                    : fechaInicio || ""
+                }
+                required
+              />
+            </div>
+            <div className="md-form md-outline input-with-post-icon datepicker">
+              <label htmlFor="input_fechaInicio">Fecha Fin: </label>
+              <input
+                type="date"
+                id="input_fechaInicio"
+                name="input_fechaInicio"
+                className="form-control"
+                onChange={({ target }) => setFechaFin(target.value)}
+                value={
+                  fechaFin === ""
+                    ? responseID[0].fechaFinEdit || ""
+                    : fechaFin || ""
+                }
+                required
+              />
+            </div>
+            <div className="md-form md-outline">
+              <label htmlFor="input_horaInicio">Hora Inicio: </label>
+              <input
+                type="time"
+                name="input_horaInicio"
+                className="form-control"
+                id="input_horaInicio"
+                onChange={({ target }) => setHoraInicio(target.value)}
+                value={
+                  horaInicio === ""
+                    ? responseID[0].horaInicioEdit || ""
+                    : horaInicio || ""
+                }
+                required
+              />
+            </div>
 
-          <div className="md-form md-outline">
-            <label htmlFor="input_horaFin">Hora Fin: </label>
-            <input
-              type="time"
-              name="input_horaFin"
-              className="form-control"
-              id="input_horaFin"
-              onChange={({ target }) => setHoraFin(target.value)}
-              value={responseID[0].horaFinEdit || ""}
-            />
-          </div>
+            <div className="md-form md-outline">
+              <label htmlFor="input_horaFin">Hora Fin: </label>
+              <input
+                type="time"
+                name="input_horaFin"
+                className="form-control"
+                id="input_horaFin"
+                onChange={({ target }) => setHoraFin(target.value)}
+                value={
+                  horaFin === ""
+                    ? responseID[0].horaFinEdit || ""
+                    : horaFin || ""
+                }
+                required
+              />
+            </div>
+            <Button
+              variant="secondary"
+              type="submit"
+              id="btn_registrar"
+              value="Registrar"
+              onClick={SendData}
+            >
+              Registrar
+            </Button>
+          </form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            type="submit"
-            id="btn_registrar"
-            value="Registrar"
-            onClick={SendData}
-          >
-            Registrar
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );

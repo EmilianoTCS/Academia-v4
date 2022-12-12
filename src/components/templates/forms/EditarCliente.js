@@ -17,7 +17,10 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
 
   const show = isActiveEditCliente;
 
-  const handleClose = () => cambiarEstado(false);
+  const handleClose = () => {
+    cambiarEstado(false);
+    resetStates();
+  };
 
   // ----------------------FUNCIONES----------------------------
 
@@ -25,15 +28,17 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
     const url = "TASKS/coe-selectClientes.php";
     const operationUrl = "ID";
     const data = { ID: IDCliente };
-    SendDataService(url, operationUrl, data).then(
-      (response) => setResponseID(response),
-      setTipoClientes(responseID[0].tipo_cliente),
-      setNombreCliente(responseID[0].nombreCliente),
-      setReferente(responseID[0].referente),
-      setCorreoReferente(responseID[0].correoReferente),
-      setCargoReferente(responseID[0].cargoReferente),
-      setTelefonoReferente(responseID[0].telefonoReferente)
+    SendDataService(url, operationUrl, data).then((response) =>
+      setResponseID(response)
     );
+  }
+  function resetStates() {
+    setTipoClientes("");
+    setNombreCliente("");
+    setReferente("");
+    setCorreoReferente("");
+    setCargoReferente("");
+    setTelefonoReferente("");
   }
 
   function SendData(e) {
@@ -43,12 +48,21 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
     const operationUrl = "editarCliente";
     var data = {
       ID: IDCliente,
-      tipo_cliente: tipo_cliente,
-      nombreCliente: nombreCliente,
-      referente: referente,
-      correoReferente: correoReferente,
-      telefonoReferente: telefonoReferente,
-      cargoReferente: cargoReferente,
+      tipo_cliente:
+        tipo_cliente === "" ? responseID[0].tipo_cliente : tipo_cliente,
+      nombreCliente:
+        nombreCliente === "" ? responseID[0].nombreCliente : nombreCliente,
+      referente: referente === "" ? responseID[0].referente : referente,
+      correoReferente:
+        correoReferente === ""
+          ? responseID[0].correoReferente
+          : correoReferente,
+      telefonoReferente:
+        telefonoReferente === ""
+          ? responseID[0].telefonoReferente
+          : telefonoReferente,
+      cargoReferente:
+        cargoReferente === "" ? responseID[0].cargoReferente : cargoReferente,
     };
 
     SendDataService(url, operationUrl, data).then((response) =>
@@ -58,7 +72,9 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
 
   useEffect(
     function () {
-      getData();
+      if (IDCliente !== null) {
+        getData();
+      }
     },
     [IDCliente]
   );
@@ -76,90 +92,121 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
           <Modal.Title>Actualizar Cliente</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="form-group">
-            <label htmlFor="input_tipoCliente">Tipo de cliente: </label>
-            <select
-              value={tipo_cliente}
-              className="form-control"
-              name="input_tipoCliente"
-              id="input_tipoCliente"
-              onChange={({ target }) => setTipoClientes(target.value)}
+          <form onSubmit={SendData}>
+            <div className="form-group">
+              <label htmlFor="input_tipoCliente">Tipo de cliente: </label>
+              <select
+                value={
+                  tipo_cliente === ""
+                    ? responseID[0].tipo_cliente || ""
+                    : tipo_cliente || ""
+                }
+                className="form-control"
+                name="input_tipoCliente"
+                id="input_tipoCliente"
+                onChange={({ target }) => setTipoClientes(target.value)}
+                required
+              >
+                <option value="interno">Interno</option>
+                <option value="externo">Externo</option>
+              </select>
+            </div>
+
+            <div>
+              <label htmlFor="input_nombreCliente">Nombre del cliente:</label>
+              <input
+                value={
+                  nombreCliente === ""
+                    ? responseID[0].nombreCliente || ""
+                    : nombreCliente || ""
+                }
+                type="text"
+                className="form-control"
+                name="input_nombreCliente"
+                id="input_nombreCliente"
+                onChange={({ target }) => setNombreCliente(target.value)}
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="input_referente">Referente:</label>
+              <input
+                value={
+                  referente === ""
+                    ? responseID[0].referente || ""
+                    : referente || ""
+                }
+                type="text"
+                className="form-control"
+                name="input_referente"
+                id="input_referente"
+                onChange={({ target }) => setReferente(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_correoReferente">
+                Correo del referente:
+              </label>
+              <input
+                value={
+                  correoReferente === ""
+                    ? responseID[0].correoReferente || ""
+                    : correoReferente || ""
+                }
+                type="email"
+                className="form-control"
+                name="input_correoReferente"
+                id="input_correoReferente"
+                onChange={({ target }) => setCorreoReferente(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_cargoReferente">Cargo del referente:</label>
+              <input
+                value={
+                  cargoReferente === ""
+                    ? responseID[0].cargoReferente || ""
+                    : cargoReferente || ""
+                }
+                type="text"
+                className="form-control"
+                name="input_cargoReferente"
+                id="input_cargoReferente"
+                onChange={({ target }) => setCargoReferente(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_telefonoReferente">
+                Teléfono del referente:
+              </label>
+              <input
+                type="number"
+                value={
+                  telefonoReferente === ""
+                    ? responseID[0].telefonoReferente || ""
+                    : telefonoReferente || ""
+                }
+                className="form-control"
+                name="input_telefonoReferente"
+                id="input_telefonoReferente"
+                onChange={({ target }) => setTelefonoReferente(target.value)}
+                required
+              />
+            </div>
+            <Button
+              variant="secondary"
+              type="submit"
+              id="btn_registrar"
+              value="Registrar"
             >
-              <option value="interno">Interno</option>
-              <option value="externo">Externo</option>
-            </select>
-          </div>
-
-          <div>
-            <label htmlFor="input_nombreCliente">Nombre del cliente:</label>
-            <input
-              value={nombreCliente || ""}
-              type="text"
-              className="form-control"
-              name="input_nombreCliente"
-              id="input_nombreCliente"
-              onChange={({ target }) => setNombreCliente(target.value)}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="input_referente">Referente:</label>
-            <input
-              value={referente || ""}
-              type="text"
-              className="form-control"
-              name="input_referente"
-              id="input_referente"
-              onChange={({ target }) => setReferente(target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_correoReferente">Correo del referente:</label>
-            <input
-              value={correoReferente || ""}
-              type="text"
-              className="form-control"
-              name="input_correoReferente"
-              id="input_correoReferente"
-              onChange={({ target }) => setCorreoReferente(target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_cargoReferente">Cargo del referente:</label>
-            <input
-              value={cargoReferente || ""}
-              type="text"
-              className="form-control"
-              name="input_cargoReferente"
-              id="input_cargoReferente"
-              onChange={({ target }) => setCargoReferente(target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_telefonoReferente">
-              Teléfono del referente:
-            </label>
-            <input
-              type="text"
-              value={telefonoReferente || ""}
-              className="form-control"
-              name="input_telefonoReferente"
-              id="input_telefonoReferente"
-              onChange={({ target }) => setTelefonoReferente(target.value)}
-            />
-          </div>
+              Registrar
+            </Button>
+          </form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            type="submit"
-            id="btn_registrar"
-            value="Registrar"
-            onClick={SendData}
-          >
-            Registrar
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );

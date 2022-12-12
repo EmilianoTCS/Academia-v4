@@ -120,71 +120,70 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
           <Modal.Title>Insertar Curso</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div>
-            <label htmlFor="input_fechaInicio">Cuenta: </label>
-            <Select
-              placeholder="Elige una cuenta"
-              name="cuenta"
-              options={optionsCuentas}
-              onChange={({ value }) => setCodigoCuenta(value)}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="input_fechaInicio">Ramo: </label>
-            <Select
-              required
-              placeholder="Elige un ramo"
-              name="codigoRamo"
-              options={optionsRamos}
-              onChange={({ value }) => setCodigoRamo(value)}
-            />
-          </div>
-          <div>
-            <label>Duración: </label>
-            <Form.Select
-              onChange={({ target }) => handleChange(target.value)}
-              required
+          <form onSubmit={SendData}>
+            <div>
+              <label htmlFor="input_fechaInicio">Cuenta: </label>
+              <Select
+                placeholder="Elige una cuenta"
+                name="cuenta"
+                options={optionsCuentas}
+                onChange={({ value }) => setCodigoCuenta(value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_fechaInicio">Ramo: </label>
+              <Select
+                required
+                placeholder="Elige un ramo"
+                name="codigoRamo"
+                options={optionsRamos}
+                onChange={({ value }) => setCodigoRamo(value)}
+              />
+            </div>
+            <div>
+              <label>Duración: </label>
+              <Form.Select
+                onChange={({ target }) => handleChange(target.value)}
+                required
+              >
+                <option default>Elige la duración</option>
+                <option value="00:30:00">30min</option>
+                <option value="01:00:00">1:00hs</option>
+                <option value="01:30:00">1:30hs</option>
+                <option value="02:00:00">2:00hs</option>
+                <option value="02:30:00">2:30hs</option>
+                <option value="03:00:00">3:00hs</option>
+              </Form.Select>
+            </div>
+            <div id="datePickerContainer">
+              <label>Fecha y hora: </label>
+              <DatePicker
+                required
+                id="input_fechaInicio"
+                format="YYYY-MM-DD HH:mm:ss"
+                onChange={handleChangeFechas}
+                inputClass="form-control"
+                mapDays={mapDays}
+                multiple
+                placeholder="Elige una fecha y hora"
+                plugins={[
+                  <DatePanel />,
+                  <TimePicker />,
+                  <CustomButton position="bottom" />,
+                ]}
+              />
+            </div>
+            <Button
+              variant="secondary"
+              type="submit"
+              id="btn_registrar"
+              value="Registrar"
             >
-              <option default>Elige la duración</option>
-              <option value="00:30:00">30min</option>
-              <option value="01:00:00">1:00hs</option>
-              <option value="01:30:00">1:30hs</option>
-              <option value="02:00:00">2:00hs</option>
-              <option value="02:30:00">2:30hs</option>
-              <option value="03:00:00">3:00hs</option>
-            </Form.Select>
-          </div>
-          <div id="datePickerContainer">
-            <label>Fecha y hora: </label>
-            <DatePicker
-              required
-              id="input_fechaInicio"
-              format="YYYY-MM-DD HH:mm:ss"
-              onChange={handleChangeFechas}
-              inputClass="form-control"
-              mapDays={mapDays}
-              multiple
-              placeholder="Elige una fecha y hora"
-              plugins={[
-                <DatePanel />,
-                <TimePicker />,
-                <CustomButton position="bottom" />,
-              ]}
-            />
-          </div>
+              Registrar
+            </Button>
+          </form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            type="submit"
-            id="btn_registrar"
-            value="Registrar"
-            onClick={SendData}
-          >
-            Registrar
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );

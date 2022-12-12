@@ -55,37 +55,38 @@ const InsertarRelator = ({ isActiveRelator, cambiarEstado }) => {
           <Modal.Title>Insertar Ramo</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div>
-            <label htmlFor="input_Relator">Relator:</label>
-            <input
-              type="text"
-              className="form-control"
-              name="input_Relator"
-              id="input_Relator"
-              onChange={({ target }) => setRelator(target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_area">Área:</label>
-            <Select
-              placeholder="Elige el área"
-              name="area"
-              options={optionsAreas}
-              onChange={({ value }) => setArea(value)}
-            />
-          </div>
+          <form onSubmit={SendData}>
+            <div>
+              <label htmlFor="input_Relator">Relator:</label>
+              <input
+                type="text"
+                className="form-control"
+                name="input_Relator"
+                id="input_Relator"
+                onChange={({ target }) => setRelator(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_area">Área:</label>
+              <Select
+                placeholder="Elige el área"
+                name="area"
+                options={optionsAreas}
+                onChange={({ value }) => setArea(value)}
+                required
+              />
+            </div>
+            <Button
+              variant="secondary"
+              type="submit"
+              id="btn_registrar"
+              value="Registrar"
+            >
+              Registrar
+            </Button>
+          </form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            type="submit"
-            id="btn_registrar"
-            value="Registrar"
-            onClick={SendData}
-          >
-            Registrar
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );
