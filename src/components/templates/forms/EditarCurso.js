@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import { BsX } from "react-icons/bs";
 import "../../css/InsertarCursoCalendario.css";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
@@ -33,12 +32,27 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
     SendDataService(url, operationUrl, data).then((response) =>
       setResponseID(response)
     );
-    obtenerCuentas();
-    obtenerRamos();
   }
   function obtenerCuentas() {
     const url = "TASKS/auxiliar/ListadoCuentas.php?listadoCuentas";
     getDataService(url).then((cuentas) => setListCuentas(cuentas));
+  }
+  function resetStates() {
+    setCodigoCuenta("");
+    setCodigoRamo("");
+    setFechaInicio("");
+    setFechaFin("");
+    setHoraInicio("");
+    setHoraFin("");
+    var data = {
+      codigoCuenta,
+      codigoRamo,
+      fechaInicio,
+      fechaFin,
+      horaInicio,
+      horaFin,
+    };
+    console.log(data);
   }
   function obtenerRamos() {
     const url = "TASKS/auxiliar/ListadoNombreRamos.php?listadoRamos";
@@ -48,23 +62,33 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
     e.preventDefault();
     const url = "TASKS/coe-editCurso.php";
     const operationUrl = "editarCurso";
-    var data = {
+    const data = {
       ID: IDCurso,
-      codigoCuenta: codigoCuenta,
-      codigoRamo: codigoRamo,
-      fechaInicio: fechaInicio,
-      fechaFin: fechaFin,
-      horaInicio: horaInicio,
-      horaFin: horaFin,
+      codigoCuenta:
+        codigoCuenta === "" ? responseID[0].idCuentaEdit : codigoCuenta,
+      codigoRamo: codigoRamo === "" ? responseID[0].codigoRamoEdit : codigoRamo,
+      fechaInicio:
+        fechaInicio === "" ? responseID[0].fechaInicioEdit : fechaInicio,
+      fechaFin: fechaFin === "" ? responseID[0].fechaFinEdit : fechaFin,
+      horaInicio: horaInicio === "" ? responseID[0].horaInicioEdit : horaInicio,
+      horaFin: horaFin === "" ? responseID[0].horaFinEdit : horaFin,
     };
-    SendDataService(url, operationUrl, data).then((response) =>
-      TopAlerts(response)
+    console.log(data);
+
+    SendDataService(url, operationUrl, data).then(
+      (response) => TopAlerts(response),
+      resetStates(),
+      getData()
     );
   }
 
   useEffect(
     function () {
-      IDCurso !== null ? getData() : null;
+      if (IDCurso !== null) {
+        getData();
+        obtenerCuentas();
+        obtenerRamos();
+      }
     },
     [IDCurso]
   );
@@ -78,6 +102,7 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
     label: label.codigoCuenta,
     value: label.ID,
   }));
+
   // ----------------------RENDER----------------------------
 
   return (
@@ -99,7 +124,7 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
               name="cuenta"
               options={optionsCuentas}
               onChange={({ value }) => setCodigoCuenta(value)}
-              value={responseID[0].codigoCuentaEdit || ""}
+              defaultInputValue={responseID[0].codigoCuentaEdit || ""}
             />
           </div>
           <div>
@@ -109,7 +134,7 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
               name="codigoRamo"
               options={optionsRamos}
               onChange={({ value }) => setCodigoRamo(value)}
-              value={responseID[0].codigoRamoEdit || ""}
+              defaultValue={responseID[0].codigoRamoEdit || ""}
             />
           </div>
           <div className="md-form md-outline input-with-post-icon datepicker">
@@ -131,7 +156,9 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
               name="input_fechaInicio"
               className="form-control"
               onChange={({ target }) => setFechaFin(target.value)}
-              value={responseID[0].fechaFinEdit || ""}
+              value={
+                fechaInicio === "" ? responseID[0].fechaInicioEdit : fechaInicio
+              }
             />
           </div>
           <div className="md-form md-outline">
@@ -141,8 +168,8 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
               name="input_horaInicio"
               className="form-control"
               id="input_horaInicio"
-              value={responseID[0].horaInicioEdit || ""}
               onChange={({ target }) => setHoraInicio(target.value)}
+              value={responseID[0].horaInicioEdit || ""}
             />
           </div>
 

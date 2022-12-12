@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { BsX } from "react-icons/bs";
+import React, { useState } from "react";
 import "../../css/InsertarEvento.css";
 import SendDataService from "../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
@@ -26,11 +25,7 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
 
   const handleClose = () => cambiarEstado(false);
 
-
   // ----------------------FUNCIONES----------------------------
-  function CloseForm() {
-    setisActive(false);
-  }
 
   function handleChangeFechas(values) {
     setValoresFechas(values);
@@ -110,6 +105,7 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
               name="titulo"
               className="form-control"
               onChange={({ target }) => setTitulo(target.value)}
+              required
             />
           </div>
           <div>
@@ -119,10 +115,12 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
               name="descripcion"
               className="form-control"
               onChange={({ target }) => setDescripcion(target.value)}
+              required
             />
           </div>
           <div>
             <label>Duración: </label>
+            required
             <Form.Select onChange={({ target }) => handleChange(target.value)}>
               <option default>Elige la duración</option>
               <option value="00:30:00">30min</option>
@@ -136,6 +134,7 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
           <div id="datePickerContainer">
             <label>Fecha y hora: </label>
             <DatePicker
+              required
               id="input_fechaInicio"
               format="YYYY-MM-DD HH:mm:ss"
               onChange={handleChangeFechas}
@@ -165,5 +164,5 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
       </Modal>
     </>
   );
-}
+};
 export default InsertarEvento;

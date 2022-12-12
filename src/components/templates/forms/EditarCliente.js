@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { BsX } from "react-icons/bs";
 import "../../css/InsertarRamo.css";
 import SendDataService from "../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
@@ -94,7 +93,7 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
           <div>
             <label htmlFor="input_nombreCliente">Nombre del cliente:</label>
             <input
-              value={nombreCliente}
+              value={nombreCliente || ""}
               type="text"
               className="form-control"
               name="input_nombreCliente"
@@ -106,7 +105,7 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
           <div>
             <label htmlFor="input_referente">Referente:</label>
             <input
-              value={referente}
+              value={referente || ""}
               type="text"
               className="form-control"
               name="input_referente"
@@ -117,7 +116,7 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
           <div>
             <label htmlFor="input_correoReferente">Correo del referente:</label>
             <input
-              value={correoReferente}
+              value={correoReferente || ""}
               type="text"
               className="form-control"
               name="input_correoReferente"
@@ -128,7 +127,7 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
           <div>
             <label htmlFor="input_cargoReferente">Cargo del referente:</label>
             <input
-              value={cargoReferente}
+              value={cargoReferente || ""}
               type="text"
               className="form-control"
               name="input_cargoReferente"
@@ -142,7 +141,7 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
             </label>
             <input
               type="text"
-              value={telefonoReferente}
+              value={telefonoReferente || ""}
               className="form-control"
               name="input_telefonoReferente"
               id="input_telefonoReferente"

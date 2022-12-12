@@ -13,14 +13,13 @@ import Button from "react-bootstrap/Button";
 import "../../css/BtnInsertar.css";
 import Paginador from "../../templates/Paginador";
 
-
 export default function Colaboradores() {
   const [colaboradores, setColaboradores] = useState([""]);
   const [paginador, setPaginador] = useState([""]);
   const [isActiveInsertColaborador, setIsActiveInsertColaborador] =
     useState(false);
   const [isActiveEditColaborador, setIsActiveEditColaborador] = useState(false);
-  const [IDColaborador, setIDColaborador] = useState(2);
+  const [IDColaborador, setIDColaborador] = useState(null);
   const [num_boton, setNumBoton] = useState(1);
 
   function eliminar(ID) {
@@ -86,9 +85,11 @@ export default function Colaboradores() {
         cambiarEstado={setIsActiveInsertColaborador}
       ></InsertarColaborador>
 
-      {/* <EditarColaborador
-        Props={{ isActiveEditColaborador, IDColaborador }}
-      ></EditarColaborador> */}
+      <EditarColaborador
+        isActiveEditColaborador={isActiveEditColaborador}
+        cambiarEstado={setIsActiveEditColaborador}
+        IDColaborador={IDColaborador}
+      ></EditarColaborador>
       <Table responsive>
         <thead>
           <tr>

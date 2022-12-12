@@ -24,7 +24,7 @@ export default function ListadoRelator() {
   const operationUrl = "pagina";
   const userData = JSON.parse(localStorage.getItem("loggedUser"));
   const [isActiveInsertRelator, setIsActiveInsertRelator] = useState(false);
-  const [IDRelator, setIDRelator] = useState(2);
+  const [IDRelator, setIDRelator] = useState(null);
   const [isActiveEditRelator, setIsActiveEditRelator] = useState(false);
   const [num_boton, setNumBoton] = useState(1);
 
@@ -84,9 +84,11 @@ export default function ListadoRelator() {
           cambiarEstado={setIsActiveInsertRelator}
         ></InsertarRelator>
 
-        {/* <EditarRelator
-          Props={{ isActiveEditRelator, IDRelator }}
-        ></EditarRelator> */}
+        <EditarRelator
+          isActiveEditRelator={isActiveEditRelator}
+          cambiarEstado={setIsActiveEditRelator}
+          IDRelator={IDRelator}
+        ></EditarRelator>
 
         <Table id="mainTable" hover responsive>
           <thead>

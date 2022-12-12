@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { BsX } from "react-icons/bs";
 import SendDataService from "../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import getDataService from "../../services/GetDataService";
+import Select from "react-select";
 
-export default function EditarRelator(props) {
-  const [isActive, setisActive] = useState(props.Props.isActiveEditRelator);
+const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
   const [relator, setRelator] = useState("");
   const [area, setArea] = useState("");
   const [responseID, setResponseID] = useState([""]);
+  const [listArea, setListArea] = useState([]);
 
-  function CloseForm() {
-    setisActive(!isActive);
-  }
+  const show = isActiveEditRelator;
+
+  const handleClose = () => cambiarEstado(false);
 
   function getData() {
     const url = "TASKS/coe-selectRelatores.php";
     const operationUrl = "ID";
-    const data = { ID: props.Props.IDRelator };
-    SendDataService(url, operationUrl, data).then(
-      (response) => setResponseID(response),
-      console.log(responseID),
-      setRelator(responseID[0].nombreEdit)
+    const data = { ID: IDRelator };
+    SendDataService(url, operationUrl, data).then((response) =>
+      setResponseID(response)
     );
   }
 
@@ -29,30 +30,46 @@ export default function EditarRelator(props) {
     const url = "TASKS/coe-editRamo.php";
     const operationUrl = "editarRamo";
     var data = {
-      ID: props.Props.IDRelator,
-      nombre: relator,
-      area: area,
+      ID: IDRelator,
+      nombre: relator === "" ? responseID[0].nombre : relator,
+      idArea: area === "" ? responseID[0].idArea : area,
     };
     SendDataService(url, operationUrl, data).then((response) =>
       TopAlerts(response)
     );
   }
+  function obtenerAreas() {
+    const url = "TASKS/auxiliar/ListadoAreas.php?listadoArea";
+    getDataService(url).then((response) => setListArea(response));
+  }
   useEffect(
     function () {
-      setisActive(props.Props.isActiveEditRelator);
-      getData();
+      if (IDRelator !== null) {
+        getData();
+        obtenerAreas();
+      }
     },
-    [props]
+    [IDRelator]
   );
+  // ----------------------MAPEADOS----------------------------
 
+  const optionsAreas = listArea.map((label) => ({
+    label: label.nombreArea,
+    value: label.ID,
+  }));
+  // ----------------------RENDER----------------------------
   return (
     <>
-      <div id="containerFormCurso" className={isActive ? "active" : ""}>
-        <form id="form_insertarCurso" onSubmit={SendData}>
-          <div id="headerForms">
-            <h3 id="titleForm">Actualizar relator</h3>
-            <BsX id="btn_close" onClick={CloseForm} />
-          </div>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Editar Relator</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <div>
             <label htmlFor="input_Relator">Relator:</label>
             <input
@@ -61,25 +78,33 @@ export default function EditarRelator(props) {
               name="input_Relator"
               id="input_Relator"
               onChange={({ target }) => setRelator(target.value)}
-              value={relator}
+              value={responseID[0].nombre || ""}
             />
           </div>
           <div>
             <label htmlFor="input_area">Área:</label>
-            <input
-              type="text"
-              className="form-control"
-              name="input_area"
-              id="input_area"
-              onChange={({ target }) => setArea(target.value)}
-              value={area}
+            <Select
+              placeholder="Elige el área"
+              name="cuenta"
+              options={optionsAreas}
+              onChange={({ value }) => setArea(value)}
+              defaultInputValue={responseID[0].nombreArea || ""}
             />
           </div>
-          <div>
-            <input type="submit" id="btn_registrar" value="Actualizar" />
-          </div>
-        </form>
-      </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            type="submit"
+            id="btn_registrar"
+            value="Registrar"
+            onClick={SendData}
+          >
+            Registrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
-}
+};
+export default EditarRelator;

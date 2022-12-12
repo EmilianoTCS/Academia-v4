@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import { Redirect, Link } from "wouter";
+import { Redirect } from "wouter";
 import getDataService from "../services/GetDataService";
 import SendDataService from "../services/SendDataService";
 import Header from "../templates/Header";

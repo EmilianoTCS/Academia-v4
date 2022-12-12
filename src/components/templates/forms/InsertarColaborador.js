@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { BsX } from "react-icons/bs";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
@@ -43,6 +42,10 @@ const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
     getDataService(url).then((cuentas) => setListCuentas(cuentas));
   }
 
+  useEffect(function () {
+    obtenerCuentas();
+  }, []);
+
   // ----------------------MAPEADOS----------------------------
 
   const optionsCuentas = listCuentas.map((label) => ({
@@ -62,77 +65,83 @@ const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
           <Modal.Title>Insertar Ramo</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div>
-            <label htmlFor="input_fechaInicio">Cuenta: </label>
-            <Select
-              placeholder="Elige una cuenta"
-              name="cuenta"
-              options={optionsCuentas}
-              onChange={({ value }) => setCodigoCuenta(value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_nombreCompleto">Nombre completo:</label>
-            <input
-              type="text"
-              className="form-control"
-              name="input_nombreCompleto"
-              id="input_nombreCompleto"
-              onChange={({ target }) => setNombreCompleto(target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_usuario">Usuario:</label>
-            <input
-              type="text"
-              className="form-control"
-              name="input_usuario"
-              id="input_usuario"
-              onChange={({ target }) => setUsuario(target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_area">Área:</label>
-            <input
-              type="text"
-              className="form-control"
-              name="input_area"
-              id="input_area"
-              onChange={({ target }) => setArea(target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_subgerencia">Subgerencia:</label>
-            <input
-              type="text"
-              className="form-control"
-              name="input_subgerencia"
-              id="input_subgerencia"
-              onChange={({ target }) => setSubgerencia(target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_correo">Correo:</label>
-            <input
-              type="text"
-              className="form-control"
-              name="input_correo"
-              id="input_correo"
-              onChange={({ target }) => setCorreo(target.value)}
-            />
-          </div>
+          <form onSubmit={SendData}>
+            <div>
+              <label htmlFor="input_fechaInicio">Cuenta: </label>
+              <Select
+                placeholder="Elige una cuenta"
+                name="cuenta"
+                options={optionsCuentas}
+                onChange={({ value }) => setCodigoCuenta(value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_nombreCompleto">Nombre completo:</label>
+              <input
+                type="text"
+                className="form-control"
+                name="input_nombreCompleto"
+                id="input_nombreCompleto"
+                onChange={({ target }) => setNombreCompleto(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_usuario">Usuario:</label>
+              <input
+                type="text"
+                className="form-control"
+                name="input_usuario"
+                id="input_usuario"
+                onChange={({ target }) => setUsuario(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_area">Área:</label>
+              <input
+                type="text"
+                className="form-control"
+                name="input_area"
+                id="input_area"
+                onChange={({ target }) => setArea(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_subgerencia">Subgerencia:</label>
+              <input
+                type="text"
+                className="form-control"
+                name="input_subgerencia"
+                id="input_subgerencia"
+                onChange={({ target }) => setSubgerencia(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_correo">Correo:</label>
+              <input
+                type="email"
+                className="form-control"
+                name="input_correo"
+                id="input_correo"
+                onChange={({ target }) => setCorreo(target.value)}
+                required
+              />
+            </div>
+            <Button
+              variant="secondary"
+              type="submit"
+              id="btn_registrar"
+              value="Registrar"
+              onClick={SendData}
+            >
+              Registrar
+            </Button>
+          </form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            type="submit"
-            id="btn_registrar"
-            value="Registrar"
-            onClick={SendData}
-          >
-            Registrar
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );

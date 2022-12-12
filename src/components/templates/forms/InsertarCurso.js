@@ -17,7 +17,7 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
   const [codigoCuenta, setCodigoCuenta] = useState("");
   const [codigoRamo, setCodigoRamo] = useState("");
   const [duracion, setDuracion] = useState("");
-  const respuestaServidor = new Set()
+  const respuestaServidor = new Set();
   const [valoresFechas, setValoresFechas] = useState([new DateObject()]);
   const fechasFormateadas = [];
   const fechasOrdenadas = [];
@@ -46,8 +46,8 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
       codigoCuenta: codigoCuenta,
       codigoRamo: codigoRamo,
     };
-    SendDataService(url, operationUrl, data).then((response) =>
-    respuestaServidor.add(response),
+    SendDataService(url, operationUrl, data).then(
+      (response) => respuestaServidor.add(response),
       console.log(respuestaServidor)
     );
   }
@@ -87,7 +87,7 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
       fechasFormateadas.push(valoresFechas[index].format())
     );
     fechasOrdenadas.push(fechasFormateadas.sort());
-    console.log(fechasOrdenadas[0])
+    console.log(fechasOrdenadas[0]);
   }
 
   const optionsRamos = listRamos.map((label) => ({
@@ -127,11 +127,13 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
               name="cuenta"
               options={optionsCuentas}
               onChange={({ value }) => setCodigoCuenta(value)}
+              required
             />
           </div>
           <div>
             <label htmlFor="input_fechaInicio">Ramo: </label>
             <Select
+              required
               placeholder="Elige un ramo"
               name="codigoRamo"
               options={optionsRamos}
@@ -140,7 +142,10 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
           </div>
           <div>
             <label>Duración: </label>
-            <Form.Select onChange={({ target }) => handleChange(target.value)}>
+            <Form.Select
+              onChange={({ target }) => handleChange(target.value)}
+              required
+            >
               <option default>Elige la duración</option>
               <option value="00:30:00">30min</option>
               <option value="01:00:00">1:00hs</option>
@@ -153,6 +158,7 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
           <div id="datePickerContainer">
             <label>Fecha y hora: </label>
             <DatePicker
+              required
               id="input_fechaInicio"
               format="YYYY-MM-DD HH:mm:ss"
               onChange={handleChangeFechas}

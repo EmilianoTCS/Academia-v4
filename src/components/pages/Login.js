@@ -19,8 +19,8 @@ export default function Login() {
         password,
       });
       SetItemLoginService.SetItemLoginService(user);
-      //   LoginContext(user);
       setUser(user);
+
       setUsername("");
       setPassword("");
     } catch (error) {
@@ -60,6 +60,7 @@ export default function Login() {
               placeholder="Usuario"
               value={username}
               onChange={({ target }) => setUsername(target.value)}
+              required
             />
           </div>
           <div>
@@ -71,6 +72,7 @@ export default function Login() {
               placeholder="Contraseña"
               value={password}
               onChange={({ target }) => setPassword(target.value)}
+              required
             />
           </div>
           <div>

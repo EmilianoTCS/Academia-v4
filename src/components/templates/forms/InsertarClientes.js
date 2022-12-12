@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { BsX } from "react-icons/bs";
+import React, { useState } from "react";
+
 import "../../css/InsertarRamo.css";
 import SendDataService from "../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => { 
+const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
   // ----------------------CONSTANTES----------------------------
   const [tipo_cliente, setTipoClientes] = useState("");
   const [nombreCliente, setNombreCliente] = useState("");
@@ -14,11 +14,10 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
   const [correoReferente, setCorreoReferente] = useState("");
   const [cargoReferente, setCargoReferente] = useState("");
   const [telefonoReferente, setTelefonoReferente] = useState("");
-  
+
   const show = isActiveCliente;
 
   const handleClose = () => cambiarEstado(false);
-
 
   // ----------------------FUNCIONES----------------------------
 
@@ -39,7 +38,6 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
       TopAlerts(response)
     );
   }
-
 
   // ----------------------RENDER----------------------------
   return (
@@ -135,5 +133,5 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
       </Modal>
     </>
   );
-}
+};
 export default InsertarClientes;

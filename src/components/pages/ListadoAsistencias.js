@@ -10,15 +10,17 @@ import SwitchToggle from "../templates/SwitchToggle";
 import "../css/CustomButton.css";
 import "../css/ListadoAsistencias.css";
 import TopAlerts from "../templates/alerts/TopAlerts";
+import { RevolvingDot } from "react-loader-spinner";
 
 export default function ListadoAsistencias() {
   const userData = localStorage.getItem("loggedUser");
   const [asistencias, setAsistencias] = useState([""]);
   const [listadoCursos, setListadoCursos] = useState([""]);
   const [listadoFechas, setListadoFechas] = useState([""]);
-  const [cursoSeleccionado, setCursoSeleccionado] = useState();
+  const [cursoSeleccionado, setCursoSeleccionado] = useState("");
   const [fechaSeleccionada, setfechaSeleccionada] = useState("");
   const [IDsChange, setIDsChange] = useState([]);
+  const [busqueda, setBusqueda] = useState(false);
 
   function obtenerDatosCursos() {
     var url = "TASKS/auxiliar/idCurso.php?idCurso";
@@ -32,8 +34,9 @@ export default function ListadoAsistencias() {
     var url = "TASKS/coe-listAsistencias.php";
     var operationUrl = "ID";
     var data = { ID: cursoSeleccionado, fecha: fechaSeleccionada };
-    SendDataService(url, operationUrl, data).then((response) =>
-      setAsistencias(response)
+    SendDataService(url, operationUrl, data).then(
+      (response) => setAsistencias(response),
+      setBusqueda(true)
     );
   }
   function obtenerDatosFechas() {
@@ -92,6 +95,45 @@ export default function ListadoAsistencias() {
       </>
     );
   }
+
+  const MainTable = () => {
+    if (busqueda) {
+      return (
+        <Table id="mainTable" hover responsive>
+          <thead>
+            <tr key={1}>
+              <th>Usuarios</th>
+              <th>Estado</th>
+              <th>Operaciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {asistencias.map((item) => (
+              <tr key={item.ID}>
+                <td>{item.usuario}</td>
+                {item.valor === "1" ? <td>Presente</td> : <td>Ausente</td>}
+                <td onChange={() => handleChange(item.ID)}>
+                  <SwitchToggle isActive={item.valor} />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      );
+    }
+    return (
+      <RevolvingDot
+        visible={true}
+        height="200"
+        width="200"
+        ariaLabel="dna-loading"
+        wrapperStyle={{ margin: "100px 200px" }}
+        wrapperClass="dna-wrapper"
+        color="#e10b1c"
+      ></RevolvingDot>
+    );
+  };
+
   // ----------------------MAPEADOS----------------------------
 
   const optionsCursos = listadoCursos.map((label) => ({
@@ -129,26 +171,7 @@ export default function ListadoAsistencias() {
           <CustomButtonSearch></CustomButtonSearch>
           <CustomButton></CustomButton>
         </div>
-        <Table id="mainTable" hover responsive>
-          <thead>
-            <tr>
-              <th>Usuarios</th>
-              <th>Estado</th>
-              <th>Operaciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {asistencias.map((item) => (
-              <tr key={item.ID}>
-                <td>{item.usuario}</td>
-                {item.valor === "1" ? <td>Presente</td> : <td>Ausente</td>}
-                <td onChange={() => handleChange(item.ID)}>
-                  <SwitchToggle isActive={item.valor} />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+        <MainTable></MainTable>
       </div>
     </>
   ) : (
