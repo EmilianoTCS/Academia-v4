@@ -1,0 +1,19 @@
+#containerCertificados{
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(
+            150px,
+            1fr
+        )
+    );
+    gap: 10px;
+    margin: 1%;
+}
+.card-title{
+    font-size: 25pt;
+}
+#cards{
+    cursor: pointer;
+    text-align: center;
+}

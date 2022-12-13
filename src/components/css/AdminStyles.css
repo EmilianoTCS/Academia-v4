@@ -1,0 +1,11 @@
+#adminContainer{
+    margin: 1%;
+    justify-content: space-around;
+}
+#cardsTables{
+    margin: 1%;
+}
+#cardsTitle{
+    font-size: 20pt;
+
+}
