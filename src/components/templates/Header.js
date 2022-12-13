@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "wouter";
-import tsoftLogo from "../sources/LOGO-Tsoft-Alpha-FullColor.png";
-import logoCoe from "../sources/logoCoe.png";
+import tsoftLogo from "../../sources/LOGO-Tsoft-Alpha-FullColor.png";
+import logoCoe from "../../sources/logoCoe.png";
 import "../css/HeaderStyles.css";
 import SideBar from "./Sidebar";
 
@@ -34,12 +34,12 @@ export default function Header() {
         </button> */}
 
         <button
-            className="buttonStyleOpen"
-            variant="primary"
-            onClick={handleSideBar}
-          >
-            <i className="bi bi-arrow-bar-left"></i>
-          </button>
+          className="buttonStyleOpen"
+          variant="primary"
+          onClick={handleSideBar}
+        >
+          <i className="bi bi-arrow-bar-left"></i>
+        </button>
         <SideBar isToggled={toggleSidebar}></SideBar>
       </div>
     </>

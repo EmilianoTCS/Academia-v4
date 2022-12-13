@@ -5,7 +5,7 @@ import { Redirect } from "wouter";
 import Header from "../templates/Header";
 import Hexagon from "react-hexagon";
 import "../css/HomeColaboradores.css";
-import SendDataService from "../services/SendDataService";
+import SendDataService from "../../services/SendDataService";
 
 export default function HomeColaboradores() {
   const userData = JSON.parse(localStorage.getItem("loggedUser"));

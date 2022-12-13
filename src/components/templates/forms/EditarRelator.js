@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import SendDataService from "../../services/SendDataService";
+import SendDataService from "../../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import getDataService from "../../services/GetDataService";
+import getDataService from "../../../services/GetDataService";
 import Select from "react-select";
 
 const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {

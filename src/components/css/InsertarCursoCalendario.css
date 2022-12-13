@@ -1,12 +1,13 @@
 #btnCurso{
     background-color: #2C3E50;
-    margin-left: 180px;   
+    margin-left: 180px;  
     margin-bottom: -60px;
     margin-right: -170px;
-    position: relative; 
+    position: relative;
     border: none;
-    padding: 0.51em !important;
+    padding: 0.51em;
 }
+
 
 #btnCurso:hover{
     background-color: #1E2B37;
@@ -15,4 +16,17 @@
 #datePickerContainer{
     display: flex;
     flex-direction: column;
+}
+
+@media screen and (max-width: 1100px) {
+    #btnCurso{
+        margin: 0 0 0 0;
+        background-color: #2C3E50;    
+        border: none;
+    }
+
+    #btnCurso:hover{
+        background-color: #1E2B37;
+    }
+
 }

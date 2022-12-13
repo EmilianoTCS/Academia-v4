@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import getDataService from "../../services/GetDataService";
-import SendDataService from "../../services/SendDataService";
+import getDataService from "../../../services/GetDataService";
+import SendDataService from "../../../services/SendDataService";
 import DatePicker from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";

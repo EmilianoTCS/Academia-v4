@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import getDataService from "../services/GetDataService";
+import getDataService from "../../services/GetDataService";
 import "../css/cardsHome.css";
 import { Redirect } from "wouter";
 import Header from "../templates/Header";

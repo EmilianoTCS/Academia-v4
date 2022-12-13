@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import getDataService from "../../services/GetDataService";
-import SendDataService from "../../services/SendDataService";
+import getDataService from "../../../services/GetDataService";
+import SendDataService from "../../../services/SendDataService";
 import Select from "react-select";
 import "../../css/NotasColaboradores.css";
 import Paginador from "../../templates/Paginador";

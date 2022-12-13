@@ -1,51 +1,24 @@
 import React, { useState, useEffect } from "react";
-import LoginService from "../services/LoginService";
-import SetItemLoginService from "../services/SetItemLoginService";
+import useUser from "../../hooks/useUser";
 import "../css/LoginPage.css";
-import AutenticationLoginContext from "../hooks/AutenticationLogin";
-import { Redirect, Route } from "wouter";
-import HomePage from "./Homepage";
+import { useLocation } from "wouter";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState(null);
-
-  const handleLogin = async (event) => {
-    event.preventDefault();
-    try {
-      const user = await LoginService.loginService({
-        username,
-        password,
-      });
-      SetItemLoginService.SetItemLoginService(user);
-      setUser(user);
-
-      setUsername("");
-      setPassword("");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  window.localStorage.setItem("loggedUser", JSON.stringify(user));
+  const [, navigate] = useLocation();
+  const { login, isLogged } = useUser();
 
   useEffect(() => {
-    const loggedStatus = window.localStorage.getItem("loggedUser", user);
-    if (loggedStatus) {
-      const user = JSON.parse(loggedStatus);
-      setUser(user);
-    }
-  }, [user]);
+    if (isLogged) navigate("/home");
+  }, [isLogged, navigate]);
 
-  return user ? (
-    <div>
-      <AutenticationLoginContext.Provider value={user}>
-        <Route path="/home" component={HomePage}></Route>
-        <Redirect to="/home"></Redirect>
-      </AutenticationLoginContext.Provider>
-    </div>
-  ) : (
+  const handleLogin = (e) => {
+    e.preventDefault();
+    login();
+  };
+
+  return (
     <div>
       <h3 id="pageTitleLogin">Academia de formación</h3>
       <div id="background">

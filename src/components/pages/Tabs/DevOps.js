@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Recurso from "../../sources/Recurso-3.png";
+import Recurso from "../../../sources/Recurso-3.png";
 class DevOps extends Component {
   state = {};
   render() {
