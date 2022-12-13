@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "wouter";
 import "../css/SidebarStyles.css";
-import Logout from "../services/Logout";
-import userLogo from "../sources/User_logo.png";
+import Logout from "../../services/Logout";
+import userLogo from "../../sources/User_logo.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Offcanvas } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";

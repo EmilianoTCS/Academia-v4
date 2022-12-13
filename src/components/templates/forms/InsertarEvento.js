@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { BsX } from "react-icons/bs";
+import React, { useState } from "react";
 import "../../css/InsertarEvento.css";
-import SendDataService from "../../services/SendDataService";
+import SendDataService from "../../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
 import DatePicker from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
@@ -26,11 +25,7 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
 
   const handleClose = () => cambiarEstado(false);
 
-
   // ----------------------FUNCIONES----------------------------
-  function CloseForm() {
-    setisActive(false);
-  }
 
   function handleChangeFechas(values) {
     setValoresFechas(values);
@@ -44,7 +39,7 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
     const url = "TASKS/coe-insertarEvento.php";
     const operationUrl = "insertarEvento";
     var data = {
-      fechasOrdenadas,
+      fechasOrdenadas: fechasOrdenadas[0],
       titulo: titulo,
       descripcion: descripcion,
       duracion: duracion,
@@ -103,67 +98,72 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
           <Modal.Title>Insertar Evento</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div>
-            <label htmlFor="input_fechaInicio">Titulo: </label>
-            <input
-              placeholder="Elige un titulo"
-              name="titulo"
-              className="form-control"
-              onChange={({ target }) => setTitulo(target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_fechaInicio">Descripción: </label>
-            <input
-              placeholder="Escriba una descripción"
-              name="descripcion"
-              className="form-control"
-              onChange={({ target }) => setDescripcion(target.value)}
-            />
-          </div>
-          <div>
-            <label>Duración: </label>
-            <Form.Select onChange={({ target }) => handleChange(target.value)}>
-              <option default>Elige la duración</option>
-              <option value="00:30:00">30min</option>
-              <option value="01:00:00">1:00hs</option>
-              <option value="01:30:00">1:30hs</option>
-              <option value="02:00:00">2:00hs</option>
-              <option value="02:30:00">2:30hs</option>
-              <option value="03:00:00">3:00hs</option>
-            </Form.Select>
-          </div>
-          <div id="datePickerContainer">
-            <label>Fecha y hora: </label>
-            <DatePicker
-              id="input_fechaInicio"
-              format="YYYY-MM-DD HH:mm:ss"
-              onChange={handleChangeFechas}
-              inputClass="form-control"
-              mapDays={mapDays}
-              multiple
-              placeholder="Elige una fecha y hora"
-              plugins={[
-                <DatePanel />,
-                <TimePicker />,
-                <CustomButton position="bottom" />,
-              ]}
-            />
-          </div>
+          <form onSubmit={SendData}>
+            <div>
+              <label htmlFor="input_fechaInicio">Título: </label>
+              <input
+                placeholder="Elige un titulo"
+                name="titulo"
+                className="form-control"
+                onChange={({ target }) => setTitulo(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_fechaInicio">Descripción: </label>
+              <input
+                placeholder="Escriba una descripción"
+                name="descripcion"
+                className="form-control"
+                onChange={({ target }) => setDescripcion(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label>Duración: </label>
+              <Form.Select
+                required
+                onChange={({ target }) => handleChange(target.value)}
+              >
+                <option default>Elige la duración</option>
+                <option value="00:30:00">30min</option>
+                <option value="01:00:00">1:00hs</option>
+                <option value="01:30:00">1:30hs</option>
+                <option value="02:00:00">2:00hs</option>
+                <option value="02:30:00">2:30hs</option>
+                <option value="03:00:00">3:00hs</option>
+              </Form.Select>
+            </div>
+            <div id="datePickerContainer">
+              <label>Fecha y hora: </label>
+              <DatePicker
+                required
+                id="input_fechaInicio"
+                format="YYYY-MM-DD HH:mm:ss"
+                onChange={handleChangeFechas}
+                inputClass="form-control"
+                mapDays={mapDays}
+                multiple
+                placeholder="Elige una fecha y hora"
+                plugins={[
+                  <DatePanel />,
+                  <TimePicker />,
+                  <CustomButton position="bottom" />,
+                ]}
+              />
+            </div>
+            <Button
+              variant="secondary"
+              type="submit"
+              id="btn_registrar"
+              value="Registrar"
+            >
+              Registrar
+            </Button>
+          </form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            type="submit"
-            id="btn_registrar"
-            value="Registrar"
-            onClick={SendData}
-          >
-            Registrar
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );
-}
+};
 export default InsertarEvento;

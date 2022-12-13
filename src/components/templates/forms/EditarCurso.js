@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import { BsX } from "react-icons/bs";
 import "../../css/InsertarCursoCalendario.css";
-import getDataService from "../../services/GetDataService";
-import SendDataService from "../../services/SendDataService";
+import getDataService from "../../../services/GetDataService";
+import SendDataService from "../../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
-export default function EditarCurso(props) {
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+
+const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
   // ----------------------CONSTANTES----------------------------
-  const [isActive, setisActive] = useState(props.Props.isActiveEditCurso);
   const [responseID, setResponseID] = useState([""]);
   const [listCuentas, setListCuentas] = useState([""]);
   const [listRamos, setListRamos] = useState([""]);
@@ -18,31 +19,36 @@ export default function EditarCurso(props) {
   const [horaInicio, setHoraInicio] = useState("");
   const [horaFin, setHoraFin] = useState("");
 
+  const show = isActiveEditCurso;
+
+  const handleClose = () => {
+    cambiarEstado(false);
+    resetStates();
+  };
+
   // ----------------------FUNCIONES----------------------------
-  function CloseForm() {
-    setisActive(false);
-  }
+
   function getData() {
     const url = "TASKS/coe-selectCuentas.php";
     const operationUrl = "ID";
-    const data = { ID: props.Props.IDCurso };
-    SendDataService(url, operationUrl, data).then(
-      (response) => setResponseID(response),
-      console.log(responseID),
-      setFechaInicio(responseID[0].fechaInicioEdit),
-      setFechaFin(responseID[0].fechaFinEdit),
-      setHoraInicio(responseID[0].horaInicioEdit),
-      setHoraFin(responseID[0].horaFinEdit),
-      setCodigoCuenta(responseID[0].codigoCuentaEdit),
-      setCodigoRamo(responseID[0].codigoRamoEdit)
+    const data = { ID: IDCurso };
+    SendDataService(url, operationUrl, data).then((response) =>
+      setResponseID(response)
     );
-    obtenerCuentas();
-    obtenerRamos();
   }
   function obtenerCuentas() {
     const url = "TASKS/auxiliar/ListadoCuentas.php?listadoCuentas";
     getDataService(url).then((cuentas) => setListCuentas(cuentas));
   }
+  function resetStates() {
+    setCodigoCuenta("");
+    setCodigoRamo("");
+    setFechaInicio("");
+    setFechaFin("");
+    setHoraInicio("");
+    setHoraFin("");
+  }
+
   function obtenerRamos() {
     const url = "TASKS/auxiliar/ListadoNombreRamos.php?listadoRamos";
     getDataService(url).then((ramos) => setListRamos(ramos));
@@ -51,26 +57,35 @@ export default function EditarCurso(props) {
     e.preventDefault();
     const url = "TASKS/coe-editCurso.php";
     const operationUrl = "editarCurso";
-    var data = {
-      ID: props.Props.IDCurso,
-      codigoCuenta: codigoCuenta,
-      codigoRamo: codigoRamo,
-      fechaInicio: fechaInicio,
-      fechaFin: fechaFin,
-      horaInicio: horaInicio,
-      horaFin: horaFin,
+    const data = {
+      ID: IDCurso,
+      codigoCuenta:
+        codigoCuenta === "" ? responseID[0].idCuentaEdit : codigoCuenta,
+      codigoRamo: codigoRamo === "" ? responseID[0].codigoRamoEdit : codigoRamo,
+      fechaInicio:
+        fechaInicio === "" ? responseID[0].fechaInicioEdit : fechaInicio,
+      fechaFin: fechaFin === "" ? responseID[0].fechaFinEdit : fechaFin,
+      horaInicio: horaInicio === "" ? responseID[0].horaInicioEdit : horaInicio,
+      horaFin: horaFin === "" ? responseID[0].horaFinEdit : horaFin,
     };
-    SendDataService(url, operationUrl, data).then((response) =>
-      TopAlerts(response)
+    console.log(data);
+
+    SendDataService(url, operationUrl, data).then(
+      (response) => TopAlerts(response),
+      resetStates(),
+      getData()
     );
   }
+
   useEffect(
     function () {
-      getData();
-      setisActive(props.Props.isActiveEditCurso);
-      console.log(props.Props.IDCurso);
+      if (IDCurso !== null) {
+        getData();
+        obtenerCuentas();
+        obtenerRamos();
+      }
     },
-    [props.Props.IDCurso]
+    [IDCurso]
   );
 
   // ----------------------MAPEADOS----------------------------
@@ -82,89 +97,133 @@ export default function EditarCurso(props) {
     label: label.codigoCuenta,
     value: label.ID,
   }));
+
   // ----------------------RENDER----------------------------
 
   return (
     <>
-      <div
-        id="containerFormCurso"
-        className={isActive ? "active" : "containerFormCurso"}
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
       >
-        <form id="form_insertarCurso" onSubmit={SendData}>
-          <div id="headerForms">
-            <h3 id="titleForm">Editar Curso</h3>
-            <BsX id="btn_close" onClick={CloseForm} />
-          </div>
-          <div>
-            <label htmlFor="input_fechaInicio">Cuenta: </label>
-            <Select
-              placeholder="Elige una cuenta"
-              name="cuenta"
-              options={optionsCuentas}
-              onChange={({ value }) => setCodigoCuenta(value)}
-              defaultInputValue={codigoCuenta}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_fechaInicio">Ramo: </label>
-            <Select
-              placeholder="Elige un ramo"
-              name="codigoRamo"
-              options={optionsRamos}
-              onChange={({ value }) => setCodigoRamo(value)}
-              defaultInputValue={codigoRamo}
-            />
-          </div>
-          <div className="md-form md-outline input-with-post-icon datepicker">
-            <label htmlFor="input_fechaInicio">Fecha Inicio: </label>
-            <input
-              type="date"
-              id="input_fechaInicio"
-              name="input_fechaInicio"
-              className="form-control"
-              onChange={({ target }) => setFechaInicio(target.value)}
-              value={fechaInicio}
-            />
-          </div>
-          <div className="md-form md-outline input-with-post-icon datepicker">
-            <label htmlFor="input_fechaInicio">Fecha Fin: </label>
-            <input
-              type="date"
-              id="input_fechaInicio"
-              name="input_fechaInicio"
-              className="form-control"
-              onChange={({ target }) => setFechaFin(target.value)}
-              value={fechaFin}
-            />
-          </div>
-          <div className="md-form md-outline">
-            <label htmlFor="input_horaInicio">Hora Inicio: </label>
-            <input
-              type="time"
-              name="input_horaInicio"
-              className="form-control"
-              id="input_horaInicio"
-              value={horaInicio}
-              onChange={({ target }) => setHoraInicio(target.value)}
-            />
-          </div>
+        <Modal.Header closeButton>
+          <Modal.Title>Editar Curso</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form onSubmit={SendData}>
+            <div>
+              <label htmlFor="input_fechaInicio">Cuenta: </label>
+              <Select
+                placeholder="Elige una cuenta"
+                name="cuenta"
+                options={optionsCuentas}
+                onChange={({ value }) => setCodigoCuenta(value)}
+                defaultValue={
+                  codigoCuenta === ""
+                    ? responseID[0].codigoCuentaEdit || ""
+                    : codigoCuenta || ""
+                }
+                defaultInputValue={responseID[0].codigoCuentaEdit}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_fechaInicio">Ramo: </label>
+              <Select
+                placeholder="Elige un ramo"
+                name="codigoRamo"
+                options={optionsRamos}
+                onChange={({ value }) => setCodigoRamo(value)}
+                defaultValue={
+                  codigoRamo === ""
+                    ? responseID[0].codigoRamoEdit || ""
+                    : codigoRamo || ""
+                }
+                defaultInputValue={responseID[0].codigoRamoEdit}
+                required
+              />
+            </div>
+            <div className="md-form md-outline input-with-post-icon datepicker">
+              <label htmlFor="input_fechaInicio">Fecha Inicio: </label>
+              <input
+                type="date"
+                id="input_fechaInicio"
+                name="input_fechaInicio"
+                className="form-control"
+                onChange={({ target }) => setFechaInicio(target.value)}
+                value={
+                  fechaInicio === ""
+                    ? responseID[0].fechaInicioEdit || ""
+                    : fechaInicio || ""
+                }
+                required
+              />
+            </div>
+            <div className="md-form md-outline input-with-post-icon datepicker">
+              <label htmlFor="input_fechaInicio">Fecha Fin: </label>
+              <input
+                type="date"
+                id="input_fechaInicio"
+                name="input_fechaInicio"
+                className="form-control"
+                onChange={({ target }) => setFechaFin(target.value)}
+                value={
+                  fechaFin === ""
+                    ? responseID[0].fechaFinEdit || ""
+                    : fechaFin || ""
+                }
+                required
+              />
+            </div>
+            <div className="md-form md-outline">
+              <label htmlFor="input_horaInicio">Hora Inicio: </label>
+              <input
+                type="time"
+                name="input_horaInicio"
+                className="form-control"
+                id="input_horaInicio"
+                onChange={({ target }) => setHoraInicio(target.value)}
+                value={
+                  horaInicio === ""
+                    ? responseID[0].horaInicioEdit || ""
+                    : horaInicio || ""
+                }
+                required
+              />
+            </div>
 
-          <div className="md-form md-outline">
-            <label htmlFor="input_horaFin">Hora Fin: </label>
-            <input
-              type="time"
-              name="input_horaFin"
-              className="form-control"
-              id="input_horaFin"
-              onChange={({ target }) => setHoraFin(target.value)}
-              value={horaFin}
-            />
-          </div>
-          <div>
-            <input type="submit" id="btn_registrar" value="Actualizar" />
-          </div>
-        </form>
-      </div>
+            <div className="md-form md-outline">
+              <label htmlFor="input_horaFin">Hora Fin: </label>
+              <input
+                type="time"
+                name="input_horaFin"
+                className="form-control"
+                id="input_horaFin"
+                onChange={({ target }) => setHoraFin(target.value)}
+                value={
+                  horaFin === ""
+                    ? responseID[0].horaFinEdit || ""
+                    : horaFin || ""
+                }
+                required
+              />
+            </div>
+            <Button
+              variant="secondary"
+              type="submit"
+              id="btn_registrar"
+              value="Registrar"
+              onClick={SendData}
+            >
+              Registrar
+            </Button>
+          </form>
+        </Modal.Body>
+      </Modal>
     </>
   );
-}
+};
+
+export default EditarCurso;

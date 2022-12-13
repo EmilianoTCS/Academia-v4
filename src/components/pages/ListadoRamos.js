@@ -2,8 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import { Redirect } from "wouter";
-import getDataService from "../services/GetDataService";
-import SendDataService from "../services/SendDataService";
+import getDataService from "../../services/GetDataService";
+import SendDataService from "../../services/SendDataService";
 import Header from "../templates/Header";
 import { BsPencilSquare, BsTrash } from "react-icons/bs";
 import { BiShowAlt } from "react-icons/bi";
@@ -26,7 +26,7 @@ export default function ListadoRamos() {
   const userData = JSON.parse(localStorage.getItem("loggedUser"));
   const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
   const [isActiveInsertRamo, setIsActiveInsertRamo] = useState(false);
-  const [IDRamo, setIDRamo] = useState(2);
+  const [IDRamo, setIDRamo] = useState(null);
   const [isActiveEditRamo, setIsActiveEditRamo] = useState(false);
 
   const [num_boton, setNumBoton] = useState(1);
@@ -83,7 +83,7 @@ export default function ListadoRamos() {
   return userData ? (
     <>
       <Header></Header>
-      <div>
+      <div id="containerTablas">
         <h1 id="TitlesPages">Listado de ramos</h1>
         <Button id="btnCursoListado" onClick={insertarCurso}>
           Insertar Curso
@@ -100,7 +100,11 @@ export default function ListadoRamos() {
           isActiveRamo={isActiveInsertRamo}
           cambiarEstado={setIsActiveInsertRamo}
         ></InsertarRamo>
-        {/* <EditarRamo Props={{ IDRamo, isActiveEditRamo }}></EditarRamo> */}
+        <EditarRamo
+          isActiveEditRamo={isActiveEditRamo}
+          cambiarEstado={setIsActiveEditRamo}
+          IDRamo={IDRamo}
+        ></EditarRamo>
         <Table id="mainTable" hover responsive>
           <thead>
             <tr>

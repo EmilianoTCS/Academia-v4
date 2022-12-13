@@ -4,8 +4,8 @@ import { Redirect } from "wouter";
 import Header from "../templates/Header";
 import Select from "react-select";
 import { useState, useEffect } from "react";
-import getDataService from "../services/GetDataService";
-import SendDataService from "../services/SendDataService";
+import getDataService from "../../services/GetDataService";
+import SendDataService from "../../services/SendDataService";
 import SwitchToggle from "../templates/SwitchToggle";
 import "../css/Prerequisitos.css";
 export default function Prerequisitos() {

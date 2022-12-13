@@ -2,8 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import { Redirect } from "wouter";
-import getDataService from "../services/GetDataService";
-import SendDataService from "../services/SendDataService";
+import getDataService from "../../services/GetDataService";
+import SendDataService from "../../services/SendDataService";
 import Header from "../templates/Header";
 import { BsPencilSquare, BsTrash } from "react-icons/bs";
 import { BiShowAlt } from "react-icons/bi";
@@ -16,7 +16,6 @@ import Paginador from "../templates/Paginador";
 import Button from "react-bootstrap/Button";
 import "../css/BtnInsertar.css";
 
-
 export default function ListadoClientes() {
   const [cliente, setCliente] = useState([""]);
   const [paginador, setPaginadorRelator] = useState([""]);
@@ -26,7 +25,7 @@ export default function ListadoClientes() {
   const userData = JSON.parse(localStorage.getItem("loggedUser"));
   const [isActiveInsertCliente, setIsActiveInsertCliente] = useState(false);
   const [isActiveEditCliente, setIsActiveEditCliente] = useState(false);
-  const [IDCliente, setIDCliente] = useState(1);
+  const [IDCliente, setIDCliente] = useState(null);
   const [num_boton, setNumBoton] = useState(1);
 
   function insertarCliente() {
@@ -89,9 +88,12 @@ export default function ListadoClientes() {
           cambiarEstado={setIsActiveInsertCliente}
         ></InsertarClientes>
 
-        {/* <EditarClientes
-          Props={{ isActiveEditCliente, IDCliente }}
-        ></EditarClientes> */}
+        <EditarClientes
+          isActiveEditCliente={isActiveEditCliente}
+          cambiarEstado={setIsActiveEditCliente}
+          IDCliente={IDCliente}
+        ></EditarClientes>
+
         <Table id="mainTable" hover responsive>
           <thead>
             <tr>
@@ -101,6 +103,7 @@ export default function ListadoClientes() {
               <th>Cuenta</th>
               <th>Código Ramo</th>
               <th>Nombre del ramo</th>
+              <th>Teléfono</th>
               <th>Operaciones</th>
             </tr>
           </thead>

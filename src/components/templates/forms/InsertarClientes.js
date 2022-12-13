@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { BsX } from "react-icons/bs";
+import React, { useState } from "react";
+
 import "../../css/InsertarRamo.css";
-import SendDataService from "../../services/SendDataService";
+import SendDataService from "../../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => { 
+const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
   // ----------------------CONSTANTES----------------------------
   const [tipo_cliente, setTipoClientes] = useState("");
   const [nombreCliente, setNombreCliente] = useState("");
@@ -14,11 +14,10 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
   const [correoReferente, setCorreoReferente] = useState("");
   const [cargoReferente, setCargoReferente] = useState("");
   const [telefonoReferente, setTelefonoReferente] = useState("");
-  
+
   const show = isActiveCliente;
 
   const handleClose = () => cambiarEstado(false);
-
 
   // ----------------------FUNCIONES----------------------------
 
@@ -40,7 +39,6 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
     );
   }
 
-
   // ----------------------RENDER----------------------------
   return (
     <>
@@ -54,86 +52,93 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
           <Modal.Title>Insertar Cliente</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="form-group">
-            <label htmlFor="input_tipoCliente">Tipo de cliente: </label>
-            <select
-              className="form-control"
-              name="input_tipoCliente"
-              id="input_tipoCliente"
-              onChange={({ target }) => setTipoClientes(target.value)}
+          <form onSubmit={SendData}>
+            <div className="form-group">
+              <label htmlFor="input_tipoCliente">Tipo de cliente: </label>
+              <select
+                required
+                className="form-control"
+                name="input_tipoCliente"
+                id="input_tipoCliente"
+                onChange={({ target }) => setTipoClientes(target.value)}
+              >
+                <option value="interno">Interno</option>
+                <option value="externo">Externo</option>
+              </select>
+            </div>
+
+            <div>
+              <label htmlFor="input_nombreCliente">Nombre del cliente:</label>
+              <input
+                type="text"
+                className="form-control"
+                name="input_nombreCliente"
+                id="input_nombreCliente"
+                onChange={({ target }) => setNombreCliente(target.value)}
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="input_referente">Referente:</label>
+              <input
+                type="text"
+                className="form-control"
+                name="input_referente"
+                id="input_referente"
+                onChange={({ target }) => setReferente(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_correoReferente">
+                Correo del referente:
+              </label>
+              <input
+                type="email"
+                className="form-control"
+                name="input_correoReferente"
+                id="input_correoReferente"
+                onChange={({ target }) => setCorreoReferente(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_cargoReferente">Cargo del referente:</label>
+              <input
+                type="text"
+                className="form-control"
+                name="input_cargoReferente"
+                id="input_cargoReferente"
+                onChange={({ target }) => setCargoReferente(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_telefonoReferente">
+                Teléfono del referente:
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                name="input_telefonoReferente"
+                id="input_telefonoReferente"
+                onChange={({ target }) => setTelefonoReferente(target.value)}
+                required
+              />
+            </div>
+            <Button
+              variant="secondary"
+              type="submit"
+              id="btn_registrar"
+              value="Registrar"
             >
-              <option value="interno">Interno</option>
-              <option value="externo">Externo</option>
-            </select>
-          </div>
-
-          <div>
-            <label htmlFor="input_nombreCliente">Nombre del cliente:</label>
-            <input
-              type="text"
-              className="form-control"
-              name="input_nombreCliente"
-              id="input_nombreCliente"
-              onChange={({ target }) => setNombreCliente(target.value)}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="input_referente">Referente:</label>
-            <input
-              type="text"
-              className="form-control"
-              name="input_referente"
-              id="input_referente"
-              onChange={({ target }) => setReferente(target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_correoReferente">Correo del referente:</label>
-            <input
-              type="text"
-              className="form-control"
-              name="input_correoReferente"
-              id="input_correoReferente"
-              onChange={({ target }) => setCorreoReferente(target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_cargoReferente">Cargo del referente:</label>
-            <input
-              type="text"
-              className="form-control"
-              name="input_cargoReferente"
-              id="input_cargoReferente"
-              onChange={({ target }) => setCargoReferente(target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="input_telefonoReferente">
-              Teléfono del referente:
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              name="input_telefonoReferente"
-              id="input_telefonoReferente"
-              onChange={({ target }) => setTelefonoReferente(target.value)}
-            />
-          </div>
+              Registrar
+            </Button>
+          </form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            type="submit"
-            id="btn_registrar"
-            value="Registrar"
-            onClick={SendData}
-          >
-            Registrar
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );
-}
+};
 export default InsertarClientes;

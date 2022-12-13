@@ -3,24 +3,28 @@ import { Card } from "react-bootstrap";
 import { Redirect } from "wouter";
 import Hexagon from "react-hexagon";
 import "../../css/MisCursos.css";
-import SendDataService from "../../services/SendDataService";
+import SendDataService from "../../../services/SendDataService";
+import { useCallback } from "react";
 export default function Automation() {
   const userData = JSON.parse(localStorage.getItem("loggedUser"));
 
   const [data, setData] = useState([""]);
 
-  function obtenerDatos() {
+  const obtenerDatos = useCallback(() => {
     const url = "TASKS/SubCards.php";
     const operationUrl = "usuario";
     var data = { usuario: userData[0].username };
     SendDataService(url, operationUrl, data).then((response) =>
       setData(response)
     );
-  }
+  }, [userData]);
 
-  useEffect(function () {
-    obtenerDatos();
-  }, []);
+  useEffect(
+    function () {
+      obtenerDatos();
+    },
+    [obtenerDatos]
+  );
 
   const styleHexGreen = {
     fill: "#548235",

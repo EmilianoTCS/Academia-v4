@@ -2,9 +2,9 @@ import { Card, Form, Button } from "react-bootstrap";
 import { Redirect } from "wouter";
 import Header from "../templates/Header";
 import Select from "react-select";
-import getDataService from "../services/GetDataService";
+import getDataService from "../../services/GetDataService";
 import React, { useState, useEffect } from "react";
-import SendDataService from "../services/SendDataService";
+import SendDataService from "../../services/SendDataService";
 import TopAlerts from "../templates/alerts/TopAlerts";
 
 export default function InscribirseCurso() {

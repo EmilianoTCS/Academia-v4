@@ -2,8 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import { Redirect } from "wouter";
-import getDataService from "../services/GetDataService";
-import SendDataService from "../services/SendDataService";
+import getDataService from "../../services/GetDataService";
+import SendDataService from "../../services/SendDataService";
 import Header from "../templates/Header";
 import { BsPencilSquare, BsTrash } from "react-icons/bs";
 import { BiShowAlt } from "react-icons/bi";
@@ -24,7 +24,7 @@ export default function ListadoRelator() {
   const operationUrl = "pagina";
   const userData = JSON.parse(localStorage.getItem("loggedUser"));
   const [isActiveInsertRelator, setIsActiveInsertRelator] = useState(false);
-  const [IDRelator, setIDRelator] = useState(2);
+  const [IDRelator, setIDRelator] = useState(null);
   const [isActiveEditRelator, setIsActiveEditRelator] = useState(false);
   const [num_boton, setNumBoton] = useState(1);
 
@@ -74,9 +74,8 @@ export default function ListadoRelator() {
   return userData ? (
     <>
       <Header></Header>
-      <div>
+      <div id="containerTablas">
         <h1 id="TitlesPages">Listado de relatores</h1>
-
         <Button id="btn" onClick={insertarRelator}>
           Insertar Relator
         </Button>
@@ -85,9 +84,11 @@ export default function ListadoRelator() {
           cambiarEstado={setIsActiveInsertRelator}
         ></InsertarRelator>
 
-        {/* <EditarRelator
-          Props={{ isActiveEditRelator, IDRelator }}
-        ></EditarRelator> */}
+        <EditarRelator
+          isActiveEditRelator={isActiveEditRelator}
+          cambiarEstado={setIsActiveEditRelator}
+          IDRelator={IDRelator}
+        ></EditarRelator>
 
         <Table id="mainTable" hover responsive>
           <thead>

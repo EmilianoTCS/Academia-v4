@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, Table } from "react-bootstrap";
-import SendDataService from "../../services/SendDataService";
+import SendDataService from "../../../services/SendDataService";
 
 export default function DetalleNotas() {
   const userData = JSON.parse(localStorage.getItem("loggedUser"));
