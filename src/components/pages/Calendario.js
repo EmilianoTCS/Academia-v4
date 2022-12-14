@@ -119,7 +119,7 @@ export default function Calendario() {
   };
   // --------------------RENDER---------------------
 
-  return userData ? (
+  return isLogged ? (
     <>
       <Header></Header>
       <Button id="btnCurso" onClick={insertarCurso}>

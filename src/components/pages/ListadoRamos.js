@@ -82,7 +82,7 @@ const {isLogged} = useUser()
 
   //PAGINADOR ---------------------
 
-  return userData ? (
+  return isLogged ? (
     <>
       <Header></Header>
       <div id="containerTablas">

@@ -20,7 +20,7 @@ export default function HomePage() {
     obtenerDatos();
   }, []);
 
-  return userData ? (
+  return isLogged ? (
     <div>
       <Header></Header>
       <div id="container_cards">

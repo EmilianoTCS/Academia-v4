@@ -19,7 +19,6 @@ export default function ListadoAsistencias() {
   const [listadoFechas, setListadoFechas] = useState([""]);
   const [cursoSeleccionado, setCursoSeleccionado] = useState("");
   const [fechaSeleccionada, setfechaSeleccionada] = useState("");
-  const [IDsChange, setIDsChange] = useState([]);
   const [busqueda, setBusqueda] = useState(false);
   const {isLogged} = useUser()
   const userData = JSON.parse(sessionStorage.getItem("userData"));
@@ -52,40 +51,32 @@ export default function ListadoAsistencias() {
   }
 
   function handleChange(ID) {
-    IDsChange.push(ID);
-  }
-  function enviarDatos() {
     const url = "TASKS/coe-updateStateAsistencias.php";
     const operationUrl = "updateStateAsistencias";
-    var data = { IDsChange };
-    SendDataService(url, operationUrl, data).then(
-      (response) => TopAlerts(response),
-      setIDsChange([]),
-      obtenerDatos()
-    );
+    var data = { IDRegistro: ID, IDCurso: cursoSeleccionado, Fecha: fechaSeleccionada};
+    SendDataService(url, operationUrl, data).then((response) => {
+      console.log(response[0])
+      const { successEdited, ...asistencia } = response[0];
+      actualizarAsistencia(asistencia);
+      TopAlerts(successEdited);
+    });
   }
+  function actualizarAsistencia(asistencia) {
+    const nuevasAsistencias = asistencias.map((a) => (a.ID === asistencia.ID ? asistencia : a));
+    setAsistencias(nuevasAsistencias);
+  }
+
 
   useEffect(
     function () {
       obtenerDatosCursos();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [cursoSeleccionado]
+    [cursoSeleccionado, fechaSeleccionada]
   );
 
   //-----------------------COMPONENTES
-  function CustomButton() {
-    return (
-      <>
-        <input
-          type="button"
-          value="Guardar cambios"
-          id="btn_guardarFecha"
-          onClick={enviarDatos}
-        ></input>
-      </>
-    );
-  }
+
   function CustomButtonSearch() {
     return (
       <>
@@ -150,7 +141,7 @@ export default function ListadoAsistencias() {
 
   // ----------------------RENDER----------------------------
 
-  return userData ? (
+  return isLogged ? (
     <>
       <Header></Header>
       <div id="containerTablas">
@@ -172,7 +163,6 @@ export default function ListadoAsistencias() {
             onChange={({ value }) => setfechaSeleccionada(value)}
           />
           <CustomButtonSearch></CustomButtonSearch>
-          <CustomButton></CustomButton>
         </div>
         <MainTable></MainTable>
       </div>

@@ -90,7 +90,7 @@ export default function Prerequisitos() {
 
   // ------------------------- RETURN -------------------------
 
-  return userData ? (
+  return isLogged ? (
     <>
       <Header></Header>
       <h1 id="TitlesPages">Administración de prerequisitos</h1>

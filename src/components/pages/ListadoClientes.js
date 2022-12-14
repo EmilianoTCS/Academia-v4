@@ -75,7 +75,7 @@ export default function ListadoClientes() {
 
   //PAGINADOR ---------------------
 
-  return userData ? (
+  return isLogged ? (
     <>
       <Header></Header>
       <div>

@@ -52,7 +52,7 @@ export default function BasicTabs() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  return userData ? (
+  return isLogged ? (
     <>
       <Header />
       <h1 id="TitlesPages">Panel de colaboradores</h1>

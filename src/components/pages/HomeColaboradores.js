@@ -44,7 +44,7 @@ export default function HomeColaboradores() {
     filter: "drop-shadow(10px 10px 5px rgb(0 0 0 / 0.4))",
   };
 
-  return userData ? (
+  return isLogged ? (
     <>
       <Header></Header>
       <CardGroup id="cardContainer">

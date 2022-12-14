@@ -56,7 +56,7 @@ export default function InscribirseCurso() {
     value: label.ID,
   }));
 
-  return userData ? (
+  return isLogged ? (
     <>
       <Header></Header>
       <h1 id="TitlesPages">Inscripción de cursos</h1>

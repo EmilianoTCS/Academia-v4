@@ -5,6 +5,7 @@ export default function useUser() {
   const { jwt, setJWT } = useContext(Context);
   const [state, setState] = useState({ loading: false, error: false });
 
+
   const login = useCallback(
     ({ username, password }) => {
       LoginService({ username, password })

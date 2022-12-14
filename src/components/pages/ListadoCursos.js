@@ -84,7 +84,7 @@ export default function ListadoCursos() {
     [num_boton]
   );
 
-  return userData ? (
+  return isLogged ? (
     <>
       <Header></Header>
       <div>

@@ -75,7 +75,7 @@ export default function ListadoRelator() {
   }
   //PAGINADOR ---------------------
 
-  return userData ? (
+  return isLogged ? (
     <>
       <Header></Header>
       <div id="containerTablas">

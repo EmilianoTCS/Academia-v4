@@ -54,7 +54,7 @@ export default function MisCursos() {
     setValue(newValue);
   };
 
-  return userData ? (
+  return isLogged ? (
     <div>
       <Header></Header>
       <div>
