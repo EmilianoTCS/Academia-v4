@@ -28,7 +28,7 @@ export default function SideBar(props) {
 
   return (
     <>
-      <section id="sidebar">
+      <section>
         <button
           className="buttonStyleOpen"
           variant="primary"
@@ -64,7 +64,7 @@ export default function SideBar(props) {
               <h4>{userData[0].username}</h4>
             </li>
             <li>
-              <Link id="li_home" to="/home">
+              <Link to="/home" id="li_home">
                 HOME
               </Link>
             </li>

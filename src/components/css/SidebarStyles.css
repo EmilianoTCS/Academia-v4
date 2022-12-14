@@ -21,13 +21,13 @@
     margin: 0;
     padding: 0;
   }
+
   ul li{
     color: #000(230, 230, 230);
     list-style: none;
     padding: 15px 10px;
     text-align: end;
     font-family: "Roboto Slab", serif;
-
   }
   
   ul li a {
@@ -135,12 +135,12 @@
   border-radius: 5px;
   margin: 5px;
   padding: 7px;
+  border: solid #e10b1c 1px;
 }
 
 .buttonStyleOpen:hover{
   color: #e10b1c;
   background-color: white;
-  border: solid #e10b1c 1px;
 }
 
 /*Boton cerrar sidebar*/
@@ -152,16 +152,12 @@
   border-radius: 5px;
   margin: 1px;
   padding: 7px;
+  border: solid #e10b1c 1px;
 }
 
 .buttonStyleClose:hover{
   color: #e10b1c;
   background-color: #fff;
-  border: solid #e10b1c 1px;
-}
-
-.hola{
-  width: 100;
 }
 
 
