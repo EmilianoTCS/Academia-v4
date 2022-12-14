@@ -101,3 +101,21 @@
     margin: auto;
     margin-left: 10%;
   }
+
+  #errorMessage{
+    display: block;
+    border: 1px solid #720e16;
+    background-color: #ffa7ae;
+    height: 50px;
+    border-radius: 10px;
+    margin: 1%;
+    align-items: center;
+  }
+  #errorMessage p{
+    margin: auto;
+    color:#720e16;
+    font-size: 11pt;
+    font-weight: 600;
+    
+
+  }

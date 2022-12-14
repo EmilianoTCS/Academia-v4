@@ -8,10 +8,12 @@ import "../css/HomeColaboradores.css";
 import SendDataService from "../../services/SendDataService";
 import useUser from "../../hooks/useUser";
 
+
 export default function HomeColaboradores() {
   const userData = JSON.parse(localStorage.getItem("loggedUser"));
   const [datos, setDatos] = useState([""]);
   const {isLogged} = useUser()
+
   function obtenerDatos() {
     const url = "TASKS/auxiliar/HomeColaboradores.php";
     const operationUrl = "usuario";
@@ -42,7 +44,7 @@ export default function HomeColaboradores() {
     filter: "drop-shadow(10px 10px 5px rgb(0 0 0 / 0.4))",
   };
 
-  return isLogged ? (
+  return userData ? (
     <>
       <Header></Header>
       <CardGroup id="cardContainer">

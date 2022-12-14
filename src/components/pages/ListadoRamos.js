@@ -30,6 +30,8 @@ export default function ListadoRamos() {
   const [isActiveEditRamo, setIsActiveEditRamo] = useState(false);
 const {isLogged} = useUser()
   const [num_boton, setNumBoton] = useState(1);
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+
 
   useEffect(
     function () {
@@ -80,7 +82,7 @@ const {isLogged} = useUser()
 
   //PAGINADOR ---------------------
 
-  return isLogged ? (
+  return userData ? (
     <>
       <Header></Header>
       <div id="containerTablas">

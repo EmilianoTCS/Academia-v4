@@ -23,6 +23,8 @@ export default function Calendario() {
   const [randomColorEvents, setRandomColorEvents] = useState("");
   const [FeriadosApi, setFeriadosApi] = useState([""]);
   const {isLogged} = useUser()
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+
 
   // --------------------FUNCIONES---------------------
   function getDataCursos() {
@@ -117,7 +119,7 @@ export default function Calendario() {
   };
   // --------------------RENDER---------------------
 
-  return isLogged ? (
+  return userData ? (
     <>
       <Header></Header>
       <Button id="btnCurso" onClick={insertarCurso}>
@@ -145,7 +147,7 @@ export default function Calendario() {
             center: "title",
             left: "dayGridMonth,dayGridWeek,dayGridDay",
           }}
-          weekends={false}
+          weekends={true}
           aspectRatio={2}
           droppable={true}
           dragScroll={true}

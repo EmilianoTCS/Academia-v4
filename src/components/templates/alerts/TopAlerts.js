@@ -13,6 +13,15 @@ export default function TopAlerts(props) {
         toast: true,
         showConfirmButton: false,
       });
+      case "changesSaved":
+      return MySwal.fire({
+        title: "Se han guardado los cambios",
+        icon: "success",
+        position: "top-right",
+        timer: 2500,
+        toast: true,
+        showConfirmButton: false,
+      });
     case "successDeleted":
       return MySwal.fire({
         title: "Se ha eliminado el registro",

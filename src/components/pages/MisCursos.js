@@ -11,7 +11,7 @@ import Automation from "./Tabs/Automation";
 import DevOps from "./Tabs/DevOps";
 import Certificados from "./Tabs/Certificados";
 import DetalleNotas from "./Tabs/DetalleNotas";
-
+import {Redirect} from "wouter"
 function TabPanel(props) {
   const { children, value, index } = props;
 
@@ -47,12 +47,14 @@ function a11yProps(index) {
 export default function MisCursos() {
   const [value, setValue] = React.useState(0);
   const { isLogged } = useUser();
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  return isLogged ? (
+  return userData ? (
     <div>
       <Header></Header>
       <div>

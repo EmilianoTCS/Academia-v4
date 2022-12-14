@@ -22,6 +22,8 @@ export default function ListadoAsistencias() {
   const [IDsChange, setIDsChange] = useState([]);
   const [busqueda, setBusqueda] = useState(false);
   const {isLogged} = useUser()
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+
 
   function obtenerDatosCursos() {
     var url = "TASKS/auxiliar/idCurso.php?idCurso";
@@ -148,7 +150,7 @@ export default function ListadoAsistencias() {
 
   // ----------------------RENDER----------------------------
 
-  return isLogged ? (
+  return userData ? (
     <>
       <Header></Header>
       <div id="containerTablas">

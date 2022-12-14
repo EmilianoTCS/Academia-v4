@@ -44,13 +44,15 @@ function a11yProps(index) {
 
 export default function BasicTabs() {
   const {isLogged} = useUser()
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+
 
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  return isLogged ? (
+  return userData ? (
     <>
       <Header />
       <h1 id="TitlesPages">Panel de colaboradores</h1>

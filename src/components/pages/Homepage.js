@@ -7,6 +7,8 @@ import PieChart from "../templates/Pie";
 import BarChart from "../templates/Bar";
 import useUser from "../../hooks/useUser";
 export default function HomePage() {
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+
   const [cards, setCards] = useState([""]);
   const url = "TASKS/Cards-General.php";
   const { isLogged } = useUser();
@@ -18,7 +20,7 @@ export default function HomePage() {
     obtenerDatos();
   }, []);
 
-  return isLogged ? (
+  return userData ? (
     <div>
       <Header></Header>
       <div id="container_cards">

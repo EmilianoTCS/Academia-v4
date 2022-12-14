@@ -8,6 +8,8 @@ export default function Login() {
   const [, navigate] = useLocation();
   const { isLoginLoading, hasLoginError, login, isLogged } = useUser();
 
+  //FUNCIONES
+
   useEffect(() => {
     console.log(isLogged);
     if (isLogged) navigate("/home");
@@ -17,6 +19,18 @@ export default function Login() {
     e.preventDefault();
     login({ username, password });
   };
+
+//COMPONENTES
+  const ErrorMessage = () => {
+    return (
+      <div id="errorMessage">
+        <p>El usuario o contraseña es incorrecto.</p>
+      </div>
+    )
+  }
+
+
+
 
   return (
     <div>
@@ -62,10 +76,12 @@ export default function Login() {
                 Olvidaste la contraseña?
               </a>
             </div>
+            {hasLoginError && <ErrorMessage></ErrorMessage>}
+
           </form>
         </div>
       )}
-      {hasLoginError && <strong>Invalid Credentials</strong>}
+      
     </div>
   );
 }

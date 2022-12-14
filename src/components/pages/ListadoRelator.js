@@ -29,6 +29,8 @@ export default function ListadoRelator() {
   const [isActiveEditRelator, setIsActiveEditRelator] = useState(false);
   const [num_boton, setNumBoton] = useState(1);
   const {isLogged} = useUser()
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+
 
   function obtenerDatosPaginador() {
     getDataService(urlPaginador).then((paginador) =>
@@ -73,7 +75,7 @@ export default function ListadoRelator() {
   }
   //PAGINADOR ---------------------
 
-  return isLogged ? (
+  return userData ? (
     <>
       <Header></Header>
       <div id="containerTablas">

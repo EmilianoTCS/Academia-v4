@@ -83,6 +83,7 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
       fechasFormateadas.push(valoresFechas[index].format())
     );
     fechasOrdenadas.push(fechasFormateadas.sort());
+    TopAlerts("changesSaved")
   }
 
   // ----------------------RENDER----------------------------

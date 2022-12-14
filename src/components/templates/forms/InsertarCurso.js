@@ -9,6 +9,7 @@ import DateObject from "react-date-object";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import TopAlerts from "../alerts/TopAlerts";
 
 const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
   // ----------------------CONSTANTES----------------------------
@@ -88,6 +89,7 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
     );
     fechasOrdenadas.push(fechasFormateadas.sort());
     console.log(fechasOrdenadas[0]);
+    TopAlerts("changesSaved")
   }
 
   const optionsRamos = listRamos.map((label) => ({

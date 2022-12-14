@@ -19,6 +19,10 @@ export default function Administrador() {
   const [relatores, setRelatores] = useState([""]);
   const [colaboradores, setColaboradores] = useState([""]);
   const {isLogged} = useUser()
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+  
+
+
   // ---------------------------------------------------------------
   function obtenerDatosCursos() {
     const url = "TASKS/coe-adminCursos.php?cursos";
@@ -111,7 +115,7 @@ export default function Administrador() {
     obtenerDatosRelatores();
   }, []);
 
-  return isLogged ? (
+  return userData ? (
     <>
       <Header></Header>
       <div id="adminContainer">

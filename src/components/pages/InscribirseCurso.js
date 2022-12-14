@@ -12,10 +12,11 @@ export default function InscribirseCurso() {
   // ----------------------CONSTANTES----------------------------
   const [listCuentas, setListCuentas] = useState([""]);
   const [listadoCursos, setListadoCursos] = useState([""]);
-  const userData = JSON.parse(localStorage.getItem("loggedUser"));
   const {isLogged} = useUser()
   const [codigoCuenta, setCodigoCuenta] = useState("");
   const [cursoSeleccionado, setCursoSeleccionado] = useState("");
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+
 
   function obtenerCuentas() {
     const url = "TASKS/auxiliar/ListadoCuentas.php?listadoCuentas";
@@ -55,7 +56,7 @@ export default function InscribirseCurso() {
     value: label.ID,
   }));
 
-  return isLogged ? (
+  return userData ? (
     <>
       <Header></Header>
       <h1 id="TitlesPages">Inscripción de cursos</h1>

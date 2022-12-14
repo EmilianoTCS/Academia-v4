@@ -30,6 +30,8 @@ export default function ListadoCursos() {
   const [IDCurso, setIDCurso] = useState(null);
   const [isActiveInsertRamo, setIsActiveInsertRamo] = useState(false);
   const {isLogged} = useUser()
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+
 
   //PAGINADOR ---------------------
 
@@ -82,7 +84,7 @@ export default function ListadoCursos() {
     [num_boton]
   );
 
-  return isLogged ? (
+  return userData ? (
     <>
       <Header></Header>
       <div>

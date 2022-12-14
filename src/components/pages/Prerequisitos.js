@@ -17,6 +17,8 @@ export default function Prerequisitos() {
   const [valueInsert, setValueInsert] = useState([""]);
   const [listadoPrerequisitos, setListadoPrerequisitos] = useState([""]);
   const { isLogged } = useUser();
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+
 
   // ------------------------- FUNCIONES -------------------------
   function getListadoCursos() {
@@ -88,7 +90,7 @@ export default function Prerequisitos() {
 
   // ------------------------- RETURN -------------------------
 
-  return isLogged ? (
+  return userData ? (
     <>
       <Header></Header>
       <h1 id="TitlesPages">Administración de prerequisitos</h1>

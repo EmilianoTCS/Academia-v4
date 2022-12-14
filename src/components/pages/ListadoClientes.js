@@ -28,6 +28,8 @@ export default function ListadoClientes() {
   const [IDCliente, setIDCliente] = useState(null);
   const [num_boton, setNumBoton] = useState(1);
   const {isLogged} = useUser()
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+
   function insertarCliente() {
     setIsActiveInsertCliente(!isActiveInsertCliente);
   }
@@ -73,7 +75,7 @@ export default function ListadoClientes() {
 
   //PAGINADOR ---------------------
 
-  return isLogged ? (
+  return userData ? (
     <>
       <Header></Header>
       <div>
