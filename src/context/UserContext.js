@@ -7,7 +7,7 @@ export function UserContextProvider({ children }) {
     { statusConected: false, token: null, username: null },
   ]);
   const local = useState(() =>
-    JSON.parse(window.sessionStorage.getItem("userData"))
+    JSON.parse(window.localStorage.getItem("userData"))
   );
 
   return (

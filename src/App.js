@@ -16,10 +16,15 @@ import InscribirseCurso from "./components/pages/InscribirseCurso";
 import ListadoAsistencias from "./components/pages/ListadoAsistencias";
 import Curso from "./components/pages/Examinar/Curso";
 import { UserContextProvider } from "./context/UserContext";
+import AuthState from "./context/AuthContext";
+import { useEffect } from "react";
 
 export default function App() {
+
+  
+
   return (
-    <UserContextProvider>
+    <AuthState>
       <div className="App">
         <Route component={Login} path="/"></Route>
         <Route component={Login} path="/Login"></Route>
@@ -46,6 +51,6 @@ export default function App() {
           path="/listadoColaboradores"
         ></Route>
       </div>
-    </UserContextProvider>
+    </AuthState>
   );
 }

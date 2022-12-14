@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import useUser from "../../hooks/useUser";
 import "../css/LoginPage.css";
 import { useLocation } from "wouter";
+import {AuthContext} from "../../context/AuthContext";
+import { useEffect } from "react";
+
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [, navigate] = useLocation();
-  const { isLoginLoading, hasLoginError, login, isLogged } = useUser();
-  
-  
 
-  //FUNCIONES
+  
+  const {login, isLogged} = useContext(AuthContext);
 
-  useEffect(() => {
-    console.log(isLogged);
-    if (isLogged) navigate("/home");
-  }, [isLogged, navigate]);
+  console.log(isLogged);
+  useEffect(()=>{
+    isLogged && navigate("/home")
+  },[isLogged])
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -37,8 +38,8 @@ export default function Login() {
   return (
     <div>
       <h3 id="pageTitleLogin">Academia de formación</h3>
-      {isLoginLoading && <strong>Checking Credentials</strong>}
-      {!isLoginLoading && (
+      {false && <strong>Checking Credentials</strong>}
+      {!false && (
         <div id="background">
           <form id="form_login" onSubmit={handleLogin}>
             <h3>Iniciar sesión</h3>
@@ -78,7 +79,7 @@ export default function Login() {
                 Olvidaste la contraseña?
               </a>
             </div>
-            {hasLoginError && <ErrorMessage></ErrorMessage>}
+            {false && <ErrorMessage></ErrorMessage>}
 
           </form>
         </div>

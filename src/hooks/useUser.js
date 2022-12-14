@@ -8,28 +8,28 @@ export default function useUser() {
 
   const login = useCallback(
     ({ username, password }) => {
-      LoginService({ username, password })
-        .then((response) => {
-          setState({ loading: false, error: false });
-          setJWT(response);
-          window.sessionStorage.setItem(
-            "userData",
-            JSON.stringify(response[0])
-          );
-          if (response[0].error) setState({ error: true });
-        })
-        .catch((error) => {
-          window.sessionStorage.removeItem("userData");
-          setState({ loading: false, error: true });
-          console.log(error);
-        });
+      // LoginService({ username, password })
+      //   .then((response) => {
+      //     setState({ loading: false, error: false });
+      //     setJWT(response);
+      //     window.localStorage.setItem(
+      //       "userData",
+      //       JSON.stringify(response[0])
+      //     );
+      //     if (response[0].error) setState({ error: true });
+      //   })
+      //   .catch((error) => {
+      //     window.localStorage.removeItem("userData");
+      //     setState({ loading: false, error: true });
+      //     console.log(error);
+      //   });
     },
     [setJWT]
   );
 
   const logout = useCallback(() => {
-    setJWT([{ statusConected: false, token: null, username: null }]);
-    window.sessionStorage.removeItem("userData");
+    // setJWT([{ statusConected: false, token: null, username: null }]);
+    // window.localStorage.removeItem("userData");
   }, [setJWT]);
 
   return {

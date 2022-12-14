@@ -1,13 +1,12 @@
 import getDataService from "./GetDataService";
-import React from "react";
-import { useState } from "react";
 import { Redirect } from "wouter";
-import useUser from "../hooks/useUser";
+import React, { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Logout() {
   const url = "logout.php?logout";
   const [response, setResponse] = useState([""]);
-  const { isLogged, logout } = useUser();
+  const {logout, isLogged} = useContext(AuthContext);
 
   // function handleLogout() {
   //   getDataService(url).then((response) => setResponse(response));
