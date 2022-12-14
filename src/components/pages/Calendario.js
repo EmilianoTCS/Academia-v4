@@ -13,9 +13,8 @@ import InsertarCurso from "../templates/forms/InsertarCurso";
 import InsertarEvento from "../templates/forms/InsertarEvento";
 import Button from "react-bootstrap/Button";
 import "../css/InsertarCursoCalendario.css";
-
+import useUser from "../../hooks/useUser";
 export default function Calendario() {
-  const userData = localStorage.getItem("loggedUser");
   const [CursosApi, setCursosApi] = useState([""]);
   const [EventosApi, setEventosApi] = useState([""]);
   const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
@@ -23,6 +22,7 @@ export default function Calendario() {
   const [randomColorCourses, setRandomColorCourses] = useState("");
   const [randomColorEvents, setRandomColorEvents] = useState("");
   const [FeriadosApi, setFeriadosApi] = useState([""]);
+  const {isLogged} = useUser()
 
   // --------------------FUNCIONES---------------------
   function getDataCursos() {
@@ -117,7 +117,7 @@ export default function Calendario() {
   };
   // --------------------RENDER---------------------
 
-  return userData ? (
+  return isLogged ? (
     <>
       <Header></Header>
       <Button id="btnCurso" onClick={insertarCurso}>

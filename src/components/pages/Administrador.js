@@ -8,6 +8,7 @@ import Header from "../templates/Header";
 import "../css/AdminStyles.css";
 import SwitchToggle from "../templates/SwitchToggle";
 import TopAlerts from "../templates/alerts/TopAlerts";
+import useUser from "../../hooks/useUser";
 // import { BsTrash } from "react-icons/bs";
 // import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 
@@ -17,7 +18,7 @@ export default function Administrador() {
   const [clientes, setClientes] = useState([""]);
   const [relatores, setRelatores] = useState([""]);
   const [colaboradores, setColaboradores] = useState([""]);
-  const userData = localStorage.getItem("loggedUser");
+  const {isLogged} = useUser()
   // ---------------------------------------------------------------
   function obtenerDatosCursos() {
     const url = "TASKS/coe-adminCursos.php?cursos";
@@ -110,7 +111,7 @@ export default function Administrador() {
     obtenerDatosRelatores();
   }, []);
 
-  return userData ? (
+  return isLogged ? (
     <>
       <Header></Header>
       <div id="adminContainer">

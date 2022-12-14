@@ -8,13 +8,16 @@ import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import SwitchToggle from "../templates/SwitchToggle";
 import "../css/Prerequisitos.css";
+import useUser from "../../hooks/useUser";
+
 export default function Prerequisitos() {
   const [listadoCursos, setlistadoCursos] = useState([""]);
   const [listadoCursosInsert, setlistadoCursosInsert] = useState([""]);
   const [value, setValue] = useState([""]);
   const [valueInsert, setValueInsert] = useState([""]);
   const [listadoPrerequisitos, setListadoPrerequisitos] = useState([""]);
-  const userData = localStorage.getItem("loggedUser");
+  const { isLogged } = useUser();
+
   // ------------------------- FUNCIONES -------------------------
   function getListadoCursos() {
     const url = "TASKS/auxiliar/idCurso.php?idCurso";
@@ -85,7 +88,7 @@ export default function Prerequisitos() {
 
   // ------------------------- RETURN -------------------------
 
-  return userData ? (
+  return isLogged ? (
     <>
       <Header></Header>
       <h1 id="TitlesPages">Administración de prerequisitos</h1>

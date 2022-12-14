@@ -4,7 +4,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-
+import useUser from "../../hooks/useUser";
 import "../css/BoxTabs.css";
 import Header from "../templates/Header";
 import Automation from "./Tabs/Automation";
@@ -46,12 +46,13 @@ function a11yProps(index) {
 
 export default function MisCursos() {
   const [value, setValue] = React.useState(0);
+  const { isLogged } = useUser();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  return (
+  return isLogged ? (
     <div>
       <Header></Header>
       <div>
@@ -103,5 +104,7 @@ export default function MisCursos() {
         </Box>
       </div>
     </div>
+  ) : (
+    <Redirect to="/login"></Redirect>
   );
 }

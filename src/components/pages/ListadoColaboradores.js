@@ -9,10 +9,10 @@ import Box from "@mui/material/Box";
 import "../css/BoxTabs.css";
 import Colaboradores from "./Tabs/Colaboradores";
 import NotasColaboradores from "./Tabs/NotasColaboradores";
+import useUser from "../../hooks/useUser";
 
 function TabPanel(props) {
   const { children, value, index } = props;
-
   return (
     <div
       role="tabpanel"
@@ -43,14 +43,14 @@ function a11yProps(index) {
 }
 
 export default function BasicTabs() {
-  const userData = localStorage.getItem("loggedUser");
+  const {isLogged} = useUser()
 
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  return userData ? (
+  return isLogged ? (
     <>
       <Header />
       <h1 id="TitlesPages">Panel de colaboradores</h1>

@@ -11,9 +11,9 @@ import "../css/CustomButton.css";
 import "../css/ListadoAsistencias.css";
 import TopAlerts from "../templates/alerts/TopAlerts";
 import { RevolvingDot } from "react-loader-spinner";
+import useUser from "../../hooks/useUser";
 
 export default function ListadoAsistencias() {
-  const userData = localStorage.getItem("loggedUser");
   const [asistencias, setAsistencias] = useState([""]);
   const [listadoCursos, setListadoCursos] = useState([""]);
   const [listadoFechas, setListadoFechas] = useState([""]);
@@ -21,6 +21,7 @@ export default function ListadoAsistencias() {
   const [fechaSeleccionada, setfechaSeleccionada] = useState("");
   const [IDsChange, setIDsChange] = useState([]);
   const [busqueda, setBusqueda] = useState(false);
+  const {isLogged} = useUser()
 
   function obtenerDatosCursos() {
     var url = "TASKS/auxiliar/idCurso.php?idCurso";
@@ -147,7 +148,7 @@ export default function ListadoAsistencias() {
 
   // ----------------------RENDER----------------------------
 
-  return userData ? (
+  return isLogged ? (
     <>
       <Header></Header>
       <div id="containerTablas">

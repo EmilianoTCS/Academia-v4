@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import { Redirect } from "wouter";
 import getDataService from "../../services/GetDataService";
@@ -16,6 +15,7 @@ import TopAlerts from "../templates/alerts/TopAlerts";
 import "../css/InsertarCursoListadoCursosYRamos.css";
 import Button from "react-bootstrap/Button";
 import Paginador from "../templates/Paginador";
+import useUser from "../../hooks/useUser";
 
 export default function ListadoRamos() {
   const [ramos, setRamos] = useState([""]);
@@ -23,12 +23,12 @@ export default function ListadoRamos() {
   const url = "TASKS/coe-listCursos.php";
   const urlPaginador = "paginador/botones_Cursos.php";
   const operationUrl = "pagina";
-  const userData = JSON.parse(localStorage.getItem("loggedUser"));
+
   const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
   const [isActiveInsertRamo, setIsActiveInsertRamo] = useState(false);
   const [IDRamo, setIDRamo] = useState(null);
   const [isActiveEditRamo, setIsActiveEditRamo] = useState(false);
-
+const {isLogged} = useUser()
   const [num_boton, setNumBoton] = useState(1);
 
   useEffect(
@@ -80,7 +80,7 @@ export default function ListadoRamos() {
 
   //PAGINADOR ---------------------
 
-  return userData ? (
+  return isLogged ? (
     <>
       <Header></Header>
       <div id="containerTablas">

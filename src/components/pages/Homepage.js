@@ -5,10 +5,11 @@ import { Redirect } from "wouter";
 import Header from "../templates/Header";
 import PieChart from "../templates/Pie";
 import BarChart from "../templates/Bar";
+import useUser from "../../hooks/useUser";
 export default function HomePage() {
   const [cards, setCards] = useState([""]);
   const url = "TASKS/Cards-General.php";
-  const userData = JSON.parse(localStorage.getItem("loggedUser"));
+  const { isLogged } = useUser();
   function obtenerDatos() {
     getDataService(url).then((cards) => setCards(cards));
   }
@@ -17,7 +18,7 @@ export default function HomePage() {
     obtenerDatos();
   }, []);
 
-  return userData ? (
+  return isLogged ? (
     <div>
       <Header></Header>
       <div id="container_cards">

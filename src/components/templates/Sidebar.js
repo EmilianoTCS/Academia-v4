@@ -8,7 +8,7 @@ import { Container, Offcanvas } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 export default function SideBar(props) {
-  const userData = JSON.parse(localStorage.getItem("loggedUser"));
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
   const [isToggledAcademia, setToggleAcademia] = useState(false);
   const [isToggledAsistencias, setToggleAsistencias] = useState(false);
   const [isToggledColaboradores, setToggleColaboradores] = useState(false);
@@ -61,7 +61,7 @@ export default function SideBar(props) {
             </li>
 
             <li>
-              <h4>{userData[0].username}</h4>
+              <h4>{userData.username}</h4>
             </li>
             <li>
               <Link id="li_home" to="/home">
