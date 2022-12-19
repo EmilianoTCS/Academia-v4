@@ -35,7 +35,7 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
   }
 
   function SendData(e) {
-    // e.preventDefault();
+    e.preventDefault();
     const url = "TASKS/coe-insertarEvento.php";
     const operationUrl = "insertarEvento";
     var data = {
@@ -45,9 +45,10 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
       duracion: duracion,
     };
     console.log(data);
-    SendDataService(url, operationUrl, data).then((response) =>
-      TopAlerts(response)
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      TopAlerts(response);
+      console.log(response);
+    });
   }
 
   // ----------------------COMPONENTES----------------------------
@@ -83,7 +84,7 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
       fechasFormateadas.push(valoresFechas[index].format())
     );
     fechasOrdenadas.push(fechasFormateadas.sort());
-    TopAlerts("changesSaved")
+    TopAlerts("changesSaved");
   }
 
   // ----------------------RENDER----------------------------

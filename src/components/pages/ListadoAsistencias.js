@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
-import { Redirect } from "wouter";
+import { Navigate } from "react-router-dom";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import Header from "../templates/Header";
@@ -171,7 +171,7 @@ export default function ListadoAsistencias() {
     </>
   ) : (
     <>
-      <Redirect to="/login"></Redirect>
+      <Navigate to="/login"></Navigate>
     </>
   );
 }

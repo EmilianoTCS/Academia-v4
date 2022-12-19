@@ -1,54 +1,43 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Route, useLocation } from "wouter";
+import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { Navigate, Outlet } from "react-router-dom";
 import { RevolvingDot } from "react-loader-spinner";
-import { useCallback } from "react";
 
-const PrivateRoute = ({ component, path }) => {
-  const { isLoading, isLogged, tipoUsuario } = useContext(AuthContext);
-  const [privateAccess, setPrivateAccess] = useState(false);
-  const [, navigate] = useLocation();
-  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
+export const PrivateRoute = ({
+  children,
+  redirectTo = "/homeColaboradores",
+}) => {
+  const { isLoading, isLogged } = useContext(AuthContext);
+  const userData = JSON.parse(localStorage.getItem("userData"))
+    ? JSON.parse(localStorage.getItem("userData"))
+    : null;
 
-  const checkUserType = useCallback(() => {
+  if (isLogged) {
     if (
       userData.tipoUsuario === "administrador" ||
       userData.tipoUsuario === "capital_humano"
     ) {
-      setPrivateAccess(true);
+      return children ? children : <Outlet></Outlet>;
     } else if (
       userData.tipoUsuario === null ||
       userData.tipoUsuario === "" ||
       userData.tipoUsuario === "colaborador"
     ) {
-      setPrivateAccess(false);
+      return <Navigate to={redirectTo}></Navigate>;
     }
-  }, [userData.tipoUsuario]);
-
-  useEffect(() => {
-    if (isLogged) checkUserType();
-    console.log(tipoUsuario);
-  }, [checkUserType, isLogged]);
-
-  return isLoading ? (
-    <RevolvingDot
-      visible={true}
-      height="200"
-      width="200"
-      ariaLabel="dna-loading"
-      wrapperStyle={{ margin: "100px 200px" }}
-      wrapperClass="dna-wrapper"
-      color="#e10b1c"
-    ></RevolvingDot>
-  ) : privateAccess ? (
-    <Route component={component} path={path}></Route>
-  ) : (
-    setTimeout(() => {
-      alert("No tienes acceso a este sitio.");
-      navigate("/homeColaboradores");
-      console.log(2);
-    }, "2000")
-  );
+  } else if (isLoading) {
+    return (
+      <RevolvingDot
+        visible={true}
+        height="200"
+        width="200"
+        ariaLabel="dna-loading"
+        wrapperStyle={{ margin: "100px 200px" }}
+        wrapperClass="dna-wrapper"
+        color="#e10b1c"
+      ></RevolvingDot>
+    );
+  } else if (!userData) {
+    return <Navigate to={"/login"}></Navigate>;
+  }
 };
-
-export default PrivateRoute;

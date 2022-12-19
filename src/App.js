@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "wouter";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./components/pages/Homepage";
 import Login from "./components/pages/Login";
 import ListadoCursos from "./components/pages/ListadoCursos";
@@ -17,41 +17,49 @@ import ListadoAsistencias from "./components/pages/ListadoAsistencias";
 import Curso from "./components/pages/Examinar/Curso";
 
 import AuthState from "./context/AuthContext";
-// import PrivateRoute from "./hooks/PrivateRoute";
+import { PrivateRoute } from "./hooks/PrivateRoute";
 
 export default function App() {
   return (
     <AuthState>
-      <Switch>
-        <div className="App">
-          <Route path="/home" component={Homepage}></Route>
-          <Route component={Login} path="/"></Route>
-          <Route component={Login} path="/Login"></Route>
-          {/* <Route component={Homepage} path="/home"></Route> */}
-          <Route component={ListadoCursos} path="/listadoCursos"></Route>
-          <Route component={ListadoRamos} path="/listadoRamos"></Route>
-          <Route component={ListadoRelator} path="/listadoRelator"></Route>
-          <Route component={ListadoClientes} path="/listadoClientes"></Route>
-          <Route component={Administrador} path="/Administrador"></Route>
-          <Route component={Prerequisitos} path="/Prerequisitos"></Route>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Login />} path="/"></Route>
+          <Route element={<Login />} path="/Login"></Route>
+          <Route element={<PrivateRoute />}>
+            <Route path="/home" element={<Homepage />}></Route>
+            <Route element={<ListadoCursos />} path="/listadoCursos"></Route>
+            <Route element={<ListadoRamos />} path="/listadoRamos"></Route>
+            <Route element={<ListadoRelator />} path="/listadoRelator"></Route>
+            <Route
+              element={<ListadoClientes />}
+              path="/listadoClientes"
+            ></Route>
+            <Route element={<Administrador />} path="/Administrador"></Route>
+            <Route element={<Prerequisitos />} path="/Prerequisitos"></Route>
+            <Route
+              element={<ListadoAsistencias />}
+              path="/ListadoAsistencias"
+            ></Route>
+            <Route
+              element={<ListadoColaboradores />}
+              path="/listadoColaboradores"
+            ></Route>
+            <Route element={<Curso />} path="/Examinar/:params"></Route>
+          </Route>
+
           <Route
-            component={HomeColaboradores}
+            element={<HomeColaboradores />}
             path="/homeColaboradores"
           ></Route>
-          <Route component={MisCursos} path="/MisCursos"></Route>
-          <Route component={Calendario} path="/Calendario"></Route>
-          <Route component={InscribirseCurso} path="/InscripcionCurso"></Route>
+          <Route element={<MisCursos />} path="/MisCursos"></Route>
+          <Route element={<Calendario />} path="/Calendario"></Route>
           <Route
-            component={ListadoAsistencias}
-            path="/ListadoAsistencias"
+            element={<InscribirseCurso />}
+            path="/InscripcionCurso"
           ></Route>
-          <Route component={Curso} path="/Examinar/:params"></Route>
-          <Route
-            component={ListadoColaboradores}
-            path="/listadoColaboradores"
-          ></Route>
-        </div>
-      </Switch>
+        </Routes>
+      </BrowserRouter>
     </AuthState>
   );
 }

@@ -1,4 +1,4 @@
-import { Redirect } from "wouter";
+import { Navigate } from "react-router-dom";
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import Header from "../templates/Header";
@@ -36,7 +36,6 @@ export default function Calendario() {
     const urlFeriados = "https://api.victorsanmartin.com/feriados/en.json";
     getDataExternService(urlFeriados).then(
       (response) => setFeriadosApi(response.data),
-      console.log(FeriadosApi)
     );
   }
 
@@ -158,6 +157,6 @@ export default function Calendario() {
       </div>
     </>
   ) : (
-    <Redirect to="/login"></Redirect>
+    <Navigate to="/login"></Navigate>
   );
 }

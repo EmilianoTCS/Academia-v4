@@ -1,25 +1,18 @@
-import { Redirect } from "wouter";
+import { Navigate } from "react-router-dom";
 import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Logout() {
   const { logout, isLogged } = useContext(AuthContext);
-  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
-  // function handleLogout() {
-  //   getDataService(url).then((response) => setResponse(response));
-  //   if (response.statusConnected === false) {
-  //     localStorage.removeItem("loggedUser");
-  //   }
-  // }
+
   function handleLogout() {
     logout();
+    
   }
 
-  return !isLogged || !userData.statusConected ? (
-    <>
-      <Redirect to="/login"></Redirect>
-    </>
+  return !isLogged ? (
+    <Navigate to="/login"></Navigate>
   ) : (
     <>
       <button onClick={handleLogout} id="logout">

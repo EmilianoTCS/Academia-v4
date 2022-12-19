@@ -1,13 +1,14 @@
 import React, { useState, useContext } from "react";
 import "../css/LoginPage.css";
-import { useLocation } from "wouter";
+import { useNavigate } from "react-router-dom";
+
 import { AuthContext } from "../../context/AuthContext";
 import { useEffect } from "react";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [, navigate] = useLocation();
+  const navigate = useNavigate();
 
   const { login, isLogged, hasError, isLoading, tipoUsuario } =
     useContext(AuthContext);

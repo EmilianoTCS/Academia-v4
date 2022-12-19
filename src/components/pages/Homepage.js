@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import getDataService from "../../services/GetDataService";
 import "../css/cardsHome.css";
-import { Redirect } from "wouter";
-
+import { Navigate } from "react-router-dom";
 import Header from "../templates/Header";
 import PieChart from "../templates/Pie";
 import BarChart from "../templates/Bar";
@@ -79,6 +78,6 @@ export default function HomePage() {
       </div>
     </div>
   ) : (
-    <Redirect to="/login"></Redirect>
+    <Navigate to="/login"></Navigate>
   );
 }

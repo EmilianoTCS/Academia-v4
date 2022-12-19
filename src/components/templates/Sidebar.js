@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 import "../css/SidebarStyles.css";
 import Logout from "../../services/Logout";
 import userLogo from "../../sources/User_logo.png";
@@ -142,14 +142,11 @@ export default function SideBar(props) {
               </ul>
             </li>
             <li id="li_Colaboradores" onClick={handleChangeColaboradores}>
-              COLABORADORES
+              MI PERFIL
               <ul
                 id="Colaboradores"
                 className={isToggledColaboradores ? "active" : ""}
               >
-                <li>
-                  <Link to="/homeColaboradores">Inicio</Link>
-                </li>
                 <li>
                   <Link to="/MisCursos">Mis Cursos</Link>
                 </li>

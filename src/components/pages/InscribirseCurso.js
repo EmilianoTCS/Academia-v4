@@ -1,5 +1,5 @@
 import { Card, Form, Button } from "react-bootstrap";
-import { Redirect } from "wouter";
+import { Navigate } from "react-router-dom";
 import Header from "../templates/Header";
 import Select from "react-select";
 import getDataService from "../../services/GetDataService";
@@ -84,7 +84,7 @@ export default function InscribirseCurso() {
     </>
   ) : (
     <>
-      <Redirect to="/login"></Redirect>
+      <Navigate to="/login"></Navigate>
     </>
   );
 }

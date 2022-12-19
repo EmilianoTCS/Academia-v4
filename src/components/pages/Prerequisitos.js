@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Card, Form, Table } from "react-bootstrap";
-import { Redirect } from "wouter";
+import { Navigate } from "react-router-dom";
+
 import Header from "../templates/Header";
 import Select from "react-select";
 import { useState, useEffect } from "react";
@@ -157,6 +158,6 @@ export default function Prerequisitos() {
       </Card>
     </>
   ) : (
-    <Redirect to="/login"></Redirect>
+    <Navigate to="/login"></Navigate>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardGroup } from "react-bootstrap";
-import { Redirect } from "wouter";
+import { Navigate } from "react-router-dom";
 import Header from "../templates/Header";
 import Hexagon from "react-hexagon";
 import "../css/HomeColaboradores.css";
@@ -157,6 +157,6 @@ export default function HomeColaboradores() {
       </CardGroup>
     </>
   ) : (
-    <Redirect to="/login"></Redirect>
+    <Navigate to="/login"></Navigate>
   );
 }

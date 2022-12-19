@@ -10,7 +10,8 @@ import Automation from "./Tabs/Automation";
 import DevOps from "./Tabs/DevOps";
 import Certificados from "./Tabs/Certificados";
 import DetalleNotas from "./Tabs/DetalleNotas";
-import { Redirect } from "wouter";
+import { Navigate } from "react-router-dom";
+
 
 function TabPanel(props) {
   const { children, value, index } = props;
@@ -105,6 +106,6 @@ export default function MisCursos() {
       </div>
     </div>
   ) : (
-    <Redirect to="/login"></Redirect>
+    <Navigate to="/login"></Navigate>
   );
 }

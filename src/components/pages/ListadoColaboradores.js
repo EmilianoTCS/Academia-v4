@@ -1,5 +1,6 @@
 import React from "react";
-import { Redirect } from "wouter";
+import { Navigate } from "react-router-dom";
+
 import Header from "../templates/Header";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -89,6 +90,6 @@ export default function BasicTabs() {
       </div>
     </>
   ) : (
-    <Redirect to="/login"></Redirect>
+    <Navigate to="/login"></Navigate>
   );
 }
