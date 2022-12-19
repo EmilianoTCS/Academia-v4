@@ -3,14 +3,13 @@ import { useRoute, Redirect } from "wouter";
 import Header from "../../templates/Header";
 import { Table } from "react-bootstrap";
 import SendDataService from "../../../services/SendDataService";
-import useUser from "../../../hooks/useUser";
-// import { BsPencilSquare, BsTrash } from "react-icons/bs";
+import { AuthContext } from "../../../context/AuthContext";
 
 export default function Curso() {
   const [, params] = useRoute("/Examinar/:params");
-  const userData = localStorage.getItem("loggedUser");
   const [CursoSeleccionado, setCursoSeleccionado] = useState([]);
-  const { isLogged } = useUser();
+  const {isLogged} = useContext(AuthContext);
+
 
   function obtenerDatos() {
     var url = "TASKS/coe-list_infoidCurso.php";

@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "wouter";
+import { Route, Switch } from "wouter";
 import Homepage from "./components/pages/Homepage";
 import Login from "./components/pages/Login";
 import ListadoCursos from "./components/pages/ListadoCursos";
@@ -15,42 +15,43 @@ import Calendario from "./components/pages/Calendario";
 import InscribirseCurso from "./components/pages/InscribirseCurso";
 import ListadoAsistencias from "./components/pages/ListadoAsistencias";
 import Curso from "./components/pages/Examinar/Curso";
-import { UserContextProvider } from "./context/UserContext";
+
 import AuthState from "./context/AuthContext";
-import { useEffect } from "react";
+// import PrivateRoute from "./hooks/PrivateRoute";
 
 export default function App() {
-
-  
-
   return (
     <AuthState>
-      <div className="App">
-        <Route component={Login} path="/"></Route>
-        <Route component={Login} path="/Login"></Route>
-        <Route component={Homepage} path="/home"></Route>
-        <Route component={ListadoCursos} path="/listadoCursos"></Route>
-        <Route component={ListadoRamos} path="/listadoRamos"></Route>
-        <Route component={ListadoRelator} path="/listadoRelator"></Route>
-        <Route component={ListadoClientes} path="/listadoClientes"></Route>
-        <Route component={Administrador} path="/Administrador"></Route>
-        <Route component={Prerequisitos} path="/Prerequisitos"></Route>
-        <Route component={HomeColaboradores} path="/homeColaboradores"></Route>
-        <Route component={MisCursos} path="/MisCursos"></Route>
-        <Route component={Calendario} path="/Calendario"></Route>
-        <Route component={InscribirseCurso} path="/InscripcionCurso"></Route>
-        <Route
-          component={ListadoAsistencias}
-          path="/ListadoAsistencias"
-        ></Route>
-
-        <Route component={Curso} path="/Examinar/:params"></Route>
-
-        <Route
-          component={ListadoColaboradores}
-          path="/listadoColaboradores"
-        ></Route>
-      </div>
+      <Switch>
+        <div className="App">
+          <Route path="/home" component={Homepage}></Route>
+          <Route component={Login} path="/"></Route>
+          <Route component={Login} path="/Login"></Route>
+          {/* <Route component={Homepage} path="/home"></Route> */}
+          <Route component={ListadoCursos} path="/listadoCursos"></Route>
+          <Route component={ListadoRamos} path="/listadoRamos"></Route>
+          <Route component={ListadoRelator} path="/listadoRelator"></Route>
+          <Route component={ListadoClientes} path="/listadoClientes"></Route>
+          <Route component={Administrador} path="/Administrador"></Route>
+          <Route component={Prerequisitos} path="/Prerequisitos"></Route>
+          <Route
+            component={HomeColaboradores}
+            path="/homeColaboradores"
+          ></Route>
+          <Route component={MisCursos} path="/MisCursos"></Route>
+          <Route component={Calendario} path="/Calendario"></Route>
+          <Route component={InscribirseCurso} path="/InscripcionCurso"></Route>
+          <Route
+            component={ListadoAsistencias}
+            path="/ListadoAsistencias"
+          ></Route>
+          <Route component={Curso} path="/Examinar/:params"></Route>
+          <Route
+            component={ListadoColaboradores}
+            path="/listadoColaboradores"
+          ></Route>
+        </div>
+      </Switch>
     </AuthState>
   );
 }

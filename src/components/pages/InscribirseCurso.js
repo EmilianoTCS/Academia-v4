@@ -6,17 +6,15 @@ import getDataService from "../../services/GetDataService";
 import React, { useState, useEffect } from "react";
 import SendDataService from "../../services/SendDataService";
 import TopAlerts from "../templates/alerts/TopAlerts";
-import useUser from "../../hooks/useUser";
 
 export default function InscribirseCurso() {
   // ----------------------CONSTANTES----------------------------
   const [listCuentas, setListCuentas] = useState([""]);
   const [listadoCursos, setListadoCursos] = useState([""]);
-  const {isLogged} = useUser()
+
   const [codigoCuenta, setCodigoCuenta] = useState("");
   const [cursoSeleccionado, setCursoSeleccionado] = useState("");
-  const userData = JSON.parse(sessionStorage.getItem("userData"));
-
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   function obtenerCuentas() {
     const url = "TASKS/auxiliar/ListadoCuentas.php?listadoCuentas";
@@ -56,7 +54,7 @@ export default function InscribirseCurso() {
     value: label.ID,
   }));
 
-  return isLogged ? (
+  return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
       <h1 id="TitlesPages">Inscripción de cursos</h1>

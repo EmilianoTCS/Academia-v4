@@ -74,6 +74,12 @@
     cursor: pointer;
     font-weight: 700;
   }
+  #li_Academia.private{
+    display: none;
+  }
+  #li_Asistencias.private{
+    display: none;
+  }
   
   #COE_Academia, #Colaboradores, #Asistencias {
     display: none;

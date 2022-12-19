@@ -35,7 +35,7 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
   }
 
   function SendData(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const url = "TASKS/coe-insertarEvento.php";
     const operationUrl = "insertarEvento";
     var data = {

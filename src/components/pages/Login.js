@@ -1,8 +1,7 @@
 import React, { useState, useContext } from "react";
-import useUser from "../../hooks/useUser";
 import "../css/LoginPage.css";
 import { useLocation } from "wouter";
-import {AuthContext} from "../../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import { useEffect } from "react";
 
 export default function Login() {
@@ -10,36 +9,38 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [, navigate] = useLocation();
 
-  
-  const {login, isLogged} = useContext(AuthContext);
+  const { login, isLogged, hasError, isLoading, tipoUsuario } =
+    useContext(AuthContext);
 
-  console.log(isLogged);
-  useEffect(()=>{
-    isLogged && navigate("/home")
-  },[isLogged])
+  useEffect(() => {
+    if (isLogged) {
+      if (tipoUsuario === "administrador" || tipoUsuario === "capital_humano") {
+        navigate("/home");
+      } else if (tipoUsuario === "colaborador") {
+        navigate("/homeColaboradores");
+      }
+    }
+  }, [isLogged, navigate, tipoUsuario]);
 
   const handleLogin = (e) => {
     e.preventDefault();
     login({ username, password });
   };
 
-//COMPONENTES
+  //COMPONENTES
   const ErrorMessage = () => {
     return (
       <div id="errorMessage">
         <p>El usuario o contraseña es incorrecto.</p>
       </div>
-    )
-  }
-
-
-
+    );
+  };
 
   return (
     <div>
       <h3 id="pageTitleLogin">Academia de formación</h3>
-      {false && <strong>Checking Credentials</strong>}
-      {!false && (
+      {isLoading && <strong>Checking Credentials</strong>}
+      {!isLoading && (
         <div id="background">
           <form id="form_login" onSubmit={handleLogin}>
             <h3>Iniciar sesión</h3>
@@ -79,12 +80,10 @@ export default function Login() {
                 Olvidaste la contraseña?
               </a>
             </div>
-            {false && <ErrorMessage></ErrorMessage>}
-
+            {hasError && <ErrorMessage></ErrorMessage>}
           </form>
         </div>
       )}
-      
     </div>
   );
 }

@@ -64,11 +64,28 @@ export default function SideBar(props) {
               <h4>{userData.username}</h4>
             </li>
             <li>
-              <Link id="li_home" to="/home">
+              <Link
+                id="li_home"
+                to={
+                  userData.tipoUsuario === "administrador" ||
+                  userData.tipoUsuario === "capital_humano"
+                    ? "/home"
+                    : "/homeColaboradores"
+                }
+              >
                 HOME
               </Link>
             </li>
-            <li id="li_Academia" onClick={handleChangeAcademia}>
+            <li
+              id="li_Academia"
+              onClick={handleChangeAcademia}
+              className={
+                userData.tipoUsuario === "administrador" ||
+                userData.tipoUsuario === "capital_humano"
+                  ? ""
+                  : "private"
+              }
+            >
               COE - ACADEMIA
               <ul
                 id="COE_Academia"
@@ -104,7 +121,16 @@ export default function SideBar(props) {
                 CALENDARIO
               </Link>
             </li>
-            <li id="li_Asistencias" onClick={handleChangeAsistencias}>
+            <li
+              id="li_Asistencias"
+              onClick={handleChangeAsistencias}
+              className={
+                userData.tipoUsuario === "administrador" ||
+                userData.tipoUsuario === "capital_humano"
+                  ? ""
+                  : "private"
+              }
+            >
               ASISTENCIAS
               <ul
                 id="Asistencias"

@@ -8,7 +8,6 @@ import Header from "../templates/Header";
 import "../css/AdminStyles.css";
 import SwitchToggle from "../templates/SwitchToggle";
 import TopAlerts from "../templates/alerts/TopAlerts";
-import useUser from "../../hooks/useUser";
 // import { BsTrash } from "react-icons/bs";
 // import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 
@@ -18,8 +17,7 @@ export default function Administrador() {
   const [clientes, setClientes] = useState([""]);
   const [relatores, setRelatores] = useState([""]);
   const [colaboradores, setColaboradores] = useState([""]);
-  const { isLogged } = useUser();
-  const userData = JSON.parse(sessionStorage.getItem("userData"));
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   // ---------------------------------------------------------------
   function obtenerDatosCursos() {
@@ -28,7 +26,6 @@ export default function Administrador() {
       setCursos(cursos);
     });
   }
-
   function obtenerDatosRamos() {
     const url = "TASKS/coe-adminRamos.php?ramos";
     getDataService(url).then((ramos) => setRamos(ramos));
@@ -82,54 +79,50 @@ export default function Administrador() {
     const url = "TASKS/coe-updateStateColaborador.php";
     const operationUrl = "updateStateColaborador";
     var data = { ID: ID };
-    SendDataService(url, operationUrl, data).then(
-      (response) => {
-        const { successEdited, ...colaborador } = response[0];
+    SendDataService(url, operationUrl, data).then((response) => {
+      const { successEdited, ...colaborador } = response[0];
       actualizarColaborador(colaborador);
       TopAlerts(successEdited);
-      }
-    );
+    });
   }
   function actualizarColaborador(colaborador) {
-    const nuevosColaboradores = colaboradores.map((c) => (c.ID === colaborador.ID ? colaborador : c));
+    const nuevosColaboradores = colaboradores.map((c) =>
+      c.ID === colaborador.ID ? colaborador : c
+    );
     setColaboradores(nuevosColaboradores);
   }
-
-
 
   function handleChangeisActiveRelatores(ID) {
     const url = "TASKS/coe-updateStateRelator.php";
     const operationUrl = "updateStateRelator";
     var data = { ID: ID };
-    SendDataService(url, operationUrl, data).then(
-      (response) => {
-        const { successEdited, ...relator } = response[0];
+    SendDataService(url, operationUrl, data).then((response) => {
+      const { successEdited, ...relator } = response[0];
       actualizarRelator(relator);
       TopAlerts(successEdited);
-      }
-    );
+    });
   }
   function actualizarRelator(relator) {
-    const nuevosRelatores = relatores.map((r) => (r.ID === relator.ID ? relator : r));
+    const nuevosRelatores = relatores.map((r) =>
+      r.ID === relator.ID ? relator : r
+    );
     setRelatores(nuevosRelatores);
   }
-
-
 
   function handleChangeisActiveClientes(ID) {
     const url = "TASKS/coe-updateStateClientes.php";
     const operationUrl = "updateStateClientes";
     var data = { ID: ID };
-    SendDataService(url, operationUrl, data).then(
-      (response) => {
-        const { successEdited, ...cliente } = response[0];
+    SendDataService(url, operationUrl, data).then((response) => {
+      const { successEdited, ...cliente } = response[0];
       actualizarCliente(cliente);
       TopAlerts(successEdited);
-      }
-    );
+    });
   }
   function actualizarCliente(cliente) {
-    const nuevosClientes = clientes.map((c) => (c.ID === cliente.ID ? cliente : c));
+    const nuevosClientes = clientes.map((c) =>
+      c.ID === cliente.ID ? cliente : c
+    );
     setClientes(nuevosClientes);
   }
 
@@ -156,7 +149,7 @@ export default function Administrador() {
     obtenerDatosRelatores();
   }, []);
 
-  return isLogged ? (
+  return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
       <div id="adminContainer">

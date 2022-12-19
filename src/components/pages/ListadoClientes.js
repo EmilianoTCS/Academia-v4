@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import { Redirect } from "wouter";
 import getDataService from "../../services/GetDataService";
@@ -15,7 +14,6 @@ import TopAlerts from "../templates/alerts/TopAlerts";
 import Paginador from "../templates/Paginador";
 import Button from "react-bootstrap/Button";
 import "../css/BtnInsertar.css";
-import useUser from "../../hooks/useUser";
 
 export default function ListadoClientes() {
   const [cliente, setCliente] = useState([""]);
@@ -27,8 +25,9 @@ export default function ListadoClientes() {
   const [isActiveEditCliente, setIsActiveEditCliente] = useState(false);
   const [IDCliente, setIDCliente] = useState(null);
   const [num_boton, setNumBoton] = useState(1);
-  const {isLogged} = useUser()
-  const userData = JSON.parse(sessionStorage.getItem("userData"));
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
+
+  
 
   function insertarCliente() {
     setIsActiveInsertCliente(!isActiveInsertCliente);
@@ -75,7 +74,7 @@ export default function ListadoClientes() {
 
   //PAGINADOR ---------------------
 
-  return isLogged ? (
+  return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
       <div>

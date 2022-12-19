@@ -8,7 +8,7 @@ import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import SwitchToggle from "../templates/SwitchToggle";
 import "../css/Prerequisitos.css";
-import useUser from "../../hooks/useUser";
+import TopAlerts from "../templates/alerts/TopAlerts";
 
 export default function Prerequisitos() {
   const [listadoCursos, setlistadoCursos] = useState([""]);
@@ -16,9 +16,7 @@ export default function Prerequisitos() {
   const [value, setValue] = useState([""]);
   const [valueInsert, setValueInsert] = useState([""]);
   const [listadoPrerequisitos, setListadoPrerequisitos] = useState([""]);
-  const { isLogged } = useUser();
-  const userData = JSON.parse(sessionStorage.getItem("userData"));
-
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   // ------------------------- FUNCIONES -------------------------
   function getListadoCursos() {
@@ -42,11 +40,20 @@ export default function Prerequisitos() {
     );
   }
   function toggleisActivePrerequisito(ID) {
-    console.log(ID);
     const url = "TASKS/coe-updateStatePrerequisito.php";
-    var data = { ID: ID };
+    var data = { ID: ID, IDCurso: value.value };
     var operationUrl = "updateStatePrerequisito";
-    SendDataService(url, operationUrl, data);
+    SendDataService(url, operationUrl, data).then((response) => {
+      const { successEdited, ...prerequisitos } = response[0];
+      actualizarPrerequisitos(prerequisitos);
+      TopAlerts(successEdited);
+    });
+  }
+  function actualizarPrerequisitos(prerequisitos) {
+    const nuevosPrerequisitos = listadoPrerequisitos.map((p) =>
+      p.ID === prerequisitos.ID ? prerequisitos : p
+    );
+    setListadoPrerequisitos(nuevosPrerequisitos);
   }
 
   function handleChangeSelect(value) {
@@ -90,7 +97,7 @@ export default function Prerequisitos() {
 
   // ------------------------- RETURN -------------------------
 
-  return isLogged ? (
+  return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
       <h1 id="TitlesPages">Administración de prerequisitos</h1>

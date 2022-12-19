@@ -1,12 +1,10 @@
-import getDataService from "./GetDataService";
 import { Redirect } from "wouter";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Logout() {
-  const url = "logout.php?logout";
-  const [response, setResponse] = useState([""]);
-  const {logout, isLogged} = useContext(AuthContext);
+  const { logout, isLogged } = useContext(AuthContext);
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   // function handleLogout() {
   //   getDataService(url).then((response) => setResponse(response));
@@ -18,7 +16,7 @@ export default function Logout() {
     logout();
   }
 
-  return !isLogged ? (
+  return !isLogged || !userData.statusConected ? (
     <>
       <Redirect to="/login"></Redirect>
     </>

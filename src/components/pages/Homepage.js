@@ -1,21 +1,17 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import getDataService from "../../services/GetDataService";
 import "../css/cardsHome.css";
 import { Redirect } from "wouter";
+
 import Header from "../templates/Header";
 import PieChart from "../templates/Pie";
 import BarChart from "../templates/Bar";
-// import useUser from "../../hooks/useUser";
-import {AuthContext} from "../../context/AuthContext";
-
-
 
 export default function HomePage() {
-  const userData = JSON.parse(localStorage.getItem("userData"));
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   const [cards, setCards] = useState([""]);
   const url = "TASKS/Cards-General.php";
-  const {isLogged} = useContext(AuthContext);
   function obtenerDatos() {
     getDataService(url).then((cards) => setCards(cards));
   }
@@ -24,7 +20,7 @@ export default function HomePage() {
     obtenerDatos();
   }, []);
 
-  return isLogged ? (
+  return userData.statusConected || userData !== null ? (
     <div>
       <Header></Header>
       <div id="container_cards">

@@ -9,7 +9,6 @@ import Box from "@mui/material/Box";
 import "../css/BoxTabs.css";
 import Colaboradores from "./Tabs/Colaboradores";
 import NotasColaboradores from "./Tabs/NotasColaboradores";
-import useUser from "../../hooks/useUser";
 
 function TabPanel(props) {
   const { children, value, index } = props;
@@ -43,16 +42,14 @@ function a11yProps(index) {
 }
 
 export default function BasicTabs() {
-  const {isLogged} = useUser()
-  const userData = JSON.parse(sessionStorage.getItem("userData"));
-
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  return isLogged ? (
+  return userData.statusConected || userData !== null ? (
     <>
       <Header />
       <h1 id="TitlesPages">Panel de colaboradores</h1>

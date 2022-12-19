@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { Redirect } from "wouter";
 import getDataService from "../../services/GetDataService";
@@ -11,7 +10,6 @@ import "../css/CustomButton.css";
 import "../css/ListadoAsistencias.css";
 import TopAlerts from "../templates/alerts/TopAlerts";
 import { RevolvingDot } from "react-loader-spinner";
-import useUser from "../../hooks/useUser";
 
 export default function ListadoAsistencias() {
   const [asistencias, setAsistencias] = useState([""]);
@@ -19,10 +17,9 @@ export default function ListadoAsistencias() {
   const [listadoFechas, setListadoFechas] = useState([""]);
   const [cursoSeleccionado, setCursoSeleccionado] = useState("");
   const [fechaSeleccionada, setfechaSeleccionada] = useState("");
-  const [busqueda, setBusqueda] = useState(false);
-  const {isLogged} = useUser()
-  const userData = JSON.parse(sessionStorage.getItem("userData"));
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
+  const [busqueda, setBusqueda] = useState(false);
 
   function obtenerDatosCursos() {
     var url = "TASKS/auxiliar/idCurso.php?idCurso";
@@ -53,19 +50,24 @@ export default function ListadoAsistencias() {
   function handleChange(ID) {
     const url = "TASKS/coe-updateStateAsistencias.php";
     const operationUrl = "updateStateAsistencias";
-    var data = { IDRegistro: ID, IDCurso: cursoSeleccionado, Fecha: fechaSeleccionada};
+    var data = {
+      IDRegistro: ID,
+      IDCurso: cursoSeleccionado,
+      Fecha: fechaSeleccionada,
+    };
     SendDataService(url, operationUrl, data).then((response) => {
-      console.log(response[0])
+      console.log(response[0]);
       const { successEdited, ...asistencia } = response[0];
       actualizarAsistencia(asistencia);
       TopAlerts(successEdited);
     });
   }
   function actualizarAsistencia(asistencia) {
-    const nuevasAsistencias = asistencias.map((a) => (a.ID === asistencia.ID ? asistencia : a));
+    const nuevasAsistencias = asistencias.map((a) =>
+      a.ID === asistencia.ID ? asistencia : a
+    );
     setAsistencias(nuevasAsistencias);
   }
-
 
   useEffect(
     function () {
@@ -141,7 +143,7 @@ export default function ListadoAsistencias() {
 
   // ----------------------RENDER----------------------------
 
-  return isLogged ? (
+  return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
       <div id="containerTablas">

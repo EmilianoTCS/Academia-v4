@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import { Redirect } from "wouter";
 import getDataService from "../../services/GetDataService";
@@ -15,7 +14,7 @@ import TopAlerts from "../templates/alerts/TopAlerts";
 import Paginador from "../templates/Paginador";
 import Button from "react-bootstrap/Button";
 import "../css/BtnInsertar.css";
-import useUser from "../../hooks/useUser";
+
 
 
 export default function ListadoRelator() {
@@ -28,8 +27,7 @@ export default function ListadoRelator() {
   const [IDRelator, setIDRelator] = useState(null);
   const [isActiveEditRelator, setIsActiveEditRelator] = useState(false);
   const [num_boton, setNumBoton] = useState(1);
-  const {isLogged} = useUser()
-  const userData = JSON.parse(sessionStorage.getItem("userData"));
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
 
   function obtenerDatosPaginador() {
@@ -75,7 +73,7 @@ export default function ListadoRelator() {
   }
   //PAGINADOR ---------------------
 
-  return isLogged ? (
+  return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
       <div id="containerTablas">

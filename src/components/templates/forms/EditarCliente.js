@@ -4,6 +4,7 @@ import SendDataService from "../../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { useCallback } from "react";
 
 const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
   // ----------------------CONSTANTES----------------------------
@@ -24,14 +25,15 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
 
   // ----------------------FUNCIONES----------------------------
 
-  function getData() {
+  const getData = useCallback(() => {
     const url = "TASKS/coe-selectClientes.php";
     const operationUrl = "ID";
     const data = { ID: IDCliente };
     SendDataService(url, operationUrl, data).then((response) =>
       setResponseID(response)
     );
-  }
+  }, [IDCliente]);
+  
   function resetStates() {
     setTipoClientes("");
     setNombreCliente("");
@@ -42,7 +44,7 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
   }
 
   function SendData(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const url = "TASKS/coe-editClientes.php";
 
     const operationUrl = "editarCliente";
@@ -76,7 +78,7 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
         getData();
       }
     },
-    [IDCliente]
+    [IDCliente, getData]
   );
 
   // ----------------------RENDER----------------------------
