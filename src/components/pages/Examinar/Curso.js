@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useRoute, Redirect } from "wouter";
 import Header from "../../templates/Header";
 import { Table } from "react-bootstrap";
@@ -8,8 +8,7 @@ import { AuthContext } from "../../../context/AuthContext";
 export default function Curso() {
   const [, params] = useRoute("/Examinar/:params");
   const [CursoSeleccionado, setCursoSeleccionado] = useState([]);
-  const {isLogged} = useContext(AuthContext);
-
+  const { isLogged } = useContext(AuthContext);
 
   function obtenerDatos() {
     var url = "TASKS/coe-list_infoidCurso.php";
