@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { Redirect } from "wouter";
+import { Navigate } from "react-router-dom";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import { Card, Table } from "react-bootstrap";
@@ -17,11 +17,14 @@ export default function Administrador() {
   const [clientes, setClientes] = useState([""]);
   const [relatores, setRelatores] = useState([""]);
   const [colaboradores, setColaboradores] = useState([""]);
-  const userData = localStorage.getItem("loggedUser");
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
+
   // ---------------------------------------------------------------
   function obtenerDatosCursos() {
     const url = "TASKS/coe-adminCursos.php?cursos";
-    getDataService(url).then((cursos) => setCursos(cursos));
+    getDataService(url).then((cursos) => {
+      setCursos(cursos);
+    });
   }
   function obtenerDatosRamos() {
     const url = "TASKS/coe-adminRamos.php?ramos";
@@ -46,46 +49,81 @@ export default function Administrador() {
     const url = "TASKS/coe-updateState.php";
     const operationUrl = "updateStateCursos";
     var data = { ID: ID };
-    SendDataService(url, operationUrl, data).then(
-      (response) => TopAlerts(response),
-      obtenerDatosCursos()
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      const { successEdited, ...curso } = response[0];
+      actualizarCurso(curso);
+      TopAlerts(successEdited);
+    });
   }
+  function actualizarCurso(curso) {
+    const nuevosCursos = cursos.map((c) => (c.ID === curso.ID ? curso : c));
+    setCursos(nuevosCursos);
+  }
+
   function handleChangeisActiveRamos(ID) {
     const url = "TASKS/coe-updateStateRamos.php";
     const operationUrl = "updateStateRamos";
     var data = { ID: ID };
-    SendDataService(url, operationUrl, data).then(
-      (response) => TopAlerts(response),
-      obtenerDatosRamos()
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      const { successEdited, ...ramo } = response[0];
+      actualizarRamo(ramo);
+      TopAlerts(successEdited);
+    });
   }
+  function actualizarRamo(ramo) {
+    const nuevosRamos = ramos.map((r) => (r.ID === ramo.ID ? ramo : r));
+    setRamos(nuevosRamos);
+  }
+
   function handleChangeisActiveColaborador(ID) {
     const url = "TASKS/coe-updateStateColaborador.php";
     const operationUrl = "updateStateColaborador";
     var data = { ID: ID };
-    SendDataService(url, operationUrl, data).then(
-      (response) => TopAlerts(response),
-      obtenerDatosColaboradores()
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      const { successEdited, ...colaborador } = response[0];
+      actualizarColaborador(colaborador);
+      TopAlerts(successEdited);
+    });
   }
+  function actualizarColaborador(colaborador) {
+    const nuevosColaboradores = colaboradores.map((c) =>
+      c.ID === colaborador.ID ? colaborador : c
+    );
+    setColaboradores(nuevosColaboradores);
+  }
+
   function handleChangeisActiveRelatores(ID) {
     const url = "TASKS/coe-updateStateRelator.php";
     const operationUrl = "updateStateRelator";
     var data = { ID: ID };
-    SendDataService(url, operationUrl, data).then(
-      (response) => TopAlerts(response),
-      obtenerDatosRelatores()
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      const { successEdited, ...relator } = response[0];
+      actualizarRelator(relator);
+      TopAlerts(successEdited);
+    });
   }
+  function actualizarRelator(relator) {
+    const nuevosRelatores = relatores.map((r) =>
+      r.ID === relator.ID ? relator : r
+    );
+    setRelatores(nuevosRelatores);
+  }
+
   function handleChangeisActiveClientes(ID) {
     const url = "TASKS/coe-updateStateClientes.php";
     const operationUrl = "updateStateClientes";
     var data = { ID: ID };
-    SendDataService(url, operationUrl, data).then(
-      (response) => TopAlerts(response),
-      obtenerDatosClientes()
+    SendDataService(url, operationUrl, data).then((response) => {
+      const { successEdited, ...cliente } = response[0];
+      actualizarCliente(cliente);
+      TopAlerts(successEdited);
+    });
+  }
+  function actualizarCliente(cliente) {
+    const nuevosClientes = clientes.map((c) =>
+      c.ID === cliente.ID ? cliente : c
     );
+    setClientes(nuevosClientes);
   }
 
   // function eliminarCurso(ID) {
@@ -101,6 +139,7 @@ export default function Administrador() {
   //     }
   //   });
   // }
+
   // ------------------------------------------------------------------
   useEffect(function () {
     obtenerDatosClientes();
@@ -110,7 +149,7 @@ export default function Administrador() {
     obtenerDatosRelatores();
   }, []);
 
-  return userData ? (
+  return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
       <div id="adminContainer">
@@ -264,6 +303,6 @@ export default function Administrador() {
       </div>
     </>
   ) : (
-    <Redirect to="/login"></Redirect>
+    <Navigate to="/login"></Navigate>
   );
 }

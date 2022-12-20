@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useRoute, Redirect } from "wouter";
 import Header from "../../templates/Header";
 import { Table } from "react-bootstrap";
 import SendDataService from "../../../services/SendDataService";
-// import { BsPencilSquare, BsTrash } from "react-icons/bs";
+import { AuthContext } from "../../../context/AuthContext";
 
 export default function Curso() {
   const [, params] = useRoute("/Examinar/:params");
-  const userData = localStorage.getItem("loggedUser");
   const [CursoSeleccionado, setCursoSeleccionado] = useState([]);
+  const { isLogged } = useContext(AuthContext);
 
   function obtenerDatos() {
     var url = "TASKS/coe-list_infoidCurso.php";
@@ -25,7 +25,7 @@ export default function Curso() {
     console.log(CursoSeleccionado);
   }, []);
 
-  return userData ? (
+  return isLogged ? (
     <>
       <Header></Header>
       <div>

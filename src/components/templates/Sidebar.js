@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "wouter";
+import { Link } from "react-router-dom";
 import "../css/SidebarStyles.css";
 import Logout from "../../services/Logout";
 import userLogo from "../../sources/User_logo.png";
@@ -8,7 +8,7 @@ import { Container, Offcanvas } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 export default function SideBar(props) {
-  const userData = JSON.parse(localStorage.getItem("loggedUser"));
+  const userData = JSON.parse(localStorage.getItem("userData"));
   const [isToggledAcademia, setToggleAcademia] = useState(false);
   const [isToggledAsistencias, setToggleAsistencias] = useState(false);
   const [isToggledColaboradores, setToggleColaboradores] = useState(false);
@@ -61,14 +61,31 @@ export default function SideBar(props) {
             </li>
 
             <li>
-              <h4>{userData[0].username}</h4>
+              <h4>{userData.username}</h4>
             </li>
             <li>
-              <Link id="li_home" to="/home">
+              <Link
+                id="li_home"
+                to={
+                  userData.tipoUsuario === "administrador" ||
+                  userData.tipoUsuario === "capital_humano"
+                    ? "/home"
+                    : "/homeColaboradores"
+                }
+              >
                 HOME
               </Link>
             </li>
-            <li id="li_Academia" onClick={handleChangeAcademia}>
+            <li
+              id="li_Academia"
+              onClick={handleChangeAcademia}
+              className={
+                userData.tipoUsuario === "administrador" ||
+                userData.tipoUsuario === "capital_humano"
+                  ? ""
+                  : "private"
+              }
+            >
               COE - ACADEMIA
               <ul
                 id="COE_Academia"
@@ -104,7 +121,16 @@ export default function SideBar(props) {
                 CALENDARIO
               </Link>
             </li>
-            <li id="li_Asistencias" onClick={handleChangeAsistencias}>
+            <li
+              id="li_Asistencias"
+              onClick={handleChangeAsistencias}
+              className={
+                userData.tipoUsuario === "administrador" ||
+                userData.tipoUsuario === "capital_humano"
+                  ? ""
+                  : "private"
+              }
+            >
               ASISTENCIAS
               <ul
                 id="Asistencias"
@@ -116,14 +142,11 @@ export default function SideBar(props) {
               </ul>
             </li>
             <li id="li_Colaboradores" onClick={handleChangeColaboradores}>
-              COLABORADORES
+              MI PERFIL
               <ul
                 id="Colaboradores"
                 className={isToggledColaboradores ? "active" : ""}
               >
-                <li>
-                  <Link to="/homeColaboradores">Inicio</Link>
-                </li>
                 <li>
                   <Link to="/MisCursos">Mis Cursos</Link>
                 </li>

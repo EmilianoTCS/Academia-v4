@@ -1,5 +1,5 @@
 import { Card, Form, Button } from "react-bootstrap";
-import { Redirect } from "wouter";
+import { Navigate } from "react-router-dom";
 import Header from "../templates/Header";
 import Select from "react-select";
 import getDataService from "../../services/GetDataService";
@@ -11,10 +11,10 @@ export default function InscribirseCurso() {
   // ----------------------CONSTANTES----------------------------
   const [listCuentas, setListCuentas] = useState([""]);
   const [listadoCursos, setListadoCursos] = useState([""]);
-  const userData = JSON.parse(localStorage.getItem("loggedUser"));
 
   const [codigoCuenta, setCodigoCuenta] = useState("");
   const [cursoSeleccionado, setCursoSeleccionado] = useState("");
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   function obtenerCuentas() {
     const url = "TASKS/auxiliar/ListadoCuentas.php?listadoCuentas";
@@ -54,7 +54,7 @@ export default function InscribirseCurso() {
     value: label.ID,
   }));
 
-  return userData ? (
+  return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
       <h1 id="TitlesPages">Inscripción de cursos</h1>
@@ -84,7 +84,7 @@ export default function InscribirseCurso() {
     </>
   ) : (
     <>
-      <Redirect to="/login"></Redirect>
+      <Navigate to="/login"></Navigate>
     </>
   );
 }

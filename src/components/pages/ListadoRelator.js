@@ -1,7 +1,7 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import { Redirect } from "wouter";
+import { Navigate } from "react-router-dom";
+
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import Header from "../templates/Header";
@@ -16,17 +16,20 @@ import Paginador from "../templates/Paginador";
 import Button from "react-bootstrap/Button";
 import "../css/BtnInsertar.css";
 
+
+
 export default function ListadoRelator() {
   const [relator, setRelator] = useState([""]);
   const [paginador, setPaginadorRelator] = useState([""]);
   const url = "TASKS/coe-listOrador.php";
   const urlPaginador = "paginador/botones_Relator.php";
   const operationUrl = "pagina";
-  const userData = JSON.parse(localStorage.getItem("loggedUser"));
   const [isActiveInsertRelator, setIsActiveInsertRelator] = useState(false);
   const [IDRelator, setIDRelator] = useState(null);
   const [isActiveEditRelator, setIsActiveEditRelator] = useState(false);
   const [num_boton, setNumBoton] = useState(1);
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
+
 
   function obtenerDatosPaginador() {
     getDataService(urlPaginador).then((paginador) =>
@@ -71,7 +74,7 @@ export default function ListadoRelator() {
   }
   //PAGINADOR ---------------------
 
-  return userData ? (
+  return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
       <div id="containerTablas">
@@ -142,6 +145,6 @@ export default function ListadoRelator() {
       </div>
     </>
   ) : (
-    <Redirect to="/login"></Redirect>
+    <Navigate to="/login"></Navigate>
   );
 }

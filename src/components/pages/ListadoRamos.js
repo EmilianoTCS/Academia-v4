@@ -1,7 +1,7 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import { Redirect } from "wouter";
+import { Navigate } from "react-router-dom";
+
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import Header from "../templates/Header";
@@ -23,12 +23,12 @@ export default function ListadoRamos() {
   const url = "TASKS/coe-listCursos.php";
   const urlPaginador = "paginador/botones_Cursos.php";
   const operationUrl = "pagina";
-  const userData = JSON.parse(localStorage.getItem("loggedUser"));
+
   const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
   const [isActiveInsertRamo, setIsActiveInsertRamo] = useState(false);
   const [IDRamo, setIDRamo] = useState(null);
   const [isActiveEditRamo, setIsActiveEditRamo] = useState(false);
-
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [num_boton, setNumBoton] = useState(1);
 
   useEffect(
@@ -80,7 +80,7 @@ export default function ListadoRamos() {
 
   //PAGINADOR ---------------------
 
-  return userData ? (
+  return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
       <div id="containerTablas">
@@ -157,6 +157,6 @@ export default function ListadoRamos() {
       </div>
     </>
   ) : (
-    <Redirect to="/login"></Redirect>
+    <Navigate to="/login"></Navigate>
   );
 }

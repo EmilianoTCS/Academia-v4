@@ -1,6 +1,7 @@
 import { Card } from "react-bootstrap";
 import { TbCertificate } from "react-icons/tb";
 import "../../css/Certificados.css";
+
 export default function Certificados() {
   return (
     <>

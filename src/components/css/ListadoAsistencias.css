@@ -1,8 +1,8 @@
 #FiltrosAsistencias{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    width: 600px;
+    gap: 5px;
+    width: 500px;
 }
 .DatePicker{
     height: 38px;

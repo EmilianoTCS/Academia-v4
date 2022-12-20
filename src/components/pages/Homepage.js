@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import getDataService from "../../services/GetDataService";
 import "../css/cardsHome.css";
-import { Redirect } from "wouter";
+import { Navigate } from "react-router-dom";
 import Header from "../templates/Header";
 import PieChart from "../templates/Pie";
 import BarChart from "../templates/Bar";
+
 export default function HomePage() {
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
+
   const [cards, setCards] = useState([""]);
   const url = "TASKS/Cards-General.php";
-  const userData = JSON.parse(localStorage.getItem("loggedUser"));
   function obtenerDatos() {
     getDataService(url).then((cards) => setCards(cards));
   }
@@ -17,7 +19,7 @@ export default function HomePage() {
     obtenerDatos();
   }, []);
 
-  return userData ? (
+  return userData.statusConected || userData !== null ? (
     <div>
       <Header></Header>
       <div id="container_cards">
@@ -76,6 +78,6 @@ export default function HomePage() {
       </div>
     </div>
   ) : (
-    <Redirect to="/login"></Redirect>
+    <Navigate to="/login"></Navigate>
   );
 }

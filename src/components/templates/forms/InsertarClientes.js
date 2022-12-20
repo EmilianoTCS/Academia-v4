@@ -22,7 +22,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
   // ----------------------FUNCIONES----------------------------
 
   function SendData(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const url = "TASKS/coe-insertarCliente.php";
     const operationUrl = "insertarCliente";
     var data = {

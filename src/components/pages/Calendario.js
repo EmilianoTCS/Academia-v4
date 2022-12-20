@@ -1,4 +1,4 @@
-import { Redirect } from "wouter";
+import { Navigate } from "react-router-dom";
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import Header from "../templates/Header";
@@ -13,9 +13,7 @@ import InsertarCurso from "../templates/forms/InsertarCurso";
 import InsertarEvento from "../templates/forms/InsertarEvento";
 import Button from "react-bootstrap/Button";
 import "../css/InsertarCursoCalendario.css";
-
 export default function Calendario() {
-  const userData = localStorage.getItem("loggedUser");
   const [CursosApi, setCursosApi] = useState([""]);
   const [EventosApi, setEventosApi] = useState([""]);
   const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
@@ -23,6 +21,7 @@ export default function Calendario() {
   const [randomColorCourses, setRandomColorCourses] = useState("");
   const [randomColorEvents, setRandomColorEvents] = useState("");
   const [FeriadosApi, setFeriadosApi] = useState([""]);
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   // --------------------FUNCIONES---------------------
   function getDataCursos() {
@@ -37,7 +36,6 @@ export default function Calendario() {
     const urlFeriados = "https://api.victorsanmartin.com/feriados/en.json";
     getDataExternService(urlFeriados).then(
       (response) => setFeriadosApi(response.data),
-      console.log(FeriadosApi)
     );
   }
 
@@ -117,7 +115,7 @@ export default function Calendario() {
   };
   // --------------------RENDER---------------------
 
-  return userData ? (
+  return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
       <Button id="btnCurso" onClick={insertarCurso}>
@@ -145,7 +143,7 @@ export default function Calendario() {
             center: "title",
             left: "dayGridMonth,dayGridWeek,dayGridDay",
           }}
-          weekends={false}
+          weekends={true}
           aspectRatio={2}
           droppable={true}
           dragScroll={true}
@@ -159,6 +157,6 @@ export default function Calendario() {
       </div>
     </>
   ) : (
-    <Redirect to="/login"></Redirect>
+    <Navigate to="/login"></Navigate>
   );
 }

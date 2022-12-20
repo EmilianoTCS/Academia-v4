@@ -33,7 +33,7 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
   }
 
   function SendData(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const url = "TASKS/coe-editRamo.php";
     const operationUrl = "editarRamo";
     var data = {

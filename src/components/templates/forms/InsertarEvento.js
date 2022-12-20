@@ -45,9 +45,10 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
       duracion: duracion,
     };
     console.log(data);
-    SendDataService(url, operationUrl, data).then((response) =>
-      TopAlerts(response)
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      TopAlerts(response);
+      console.log(response);
+    });
   }
 
   // ----------------------COMPONENTES----------------------------
@@ -83,6 +84,7 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
       fechasFormateadas.push(valoresFechas[index].format())
     );
     fechasOrdenadas.push(fechasFormateadas.sort());
+    TopAlerts("changesSaved");
   }
 
   // ----------------------RENDER----------------------------

@@ -1,7 +1,7 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import { Redirect } from "wouter";
+import { Navigate } from "react-router-dom";
+
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import Header from "../templates/Header";
@@ -22,11 +22,13 @@ export default function ListadoClientes() {
   const url = "TASKS/coe-listClientes.php";
   const urlPaginador = "paginador/botones_Clientes.php";
   const operationUrl = "pagina";
-  const userData = JSON.parse(localStorage.getItem("loggedUser"));
   const [isActiveInsertCliente, setIsActiveInsertCliente] = useState(false);
   const [isActiveEditCliente, setIsActiveEditCliente] = useState(false);
   const [IDCliente, setIDCliente] = useState(null);
   const [num_boton, setNumBoton] = useState(1);
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
+
+  
 
   function insertarCliente() {
     setIsActiveInsertCliente(!isActiveInsertCliente);
@@ -73,7 +75,7 @@ export default function ListadoClientes() {
 
   //PAGINADOR ---------------------
 
-  return userData ? (
+  return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
       <div>
@@ -148,6 +150,6 @@ export default function ListadoClientes() {
       </div>
     </>
   ) : (
-    <Redirect to="/login"></Redirect>
+    <Navigate to="/login"></Navigate>
   );
 }

@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
-import { Redirect } from "wouter";
 import Hexagon from "react-hexagon";
 import "../../css/MisCursos.css";
 import SendDataService from "../../../services/SendDataService";
 import { useCallback } from "react";
+
 export default function Automation() {
-  const userData = JSON.parse(localStorage.getItem("loggedUser"));
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   const [data, setData] = useState([""]);
 
   const obtenerDatos = useCallback(() => {
     const url = "TASKS/SubCards.php";
     const operationUrl = "usuario";
-    var data = { usuario: userData[0].username };
+    var data = { usuario: userData.username };
     SendDataService(url, operationUrl, data).then((response) =>
       setData(response)
     );
@@ -41,7 +41,7 @@ export default function Automation() {
   const styleActive = { color: "green" };
   const styleInactive = { color: "red" };
 
-  return userData ? (
+  return (
     <>
       <Card>
         <Card.Body id="CardContainer">
@@ -119,7 +119,5 @@ export default function Automation() {
         </Card.Body>
       </Card>
     </>
-  ) : (
-    <Redirect to="/login"></Redirect>
   );
 }

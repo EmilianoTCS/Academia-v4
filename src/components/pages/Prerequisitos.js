@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Card, Form, Table } from "react-bootstrap";
-import { Redirect } from "wouter";
+import { Navigate } from "react-router-dom";
+
 import Header from "../templates/Header";
 import Select from "react-select";
 import { useState, useEffect } from "react";
@@ -8,13 +9,16 @@ import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import SwitchToggle from "../templates/SwitchToggle";
 import "../css/Prerequisitos.css";
+import TopAlerts from "../templates/alerts/TopAlerts";
+
 export default function Prerequisitos() {
   const [listadoCursos, setlistadoCursos] = useState([""]);
   const [listadoCursosInsert, setlistadoCursosInsert] = useState([""]);
   const [value, setValue] = useState([""]);
   const [valueInsert, setValueInsert] = useState([""]);
   const [listadoPrerequisitos, setListadoPrerequisitos] = useState([""]);
-  const userData = localStorage.getItem("loggedUser");
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
+
   // ------------------------- FUNCIONES -------------------------
   function getListadoCursos() {
     const url = "TASKS/auxiliar/idCurso.php?idCurso";
@@ -37,11 +41,20 @@ export default function Prerequisitos() {
     );
   }
   function toggleisActivePrerequisito(ID) {
-    console.log(ID);
     const url = "TASKS/coe-updateStatePrerequisito.php";
-    var data = { ID: ID };
+    var data = { ID: ID, IDCurso: value.value };
     var operationUrl = "updateStatePrerequisito";
-    SendDataService(url, operationUrl, data);
+    SendDataService(url, operationUrl, data).then((response) => {
+      const { successEdited, ...prerequisitos } = response[0];
+      actualizarPrerequisitos(prerequisitos);
+      TopAlerts(successEdited);
+    });
+  }
+  function actualizarPrerequisitos(prerequisitos) {
+    const nuevosPrerequisitos = listadoPrerequisitos.map((p) =>
+      p.ID === prerequisitos.ID ? prerequisitos : p
+    );
+    setListadoPrerequisitos(nuevosPrerequisitos);
   }
 
   function handleChangeSelect(value) {
@@ -85,7 +98,7 @@ export default function Prerequisitos() {
 
   // ------------------------- RETURN -------------------------
 
-  return userData ? (
+  return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
       <h1 id="TitlesPages">Administración de prerequisitos</h1>
@@ -145,6 +158,6 @@ export default function Prerequisitos() {
       </Card>
     </>
   ) : (
-    <Redirect to="/login"></Redirect>
+    <Navigate to="/login"></Navigate>
   );
 }

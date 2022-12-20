@@ -1,5 +1,6 @@
 import React from "react";
-import { Redirect } from "wouter";
+import { Navigate } from "react-router-dom";
+
 import Header from "../templates/Header";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -12,7 +13,6 @@ import NotasColaboradores from "./Tabs/NotasColaboradores";
 
 function TabPanel(props) {
   const { children, value, index } = props;
-
   return (
     <div
       role="tabpanel"
@@ -43,14 +43,14 @@ function a11yProps(index) {
 }
 
 export default function BasicTabs() {
-  const userData = localStorage.getItem("loggedUser");
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  return userData ? (
+  return userData.statusConected || userData !== null ? (
     <>
       <Header />
       <h1 id="TitlesPages">Panel de colaboradores</h1>
@@ -90,6 +90,6 @@ export default function BasicTabs() {
       </div>
     </>
   ) : (
-    <Redirect to="/login"></Redirect>
+    <Navigate to="/login"></Navigate>
   );
 }
