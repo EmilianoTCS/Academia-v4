@@ -13,7 +13,26 @@ export default function TopAlerts(props) {
         toast: true,
         showConfirmButton: false,
       });
-      case "changesSaved":
+    case "SuccessfulDelivery":
+      return MySwal.fire({
+        title: "¡Bien!",
+        text: "Hemos enviado un correo a la dirección escrita, revísalo para poder continuar con la operación. Puedes cerrar esta pestaña.",
+        icon: "success",
+        showConfirmButton: true,
+        confirmButtonText: '<i class="fa fa-thumbs-up"></i> Ok!',
+      });
+    case "successEditedPassword":
+      return MySwal.fire({
+        title: "¡Bien!",
+        html: `
+        <p>Se ha actualizado la clave de tu cuenta, puedes ingresar al enlace para acceder. </p>
+        <a href="http://localhost:3000/login">Iniciar sesión</a>
+        `,
+        icon: "success",
+        showConfirmButton: true,
+        confirmButtonText: '<i class="fa fa-thumbs-up"></i> Ok!',
+      });
+    case "changesSaved":
       return MySwal.fire({
         title: "Se han guardado los cambios",
         icon: "success",
@@ -48,6 +67,13 @@ export default function TopAlerts(props) {
         position: "top-right",
         timer: 2500,
         toast: true,
+        showConfirmButton: false,
+      });
+    case "repeatedPassword":
+      return MySwal.fire({
+        title: "Se ha producido un error.",
+        text: "No puedes utilizar la contraseña actual.",
+        icon: "error",
         showConfirmButton: false,
       });
     case "Error":

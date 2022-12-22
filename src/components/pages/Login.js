@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import "../css/LoginPage.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link} from "react-router-dom";
+import Alert from "react-bootstrap/Alert";
 
 import { AuthContext } from "../../context/AuthContext";
 import { useEffect } from "react";
@@ -8,6 +9,7 @@ import { useEffect } from "react";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [show, setShow] = useState(true);
   const navigate = useNavigate();
 
   const { login, isLogged, hasError, isLoading, tipoUsuario } =
@@ -30,11 +32,18 @@ export default function Login() {
 
   //COMPONENTES
   const ErrorMessage = () => {
-    return (
-      <div id="errorMessage">
-        <p>El usuario o contraseña es incorrecto.</p>
-      </div>
-    );
+    if (show)
+      return (
+        <Alert
+          variant="danger"
+          onClose={() => {
+            setShow(false);
+          }}
+          dismissible
+        >
+          <Alert.Heading>El usuario o contraseña es incorrecto.</Alert.Heading>
+        </Alert>
+      );
   };
 
   return (
@@ -77,9 +86,9 @@ export default function Login() {
               >
                 Acceder
               </button>
-              <a id="forgot_password" className="small" href="password.html">
+              <Link id="forgot_password" className="small" to="/RecuperarPassword">
                 Olvidaste la contraseña?
-              </a>
+              </Link>
             </div>
             {hasError && <ErrorMessage></ErrorMessage>}
           </form>

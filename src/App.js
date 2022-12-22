@@ -18,6 +18,8 @@ import Curso from "./components/pages/Examinar/Curso";
 
 import AuthState from "./context/AuthContext";
 import { PrivateRoute } from "./hooks/PrivateRoute";
+import RecuperarPassword from "./components/pages/RecuperarPassword";
+import RestablecerPassword from "./components/pages/RestablecerPassword";
 
 export default function App() {
   return (
@@ -52,11 +54,20 @@ export default function App() {
             element={<HomeColaboradores />}
             path="/homeColaboradores"
           ></Route>
+
           <Route element={<MisCursos />} path="/MisCursos"></Route>
           <Route element={<Calendario />} path="/Calendario"></Route>
           <Route
             element={<InscribirseCurso />}
             path="/InscripcionCurso"
+          ></Route>
+          <Route
+            element={<RecuperarPassword />}
+            path="/RecuperarPassword"
+          ></Route>
+          <Route
+            path="/RestablecerPassword/:ID/:correo/"
+            element={<RestablecerPassword />}
           ></Route>
         </Routes>
       </BrowserRouter>
