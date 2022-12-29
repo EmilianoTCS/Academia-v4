@@ -1,90 +1,87 @@
 import React, { useState, useEffect } from "react";
-import LoginService from "../services/LoginService";
-import SetItemLoginService from "../services/SetItemLoginService";
+import useUser from "../../hooks/useUser";
 import "../css/LoginPage.css";
-import AutenticationLoginContext from "../hooks/AutenticationLogin";
-import { Redirect, Route } from "wouter";
-import HomePage from "./Homepage";
-
+import { useLocation } from "wouter";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState(null);
+  const [, navigate] = useLocation();
+  const { isLoginLoading, hasLoginError, login, isLogged } = useUser();
 
-  const handleLogin = async (event) => {
-    event.preventDefault();
-    try {
-      const user = await LoginService.loginService({
-        username,
-        password,
-      });
-      SetItemLoginService.SetItemLoginService(user);
-      setUser(user);
-
-      setUsername("");
-      setPassword("");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  window.localStorage.setItem("loggedUser", JSON.stringify(user));
+  //FUNCIONES
 
   useEffect(() => {
-    const loggedStatus = window.localStorage.getItem("loggedUser", user);
-    if (loggedStatus) {
-      const user = JSON.parse(loggedStatus);
-      setUser(user);
-    }
-  }, [user]);
+    console.log(isLogged);
+    if (isLogged) navigate("/home");
+  }, [isLogged, navigate]);
 
-  return user ? (
-    <div>
-      <AutenticationLoginContext.Provider value={user}>
-        <Route path="/home" component={HomePage}></Route>
-        <Redirect to="/home"></Redirect>
-      </AutenticationLoginContext.Provider>
-    </div>
-  ) : (
+  const handleLogin = (e) => {
+    e.preventDefault();
+    login({ username, password });
+  };
+
+//COMPONENTES
+  const ErrorMessage = () => {
+    return (
+      <div id="errorMessage">
+        <p>El usuario o contraseña es incorrecto.</p>
+      </div>
+    )
+  }
+
+
+
+
+  return (
     <div>
       <h3 id="pageTitleLogin">Academia de formación</h3>
-      <div id="background">
-        <form id="form_login" onSubmit={handleLogin}>
-          <h3>Iniciar sesión</h3>
-          <div>
-            <h4 htmlFor="input_Usuario">Usuario:</h4>
-            <input
-              type="text"
-              name="username"
-              id="input_Usuario"
-              placeholder="Usuario"
-              value={username}
-              onChange={({ target }) => setUsername(target.value)}
-              required
-            />
-          </div>
-          <div>
-            <h4 htmlFor="input_Usuario">Contraseña:</h4>
-            <input
-              type="password"
-              name="password"
-              id="input_password"
-              placeholder="Contraseña"
-              value={password}
-              onChange={({ target }) => setPassword(target.value)}
-              required
-            />
-          </div>
-          <div>
-            <button type="submit" id="btn_acceder" className="btn btn-primary">
-              Acceder
-            </button>
-            <a id="forgot_password" className="small" href="password.html">
-              Olvidaste la contraseña?
-            </a>
-          </div>
-        </form>
-      </div>
+      {isLoginLoading && <strong>Checking Credentials</strong>}
+      {!isLoginLoading && (
+        <div id="background">
+          <form id="form_login" onSubmit={handleLogin}>
+            <h3>Iniciar sesión</h3>
+            <div>
+              <h4 htmlFor="input_Usuario">Usuario:</h4>
+              <input
+                type="text"
+                name="username"
+                id="input_Usuario"
+                placeholder="Usuario"
+                value={username}
+                onChange={({ target }) => setUsername(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <h4 htmlFor="input_Usuario">Contraseña:</h4>
+              <input
+                type="password"
+                name="password"
+                id="input_password"
+                placeholder="Contraseña"
+                value={password}
+                onChange={({ target }) => setPassword(target.value)}
+                required
+              />
+            </div>
+            <div>
+              <button
+                type="submit"
+                id="btn_acceder"
+                className="btn btn-primary"
+              >
+                Acceder
+              </button>
+              <a id="forgot_password" className="small" href="password.html">
+                Olvidaste la contraseña?
+              </a>
+            </div>
+            {hasLoginError && <ErrorMessage></ErrorMessage>}
+
+          </form>
+        </div>
+      )}
+      
     </div>
   );
 }

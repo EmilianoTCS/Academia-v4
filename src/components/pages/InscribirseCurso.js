@@ -2,19 +2,21 @@ import { Card, Form, Button } from "react-bootstrap";
 import { Redirect } from "wouter";
 import Header from "../templates/Header";
 import Select from "react-select";
-import getDataService from "../services/GetDataService";
+import getDataService from "../../services/GetDataService";
 import React, { useState, useEffect } from "react";
-import SendDataService from "../services/SendDataService";
+import SendDataService from "../../services/SendDataService";
 import TopAlerts from "../templates/alerts/TopAlerts";
+import useUser from "../../hooks/useUser";
 
 export default function InscribirseCurso() {
   // ----------------------CONSTANTES----------------------------
   const [listCuentas, setListCuentas] = useState([""]);
   const [listadoCursos, setListadoCursos] = useState([""]);
-  const userData = JSON.parse(localStorage.getItem("loggedUser"));
-
+  const {isLogged} = useUser()
   const [codigoCuenta, setCodigoCuenta] = useState("");
   const [cursoSeleccionado, setCursoSeleccionado] = useState("");
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+
 
   function obtenerCuentas() {
     const url = "TASKS/auxiliar/ListadoCuentas.php?listadoCuentas";

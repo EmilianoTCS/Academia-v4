@@ -4,17 +4,22 @@ import { Redirect } from "wouter";
 import Header from "../templates/Header";
 import Select from "react-select";
 import { useState, useEffect } from "react";
-import getDataService from "../services/GetDataService";
-import SendDataService from "../services/SendDataService";
+import getDataService from "../../services/GetDataService";
+import SendDataService from "../../services/SendDataService";
 import SwitchToggle from "../templates/SwitchToggle";
 import "../css/Prerequisitos.css";
+import useUser from "../../hooks/useUser";
+
 export default function Prerequisitos() {
   const [listadoCursos, setlistadoCursos] = useState([""]);
   const [listadoCursosInsert, setlistadoCursosInsert] = useState([""]);
   const [value, setValue] = useState([""]);
   const [valueInsert, setValueInsert] = useState([""]);
   const [listadoPrerequisitos, setListadoPrerequisitos] = useState([""]);
-  const userData = localStorage.getItem("loggedUser");
+  const { isLogged } = useUser();
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+
+
   // ------------------------- FUNCIONES -------------------------
   function getListadoCursos() {
     const url = "TASKS/auxiliar/idCurso.php?idCurso";

@@ -4,14 +4,14 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-
+import useUser from "../../hooks/useUser";
 import "../css/BoxTabs.css";
 import Header from "../templates/Header";
 import Automation from "./Tabs/Automation";
 import DevOps from "./Tabs/DevOps";
 import Certificados from "./Tabs/Certificados";
 import DetalleNotas from "./Tabs/DetalleNotas";
-
+import {Redirect} from "wouter"
 function TabPanel(props) {
   const { children, value, index } = props;
 
@@ -46,12 +46,15 @@ function a11yProps(index) {
 
 export default function MisCursos() {
   const [value, setValue] = React.useState(0);
+  const { isLogged } = useUser();
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  return (
+  return userData ? (
     <div>
       <Header></Header>
       <div>
@@ -103,5 +106,7 @@ export default function MisCursos() {
         </Box>
       </div>
     </div>
+  ) : (
+    <Redirect to="/login"></Redirect>
   );
 }

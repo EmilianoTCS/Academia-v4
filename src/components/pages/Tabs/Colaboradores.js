@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import getDataService from "../../services/GetDataService";
-import SendDataService from "../../services/SendDataService";
+import getDataService from "../../../services/GetDataService";
+import SendDataService from "../../../services/SendDataService";
 import InsertarColaborador from "../../templates/forms/InsertarColaborador";
 import { BsPencilSquare, BsTrash } from "react-icons/bs";
 import { BiShowAlt } from "react-icons/bi";

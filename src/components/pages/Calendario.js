@@ -5,17 +5,16 @@ import Header from "../templates/Header";
 import interactionPlugin from "@fullcalendar/interaction";
 import { useEffect, useState } from "react";
 import esLocale from "@fullcalendar/core/locales/es";
-import getDataService from "../services/GetDataService";
+import getDataService from "../../services/GetDataService";
 import { Tooltip } from "bootstrap";
-import getDataExternService from "../services/GetDataExternService";
+import getDataExternService from "../../services/GetDataExternService";
 import "../css/Calendario.css";
 import InsertarCurso from "../templates/forms/InsertarCurso";
 import InsertarEvento from "../templates/forms/InsertarEvento";
 import Button from "react-bootstrap/Button";
 import "../css/InsertarCursoCalendario.css";
-
+import useUser from "../../hooks/useUser";
 export default function Calendario() {
-  const userData = localStorage.getItem("loggedUser");
   const [CursosApi, setCursosApi] = useState([""]);
   const [EventosApi, setEventosApi] = useState([""]);
   const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
@@ -23,6 +22,9 @@ export default function Calendario() {
   const [randomColorCourses, setRandomColorCourses] = useState("");
   const [randomColorEvents, setRandomColorEvents] = useState("");
   const [FeriadosApi, setFeriadosApi] = useState([""]);
+  const {isLogged} = useUser()
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+
 
   // --------------------FUNCIONES---------------------
   function getDataCursos() {
@@ -145,7 +147,7 @@ export default function Calendario() {
             center: "title",
             left: "dayGridMonth,dayGridWeek,dayGridDay",
           }}
-          weekends={false}
+          weekends={true}
           aspectRatio={2}
           droppable={true}
           dragScroll={true}

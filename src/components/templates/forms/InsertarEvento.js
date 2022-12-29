@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../css/InsertarEvento.css";
-import SendDataService from "../../services/SendDataService";
+import SendDataService from "../../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
 import DatePicker from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
@@ -83,6 +83,7 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
       fechasFormateadas.push(valoresFechas[index].format())
     );
     fechasOrdenadas.push(fechasFormateadas.sort());
+    TopAlerts("changesSaved")
   }
 
   // ----------------------RENDER----------------------------

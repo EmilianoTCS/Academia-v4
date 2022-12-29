@@ -39,7 +39,7 @@ class BarChart extends Component {
   }
   render() {
     const etiquetas = ["Finalizado", "En curso", "Pendiente"];
-    const { loadedData, cards } = this.state;
+    const { cards } = this.state;
     var data = {
       labels: etiquetas,
       datasets: [

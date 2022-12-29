@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import getDataService from "../services/GetDataService";
+import getDataService from "../../services/GetDataService";
 import "../css/cardsHome.css";
 import { Redirect } from "wouter";
 import Header from "../templates/Header";
 import PieChart from "../templates/Pie";
 import BarChart from "../templates/Bar";
+import useUser from "../../hooks/useUser";
 export default function HomePage() {
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+
   const [cards, setCards] = useState([""]);
   const url = "TASKS/Cards-General.php";
-  const userData = JSON.parse(localStorage.getItem("loggedUser"));
+  const { isLogged } = useUser();
   function obtenerDatos() {
     getDataService(url).then((cards) => setCards(cards));
   }

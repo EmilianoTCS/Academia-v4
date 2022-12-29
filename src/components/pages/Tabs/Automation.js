@@ -3,24 +3,31 @@ import { Card } from "react-bootstrap";
 import { Redirect } from "wouter";
 import Hexagon from "react-hexagon";
 import "../../css/MisCursos.css";
-import SendDataService from "../../services/SendDataService";
+import SendDataService from "../../../services/SendDataService";
+import { useCallback } from "react";
+import useUser from "../../../hooks/useUser";
+
 export default function Automation() {
-  const userData = JSON.parse(localStorage.getItem("loggedUser"));
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
 
   const [data, setData] = useState([""]);
+  const {isLogged} = useUser()
 
-  function obtenerDatos() {
+  const obtenerDatos = useCallback(() => {
     const url = "TASKS/SubCards.php";
     const operationUrl = "usuario";
-    var data = { usuario: userData[0].username };
+    var data = { usuario: userData.username };
     SendDataService(url, operationUrl, data).then((response) =>
       setData(response)
     );
-  }
+  }, [userData]);
 
-  useEffect(function () {
-    obtenerDatos();
-  }, []);
+  useEffect(
+    function () {
+      obtenerDatos();
+    },
+    [obtenerDatos]
+  );
 
   const styleHexGreen = {
     fill: "#548235",
@@ -37,7 +44,7 @@ export default function Automation() {
   const styleActive = { color: "green" };
   const styleInactive = { color: "red" };
 
-  return userData ? (
+  return isLogged ? (
     <>
       <Card>
         <Card.Body id="CardContainer">

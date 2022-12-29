@@ -1,15 +1,16 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Redirect } from "wouter";
-import getDataService from "../services/GetDataService";
-import SendDataService from "../services/SendDataService";
+import getDataService from "../../services/GetDataService";
+import SendDataService from "../../services/SendDataService";
 import { Card, Table } from "react-bootstrap";
 import Header from "../templates/Header";
 import "../css/AdminStyles.css";
 import SwitchToggle from "../templates/SwitchToggle";
 import TopAlerts from "../templates/alerts/TopAlerts";
+import useUser from "../../hooks/useUser";
 // import { BsTrash } from "react-icons/bs";
-import ConfirmAlert from "../templates/alerts/ConfirmAlert";
+// import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 
 export default function Administrador() {
   const [cursos, setCursos] = useState([""]);
@@ -17,7 +18,11 @@ export default function Administrador() {
   const [clientes, setClientes] = useState([""]);
   const [relatores, setRelatores] = useState([""]);
   const [colaboradores, setColaboradores] = useState([""]);
-  const userData = localStorage.getItem("loggedUser");
+  const {isLogged} = useUser()
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+  
+
+
   // ---------------------------------------------------------------
   function obtenerDatosCursos() {
     const url = "TASKS/coe-adminCursos.php?cursos";

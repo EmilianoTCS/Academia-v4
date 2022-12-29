@@ -2,8 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import { Redirect } from "wouter";
-import getDataService from "../services/GetDataService";
-import SendDataService from "../services/SendDataService";
+import getDataService from "../../services/GetDataService";
+import SendDataService from "../../services/SendDataService";
 import Header from "../templates/Header";
 import { BsPencilSquare, BsTrash } from "react-icons/bs";
 import { BiShowAlt } from "react-icons/bi";
@@ -15,6 +15,8 @@ import TopAlerts from "../templates/alerts/TopAlerts";
 import Paginador from "../templates/Paginador";
 import Button from "react-bootstrap/Button";
 import "../css/BtnInsertar.css";
+import useUser from "../../hooks/useUser";
+
 
 export default function ListadoRelator() {
   const [relator, setRelator] = useState([""]);
@@ -22,11 +24,13 @@ export default function ListadoRelator() {
   const url = "TASKS/coe-listOrador.php";
   const urlPaginador = "paginador/botones_Relator.php";
   const operationUrl = "pagina";
-  const userData = JSON.parse(localStorage.getItem("loggedUser"));
   const [isActiveInsertRelator, setIsActiveInsertRelator] = useState(false);
   const [IDRelator, setIDRelator] = useState(null);
   const [isActiveEditRelator, setIsActiveEditRelator] = useState(false);
   const [num_boton, setNumBoton] = useState(1);
+  const {isLogged} = useUser()
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+
 
   function obtenerDatosPaginador() {
     getDataService(urlPaginador).then((paginador) =>
