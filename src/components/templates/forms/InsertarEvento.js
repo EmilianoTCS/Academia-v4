@@ -34,8 +34,7 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
     setDuracion(values);
   }
 
-  function SendData(e) {
-    e.preventDefault();
+  function SendData() {
     const url = "TASKS/coe-insertarEvento.php";
     const operationUrl = "insertarEvento";
     var data = {
