@@ -34,8 +34,8 @@ export default function Calendario() {
   }
   function getDataFeriados() {
     const urlFeriados = "https://api.victorsanmartin.com/feriados/en.json";
-    getDataExternService(urlFeriados).then(
-      (response) => setFeriadosApi(response.data),
+    getDataExternService(urlFeriados).then((response) =>
+      setFeriadosApi(response.data)
     );
   }
 
@@ -150,7 +150,6 @@ export default function Calendario() {
           locale="es"
           eventSources={[Cursos, Eventos, Feriados]}
           themeSystem="bootstrap5"
-          dateClick={insertarCurso}
           eventMouseEnter={handleMouseEnter}
           eventMouseLeave={handleMouseLeave}
         />

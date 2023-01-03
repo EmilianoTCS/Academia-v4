@@ -88,8 +88,7 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
       fechasFormateadas.push(valoresFechas[index].format())
     );
     fechasOrdenadas.push(fechasFormateadas.sort());
-    console.log(fechasOrdenadas[0]);
-    TopAlerts("changesSaved")
+    TopAlerts("changesSaved");
   }
 
   const optionsRamos = listRamos.map((label) => ({

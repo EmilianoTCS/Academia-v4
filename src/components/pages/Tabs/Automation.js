@@ -10,20 +10,21 @@ export default function Automation() {
 
   const [data, setData] = useState([""]);
 
-  const obtenerDatos = useCallback(() => {
+  const obtenerDatos = () => {
     const url = "TASKS/SubCards.php";
     const operationUrl = "usuario";
     var data = { usuario: userData.username };
-    SendDataService(url, operationUrl, data).then((response) =>
-      setData(response)
-    );
-  }, [userData]);
+    SendDataService(url, operationUrl, data).then((response) => {
+      setData(response);
+      console.log(response);
+    });
+  };
 
   useEffect(
     function () {
       obtenerDatos();
     },
-    [obtenerDatos]
+    [userData.username]
   );
 
   const styleHexGreen = {
@@ -40,6 +41,7 @@ export default function Automation() {
   };
   const styleActive = { color: "green" };
   const styleInactive = { color: "red" };
+  const styleFinished = { color: "brown" };
 
   return (
     <>
@@ -91,6 +93,8 @@ export default function Automation() {
                             style={
                               data.estado === "Activo"
                                 ? styleActive
+                                : data.estado === "Finalizado"
+                                ? styleFinished
                                 : styleInactive
                             }
                           >
