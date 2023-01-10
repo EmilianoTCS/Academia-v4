@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
-import { Redirect } from "wouter";
 import Hexagon from "react-hexagon";
 import "../../css/MisCursos.css";
 import SendDataService from "../../../services/SendDataService";
 import { useCallback } from "react";
-import useUser from "../../../hooks/useUser";
 
 export default function Automation() {
-  const userData = JSON.parse(sessionStorage.getItem("userData"));
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   const [data, setData] = useState([""]);
-  const {isLogged} = useUser()
 
   const obtenerDatos = useCallback(() => {
     const url = "TASKS/SubCards.php";
@@ -44,7 +41,7 @@ export default function Automation() {
   const styleActive = { color: "green" };
   const styleInactive = { color: "red" };
 
-  return isLogged ? (
+  return (
     <>
       <Card>
         <Card.Body id="CardContainer">
@@ -122,7 +119,5 @@ export default function Automation() {
         </Card.Body>
       </Card>
     </>
-  ) : (
-    <Redirect to="/login"></Redirect>
   );
 }

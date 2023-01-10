@@ -1,7 +1,6 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import { Redirect, Link } from "wouter";
+import { Navigate, Link } from "react-router-dom";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import Header from "../templates/Header";
@@ -16,7 +15,6 @@ import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 import TopAlerts from "../templates/alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Paginador from "../templates/Paginador";
-import useUser from "../../hooks/useUser";
 
 export default function ListadoCursos() {
   const [cursos, setCursos] = useState([""]);
@@ -24,14 +22,11 @@ export default function ListadoCursos() {
   const url = "TASKS/coe-listCuentas.php";
   const urlPaginador = "paginador/botones_Cuenta.php";
   const operationUrl = "pagina";
-
   const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
   const [isActiveEditCurso, setIsActiveEditCurso] = useState(false);
   const [IDCurso, setIDCurso] = useState(null);
   const [isActiveInsertRamo, setIsActiveInsertRamo] = useState(false);
-  const {isLogged} = useUser()
-  const userData = JSON.parse(sessionStorage.getItem("userData"));
-
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   //PAGINADOR ---------------------
 
@@ -84,7 +79,7 @@ export default function ListadoCursos() {
     [num_boton]
   );
 
-  return userData ? (
+  return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
       <div>
@@ -167,6 +162,6 @@ export default function ListadoCursos() {
       </div>
     </>
   ) : (
-    <Redirect to="/login"></Redirect>
+    <Navigate to="/login"></Navigate>
   );
 }

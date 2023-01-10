@@ -1,7 +1,6 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
-import { Redirect } from "wouter";
+import { Navigate } from "react-router-dom";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import Header from "../templates/Header";
@@ -11,7 +10,6 @@ import "../css/CustomButton.css";
 import "../css/ListadoAsistencias.css";
 import TopAlerts from "../templates/alerts/TopAlerts";
 import { RevolvingDot } from "react-loader-spinner";
-import useUser from "../../hooks/useUser";
 
 export default function ListadoAsistencias() {
   const [asistencias, setAsistencias] = useState([""]);
@@ -19,11 +17,9 @@ export default function ListadoAsistencias() {
   const [listadoFechas, setListadoFechas] = useState([""]);
   const [cursoSeleccionado, setCursoSeleccionado] = useState("");
   const [fechaSeleccionada, setfechaSeleccionada] = useState("");
-  const [IDsChange, setIDsChange] = useState([]);
-  const [busqueda, setBusqueda] = useState(false);
-  const {isLogged} = useUser()
-  const userData = JSON.parse(sessionStorage.getItem("userData"));
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
+  const [busqueda, setBusqueda] = useState(false);
 
   function obtenerDatosCursos() {
     var url = "TASKS/auxiliar/idCurso.php?idCurso";
@@ -52,17 +48,25 @@ export default function ListadoAsistencias() {
   }
 
   function handleChange(ID) {
-    IDsChange.push(ID);
-  }
-  function enviarDatos() {
     const url = "TASKS/coe-updateStateAsistencias.php";
     const operationUrl = "updateStateAsistencias";
-    var data = { IDsChange };
-    SendDataService(url, operationUrl, data).then(
-      (response) => TopAlerts(response),
-      setIDsChange([]),
-      obtenerDatos()
+    var data = {
+      IDRegistro: ID,
+      IDCurso: cursoSeleccionado,
+      Fecha: fechaSeleccionada,
+    };
+    SendDataService(url, operationUrl, data).then((response) => {
+      console.log(response[0]);
+      const { successEdited, ...asistencia } = response[0];
+      actualizarAsistencia(asistencia);
+      TopAlerts(successEdited);
+    });
+  }
+  function actualizarAsistencia(asistencia) {
+    const nuevasAsistencias = asistencias.map((a) =>
+      a.ID === asistencia.ID ? asistencia : a
     );
+    setAsistencias(nuevasAsistencias);
   }
 
   useEffect(
@@ -70,22 +74,11 @@ export default function ListadoAsistencias() {
       obtenerDatosCursos();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [cursoSeleccionado]
+    [cursoSeleccionado, fechaSeleccionada]
   );
 
   //-----------------------COMPONENTES
-  function CustomButton() {
-    return (
-      <>
-        <input
-          type="button"
-          value="Guardar cambios"
-          id="btn_guardarFecha"
-          onClick={enviarDatos}
-        ></input>
-      </>
-    );
-  }
+
   function CustomButtonSearch() {
     return (
       <>
@@ -150,7 +143,7 @@ export default function ListadoAsistencias() {
 
   // ----------------------RENDER----------------------------
 
-  return userData ? (
+  return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
       <div id="containerTablas">
@@ -172,14 +165,13 @@ export default function ListadoAsistencias() {
             onChange={({ value }) => setfechaSeleccionada(value)}
           />
           <CustomButtonSearch></CustomButtonSearch>
-          <CustomButton></CustomButton>
         </div>
         <MainTable></MainTable>
       </div>
     </>
   ) : (
     <>
-      <Redirect to="/login"></Redirect>
+      <Navigate to="/login"></Navigate>
     </>
   );
 }

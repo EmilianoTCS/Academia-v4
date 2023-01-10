@@ -1,23 +1,19 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardGroup } from "react-bootstrap";
-import { Redirect } from "wouter";
+import { Navigate } from "react-router-dom";
 import Header from "../templates/Header";
 import Hexagon from "react-hexagon";
 import "../css/HomeColaboradores.css";
 import SendDataService from "../../services/SendDataService";
-import useUser from "../../hooks/useUser";
-
 
 export default function HomeColaboradores() {
-  const userData = JSON.parse(localStorage.getItem("loggedUser"));
   const [datos, setDatos] = useState([""]);
-  const {isLogged} = useUser()
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   function obtenerDatos() {
     const url = "TASKS/auxiliar/HomeColaboradores.php";
     const operationUrl = "usuario";
-    var data = { usuario: userData[0].username };
+    var data = { usuario: userData.username };
     SendDataService(url, operationUrl, data).then((response) =>
       setDatos(response)
     );
@@ -44,7 +40,7 @@ export default function HomeColaboradores() {
     filter: "drop-shadow(10px 10px 5px rgb(0 0 0 / 0.4))",
   };
 
-  return userData ? (
+  return userData.statusConected === true || userData !== null ? (
     <>
       <Header></Header>
       <CardGroup id="cardContainer">
@@ -161,6 +157,6 @@ export default function HomeColaboradores() {
       </CardGroup>
     </>
   ) : (
-    <Redirect to="/login"></Redirect>
+    <Navigate to="/login"></Navigate>
   );
 }

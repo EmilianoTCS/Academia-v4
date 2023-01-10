@@ -3,7 +3,7 @@ import { Card, Table } from "react-bootstrap";
 import SendDataService from "../../../services/SendDataService";
 
 export default function DetalleNotas() {
-  const userData = JSON.parse(sessionStorage.getItem("userData"));
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [data, setData] = useState([""]);
 
   function obtenerDatos() {

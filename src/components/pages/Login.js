@@ -1,42 +1,56 @@
-import React, { useState, useEffect } from "react";
-import useUser from "../../hooks/useUser";
+import React, { useState, useContext } from "react";
 import "../css/LoginPage.css";
-import { useLocation } from "wouter";
+import { useNavigate, Link} from "react-router-dom";
+import Alert from "react-bootstrap/Alert";
+
+import { AuthContext } from "../../context/AuthContext";
+import { useEffect } from "react";
+
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [, navigate] = useLocation();
-  const { isLoginLoading, hasLoginError, login, isLogged } = useUser();
+  const [show, setShow] = useState(true);
+  const navigate = useNavigate();
 
-  //FUNCIONES
+  const { login, isLogged, hasError, isLoading, tipoUsuario } =
+    useContext(AuthContext);
 
   useEffect(() => {
-    console.log(isLogged);
-    if (isLogged) navigate("/home");
-  }, [isLogged, navigate]);
+    if (isLogged) {
+      if (tipoUsuario === "administrador" || tipoUsuario === "capital_humano") {
+        navigate("/home");
+      } else if (tipoUsuario === "colaborador") {
+        navigate("/homeColaboradores");
+      }
+    }
+  }, [isLogged, navigate, tipoUsuario]);
 
   const handleLogin = (e) => {
     e.preventDefault();
     login({ username, password });
   };
 
-//COMPONENTES
+  //COMPONENTES
   const ErrorMessage = () => {
-    return (
-      <div id="errorMessage">
-        <p>El usuario o contraseña es incorrecto.</p>
-      </div>
-    )
-  }
-
-
-
+    if (show)
+      return (
+        <Alert
+          variant="danger"
+          onClose={() => {
+            setShow(false);
+          }}
+          dismissible
+        >
+          <Alert.Heading>El usuario o contraseña es incorrecto.</Alert.Heading>
+        </Alert>
+      );
+  };
 
   return (
     <div>
       <h3 id="pageTitleLogin">Academia de formación</h3>
-      {isLoginLoading && <strong>Checking Credentials</strong>}
-      {!isLoginLoading && (
+      {isLoading && <strong>Checking Credentials</strong>}
+      {!isLoading && (
         <div id="background">
           <form id="form_login" onSubmit={handleLogin}>
             <h3>Iniciar sesión</h3>
@@ -72,16 +86,14 @@ export default function Login() {
               >
                 Acceder
               </button>
-              <a id="forgot_password" className="small" href="password.html">
+              <Link id="forgot_password" className="small" to="/RecuperarPassword">
                 Olvidaste la contraseña?
-              </a>
+              </Link>
             </div>
-            {hasLoginError && <ErrorMessage></ErrorMessage>}
-
+            {hasError && <ErrorMessage></ErrorMessage>}
           </form>
         </div>
       )}
-      
     </div>
   );
 }

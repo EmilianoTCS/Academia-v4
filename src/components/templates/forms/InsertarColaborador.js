@@ -22,7 +22,7 @@ const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
   // ----------------------FUNCIONES----------------------------
 
   function SendData(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const url = "TASKS/coe-insertarColaborador.php";
     const operationUrl = "insertarColaborador";
     var data = {
