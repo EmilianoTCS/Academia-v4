@@ -18,7 +18,6 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
   const [codigoCuenta, setCodigoCuenta] = useState("");
   const [codigoRamo, setCodigoRamo] = useState("");
   const [duracion, setDuracion] = useState("");
-  const respuestaServidor = new Set();
   const [valoresFechas, setValoresFechas] = useState([new DateObject()]);
   const fechasFormateadas = [];
   const fechasOrdenadas = [];
@@ -38,7 +37,7 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
     getDataService(url).then((ramos) => setListRamos(ramos));
   }
   function SendData(e) {
-    // e.preventDefault();
+    e.preventDefault();
     const url = "TASKS/coe-insertarCurso.php";
     const operationUrl = "insertarCurso";
     var data = {
@@ -47,10 +46,10 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
       codigoCuenta: codigoCuenta,
       codigoRamo: codigoRamo,
     };
-    SendDataService(url, operationUrl, data).then(
-      (response) => respuestaServidor.add(response),
-      console.log(respuestaServidor)
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      const { message } = response[0];
+      console.log(message);
+    });
   }
   useEffect(function () {
     obtenerCuentas();

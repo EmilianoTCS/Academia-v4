@@ -89,7 +89,7 @@ export default function ListadoCursos() {
             Insertar Curso
           </Button>
           <Button id="btnCursoListado" onClick={insertarRamo}>
-            Insertar Ramos
+            Insertar Ramo
           </Button>
           <InsertarCurso
             isActiveCurso={isActiveInsertCurso}
