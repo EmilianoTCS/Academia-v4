@@ -12,8 +12,10 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
 
   const [listCuentas, setListCuentas] = useState([""]);
   const [listPrerequisitos, setListPrerequisitos] = useState([""]);
-  const [codigoCuenta, setCodigoCuenta] = useState("");
+  const [listRelatores, setListRelatores] = useState([""]);
+  const [idCuenta, setIDCuenta] = useState("");
   const [codigoRamo, setCodigoRamo] = useState("");
+  const [nombreRelator, setRelator] = useState("");
   const [nombreRamo, setNombreRamo] = useState("");
   const [hh_academicas, set_hh_academicas] = useState("");
   const [prerequisito, setPrerequisito] = useState("");
@@ -28,6 +30,10 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
     const url = "TASKS/auxiliar/ListadoCuentas.php?listadoCuentas";
     getDataService(url).then((cuentas) => setListCuentas(cuentas));
   }
+  function obtenerRelatores() {
+    const url = "TASKS/auxiliar/ListadoRelatores.php?listadoRelatores";
+    getDataService(url).then((relatores) => setListRelatores(relatores));
+  }
 
   function obtenerPrerequisitos() {
     const url = "TASKS/auxiliar/ListadoNombreRamos.php?listadoRamos";
@@ -35,17 +41,18 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
   }
 
   function SendData(e) {
-    // e.preventDefault();
+    e.preventDefault();
     const url = "TASKS/coe-insertarRamo.php";
     const operationUrl = "insertarRamo";
     var data = {
-      codigoCuenta: codigoCuenta,
+      idCuenta: idCuenta,
       codigoRamo: codigoRamo,
-      nombreCurso: nombreRamo,
+      nombreRamo: nombreRamo,
       hh_academicas: hh_academicas,
       prerequisito: prerequisito,
+      nombreRelator: nombreRelator,
     };
-
+    console.log(data);
     SendDataService(url, operationUrl, data).then((response) =>
       TopAlerts(response)
     );
@@ -53,6 +60,7 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
   useEffect(function () {
     obtenerCuentas();
     obtenerPrerequisitos();
+    obtenerRelatores();
   }, []);
 
   // ----------------------MAPEADOS----------------------------
@@ -64,7 +72,11 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
 
   const optionsPrerequisitos = listPrerequisitos.map((label) => ({
     label: label.nombreRamo,
-    value: label.codigoRamo,
+    value: label.ID,
+  }));
+  const optionsRelatores = listRelatores.map((label) => ({
+    label: label.nombre,
+    value: label.ID,
   }));
   // ----------------------RENDER----------------------------
   return (
@@ -81,12 +93,12 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
         <Modal.Body>
           <form onSubmit={SendData}>
             <div>
-              <label htmlFor="input_fechaInicio">Cuenta: </label>
+              <label htmlFor="input_fechaInicio">Cuenta (cliente): </label>
               <Select
                 placeholder="Elige una cuenta"
                 name="cuenta"
                 options={optionsCuentas}
-                onChange={({ value }) => setCodigoCuenta(value)}
+                onChange={({ value }) => setIDCuenta(value)}
                 required={true}
               />
             </div>
@@ -117,12 +129,23 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
             <div>
               <label htmlFor="input_hhAcademicas">Horas académicas</label>
               <input
-                type="text"
+                type="number"
                 className="form-control"
                 name="input_hhAcademicas"
+                placeholder="0"
                 id="input_hhAcademicas"
                 onChange={({ target }) => set_hh_academicas(target.value)}
                 required
+              />
+            </div>
+            <div>
+              <label htmlFor="input_Relator">Relator: </label>
+              <Select
+                placeholder="Elige el relator del ramo"
+                name="relator"
+                options={optionsRelatores}
+                onChange={({ value }) => setRelator(value)}
+                required={true}
               />
             </div>
             <div>

@@ -32,12 +32,12 @@ export default function Calendario() {
     const url = "TASKS/auxiliar/CalendarioEventos.php?Eventos";
     getDataService(url).then((response) => setEventosApi(response));
   }
-  function getDataFeriados() {
-    const urlFeriados = "https://api.victorsanmartin.com/feriados/en.json";
-    getDataExternService(urlFeriados).then(
-      (response) => setFeriadosApi(response.data),
-    );
-  }
+  // function getDataFeriados() {
+  //   const urlFeriados = "https://api.victorsanmartin.com/feriados/en.json";
+  //   getDataExternService(urlFeriados).then((response) =>
+  //     setFeriadosApi(response.data)
+  //   );
+  // }
 
   function randomNum() {
     setRandomColorCourses(Math.floor(Math.random() * 16777215).toString(16));
@@ -47,7 +47,7 @@ export default function Calendario() {
   useEffect(function () {
     getDataCursos();
     getDataEventos();
-    getDataFeriados();
+    // getDataFeriados();
     randomNum();
   }, []);
 
@@ -81,15 +81,15 @@ export default function Calendario() {
     description: label.descripcion + ", Duración: " + label.duracion,
     color: `#${randomColorEvents}`,
   }));
-  const Feriados = FeriadosApi.map((label) => ({
-    title: label.title,
-    start: label.date,
-    end: label.date,
-    description: label.extra,
-    selectable: false,
-    classNames: "Feriados",
-    display: "background",
-  }));
+  // const Feriados = FeriadosApi.map((label) => ({
+  //   title: label.title,
+  //   start: label.date,
+  //   end: label.date,
+  //   description: label.extra,
+  //   selectable: false,
+  //   classNames: "Feriados",
+  //   display: "background",
+  // }));
   // --------------------ACTIONS  ---------------------
 
   let tooltipInstance = null;
@@ -148,9 +148,8 @@ export default function Calendario() {
           droppable={true}
           dragScroll={true}
           locale="es"
-          eventSources={[Cursos, Eventos, Feriados]}
+          eventSources={[Cursos, Eventos]}
           themeSystem="bootstrap5"
-          dateClick={insertarCurso}
           eventMouseEnter={handleMouseEnter}
           eventMouseLeave={handleMouseLeave}
         />
