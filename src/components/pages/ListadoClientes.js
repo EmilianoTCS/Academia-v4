@@ -78,7 +78,7 @@ export default function ListadoClientes() {
   return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
-      <div>
+      <div id="containerTablas">
         <h1 id="TitlesPages">Listado de clientes</h1>
 
         <Button id="btn" onClick={insertarCliente}>

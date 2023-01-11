@@ -36,7 +36,7 @@ export default function TopAlerts(props) {
         title: "¡Bien!",
         html: `
         <p>Se ha actualizado la clave de tu cuenta, puedes ingresar al enlace para acceder. </p>
-        <a href="https://academiaformacion.netlify.app/">Iniciar sesión</a>
+        <a href="https://academiaformacion.netlify.app/login">Iniciar sesión</a>
         `,
         icon: "success",
         showConfirmButton: true,

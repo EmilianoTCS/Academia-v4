@@ -8,7 +8,7 @@ import Header from "../templates/Header";
 import { BsPencilSquare, BsTrash } from "react-icons/bs";
 import { BiShowAlt } from "react-icons/bi";
 import "../css/TablasStyles.css";
-import InsertarCurso from "../templates/forms/InsertarCurso";
+
 import InsertarRamo from "../templates/forms/InsertarRamo";
 import EditarRamo from "../templates/forms/EditarRamo";
 import ConfirmAlert from "../templates/alerts/ConfirmAlert";
@@ -24,7 +24,6 @@ export default function ListadoRamos() {
   const urlPaginador = "paginador/botones_Cursos.php";
   const operationUrl = "pagina";
 
-  const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
   const [isActiveInsertRamo, setIsActiveInsertRamo] = useState(false);
   const [IDRamo, setIDRamo] = useState(null);
   const [isActiveEditRamo, setIsActiveEditRamo] = useState(false);
@@ -39,17 +38,12 @@ export default function ListadoRamos() {
     [num_boton]
   );
 
-  function insertarCurso() {
-    setIsActiveInsertCurso(!isActiveInsertCurso);
-    setIsActiveInsertRamo(false);
-  }
   function editarRamo(ID) {
     setIsActiveEditRamo(!isActiveEditRamo);
     setIDRamo(ID);
   }
   function insertarRamo() {
     setIsActiveInsertRamo(!isActiveInsertRamo);
-    setIsActiveInsertCurso(false);
   }
   function eliminar(ID) {
     ConfirmAlert().then((response) => {
@@ -85,17 +79,11 @@ export default function ListadoRamos() {
       <Header></Header>
       <div id="containerTablas">
         <h1 id="TitlesPages">Listado de ramos</h1>
-        <Button id="btnCursoListado" onClick={insertarCurso}>
-          Insertar Curso
-        </Button>
+
         <Button id="btnCursoListado" onClick={insertarRamo}>
           Insertar Ramo
         </Button>
 
-        <InsertarCurso
-          isActiveCurso={isActiveInsertCurso}
-          cambiarEstado={setIsActiveInsertCurso}
-        ></InsertarCurso>
         <InsertarRamo
           isActiveRamo={isActiveInsertRamo}
           cambiarEstado={setIsActiveInsertRamo}

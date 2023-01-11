@@ -46,9 +46,9 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
       codigoCuenta: codigoCuenta,
       codigoRamo: codigoRamo,
     };
+    console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { message } = response[0];
-      console.log(message);
+      console.log(response);
     });
   }
   useEffect(function () {
@@ -87,6 +87,7 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
       fechasFormateadas.push(valoresFechas[index].format())
     );
     fechasOrdenadas.push(fechasFormateadas.sort());
+    console.log(fechasOrdenadas);
     TopAlerts("changesSaved");
   }
 

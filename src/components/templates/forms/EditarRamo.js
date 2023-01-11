@@ -27,9 +27,12 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
     const url = "TASKS/coe-selectCursos.php";
     const operationUrl = "ID";
     const data = { ID: IDRamo };
-    SendDataService(url, operationUrl, data).then((response) =>
-      setResponseID(response)
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      setResponseID(response);
+      setCodigoRamo(response[0].codigoRamo);
+      setNombreRamo(response[0].nombreRamo);
+      set_hh_academicas(response[0].hh_academicas);
+    });
   }
   function resetStates() {
     setCodigoRamo("");
@@ -38,7 +41,7 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
   }
 
   function SendData(e) {
-    // e.preventDefault();
+    e.preventDefault();
     const url = "TASKS/coe-editRamo.php";
     const operationUrl = "editarRamo";
     var data = {
@@ -84,22 +87,14 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
                 name="input_codigoRamo"
                 className="form-control"
                 onChange={({ target }) => setCodigoRamo(target.value)}
-                value={
-                  codigoRamo === ""
-                    ? responseID[0].codigoRamo || ""
-                    : codigoRamo || ""
-                }
+                value={codigoRamo || ""}
                 required
               />
             </div>
             <div>
               <label htmlFor="input_nombreRamo">Nombre del ramo: </label>
               <input
-                value={
-                  nombreRamo === ""
-                    ? responseID[0].nombreRamo || ""
-                    : nombreRamo || ""
-                }
+                value={nombreRamo || ""}
                 type="text"
                 placeholder="Ejemplo: JAV"
                 id="input_nombreRamo"
@@ -112,11 +107,7 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
             <div>
               <label htmlFor="input_hhAcademicas">Horas académicas</label>
               <input
-                value={
-                  hh_academicas === ""
-                    ? responseID[0].hh_academicas || ""
-                    : hh_academicas || ""
-                }
+                value={hh_academicas || ""}
                 type="text"
                 className="form-control"
                 name="input_hhAcademicas"
