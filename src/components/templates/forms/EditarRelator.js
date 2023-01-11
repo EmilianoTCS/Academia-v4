@@ -23,9 +23,11 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
     const url = "TASKS/coe-selectRelatores.php";
     const operationUrl = "ID";
     const data = { ID: IDRelator };
-    SendDataService(url, operationUrl, data).then((response) =>
-      setResponseID(response)
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      setResponseID(response);
+      setRelator(response[0].nombre);
+      setArea(response[0].area);
+    });
   }
   function resetStates() {
     setRelator("");
@@ -33,7 +35,7 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
   }
 
   function SendData(e) {
-    // e.preventDefault();
+    e.preventDefault();
     const url = "TASKS/coe-editRamo.php";
     const operationUrl = "editarRamo";
     var data = {
@@ -41,6 +43,7 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
       nombre: relator === "" ? responseID[0].nombre : relator,
       idArea: area === "" ? responseID[0].idArea : area,
     };
+
     SendDataService(url, operationUrl, data).then(
       (response) => TopAlerts(response),
       resetStates()
@@ -87,7 +90,7 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
                 name="input_Relator"
                 id="input_Relator"
                 onChange={({ target }) => setRelator(target.value)}
-                value={relator === "" ? responseID[0].nombre : relator}
+                value={relator || ""}
                 required
               />
             </div>
@@ -98,9 +101,7 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
                 name="cuenta"
                 options={optionsAreas}
                 onChange={({ value }) => setArea(value)}
-                defaultInputValue={
-                  area === "" ? responseID[0].nombreArea : area
-                }
+                defaultInputValue={area || ""}
                 required
               />
             </div>

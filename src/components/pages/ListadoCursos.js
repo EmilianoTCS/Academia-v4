@@ -9,7 +9,7 @@ import { BiShowAlt } from "react-icons/bi";
 import "../css/TablasStyles.css";
 import "../css/InsertarCursoListadoCursosYRamos.css";
 import InsertarCurso from "../templates/forms/InsertarCurso";
-import InsertarRamo from "../templates/forms/InsertarRamo";
+
 import EditarCurso from "../templates/forms/EditarCurso";
 import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 import TopAlerts from "../templates/alerts/TopAlerts";
@@ -25,7 +25,7 @@ export default function ListadoCursos() {
   const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
   const [isActiveEditCurso, setIsActiveEditCurso] = useState(false);
   const [IDCurso, setIDCurso] = useState(null);
-  const [isActiveInsertRamo, setIsActiveInsertRamo] = useState(false);
+
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   //PAGINADOR ---------------------
@@ -60,15 +60,10 @@ export default function ListadoCursos() {
   }
   function insertarCurso() {
     setIsActiveInsertCurso(!isActiveInsertCurso);
-    setIsActiveInsertRamo(false);
   }
   function editarCurso(ID) {
     setIsActiveEditCurso(true);
     setIDCurso(ID);
-  }
-  function insertarRamo() {
-    setIsActiveInsertRamo(!isActiveInsertRamo);
-    setIsActiveInsertCurso(false);
   }
 
   useEffect(
@@ -83,22 +78,15 @@ export default function ListadoCursos() {
     <>
       <Header></Header>
       <div>
-        <div>
+        <div id="containerTablas">
           <h1 id="TitlesPages">Listado de cursos</h1>
           <Button id="btnCursoListado" onClick={insertarCurso}>
             Insertar Curso
-          </Button>
-          <Button id="btnCursoListado" onClick={insertarRamo}>
-            Insertar Ramo
           </Button>
           <InsertarCurso
             isActiveCurso={isActiveInsertCurso}
             cambiarEstado={setIsActiveInsertCurso}
           ></InsertarCurso>
-          <InsertarRamo
-            isActiveRamo={isActiveInsertRamo}
-            cambiarEstado={setIsActiveInsertRamo}
-          ></InsertarRamo>
 
           <EditarCurso
             isActiveEditCurso={isActiveEditCurso}
