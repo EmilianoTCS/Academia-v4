@@ -13,6 +13,16 @@ export default function TopAlerts(props) {
         toast: true,
         showConfirmButton: false,
       });
+    case "errorRegisterRepeated":
+      return MySwal.fire({
+        title: "Se ha producido un error.",
+        text: "Ya existe un registrado con esos datos.",
+        icon: "error",
+        position: "top-right",
+        timer: 2500,
+        toast: true,
+        showConfirmButton: false,
+      });
     case "SuccessfulDelivery":
       return MySwal.fire({
         title: "¡Bien!",
@@ -26,7 +36,7 @@ export default function TopAlerts(props) {
         title: "¡Bien!",
         html: `
         <p>Se ha actualizado la clave de tu cuenta, puedes ingresar al enlace para acceder. </p>
-        <a href="http://localhost:3000/login">Iniciar sesión</a>
+        <a href="https://academiaformacion.netlify.app/login">Iniciar sesión</a>
         `,
         icon: "success",
         showConfirmButton: true,

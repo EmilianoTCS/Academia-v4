@@ -32,9 +32,15 @@ const EditarColaborador = ({
     const url = "TASKS/coe-selectColaborador.php";
     const operationUrl = "ID";
     const data = { ID: IDColaborador };
-    SendDataService(url, operationUrl, data).then((response) =>
-      setResponseID(response)
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      setResponseID(response);
+      setCodigoCuenta(response[0].codigoCuenta);
+      setNombreCompleto(response[0].nombre_completo);
+      setUsuario(response[0].usuario);
+      setArea(response[0].area);
+      setSubgerencia(response[0].subgerencia);
+      setCorreo(response[0].correo);
+    });
   }
   function resetStates() {
     setCodigoCuenta("");
@@ -43,7 +49,6 @@ const EditarColaborador = ({
     setArea("");
     setSubgerencia("");
     setCorreo("");
-    setListCuentas("");
   }
 
   function SendData(e) {
@@ -107,28 +112,15 @@ const EditarColaborador = ({
                 name="cuenta"
                 options={optionsCuentas}
                 onChange={({ value }) => setCodigoCuenta(value)}
-                defaultInputValue={
-                  codigoCuenta === ""
-                    ? responseID[0].codigoCuentaEdit || ""
-                    : codigoCuenta || ""
-                }
-                defaultValue={
-                  codigoCuenta === ""
-                    ? responseID[0].codigoCuentaEdit || ""
-                    : codigoCuenta || ""
-                }
                 required
+                defaultValue={codigoCuenta}
               />
             </div>
             <div>
               <label htmlFor="input_nombreCompleto">Nombre completo:</label>
               <input
                 type="text"
-                value={
-                  nombreCompleto === ""
-                    ? responseID[0].nombre_completo || ""
-                    : nombreCompleto || ""
-                }
+                value={nombreCompleto || ""}
                 className="form-control"
                 name="input_nombreCompleto"
                 id="input_nombreCompleto"
@@ -140,9 +132,7 @@ const EditarColaborador = ({
               <label htmlFor="input_usuario">Usuario:</label>
               <input
                 type="text"
-                value={
-                  usuario === "" ? responseID[0].usuario || "" : usuario || ""
-                }
+                value={usuario || ""}
                 className="form-control"
                 name="input_usuario"
                 id="input_usuario"
@@ -154,7 +144,7 @@ const EditarColaborador = ({
               <label htmlFor="input_area">Área:</label>
               <input
                 type="text"
-                value={area === "" ? responseID[0].area || "" : area || ""}
+                value={area || ""}
                 className="form-control"
                 name="input_area"
                 id="input_area"
@@ -168,11 +158,7 @@ const EditarColaborador = ({
                 type="text"
                 className="form-control"
                 name="input_subgerencia"
-                value={
-                  subgerencia === ""
-                    ? responseID[0].subgerencia || ""
-                    : subgerencia || ""
-                }
+                value={subgerencia || ""}
                 id="input_subgerencia"
                 onChange={({ target }) => setSubgerencia(target.value)}
                 required
@@ -184,9 +170,7 @@ const EditarColaborador = ({
                 type="email"
                 className="form-control"
                 name="input_correo"
-                value={
-                  correo === "" ? responseID[0].correo || "" : correo || ""
-                }
+                value={correo || ""}
                 id="input_correo"
                 onChange={({ target }) => setCorreo(target.value)}
                 required
