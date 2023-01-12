@@ -36,14 +36,13 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
 
   function SendData(e) {
     e.preventDefault();
-    const url = "TASKS/coe-editRamo.php";
-    const operationUrl = "editarRamo";
+    const url = "TASKS/coe-editRelatores.php";
+    const operationUrl = "editarRelatores";
     var data = {
       ID: IDRelator,
       nombre: relator === "" ? responseID[0].nombre : relator,
       idArea: area === "" ? responseID[0].idArea : area,
     };
-
     SendDataService(url, operationUrl, data).then(
       (response) => TopAlerts(response),
       resetStates()

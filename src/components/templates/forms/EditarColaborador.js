@@ -11,7 +11,7 @@ const EditarColaborador = ({
   cambiarEstado,
   IDColaborador,
 }) => {
-  const [codigoCuenta, setCodigoCuenta] = useState("");
+  const [idCuenta, setIDCuenta] = useState("");
   const [nombreCompleto, setNombreCompleto] = useState("");
   const [usuario, setUsuario] = useState("");
   const [area, setArea] = useState("");
@@ -34,7 +34,7 @@ const EditarColaborador = ({
     const data = { ID: IDColaborador };
     SendDataService(url, operationUrl, data).then((response) => {
       setResponseID(response);
-      setCodigoCuenta(response[0].codigoCuenta);
+      setIDCuenta(response[0].idCuenta);
       setNombreCompleto(response[0].nombre_completo);
       setUsuario(response[0].usuario);
       setArea(response[0].area);
@@ -43,7 +43,7 @@ const EditarColaborador = ({
     });
   }
   function resetStates() {
-    setCodigoCuenta("");
+    setIDCuenta("");
     setNombreCompleto("");
     setUsuario("");
     setArea("");
@@ -52,13 +52,12 @@ const EditarColaborador = ({
   }
 
   function SendData(e) {
-    // e.preventDefault();
+    e.preventDefault();
     const url = "TASKS/coe-editColaborador.php";
     const operationUrl = "editarColaborador";
     var data = {
       ID: IDColaborador,
-      codigoCuenta:
-        codigoCuenta === "" ? responseID[0].idCuentaEdit : codigoCuenta,
+      idCuenta: idCuenta === "" ? responseID[0].idCuentaEdit : idCuenta,
       nombre_completo:
         nombreCompleto === "" ? responseID[0].nombre_completo : nombreCompleto,
       usuario: usuario === "" ? responseID[0].usuario : usuario,
@@ -66,6 +65,7 @@ const EditarColaborador = ({
       subgerencia: subgerencia === "" ? responseID[0].subgerencia : subgerencia,
       correo: correo === "" ? responseID[0].correo : correo,
     };
+
     SendDataService(url, operationUrl, data).then(
       (response) => TopAlerts(response),
       resetStates()
@@ -111,9 +111,9 @@ const EditarColaborador = ({
                 placeholder="Elige una cuenta"
                 name="cuenta"
                 options={optionsCuentas}
-                onChange={({ value }) => setCodigoCuenta(value)}
+                onChange={({ value }) => setIDCuenta(value)}
                 required
-                defaultValue={codigoCuenta}
+                defaultValue={idCuenta}
               />
             </div>
             <div>

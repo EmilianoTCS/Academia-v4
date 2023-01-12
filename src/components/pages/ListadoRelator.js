@@ -99,7 +99,6 @@ export default function ListadoRelator() {
               <th>ID</th>
               <th>Relator</th>
               <th>Área</th>
-              <th>Cuenta</th>
               <th>Código Ramo</th>
               <th>Nombre del ramo</th>
               <th>Operaciones</th>
@@ -111,7 +110,6 @@ export default function ListadoRelator() {
                 <td>{relator.ID}</td>
                 <td>{relator.nombre}</td>
                 <td>{relator.nombreArea}</td>
-                <td>{relator.codigoCuenta}</td>
                 <td>{relator.codigoRamo}</td>
                 <td>{relator.nombreRamo}</td>
                 <td>

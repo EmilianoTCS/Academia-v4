@@ -55,8 +55,8 @@ export default function ListadoAsistencias() {
       IDCurso: cursoSeleccionado,
       Fecha: fechaSeleccionada,
     };
+
     SendDataService(url, operationUrl, data).then((response) => {
-      console.log(response[0]);
       const { successEdited, ...asistencia } = response[0];
       actualizarAsistencia(asistencia);
       TopAlerts(successEdited);

@@ -100,7 +100,6 @@ export default function ListadoRamos() {
               <th>Nombre del ramo</th>
               <th>Cuenta (cliente)</th>
               <th>HH académicas</th>
-              <th>Pre-requisito</th>
               <th>Relator</th>
               <th>Área</th>
               <th>Operaciones</th>
@@ -113,7 +112,6 @@ export default function ListadoRamos() {
                 <td>{ramo.nombreRamo}</td>
                 <td>{ramo.codigoCuenta}</td>
                 <td>{ramo.hh_academicas}</td>
-                <td>{ramo.pre_requisito}</td>
                 <td>{ramo.nombre}</td>
                 <td>{ramo.nombreArea}</td>
                 <td>
