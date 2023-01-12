@@ -139,7 +139,7 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
                 options={optionsRelatores}
                 onChange={({ value }) => setRelator(value)}
                 required={true}
-                defaultInputValue={nombreRelator}
+  
               />
             </div>
 

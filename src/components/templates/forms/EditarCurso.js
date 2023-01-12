@@ -120,8 +120,6 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
                 name="cuenta"
                 options={optionsCuentas}
                 onChange={({ value }) => setCodigoCuenta(value)}
-                defaultValue={codigoCuenta || ""}
-                defaultInputValue={codigoCuenta || ""}
                 required
               />
             </div>
@@ -132,8 +130,6 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
                 name="codigoRamo"
                 options={optionsRamos}
                 onChange={({ value }) => setCodigoRamo(value)}
-                defaultValue={codigoRamo || ""}
-                defaultInputValue={codigoRamo}
                 required
               />
             </div>
