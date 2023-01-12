@@ -20,7 +20,6 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
 
   const handleClose = () => {
     cambiarEstado(false);
-    resetStates();
   };
 
   // ----------------------FUNCIONES----------------------------
@@ -39,14 +38,6 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
     });
   }, [IDCliente]);
 
-  function resetStates() {
-    setTipoClientes("");
-    setNombreCliente("");
-    setReferente("");
-    setCorreoReferente("");
-    setCargoReferente("");
-    setTelefonoReferente("");
-  }
 
   function SendData(e) {
     // e.preventDefault();

@@ -16,7 +16,6 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
 
   const handleClose = () => {
     cambiarEstado(false);
-    resetStates();
   };
 
   function getData() {
@@ -29,10 +28,7 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
       setArea(response[0].area);
     });
   }
-  function resetStates() {
-    setRelator("");
-    setArea("");
-  }
+
 
   function SendData(e) {
     e.preventDefault();

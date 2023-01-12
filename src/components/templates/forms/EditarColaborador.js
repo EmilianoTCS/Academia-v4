@@ -24,7 +24,7 @@ const EditarColaborador = ({
 
   const handleClose = () => {
     cambiarEstado(false);
-    resetStates();
+
   };
   // ----------------------FUNCIONES----------------------------
 
@@ -42,14 +42,7 @@ const EditarColaborador = ({
       setCorreo(response[0].correo);
     });
   }
-  function resetStates() {
-    setIDCuenta("");
-    setNombreCompleto("");
-    setUsuario("");
-    setArea("");
-    setSubgerencia("");
-    setCorreo("");
-  }
+
 
   function SendData(e) {
     e.preventDefault();

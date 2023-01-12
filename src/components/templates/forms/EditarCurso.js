@@ -23,7 +23,7 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
 
   const handleClose = () => {
     cambiarEstado(false);
-    resetStates();
+
   };
 
   // ----------------------FUNCIONES----------------------------
@@ -47,14 +47,7 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
     const url = "TASKS/auxiliar/ListadoCuentas.php?listadoCuentas";
     getDataService(url).then((cuentas) => setListCuentas(cuentas));
   }
-  function resetStates() {
-    setCodigoCuenta("");
-    setCodigoRamo("");
-    setFechaInicio("");
-    setFechaFin("");
-    setHoraInicio("");
-    setHoraFin("");
-  }
+
 
   function obtenerRamos() {
     const url = "TASKS/auxiliar/ListadoNombreRamos.php?listadoRamos";
