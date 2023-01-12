@@ -41,7 +41,7 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
   }
 
   function SendData(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const url = "TASKS/coe-insertarRamo.php";
     const operationUrl = "insertarRamo";
     var data = {
