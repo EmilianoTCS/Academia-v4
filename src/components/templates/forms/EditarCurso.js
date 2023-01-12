@@ -72,7 +72,6 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
 
     SendDataService(url, operationUrl, data).then(
       (response) => TopAlerts(response),
-      resetStates(),
       getData()
     );
   }
