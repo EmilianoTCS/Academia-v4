@@ -96,7 +96,6 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
                 name="cuenta"
                 options={optionsAreas}
                 onChange={({ value }) => setArea(value)}
-                defaultInputValue={area || ""}
                 required
               />
             </div>

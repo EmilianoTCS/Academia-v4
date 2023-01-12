@@ -106,7 +106,6 @@ const EditarColaborador = ({
                 options={optionsCuentas}
                 onChange={({ value }) => setIDCuenta(value)}
                 required
-                defaultValue={idCuenta}
               />
             </div>
             <div>
