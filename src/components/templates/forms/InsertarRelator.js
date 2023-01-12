@@ -21,7 +21,7 @@ const InsertarRelator = ({ isActiveRelator, cambiarEstado }) => {
   }
 
   function SendData(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const url = "TASKS/coe-insertarRelator.php";
     const operationUrl = "insertarRelator";
     var data = {

@@ -45,7 +45,7 @@ const EditarColaborador = ({
 
 
   function SendData(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const url = "TASKS/coe-editColaborador.php";
     const operationUrl = "editarColaborador";
     var data = {
@@ -61,7 +61,6 @@ const EditarColaborador = ({
 
     SendDataService(url, operationUrl, data).then(
       (response) => TopAlerts(response),
-      resetStates()
     );
   }
   function obtenerCuentas() {

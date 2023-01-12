@@ -31,7 +31,7 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
 
 
   function SendData(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const url = "TASKS/coe-editRelatores.php";
     const operationUrl = "editarRelatores";
     var data = {
@@ -41,7 +41,6 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
     };
     SendDataService(url, operationUrl, data).then(
       (response) => TopAlerts(response),
-      resetStates()
     );
   }
   function obtenerAreas() {
