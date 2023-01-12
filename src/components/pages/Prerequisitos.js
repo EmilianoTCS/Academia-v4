@@ -101,61 +101,63 @@ export default function Prerequisitos() {
   return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
-      <h1 id="TitlesPages">Administración de prerequisitos</h1>
+      <div id="containerTablas">
+        <h1 id="TitlesPages">Administración de prerequisitos</h1>
 
-      <Form onSubmit={handleSubmit} id="formPrerequisitos">
-        <Card id="CardsPrerequisitos">
-          <h1 id="Subtitles"> Selecciona un curso</h1>
-          <Select
-            options={options}
-            onChange={handleChangeSelect}
-            value={value}
-            defaultInputValue={options[0].nombreRamo}
-          />
-        </Card>
-        <Card id="CardsPrerequisitos">
-          <h1 id="Subtitles"> Selecciona el pre requisito a insertar</h1>
+        <Form onSubmit={handleSubmit} id="formPrerequisitos">
+          <Card id="CardsPrerequisitos">
+            <h1 id="Subtitles"> Selecciona un curso</h1>
+            <Select
+              options={options}
+              onChange={handleChangeSelect}
+              value={value}
+              defaultInputValue={options[0].nombreRamo}
+            />
+          </Card>
+          <Card id="CardsPrerequisitos">
+            <h1 id="Subtitles"> Selecciona el pre requisito a insertar</h1>
 
-          <Select
-            options={optionsInsert}
-            onChange={handleChangeSelectInsert}
-            value={valueInsert}
-          />
-        </Card>
-        <Button id="CardsPrerequisitos" type="submit">
-          Enviar
-        </Button>
-      </Form>
-      <Card id="itemsPrerequisitos">
-        <h1 id="Subtitles"> Prerequisitos activos</h1>
+            <Select
+              options={optionsInsert}
+              onChange={handleChangeSelectInsert}
+              value={valueInsert}
+            />
+          </Card>
+          <Button id="CardsPrerequisitos" type="submit">
+            Enviar
+          </Button>
+        </Form>
+        <Card id="itemsPrerequisitos">
+          <h1 id="Subtitles"> Prerequisitos activos</h1>
 
-        <Table responsive>
-          <thead>
-            <tr>
-              <th>Codigo</th>
-              <th>Nombre del ramo</th>
-              <th>ID del pre_requisito</th>
-              <th>Fecha de modificación</th>
-              <th>Habilitar o Deshabilitar</th>
-            </tr>
-          </thead>
-          <tbody>
-            {listadoPrerequisitos.map((prerequisito) => (
-              <tr key={prerequisito.ID}>
-                <td>{prerequisito.codigoRamo}</td>
-                <td>{prerequisito.nombreRamo}</td>
-                <td>{prerequisito.pre_requisito}</td>
-                <td>{prerequisito.fechaActualizacion}</td>
-                <td
-                  onChange={() => toggleisActivePrerequisito(prerequisito.ID)}
-                >
-                  <SwitchToggle isActive={prerequisito.isActive} />
-                </td>
+          <Table responsive>
+            <thead>
+              <tr>
+                <th>Codigo</th>
+                <th>Nombre del ramo</th>
+                <th>ID del pre_requisito</th>
+                <th>Fecha de modificación</th>
+                <th>Habilitar o Deshabilitar</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      </Card>
+            </thead>
+            <tbody>
+              {listadoPrerequisitos.map((prerequisito) => (
+                <tr key={prerequisito.ID}>
+                  <td>{prerequisito.codigoRamo}</td>
+                  <td>{prerequisito.nombreRamo}</td>
+                  <td>{prerequisito.pre_requisito}</td>
+                  <td>{prerequisito.fechaActualizacion}</td>
+                  <td
+                    onChange={() => toggleisActivePrerequisito(prerequisito.ID)}
+                  >
+                    <SwitchToggle isActive={prerequisito.isActive} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Card>
+      </div>
     </>
   ) : (
     <Navigate to="/login"></Navigate>

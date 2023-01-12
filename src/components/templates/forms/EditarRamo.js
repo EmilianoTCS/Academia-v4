@@ -23,7 +23,6 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
 
   const handleClose = () => {
     cambiarEstado(false);
-    resetStates();
   };
 
   // ----------------------FUNCIONES----------------------------
@@ -45,12 +44,7 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
       setRelator(response[0].nombre);
     });
   }
-  function resetStates() {
-    setCodigoRamo("");
-    setNombreRamo("");
-    set_hh_academicas("");
-    setRelator("");
-  }
+ 
 
   function SendData(e) {
     e.preventDefault();
