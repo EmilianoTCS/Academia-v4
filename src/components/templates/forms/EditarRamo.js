@@ -129,7 +129,7 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
               <label htmlFor="input_hhAcademicas">Horas académicas</label>
               <input
                 value={hh_academicas || ""}
-                type="text"
+                type="number"
                 className="form-control"
                 name="input_hhAcademicas"
                 id="input_hhAcademicas"
