@@ -71,7 +71,7 @@ export default function Prerequisitos() {
     const operationUrl = "insertarPrerequisito";
     var data = {
       CursoaConsultar: value.value,
-      PrerequisitoAInsertar: valueInsert[0].value,
+      PrerequisitoAInsertar: valueInsert.value,
     };
     console.log(data);
     SendDataService(url, operationUrl, data);

@@ -4,13 +4,18 @@ import SendDataService from "../../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import getDataService from "../../../services/GetDataService";
+import Select from "react-select";
 
 const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
   // ----------------------CONSTANTES----------------------------
 
+  const [listRelatores, setListRelatores] = useState([""]);
   const [codigoRamo, setCodigoRamo] = useState("");
   const [nombreRamo, setNombreRamo] = useState("");
   const [hh_academicas, set_hh_academicas] = useState("");
+
+  const [nombreRelator, setRelator] = useState("");
 
   const [responseID, setResponseID] = useState([""]);
 
@@ -23,6 +28,11 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
 
   // ----------------------FUNCIONES----------------------------
 
+  function obtenerRelatores() {
+    const url = "TASKS/auxiliar/ListadoRelatores.php?listadoRelatores";
+    getDataService(url).then((relatores) => setListRelatores(relatores));
+  }
+
   function getData() {
     const url = "TASKS/coe-selectCursos.php";
     const operationUrl = "ID";
@@ -32,12 +42,14 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
       setCodigoRamo(response[0].codigoRamo);
       setNombreRamo(response[0].nombreRamo);
       set_hh_academicas(response[0].hh_academicas);
+      setRelator(response[0].nombre);
     });
   }
   function resetStates() {
     setCodigoRamo("");
     setNombreRamo("");
     set_hh_academicas("");
+    setRelator("");
   }
 
   function SendData(e) {
@@ -50,6 +62,8 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
       nombreRamo: nombreRamo === "" ? responseID[0].nombreRamo : nombreRamo,
       hh_academicas:
         hh_academicas === "" ? responseID[0].hh_academicas : hh_academicas,
+      nombreRelator:
+        nombreRelator === "" ? responseID[0].nombre : nombreRelator,
     };
     SendDataService(url, operationUrl, data).then((response) =>
       TopAlerts(response)
@@ -59,11 +73,18 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
     function () {
       if (IDRamo !== null) {
         getData();
+        obtenerRelatores();
       }
     },
     [IDRamo]
   );
 
+  // ----------------------MAPEADOS----------------------------
+
+  const optionsRelatores = listRelatores.map((label) => ({
+    label: label.nombre,
+    value: label.ID,
+  }));
   // ----------------------RENDER----------------------------
   return (
     <>
@@ -116,6 +137,18 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
                 required
               />
             </div>
+            <div>
+              <label htmlFor="input_Relator">Relator: </label>
+              <Select
+                placeholder="Elige el relator del ramo"
+                name="relator"
+                options={optionsRelatores}
+                onChange={({ value }) => setRelator(value)}
+                required={true}
+                defaultInputValue={nombreRelator}
+              />
+            </div>
+
             <Button
               variant="secondary"
               type="submit"
