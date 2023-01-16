@@ -30,6 +30,7 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
     const data = { ID: IDCliente };
     SendDataService(url, operationUrl, data).then((response) => {
       setResponseID(response);
+      setCargoReferente(response[0].cargoReferente);
       setTipoClientes(response[0].tipo_cliente);
       setNombreCliente(response[0].nombreCliente);
       setReferente(response[0].referente);
@@ -37,7 +38,6 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
       setTelefonoReferente(response[0].telefonoReferente);
     });
   }, [IDCliente]);
-
 
   function SendData(e) {
     // e.preventDefault();

@@ -52,7 +52,6 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
       prerequisito: prerequisito,
       nombreRelator: nombreRelator,
     };
-    console.log(data);
     SendDataService(url, operationUrl, data).then((response) =>
       TopAlerts(response)
     );
