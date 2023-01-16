@@ -100,11 +100,11 @@ export default function ListadoClientes() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Relator</th>
-              <th>Área</th>
-              <th>Cuenta</th>
-              <th>Código Ramo</th>
-              <th>Nombre del ramo</th>
+              <th>Tipo de cliente</th>
+              <th>Nombre del cliente</th>
+              <th>Referente</th>
+              <th>Córreo referente</th>
+              <th>Cargo referente</th>
               <th>Teléfono</th>
               <th>Operaciones</th>
             </tr>
