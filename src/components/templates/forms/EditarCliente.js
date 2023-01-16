@@ -87,7 +87,7 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Actualizar Cliente</Modal.Title>
+          <Modal.Title>Editar Cliente</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>

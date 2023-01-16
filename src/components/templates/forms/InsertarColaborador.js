@@ -62,7 +62,7 @@ const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Insertar Ramo</Modal.Title>
+          <Modal.Title>Insertar Colaborador</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
