@@ -10,6 +10,7 @@ import SendDataService from "../../services/SendDataService";
 import SwitchToggle from "../templates/SwitchToggle";
 import "../css/Prerequisitos.css";
 import TopAlerts from "../templates/alerts/TopAlerts";
+import { RevolvingDot } from "react-loader-spinner";
 
 export default function Prerequisitos() {
   const [listadoCursos, setlistadoCursos] = useState([""]);
@@ -18,6 +19,7 @@ export default function Prerequisitos() {
   const [valueInsert, setValueInsert] = useState([""]);
   const [listadoPrerequisitos, setListadoPrerequisitos] = useState([""]);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
+  const [busqueda, setBusqueda] = useState(false);
 
   // ------------------------- FUNCIONES -------------------------
   function getListadoCursos() {
@@ -28,8 +30,9 @@ export default function Prerequisitos() {
     const url = "TASKS/auxiliar/prerequisitos.php";
     const operationUrl = "ID";
     var data = { ID: value.value };
-    SendDataService(url, operationUrl, data).then((cursos) =>
-      setListadoPrerequisitos(cursos)
+    SendDataService(url, operationUrl, data).then(
+      (cursos) => setListadoPrerequisitos(cursos),
+      setBusqueda(true)
     );
   }
   function getListadoCursosInsert(value) {
@@ -77,6 +80,50 @@ export default function Prerequisitos() {
     SendDataService(url, operationUrl, data);
     getListadoPrerequisitos(value.value);
   }
+
+  const MainTable = () => {
+    if (busqueda) {
+      return (
+        <Table id="mainTable" hover responsive>
+          <thead>
+            <tr>
+              <th>Codigo</th>
+              <th>Nombre del ramo</th>
+              <th>ID del pre_requisito</th>
+              <th>Fecha de modificación</th>
+              <th>Habilitar o Deshabilitar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {listadoPrerequisitos.map((prerequisito) => (
+              <tr key={prerequisito.ID}>
+                <td>{prerequisito.codigoRamo}</td>
+                <td>{prerequisito.nombreRamo}</td>
+                <td>{prerequisito.pre_requisito}</td>
+                <td>{prerequisito.fechaActualizacion}</td>
+                <td
+                  onChange={() => toggleisActivePrerequisito(prerequisito.ID)}
+                >
+                  <SwitchToggle isActive={prerequisito.isActive} />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      );
+    }
+    return (
+      <RevolvingDot
+        visible={true}
+        height="200"
+        width="200"
+        ariaLabel="dna-loading"
+        wrapperStyle={{ margin: "auto auto" }}
+        wrapperClass="dna-wrapper"
+        color="#e10b1c"
+      ></RevolvingDot>
+    );
+  };
   // ------------------------- CONSTANTES -------------------------
 
   const options = listadoCursos.map((label) => ({
@@ -130,32 +177,7 @@ export default function Prerequisitos() {
         <Card id="itemsPrerequisitos">
           <h1 id="Subtitles"> Prerequisitos activos</h1>
 
-          <Table responsive>
-            <thead>
-              <tr>
-                <th>Codigo</th>
-                <th>Nombre del ramo</th>
-                <th>ID del pre_requisito</th>
-                <th>Fecha de modificación</th>
-                <th>Habilitar o Deshabilitar</th>
-              </tr>
-            </thead>
-            <tbody>
-              {listadoPrerequisitos.map((prerequisito) => (
-                <tr key={prerequisito.ID}>
-                  <td>{prerequisito.codigoRamo}</td>
-                  <td>{prerequisito.nombreRamo}</td>
-                  <td>{prerequisito.pre_requisito}</td>
-                  <td>{prerequisito.fechaActualizacion}</td>
-                  <td
-                    onChange={() => toggleisActivePrerequisito(prerequisito.ID)}
-                  >
-                    <SwitchToggle isActive={prerequisito.isActive} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
+          <MainTable></MainTable>
         </Card>
       </div>
     </>
