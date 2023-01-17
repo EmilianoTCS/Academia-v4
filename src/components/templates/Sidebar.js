@@ -52,6 +52,7 @@ export default function SideBar(props) {
               <i className="bi bi-arrow-bar-right"></i>
             </button>
           </Container>
+
           <Offcanvas.Header>
             <Offcanvas.Title>ACADEMIA</Offcanvas.Title>
           </Offcanvas.Header>
@@ -63,6 +64,8 @@ export default function SideBar(props) {
             <li>
               <h4>{userData.username}</h4>
             </li>
+
+            <Container id="textLeft">
             <li>
               <Link
                 id="li_home"
@@ -91,25 +94,25 @@ export default function SideBar(props) {
                 id="COE_Academia"
                 className={isToggledAcademia ? "active" : ""}
               >
-                <li>
+                <li id="textLeftSelect">
                   <Link to="/listadoCursos">Cursos</Link>
                 </li>
-                <li>
+                <li id="textLeftSelect">
                   <Link to="/listadoRamos">Ramos</Link>
                 </li>
-                <li>
+                <li id="textLeftSelect">
                   <Link to="/listadoRelator">Relator</Link>
                 </li>
-                <li>
+                <li id="textLeftSelect">
                   <Link to="/listadoClientes">Clientes</Link>
                 </li>
-                <li>
+                <li id="textLeftSelect">
                   <Link to="/Administrador">Administrador</Link>
                 </li>
-                <li>
-                  <Link to="/Prerequisitos">Prerequisitos</Link>
+                <li id="textLeftSelect">
+                  <Link to="/Prerequisitos">Prerrequisitos</Link>
                 </li>
-                <li>
+                <li id="textLeftSelect">
                   <Link to="/listadoColaboradores">
                     Listado de Colaboradores
                   </Link>
@@ -136,7 +139,7 @@ export default function SideBar(props) {
                 id="Asistencias"
                 className={isToggledAsistencias ? "active" : ""}
               >
-                <li>
+                <li id="textLeftSelect">
                   <Link to="/ListadoAsistencias">Listado de Asistencias</Link>
                 </li>
               </ul>
@@ -155,6 +158,7 @@ export default function SideBar(props) {
                 </li>
               </ul>
             </li>
+            </Container>
             <Logout></Logout>
           </ul>
         </Offcanvas>
