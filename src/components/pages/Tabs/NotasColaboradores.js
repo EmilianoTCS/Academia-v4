@@ -5,6 +5,8 @@ import SendDataService from "../../../services/SendDataService";
 import Select from "react-select";
 import "../../css/NotasColaboradores.css";
 import Paginador from "../../templates/Paginador";
+import Alert from "react-bootstrap/Alert";
+
 export default function NotasColaboradores() {
   // ----------------------CONSTANTES----------------------------
 
@@ -16,6 +18,8 @@ export default function NotasColaboradores() {
   const [listUsuarios, setListUsuarios] = useState([""]);
   const [num_boton, setNumBoton] = useState(1);
   const [resetFilters, setResetFilters] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
+  const [nombreCursoSelected, SetNombreCursoSelected] = useState("");
 
   // ----------------------FUNCIONES----------------------------
 
@@ -25,7 +29,9 @@ export default function NotasColaboradores() {
   }
   function obtenerDatosCursos() {
     const url = "TASKS/auxiliar/idCurso.php?idCurso";
-    getDataService(url).then((response) => setListCursos(response));
+    getDataService(url).then((response) => {
+      setListCursos(response);
+    });
   }
   function obtenerDatosUsuarios() {
     const url = "TASKS/auxiliar/ListadoUsuarios.php?listadoUsuarios";
@@ -39,12 +45,23 @@ export default function NotasColaboradores() {
     };
     const url = "TASKS/auxiliar/NotasColaboradores.php";
     const operationUrl = "NotasColaboradores";
-    SendDataService(url, operationUrl, data).then((data) => setNotas(data));
+    SendDataService(url, operationUrl, data).then((response) => {
+      setIsEmpty(response[0].isEmpty);
+      if (!isEmpty) {
+        setNotas(response);
+      } else {
+        setNumBoton(1);
+      }
+    });
     setResetFilters(true);
   }
+
   function quitarFiltros() {
     setCursoSelected("");
     setUsuarioSelected("");
+    SetNombreCursoSelected("");
+    setNumBoton(1);
+    setIsEmpty(false);
   }
   useEffect(
     function () {
@@ -53,9 +70,76 @@ export default function NotasColaboradores() {
       obtenerDatosUsuarios();
       handleChangePaginador();
     },
-    [CursoSelected, usuarioSelected, num_boton]
+    [CursoSelected, usuarioSelected, num_boton, isEmpty]
   );
 
+  const Filtros = () => {
+    return (
+      <>
+        <Select
+          options={optionsCursos}
+          placeholder="Elige un curso"
+          onChange={({ value, label }) => {
+            setCursoSelected(value), SetNombreCursoSelected(label);
+          }}
+          name="codigoCurso"
+          defaultInputValue={nombreCursoSelected}
+          className="reactSelect"
+        />
+        <Select
+          options={optionsUsuarios}
+          placeholder="Elige un usuario"
+          name="usuario"
+          onChange={({ value }) => setUsuarioSelected(value)}
+          defaultInputValue={usuarioSelected}
+          className="reactSelect"
+        />
+      </>
+    );
+  };
+
+  const MainTable = () => {
+    if (isEmpty) {
+      return (
+        <>
+          <Alert variant="danger">
+            <Alert.Heading>
+              No existen registros para este filtro.
+            </Alert.Heading>
+          </Alert>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Table>
+            <thead>
+              <tr>
+                <th>Curso</th>
+                <th>Usuario</th>
+                <th>Examenes</th>
+                <th>Nota</th>
+                <th>Promedio</th>
+                <th>% Aprobación</th>
+              </tr>
+            </thead>
+            <tbody>
+              {notas.map((nota) => (
+                <tr key={nota.ID}>
+                  <td>{nota.codigoCurso}</td>
+                  <td>{nota.usuario}</td>
+                  <td>{nota.num_evaluaciones}</td>
+                  <td>{nota.nota}</td>
+                  <td>{nota.promedio}</td>
+                  <td>{nota.porcentaje}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </>
+      );
+    }
+  };
   // ----------------------MAPEADOS----------------------------
   const optionsCursos = listCursos.map((label) => ({
     label: label.nombreRamo,
@@ -69,20 +153,7 @@ export default function NotasColaboradores() {
   return (
     <>
       <div style={{ display: "flex", marginTop: "1%" }}>
-        <Select
-          options={optionsCursos}
-          placeholder="Elige un curso"
-          onChange={({ value }) => setCursoSelected(value)}
-          name="codigoCurso"
-          defaultInputValue={CursoSelected}
-        />
-        <Select
-          options={optionsUsuarios}
-          placeholder="Elige un usuario"
-          name="usuario"
-          onChange={({ value }) => setUsuarioSelected(value)}
-          defaultInputValue={usuarioSelected}
-        />
+        <Filtros></Filtros>
         <button
           id="btn_resetFilters"
           className={resetFilters ? "active" : ""}
@@ -91,30 +162,7 @@ export default function NotasColaboradores() {
           Reiniciar filtros
         </button>
       </div>
-      <Table>
-        <thead>
-          <tr>
-            <th>Curso</th>
-            <th>Usuario</th>
-            <th>Examenes</th>
-            <th>Nota</th>
-            <th>Promedio</th>
-            <th>% Aprobación</th>
-          </tr>
-        </thead>
-        <tbody>
-          {notas.map((nota) => (
-            <tr key={nota.ID}>
-              <td>{nota.codigoCurso}</td>
-              <td>{nota.usuario}</td>
-              <td>{nota.num_evaluaciones}</td>
-              <td>{nota.nota}</td>
-              <td>{nota.promedio}</td>
-              <td>{nota.porcentaje}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <MainTable></MainTable>
       <Paginador
         paginas={paginador}
         cambiarNumero={setNumBoton}
