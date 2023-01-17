@@ -12,6 +12,10 @@ import "../css/Prerequisitos.css";
 import TopAlerts from "../templates/alerts/TopAlerts";
 import { RevolvingDot } from "react-loader-spinner";
 
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
 export default function Prerequisitos() {
   const [listadoCursos, setlistadoCursos] = useState([""]);
   const [listadoCursosInsert, setlistadoCursosInsert] = useState([""]);
@@ -149,31 +153,48 @@ export default function Prerequisitos() {
     <>
       <Header></Header>
       <div id="containerTablas">
-        <h1 id="TitlesPages">Administración de prerequisitos</h1>
+        <h1 id="TitlesPages">Administración de prerrequisitos</h1>
 
         <Form onSubmit={handleSubmit} id="formPrerequisitos">
-          <Card id="CardsPrerequisitos">
-            <h1 id="Subtitles"> Selecciona un curso</h1>
-            <Select
-              options={options}
-              onChange={handleChangeSelect}
-              value={value}
-              defaultInputValue={options[0].nombreRamo}
-            />
-          </Card>
-          <Card id="CardsPrerequisitos">
-            <h1 id="Subtitles"> Selecciona el pre requisito a insertar</h1>
 
-            <Select
-              options={optionsInsert}
-              onChange={handleChangeSelectInsert}
-              value={valueInsert}
-            />
-          </Card>
-          <Button id="CardsPrerequisitos" type="submit">
+
+            <Row>
+
+              <Col>
+                <Card id="CardsPrerequisitos">
+                  <h1 id="Subtitles"> Selecciona un curso</h1>
+                  <Select
+                    options={options}
+                    onChange={handleChangeSelect}
+                    value={value}
+                    defaultInputValue={options[0].nombreRamo}
+                  />
+                </Card>
+              </Col>
+
+              <Col>
+                <Card id="CardsPrerequisitos">
+                  <h1 id="Subtitles">
+                    {" "}
+                    Selecciona el prerrequisito a insertar
+                  </h1>
+
+                  <Select
+                    options={optionsInsert}
+                    onChange={handleChangeSelectInsert}
+                    value={valueInsert}
+                  />
+                </Card>
+              </Col>
+
+            </Row>
+
+
+          <button id="CardsPrerequisitos" className="enviar" type="submit">
             Enviar
-          </Button>
+          </button>
         </Form>
+
         <Card id="itemsPrerequisitos">
           <h1 id="Subtitles"> Prerequisitos activos</h1>
 
