@@ -18,5 +18,8 @@
     border: solid #e10b1c 1px;
     transition: all 200ms ease;
 }
-
+.reactSelect{
+    width: 200px;
+    margin-right: 4px;
+}
 
