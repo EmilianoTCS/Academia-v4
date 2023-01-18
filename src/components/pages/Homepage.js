@@ -29,7 +29,7 @@ export default function HomePage() {
             <Card id="coe_carta">
               <Card.Body>
                 <Card.Text>Cursos</Card.Text>
-                <Card.Title style={{ fontSize: "65pt" }}>
+                <Card.Title style={{ fontSize: "50pt" }}>
                   {singleCard.totalCursos}
                 </Card.Title>
                 <Card.Text>Total</Card.Text>
@@ -38,7 +38,7 @@ export default function HomePage() {
             <Card id="coe_carta">
               <Card.Body>
                 <Card.Text>Colaboradores</Card.Text>
-                <Card.Title style={{ fontSize: "65pt" }}>
+                <Card.Title style={{ fontSize: "50pt" }}>
                   {singleCard.totalColaboradores}
                 </Card.Title>
                 <Card.Text>Total</Card.Text>
@@ -47,7 +47,7 @@ export default function HomePage() {
             <Card id="coe_carta">
               <Card.Body>
                 <Card.Text>Cursos</Card.Text>
-                <Card.Title style={{ fontSize: "65pt" }}>
+                <Card.Title style={{ fontSize: "50pt" }}>
                   {singleCard.totalFinalizados}
                 </Card.Title>
                 <Card.Text>Finalizados</Card.Text>
@@ -56,7 +56,7 @@ export default function HomePage() {
             <Card id="coe_carta">
               <Card.Body>
                 <Card.Text>Porcentaje</Card.Text>
-                <Card.Title style={{ fontSize: "65pt" }}>
+                <Card.Title style={{ fontSize: "50pt" }}>
                   {singleCard.porcentajeFinalizados}
                 </Card.Title>
                 <Card.Text>Finalizados</Card.Text>
@@ -65,7 +65,7 @@ export default function HomePage() {
             <Card id="coe_carta">
               <Card.Body>
                 <Card.Text>Cursos</Card.Text>
-                <Card.Title style={{ fontSize: "65pt" }}>
+                <Card.Title style={{ fontSize: "50pt" }}>
                   {singleCard.totalActivos}
                 </Card.Title>
                 <Card.Text>Activos</Card.Text>
@@ -74,7 +74,7 @@ export default function HomePage() {
             <Card id="coe_carta">
               <Card.Body>
                 <Card.Text>Cursos</Card.Text>
-                <Card.Title style={{ fontSize: "65pt" }}>
+                <Card.Title style={{ fontSize: "50pt" }}>
                   {singleCard.totalPendientes}
                 </Card.Title>
                 <Card.Text>Pendientes</Card.Text>
