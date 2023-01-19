@@ -7,7 +7,6 @@ import React, { useState, useEffect } from "react";
 import SendDataService from "../../services/SendDataService";
 import TopAlerts from "../templates/alerts/TopAlerts";
 import "../css/IncribirseCurso.css";
-
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
@@ -38,12 +37,9 @@ export default function InscribirseCurso() {
       usuario: userData.username,
       idCurso: cursoSeleccionado,
     };
-    console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
       const { message, ...data } = response;
       TopAlerts(message);
-      console.log(message);
-      console.log(data);
     });
   }
 

@@ -81,13 +81,14 @@ export default function TopAlerts(props) {
       });
     case "errorRequisitos":
       return MySwal.fire({
-        title: "Se ha producido un error.",
-        text: "No cumples con los requisitos para poder inscribirte.",
-        icon: "error",
-        position: "top-right",
-        timer: 2500,
-        toast: true,
-        showConfirmButton: false,
+        title: "¡Ups!",
+        html: `
+        <p>Esta funcionalidad aún no se encuentra disponible. </p>
+        <p>Pronto será habilitada. </p>
+        `,
+        icon: "info",
+        showConfirmButton: true,
+        confirmButtonText: '<i class="fa fa-thumbs-up"></i> Ok!',
       });
     case "repeatedPassword":
       return MySwal.fire({
