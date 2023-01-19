@@ -6,6 +6,10 @@ import getDataService from "../../services/GetDataService";
 import React, { useState, useEffect } from "react";
 import SendDataService from "../../services/SendDataService";
 import TopAlerts from "../templates/alerts/TopAlerts";
+import "../css/IncribirseCurso.css";
+
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 export default function InscribirseCurso() {
   // ----------------------CONSTANTES----------------------------
@@ -61,30 +65,38 @@ export default function InscribirseCurso() {
   return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
-      <h1 id="TitlesPages">Inscripción de cursos</h1>
-      <Form id="formPrerequisitos" onSubmit={SendData}>
-        <Card id="CardsPrerequisitos">
-          <h1 id="Subtitles"> Selecciona tu cuenta</h1>
-          <Select
-            placeholder="Elige una cuenta"
-            name="cuenta"
-            options={optionsCuentas}
-            onChange={({ value }) => setCodigoCuenta(value)}
-          />
-        </Card>
-        <Card id="CardsPrerequisitos">
-          <h1 id="Subtitles"> Curso al que desea inscribirse:</h1>
-          <Select
-            placeholder="Elige un curso"
-            name="cursos"
-            options={optionsCursos}
-            onChange={({ value }) => setCursoSeleccionado(value)}
-          />
-        </Card>
-        <Button id="CardsPrerequisitos" type="submit">
-          Enviar
-        </Button>
-      </Form>
+      <div id="containerTablas">
+        <h1 id="TitlesPages">Inscripción de cursos</h1>
+        <Form id="formPrerequisitos" onSubmit={SendData}>
+          <Row>
+            <Col>
+              <Card id="CardsPrerequisitos">
+                <h1 id="Subtitles"> Selecciona tu cuenta</h1>
+                <Select
+                  placeholder="Elige una cuenta"
+                  name="cuenta"
+                  options={optionsCuentas}
+                  onChange={({ value }) => setCodigoCuenta(value)}
+                />
+              </Card>
+            </Col>
+            <Col>
+              <Card id="CardsPrerequisitos">
+                <h1 id="Subtitles"> Curso al que desea inscribirse:</h1>
+                <Select
+                  placeholder="Elige un curso"
+                  name="cursos"
+                  options={optionsCursos}
+                  onChange={({ value }) => setCursoSeleccionado(value)}
+                />
+              </Card>
+            </Col>
+          </Row>
+          <button id="CardsPrerequisitos" className="enviar" type="submit">
+            Enviar
+          </button>
+        </Form>
+      </div>
     </>
   ) : (
     <>

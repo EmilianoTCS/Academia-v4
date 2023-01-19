@@ -56,7 +56,7 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
       <>
         <input
           type="button"
-          value="Guardar cambios"
+          value="Aplicar"
           id="btn_guardarFecha"
           onClick={mapeadoFechas}
           style={{
