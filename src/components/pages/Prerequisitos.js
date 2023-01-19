@@ -12,7 +12,6 @@ import "../css/Prerequisitos.css";
 import TopAlerts from "../templates/alerts/TopAlerts";
 import { RevolvingDot } from "react-loader-spinner";
 
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 

@@ -1,0 +1,22 @@
+.enviar {
+    font-family: "Roboto Slab", serif;
+    position: relative;
+    margin-left: 16px;
+    top: 10px;
+    font-size: 13pt;
+    background-color: #e10b1c;
+    color: #fff;
+    font-weight: 500;
+    border: solid #e10b1c 1px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    
+  }
+  .enviar:hover {
+    color: #e10b1c;
+    font-weight: 700;
+    background-color: #fff;
+    border-color: #e10b1c;
+  
+  }
