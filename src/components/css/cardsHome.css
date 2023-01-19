@@ -8,11 +8,13 @@
     grid-template-columns: repeat(
         auto-fit,
         minmax(
-            200px,
-            1fr
+            100px,
+            220px
         )
     );
-    gap: 10px;
+    width: 100%;
+    justify-content: center;
+    gap: 5px;
     margin: 1%;
 }
   #coe_carta {
@@ -23,16 +25,16 @@
     background-color: rgb(46, 45, 45);
   }
   .card-header {
-    font-size: 16pt;
+    font-size: 1pt;
   }
   #coe_carta .card-title {
     font-family: "Roboto Slab", serif;
-    font-size: 50pt;
+    font-size: 5pt;
   }
   #coe_carta .card-text {
     font-family: "Roboto Slab", serif;
-    font-weight: 500;
-    font-size: 20pt;
+    font-weight: 5;
+    font-size: 15pt;
   } 
   #chartsContainer {
     margin: 1%;
@@ -50,3 +52,4 @@
         )
     );
   }
+

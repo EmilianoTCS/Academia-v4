@@ -133,7 +133,7 @@ export default function Calendario() {
         isActiveEvento={isActiveInsertEvento}
         cambiarEstado={setIsActiveInsertEvento}
       ></InsertarEvento>
-      <div style={{ margin: "10px" }}>
+      <div style={{ margin: "10px"}}>
         <FullCalendar
           locales={esLocale}
           plugins={[dayGridPlugin, interactionPlugin]}
@@ -144,9 +144,8 @@ export default function Calendario() {
             left: "dayGridMonth,dayGridWeek,dayGridDay",
           }}
           weekends={true}
-          aspectRatio={2}
+          aspectRatio={1.9}
           droppable={true}
-          dragScroll={true}
           locale="es"
           eventSources={[Cursos, Eventos, Feriados]}
           themeSystem="bootstrap5"

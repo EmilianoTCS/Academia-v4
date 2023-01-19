@@ -6,6 +6,7 @@ import Header from "../templates/Header";
 import PieChart from "../templates/Pie";
 import BarChart from "../templates/Bar";
 import Card from "react-bootstrap/Card";
+import { Container } from "react-bootstrap";
 
 export default function HomePage() {
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
