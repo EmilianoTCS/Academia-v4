@@ -31,12 +31,16 @@ export default function InscribirseCurso() {
     const operationUrl = "inscripcionCurso";
     var data = {
       idCuenta: codigoCuenta,
-      usuario: userData[0].username,
+      usuario: userData.username,
       idCurso: cursoSeleccionado,
     };
-    SendDataService(url, operationUrl, data).then((response) =>
-      TopAlerts(response)
-    );
+    console.log(data);
+    SendDataService(url, operationUrl, data).then((response) => {
+      const { message, ...data } = response;
+      TopAlerts(message);
+      console.log(message);
+      console.log(data);
+    });
   }
 
   useEffect(function () {

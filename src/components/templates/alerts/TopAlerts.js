@@ -79,6 +79,16 @@ export default function TopAlerts(props) {
         toast: true,
         showConfirmButton: false,
       });
+    case "errorRequisitos":
+      return MySwal.fire({
+        title: "Se ha producido un error.",
+        text: "No cumples con los requisitos para poder inscribirte.",
+        icon: "error",
+        position: "top-right",
+        timer: 2500,
+        toast: true,
+        showConfirmButton: false,
+      });
     case "repeatedPassword":
       return MySwal.fire({
         title: "Se ha producido un error.",
