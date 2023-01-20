@@ -5,21 +5,26 @@
 }
 #cardContainer .card-title{
     text-align: center;
+    
 }
 #containerAutomation{
-    background-color: #f2f2f2;
+    background-color: #ffffff;
+    padding: 10px;
+    margin: 10px;
     border: none;
+    
 }
 #subCardsContainer{
     display: grid;
     grid-template-columns: repeat(
         auto-fit,
         minmax(
-            150px,
-            1fr
+            100px,
+            220px
         )
     );
-    gap: 10px;
+    justify-content: center;
+    gap: 30px;
     margin: 1%;
 }
 #subcards{
@@ -38,6 +43,7 @@
 
 }
 .hexagono{
-    width: 85%;
-    margin-left: 8%;
+    width: 60%;
+    margin-left: 17%;
+    text-align: center;
 }
