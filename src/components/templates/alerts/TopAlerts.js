@@ -97,6 +97,14 @@ export default function TopAlerts(props) {
         icon: "error",
         showConfirmButton: false,
       });
+    case "errorFechas":
+      return MySwal.fire({
+        title: "Se ha producido un error.",
+        text: "Introduce una fecha válida superior a la de hoy.",
+        icon: "error",
+        timer: 3000,
+        showConfirmButton: false,
+      });
     case "Error":
       return MySwal.fire({
         title: "Se ha producido un error.",

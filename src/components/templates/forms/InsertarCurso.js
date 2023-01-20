@@ -21,7 +21,6 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
   const [valoresFechas, setValoresFechas] = useState([new DateObject()]);
   const fechasFormateadas = [];
   const fechasOrdenadas = [];
-
   const show = isActiveCurso;
 
   const handleClose = () => cambiarEstado(false);
@@ -36,8 +35,7 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
     const url = "TASKS/auxiliar/ListadoNombreRamos.php?listadoRamos";
     getDataService(url).then((ramos) => setListRamos(ramos));
   }
-  function SendData(e) {
-    // e.preventDefault();
+  function SendData() {
     const url = "TASKS/coe-insertarCurso.php";
     const operationUrl = "insertarCurso";
     var data = {
@@ -46,9 +44,9 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
       codigoCuenta: codigoCuenta,
       codigoRamo: codigoRamo,
     };
-    console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      console.log(response);
+      TopAlerts(response[0]);
+
     });
   }
   useEffect(function () {
@@ -87,7 +85,6 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
       fechasFormateadas.push(valoresFechas[index].format())
     );
     fechasOrdenadas.push(fechasFormateadas.sort());
-    console.log(fechasOrdenadas);
     TopAlerts("changesSaved");
   }
 
