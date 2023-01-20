@@ -79,6 +79,17 @@ export default function TopAlerts(props) {
         toast: true,
         showConfirmButton: false,
       });
+    case "errorRequisitos":
+      return MySwal.fire({
+        title: "¡Ups!",
+        html: `
+        <p>Esta funcionalidad aún no se encuentra disponible. </p>
+        <p>Pronto será habilitada. </p>
+        `,
+        icon: "info",
+        showConfirmButton: true,
+        confirmButtonText: '<i class="fa fa-thumbs-up"></i> Ok!',
+      });
     case "repeatedPassword":
       return MySwal.fire({
         title: "Se ha producido un error.",
