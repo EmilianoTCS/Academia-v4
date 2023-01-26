@@ -4,8 +4,9 @@ import { Navigate, Link } from "react-router-dom";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import Header from "../templates/Header";
-import { BsPencilSquare, BsTrash } from "react-icons/bs";
-import { BiShowAlt } from "react-icons/bi";
+import { BsFillTrashFill } from "react-icons/bs";
+import { RiEditBoxFill } from "react-icons/ri";
+import { HiEye } from "react-icons/hi";
 import "../css/TablasStyles.css";
 import "../css/InsertarCursoListadoCursosYRamos.css";
 import InsertarCurso from "../templates/forms/InsertarCurso";
@@ -123,11 +124,11 @@ export default function ListadoCursos() {
                     id="OperationBtns"
                     onClick={() => editarCurso(curso.ID)}
                   >
-                    <BsPencilSquare />
+                    <RiEditBoxFill id="icons" />
                   </button>
                   <Link to={`/Examinar/${curso.codigoCurso}`}>
                     <button title="Examinar curso" id="OperationBtns">
-                      <BiShowAlt />
+                      <HiEye id="icons" />
                     </button>
                   </Link>
                   <button
@@ -135,7 +136,7 @@ export default function ListadoCursos() {
                     onClick={() => eliminar(curso.ID)}
                     id="OperationBtns"
                   >
-                    <BsTrash />
+                    <BsFillTrashFill id="icons" />
                   </button>
                 </td>
               </tr>

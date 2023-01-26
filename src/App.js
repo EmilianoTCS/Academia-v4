@@ -15,7 +15,9 @@ import Calendario from "./components/pages/Calendario";
 import InscribirseCurso from "./components/pages/InscribirseCurso";
 import ListadoAsistencias from "./components/pages/ListadoAsistencias";
 import Curso from "./components/pages/Examinar/Curso";
-import Example from "./components/pages/Example";
+import FormClientes from "./EDD/pages/FormClientes";
+import FormReferentes from "./EDD/pages/FormReferentes";
+
 import AuthState from "./context/AuthContext";
 import { PrivateRoute } from "./hooks/PrivateRoute";
 import RecuperarPassword from "./components/pages/RecuperarPassword";
@@ -27,7 +29,6 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<Login />} path="/"></Route>
-          <Route element={<Example />} path="/Example"></Route>
           <Route element={<Login />} path="/Login"></Route>
           <Route element={<PrivateRoute />}>
             <Route path="/home" element={<Homepage />}></Route>
@@ -40,6 +41,12 @@ export default function App() {
             ></Route>
             <Route element={<Administrador />} path="/Administrador"></Route>
             <Route element={<Prerequisitos />} path="/Prerequisitos"></Route>
+            <Route element={<FormClientes />} path="/FormularioClEDD"></Route>
+            <Route
+              element={<FormReferentes />}
+              path="/FormularioRefEDD"
+            ></Route>
+
             <Route
               element={<ListadoAsistencias />}
               path="/ListadoAsistencias"

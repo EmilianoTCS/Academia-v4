@@ -5,8 +5,9 @@ import { Navigate } from "react-router-dom";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import Header from "../templates/Header";
-import { BsPencilSquare, BsTrash } from "react-icons/bs";
-import { BiShowAlt } from "react-icons/bi";
+import { BsFillTrashFill } from "react-icons/bs";
+import { RiEditBoxFill } from "react-icons/ri";
+import { HiEye } from "react-icons/hi";
 import "../css/TablasStyles.css";
 import InsertarClientes from "../templates/forms/InsertarClientes";
 import EditarClientes from "../templates/forms/EditarCliente";
@@ -125,17 +126,17 @@ export default function ListadoClientes() {
                     id="OperationBtns"
                     onClick={() => editarCliente(cliente.ID)}
                   >
-                    <BsPencilSquare />
+                    <RiEditBoxFill id="icons" />
                   </button>
                   <button title="Examinar curso" id="OperationBtns">
-                    <BiShowAlt />
+                  <HiEye id="icons" />
                   </button>
                   <button
                     title="Eliminar curso"
                     onClick={() => eliminar(cliente.ID)}
                     id="OperationBtns"
                   >
-                    <BsTrash />
+                    <BsFillTrashFill id="icons" />
                   </button>
                 </td>
               </tr>

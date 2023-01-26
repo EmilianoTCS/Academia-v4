@@ -4,8 +4,9 @@ import { Table } from "react-bootstrap";
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
 import InsertarColaborador from "../../templates/forms/InsertarColaborador";
-import { BsPencilSquare, BsTrash } from "react-icons/bs";
-import { BiShowAlt } from "react-icons/bi";
+import { BsFillTrashFill } from "react-icons/bs";
+import { RiEditBoxFill } from "react-icons/ri";
+import { HiEye } from "react-icons/hi";
 import EditarColaborador from "../../templates/forms/EditarColaborador";
 import ConfirmAlert from "../../templates/alerts/ConfirmAlert";
 import TopAlerts from "../../templates/alerts/TopAlerts";
@@ -117,17 +118,17 @@ export default function Colaboradores() {
                   id="OperationBtns"
                   onClick={() => editarColaborador(colaborador.ID)}
                 >
-                  <BsPencilSquare />
+                    <RiEditBoxFill id="icons" />
                 </button>
                 <button title="Examinar curso" id="OperationBtns">
-                  <BiShowAlt />
+                <HiEye id="icons" />
                 </button>
                 <button
                   title="Eliminar curso"
                   id="OperationBtns"
                   onClick={() => eliminar(colaborador.ID)}
                 >
-                  <BsTrash />
+                    <BsFillTrashFill id="icons" />
                 </button>
               </td>
             </tr>
