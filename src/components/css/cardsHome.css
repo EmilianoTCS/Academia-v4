@@ -3,19 +3,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Roboto+Slab:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
+
 #container_cards {
     display: grid;
     grid-template-columns: repeat(
         auto-fit,
         minmax(
             100px,
-            220px
+            230px
         )
     );
     width: 100%;
     justify-content: center;
     gap: 5px;
-    margin: 1%;
+    margin: 1% auto;
 }
   #coe_carta {
     text-transform: uppercase;
@@ -37,18 +38,18 @@
     font-size: 15pt;
   } 
   #chartsContainer {
-    margin: 1%;
+    margin: auto;
     border-radius: 30px;
-    border: 1px solid #e10b1c;
     display: grid;
-    background-color: rgb(247, 247, 247);
+   background-color: rgb(46, 45, 45);
     padding: 2%;
-    justify-content: space-around;
+    max-width: 80%;
+    justify-content: space-evenly;
     grid-template-columns: repeat(
         auto-fit,
         minmax(
             200px,
-            20%
+            240px
         )
     );
   }

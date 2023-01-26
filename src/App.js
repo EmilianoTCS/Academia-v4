@@ -15,7 +15,7 @@ import Calendario from "./components/pages/Calendario";
 import InscribirseCurso from "./components/pages/InscribirseCurso";
 import ListadoAsistencias from "./components/pages/ListadoAsistencias";
 import Curso from "./components/pages/Examinar/Curso";
-
+import Example from "./components/pages/Example";
 import AuthState from "./context/AuthContext";
 import { PrivateRoute } from "./hooks/PrivateRoute";
 import RecuperarPassword from "./components/pages/RecuperarPassword";
@@ -27,6 +27,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<Login />} path="/"></Route>
+          <Route element={<Example />} path="/Example"></Route>
           <Route element={<Login />} path="/Login"></Route>
           <Route element={<PrivateRoute />}>
             <Route path="/home" element={<Homepage />}></Route>

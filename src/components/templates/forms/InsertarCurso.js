@@ -35,7 +35,8 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
     const url = "TASKS/auxiliar/ListadoNombreRamos.php?listadoRamos";
     getDataService(url).then((ramos) => setListRamos(ramos));
   }
-  function SendData() {
+  function SendData(e) {
+    e.preventDefault();
     const url = "TASKS/coe-insertarCurso.php";
     const operationUrl = "insertarCurso";
     var data = {
@@ -45,8 +46,8 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
       codigoRamo: codigoRamo,
     };
     SendDataService(url, operationUrl, data).then((response) => {
+      console.log(response);
       TopAlerts(response[0]);
-
     });
   }
   useEffect(function () {

@@ -37,9 +37,9 @@ export default function InscribirseCurso() {
       usuario: userData.username,
       idCurso: cursoSeleccionado,
     };
+    console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      const { message, ...data } = response;
-      TopAlerts(message);
+      TopAlerts(response[0]);
     });
   }
 
