@@ -1,0 +1,75 @@
+#fondo{
+    background-image:url("/src/sources/fondoForm.png");
+    background-repeat: repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+p{
+    font-size: 22px;
+}
+
+#containerStyle{
+    width: 60%;
+    font-size: 20px;
+
+}
+
+#textStyle{
+    color: #fff;
+    background-color: #e10b1c;
+    padding: 1em;
+    border-radius: 10px;
+}
+
+#formStyle{
+    margin-bottom: 40px;
+}
+
+
+#pruebaFondo{
+    background-color: #fff;
+    padding: 2em;
+}
+
+#widhtStyle{
+    width: 95%;
+}
+
+#checkStyle{
+    width: 95%;
+    padding: 0.5em;
+}
+
+#fontSizeQuest{
+    font-size: 23px;
+}
+
+
+.isRequired::after {
+    content: "*";
+    margin-left: 3px;
+    color: red;
+    font-weight: bold;
+  }
+
+#enviar {
+font-family: "Roboto Slab", serif;
+position: relative;
+margin-left: 62px;
+top: 20px;
+font-size: 15pt;
+background-color: #e10b1c;
+color: #fff;
+font-weight: 500;
+border: solid #e10b1c 1px;
+padding: 10px 20px;
+border-radius: 8px;
+cursor: pointer;
+}
+#enviar:hover {
+color: #e10b1c;
+font-weight: 700;
+background-color: #fff;
+
+}

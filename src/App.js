@@ -15,11 +15,14 @@ import Calendario from "./components/pages/Calendario";
 import InscribirseCurso from "./components/pages/InscribirseCurso";
 import ListadoAsistencias from "./components/pages/ListadoAsistencias";
 import Curso from "./components/pages/Examinar/Curso";
+import FormClientes from "./EDD/pages/FormClientes";
+import FormColaborador from "./EDD/pages/FormColaborador"
 
 import AuthState from "./context/AuthContext";
 import { PrivateRoute } from "./hooks/PrivateRoute";
 import RecuperarPassword from "./components/pages/RecuperarPassword";
 import RestablecerPassword from "./components/pages/RestablecerPassword";
+
 
 export default function App() {
   return (
@@ -39,6 +42,9 @@ export default function App() {
             ></Route>
             <Route element={<Administrador />} path="/Administrador"></Route>
             <Route element={<Prerequisitos />} path="/Prerequisitos"></Route>
+            <Route element={<FormClientes />} path="/FormularioClEDD"></Route>
+            <Route element={<FormColaborador/>} path="/FormularioCoEDD"></Route>
+
             <Route
               element={<ListadoAsistencias />}
               path="/ListadoAsistencias"

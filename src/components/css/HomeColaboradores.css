@@ -1,3 +1,7 @@
+#fondo{
+    background:#FF8300;
+}
+
 #cardContainer{
     align-items: center;
     margin-top: 2%;
@@ -23,6 +27,7 @@
             220px
         )
     );
+    
     justify-content: center;
     gap: 30px;
     margin: 1%;
