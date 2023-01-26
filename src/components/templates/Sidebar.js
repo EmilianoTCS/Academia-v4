@@ -26,12 +26,17 @@ import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
 
 export default function SideBar(props) {
   const userData = JSON.parse(localStorage.getItem("userData"));
+  const [isToggledEvaluaciones, setToggleEvaluaciones] = useState(false);
   const [isToggledAcademia, setToggleAcademia] = useState(false);
   const [isToggledAsistencias, setToggleAsistencias] = useState(false);
   const [isToggledColaboradores, setToggleColaboradores] = useState(false);
   const [show, setShow] = useState(props.isToggled);
   const closeSidebar = () => setShow(false);
   const showSidebar = () => setShow(true);
+
+  function handleChangeEvaluaciones() {
+    setToggleEvaluaciones(!isToggledEvaluaciones);
+  }
 
   function handleChangeAcademia() {
     setToggleAcademia(!isToggledAcademia);
@@ -83,34 +88,6 @@ export default function SideBar(props) {
             </li>
 
             <Container id="textLeft">
-              <ul id="EDD" className={isToggledAcademia ? "active" : ""}>
-                EVALUACIONES DE DESEMPEÑO
-                <li id="li_home">
-                  <Link to="/FormularioClEDD">
-                    <GiStarFormation id="icons" />
-                    Listado Analistas/Automatizadores
-                  </Link>
-                </li>
-                <li id="li_home">
-                  <Link to="/FormularioClEDD">
-                    <GiStarFormation id="icons" />
-                    Listado referentes
-                  </Link>
-                </li>
-                <li id="li_home">
-                  <Link to="/FormularioClEDD">
-                    <GiStarFormation id="icons" />
-                    Formulario Clientes
-                  </Link>
-                </li>
-                <li id="li_home">
-                  <Link to="/FormularioRefEDD">
-                    <GiStarFormation id="icons" />
-                    Formulario Referentes
-                  </Link>
-                </li>
-              </ul>
-
               <li>
                 <Link
                   id="li_home"
@@ -125,6 +102,40 @@ export default function SideBar(props) {
                   HOME
                 </Link>
               </li>
+              <li id="li_Academia" onClick={handleChangeEvaluaciones}>
+                <GiStarFormation id="icons" />
+                EVALUACIONES DE DESEMPEÑO
+                <ul
+                  id="COE_Academia"
+                  className={isToggledEvaluaciones ? "active" : ""}
+                >
+                  <li id="textLeftSelect">
+                    <Link to="/FormularioClEDD">
+                      <GiStarFormation id="icons" />
+                      Formulario Analistas/Automatizadores
+                    </Link>
+                  </li>
+                  <li id="textLeftSelect">
+                    <Link to="/FormularioRefEDD">
+                      <GiStarFormation id="icons" />
+                      Formulario Referentes
+                    </Link>
+                  </li>
+                  <li id="textLeftSelect">
+                    <Link to="/FormularioClEDD">
+                      <GiStarFormation id="icons" />
+                      Listado Analistas/Automatizadores
+                    </Link>
+                  </li>
+                  <li id="textLeftSelect">
+                    <Link to="/FormularioClEDD">
+                      <GiStarFormation id="icons" />
+                      Listado Referentes
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+
               <li
                 id="li_Academia"
                 onClick={handleChangeAcademia}
