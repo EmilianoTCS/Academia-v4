@@ -15,13 +15,15 @@ import Calendario from "./components/pages/Calendario";
 import InscribirseCurso from "./components/pages/InscribirseCurso";
 import ListadoAsistencias from "./components/pages/ListadoAsistencias";
 import Curso from "./components/pages/Examinar/Curso";
-import FormClientes from "./EDD/pages/FormClientes";
+import FormAnalistas from "./EDD/pages/FormAnalistas";
 import FormReferentes from "./EDD/pages/FormReferentes";
 
 import AuthState from "./context/AuthContext";
 import { PrivateRoute } from "./hooks/PrivateRoute";
 import RecuperarPassword from "./components/pages/RecuperarPassword";
 import RestablecerPassword from "./components/pages/RestablecerPassword";
+
+import ListadoReferentes from "./EDD/pages/ListadoReferentes";
 
 export default function App() {
   return (
@@ -41,7 +43,7 @@ export default function App() {
             ></Route>
             <Route element={<Administrador />} path="/Administrador"></Route>
             <Route element={<Prerequisitos />} path="/Prerequisitos"></Route>
-            <Route element={<FormClientes />} path="/FormularioClEDD"></Route>
+            <Route element={<FormAnalistas />} path="/FormularioAnEDD"></Route>
             <Route
               element={<FormReferentes />}
               path="/FormularioRefEDD"
@@ -56,6 +58,11 @@ export default function App() {
               path="/listadoColaboradores"
             ></Route>
             <Route element={<Curso />} path="/Examinar/:params"></Route>
+
+            <Route
+              element={<ListadoReferentes />}
+              path="/EDD/ListadoReferentes"
+            ></Route>
           </Route>
 
           <Route

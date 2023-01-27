@@ -7,7 +7,7 @@ import Container from "react-bootstrap/Container";
 // import Row from "react-bootstrap/Row";
 // import Col from "react-bootstrap/Col";
 
-const FormClientes = () => {
+const FormAnalistas = () => {
   const [nombApellido, setNombApellido] = useState([""]);
   const [nombApellidoAnalista, setNombApellidoAnalista] = useState([""]);
   const [analistaComunicaEfectiva, setAnalistaComunicaEfectiva] = useState("");
@@ -1286,4 +1286,4 @@ const FormClientes = () => {
     </>
   );
 };
-export default FormClientes;
+export default FormAnalistas;

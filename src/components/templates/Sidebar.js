@@ -110,7 +110,7 @@ export default function SideBar(props) {
                   className={isToggledEvaluaciones ? "active" : ""}
                 >
                   <li id="textLeftSelect">
-                    <Link to="/FormularioClEDD">
+                    <Link to="/FormularioAnEDD">
                       <GiStarFormation id="icons" />
                       Formulario Analistas/Automatizadores
                     </Link>
@@ -128,7 +128,7 @@ export default function SideBar(props) {
                     </Link>
                   </li>
                   <li id="textLeftSelect">
-                    <Link to="/FormularioClEDD">
+                    <Link to="/EDD/ListadoReferentes">
                       <GiStarFormation id="icons" />
                       Listado Referentes
                     </Link>

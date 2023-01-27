@@ -109,7 +109,7 @@ export default function TopAlerts(props) {
       return MySwal.fire({
         title: "Se ha producido un error.",
         icon: "error",
-        position: "top-right",
+        position: "top-right",  
         timer: 2500,
         toast: true,
         showConfirmButton: false,
