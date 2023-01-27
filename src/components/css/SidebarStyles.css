@@ -3,9 +3,8 @@
   align-self: center;
   justify-content: center;
   border-radius: 50%;
-  width: 80px;
-  margin-left: 58px;
-  
+  width: 60px;
+  margin-left: 68px;
 }
 
 #icons{
@@ -26,6 +25,7 @@
 
 #textLeftSelect{
   margin-left: -10px;
+  font-size: 14px;
 }
 
 ul h4 {
