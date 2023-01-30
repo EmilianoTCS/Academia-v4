@@ -3,7 +3,6 @@ import { Card } from "react-bootstrap";
 import Hexagon from "react-hexagon";
 import "../../css/MisCursos.css";
 import SendDataService from "../../../services/SendDataService";
-import { useCallback } from "react";
 
 export default function Automation() {
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;

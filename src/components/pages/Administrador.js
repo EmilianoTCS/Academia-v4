@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
-import { Card, Table } from "react-bootstrap";
+import { Card, Table, Container } from "react-bootstrap";
 import Header from "../templates/Header";
 import "../css/AdminStyles.css";
 import SwitchToggle from "../templates/SwitchToggle";
@@ -152,8 +152,11 @@ export default function Administrador() {
   return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
+      <br></br>
+      <br></br>
+      <Container id="fondoTabla">
       <div id="adminContainer">
-        <h1 id="TitlesPages">Administración de registros</h1>
+        <h1 id="TitlesPages" >Administración de registros</h1>
 
         <Card id="cardsTables" style={{ position: "unset" }}>
           <h1 id="cardsTitle">Cursos</h1>
@@ -301,6 +304,7 @@ export default function Administrador() {
           </Table>
         </Card>
       </div>
+      </Container>
     </>
   ) : (
     <Navigate to="/login"></Navigate>

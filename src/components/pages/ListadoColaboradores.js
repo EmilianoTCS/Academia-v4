@@ -1,5 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
+import { Container } from "react-bootstrap";
 
 import Header from "../templates/Header";
 import PropTypes from "prop-types";
@@ -53,6 +54,9 @@ export default function BasicTabs() {
   return userData.statusConected || userData !== null ? (
     <>
       <Header />
+      <br></br>
+      <br></br>
+      <Container id="fondoTabla">
       <div id="containerTablas">
         <h1 id="TitlesPages">Panel de colaboradores</h1>
         <div>
@@ -90,6 +94,7 @@ export default function BasicTabs() {
           </Box>
         </div>
       </div>
+      </Container>
     </>
   ) : (
     <Navigate to="/login"></Navigate>

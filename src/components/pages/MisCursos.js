@@ -11,7 +11,7 @@ import DevOps from "./Tabs/DevOps";
 import Certificados from "./Tabs/Certificados";
 import DetalleNotas from "./Tabs/DetalleNotas";
 import { Navigate } from "react-router-dom";
-
+import { Container } from "react-bootstrap";
 
 function TabPanel(props) {
   const { children, value, index } = props;
@@ -56,7 +56,9 @@ export default function MisCursos() {
   return userData.statusConected || userData !== null ? (
     <div>
       <Header></Header>
-      <div>
+      <br></br>
+      <br></br>
+      <Container id="fondoTabla">
         <Box className="boxTabs">
           <Box sx={{ borderBottom: 0, borderColor: "divider" }}>
             <Tabs
@@ -103,7 +105,7 @@ export default function MisCursos() {
             <DetalleNotas></DetalleNotas>
           </TabPanel>
         </Box>
-      </div>
+      </Container>
     </div>
   ) : (
     <Navigate to="/login"></Navigate>

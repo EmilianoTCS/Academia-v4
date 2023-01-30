@@ -80,7 +80,9 @@ export default function ListadoCursos() {
   return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
-      <Container>
+      <br></br>
+      <br></br>
+      <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de cursos</h1>
           <Button id="btnCursoListado" onClick={insertarCurso}>

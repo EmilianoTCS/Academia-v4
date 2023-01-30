@@ -139,7 +139,7 @@ export default function Calendario() {
         isActiveEvento={isActiveInsertEvento}
         cambiarEstado={setIsActiveInsertEvento}
       ></InsertarEvento>
-      <div style={{ margin: "10px" }}>
+      <div id="fondoCalendario">
         <FullCalendar
           locales={esLocale}
           plugins={[dayGridPlugin, interactionPlugin]}

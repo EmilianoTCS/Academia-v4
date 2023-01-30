@@ -1,3 +1,8 @@
+#fondoTabla{
+  border-radius: 2em; 
+  background-color: #fff;
+}
+
 #icons{
   font-size: 22px;
   margin-right: 13px;
@@ -9,8 +14,7 @@
   align-items: center;
   overflow:scroll;
   padding: 15px 20px;
-  width: 100%;
-  margin: auto;
+  margin: 2em auto;
   margin-top: 1em;
 }
 #OperationBtns{
@@ -19,7 +23,6 @@
 }
 #containerTablas{
   padding-top: 2em;
-  
 }
 #paginador {
   display: flex;

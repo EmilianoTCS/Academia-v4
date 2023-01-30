@@ -1,0 +1,6 @@
+#fondo1{
+    background-image:url("/rose-petals.svg");
+    background-repeat: repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
