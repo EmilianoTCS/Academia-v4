@@ -76,7 +76,6 @@ const FormAnalistas = () => {
     console.log(data);
     // SendDataService(url, operationUrl, data).then((response) => {
     //   TopAlerts(response[0]);
-
     // });
   }
 
