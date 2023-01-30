@@ -52,7 +52,7 @@ const InsertarRelator = ({ isActiveRelator, cambiarEstado }) => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Insertar Ramo</Modal.Title>
+          <Modal.Title>Insertar Relator</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>

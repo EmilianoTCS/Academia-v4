@@ -4,13 +4,18 @@ import SendDataService from "../../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import getDataService from "../../../services/GetDataService";
+import Select from "react-select";
 
 const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
   // ----------------------CONSTANTES----------------------------
 
+  const [listRelatores, setListRelatores] = useState([""]);
   const [codigoRamo, setCodigoRamo] = useState("");
   const [nombreRamo, setNombreRamo] = useState("");
   const [hh_academicas, set_hh_academicas] = useState("");
+
+  const [nombreRelator, setRelator] = useState("");
 
   const [responseID, setResponseID] = useState([""]);
 
@@ -18,24 +23,28 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
 
   const handleClose = () => {
     cambiarEstado(false);
-    resetStates();
   };
 
   // ----------------------FUNCIONES----------------------------
+
+  function obtenerRelatores() {
+    const url = "TASKS/auxiliar/ListadoRelatores.php?listadoRelatores";
+    getDataService(url).then((relatores) => setListRelatores(relatores));
+  }
 
   function getData() {
     const url = "TASKS/coe-selectCursos.php";
     const operationUrl = "ID";
     const data = { ID: IDRamo };
-    SendDataService(url, operationUrl, data).then((response) =>
-      setResponseID(response)
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      setResponseID(response);
+      setCodigoRamo(response[0].codigoRamo);
+      setNombreRamo(response[0].nombreRamo);
+      set_hh_academicas(response[0].hh_academicas);
+      setRelator(response[0].nombre);
+    });
   }
-  function resetStates() {
-    setCodigoRamo("");
-    setNombreRamo("");
-    set_hh_academicas("");
-  }
+ 
 
   function SendData(e) {
     // e.preventDefault();
@@ -47,6 +56,8 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
       nombreRamo: nombreRamo === "" ? responseID[0].nombreRamo : nombreRamo,
       hh_academicas:
         hh_academicas === "" ? responseID[0].hh_academicas : hh_academicas,
+      nombreRelator:
+        nombreRelator === "" ? responseID[0].nombre : nombreRelator,
     };
     SendDataService(url, operationUrl, data).then((response) =>
       TopAlerts(response)
@@ -56,11 +67,18 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
     function () {
       if (IDRamo !== null) {
         getData();
+        obtenerRelatores();
       }
     },
     [IDRamo]
   );
 
+  // ----------------------MAPEADOS----------------------------
+
+  const optionsRelatores = listRelatores.map((label) => ({
+    label: label.nombre,
+    value: label.ID,
+  }));
   // ----------------------RENDER----------------------------
   return (
     <>
@@ -84,22 +102,14 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
                 name="input_codigoRamo"
                 className="form-control"
                 onChange={({ target }) => setCodigoRamo(target.value)}
-                value={
-                  codigoRamo === ""
-                    ? responseID[0].codigoRamo || ""
-                    : codigoRamo || ""
-                }
+                value={codigoRamo || ""}
                 required
               />
             </div>
             <div>
               <label htmlFor="input_nombreRamo">Nombre del ramo: </label>
               <input
-                value={
-                  nombreRamo === ""
-                    ? responseID[0].nombreRamo || ""
-                    : nombreRamo || ""
-                }
+                value={nombreRamo || ""}
                 type="text"
                 placeholder="Ejemplo: JAV"
                 id="input_nombreRamo"
@@ -112,12 +122,8 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
             <div>
               <label htmlFor="input_hhAcademicas">Horas académicas</label>
               <input
-                value={
-                  hh_academicas === ""
-                    ? responseID[0].hh_academicas || ""
-                    : hh_academicas || ""
-                }
-                type="text"
+                value={hh_academicas || ""}
+                type="number"
                 className="form-control"
                 name="input_hhAcademicas"
                 id="input_hhAcademicas"
@@ -125,6 +131,18 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
                 required
               />
             </div>
+            <div>
+              <label htmlFor="input_Relator">Relator: </label>
+              <Select
+                placeholder="Elige el relator del ramo"
+                name="relator"
+                options={optionsRelatores}
+                onChange={({ value }) => setRelator(value)}
+                required={true}
+  
+              />
+            </div>
+
             <Button
               variant="secondary"
               type="submit"

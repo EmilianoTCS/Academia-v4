@@ -1,21 +1,3 @@
-#formPrerequisitos{
-    margin: 1%;
-}
-#itemsPrerequisitos{
-    margin: 1%;
-    position: unset;
-    padding: 10px;
-}
-#CardsPrerequisitos{
-    margin: 1%;
-}
-#Subtitles{
-    font-size: 15pt;
-    padding: 1%;
-}
-
-
-
 .enviar {
     font-family: "Roboto Slab", serif;
     position: relative;

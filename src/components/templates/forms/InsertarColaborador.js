@@ -7,7 +7,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
-  const [codigoCuenta, setCodigoCuenta] = useState("");
+  const [idCuenta, setidCuenta] = useState("");
   const [nombreCompleto, setNombreCompleto] = useState("");
   const [usuario, setUsuario] = useState("");
   const [area, setArea] = useState("");
@@ -26,7 +26,7 @@ const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
     const url = "TASKS/coe-insertarColaborador.php";
     const operationUrl = "insertarColaborador";
     var data = {
-      codigoCuenta: codigoCuenta,
+      idCuenta: idCuenta,
       nombre_completo: nombreCompleto,
       usuario: usuario,
       area: area,
@@ -62,7 +62,7 @@ const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Insertar Ramo</Modal.Title>
+          <Modal.Title>Insertar Colaborador</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
@@ -72,7 +72,7 @@ const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
                 placeholder="Elige una cuenta"
                 name="cuenta"
                 options={optionsCuentas}
-                onChange={({ value }) => setCodigoCuenta(value)}
+                onChange={({ value }) => setidCuenta(value)}
                 required
               />
             </div>

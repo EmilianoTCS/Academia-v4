@@ -5,10 +5,11 @@ import { Navigate } from "react-router-dom";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import Header from "../templates/Header";
-import { BsPencilSquare, BsTrash } from "react-icons/bs";
-import { BiShowAlt } from "react-icons/bi";
+import { BsFillTrashFill } from "react-icons/bs";
+import { RiEditBoxFill } from "react-icons/ri";
+import { HiEye } from "react-icons/hi";
 import "../css/TablasStyles.css";
-import InsertarCurso from "../templates/forms/InsertarCurso";
+
 import InsertarRamo from "../templates/forms/InsertarRamo";
 import EditarRamo from "../templates/forms/EditarRamo";
 import ConfirmAlert from "../templates/alerts/ConfirmAlert";
@@ -24,7 +25,6 @@ export default function ListadoRamos() {
   const urlPaginador = "paginador/botones_Cursos.php";
   const operationUrl = "pagina";
 
-  const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
   const [isActiveInsertRamo, setIsActiveInsertRamo] = useState(false);
   const [IDRamo, setIDRamo] = useState(null);
   const [isActiveEditRamo, setIsActiveEditRamo] = useState(false);
@@ -39,17 +39,12 @@ export default function ListadoRamos() {
     [num_boton]
   );
 
-  function insertarCurso() {
-    setIsActiveInsertCurso(!isActiveInsertCurso);
-    setIsActiveInsertRamo(false);
-  }
   function editarRamo(ID) {
     setIsActiveEditRamo(!isActiveEditRamo);
     setIDRamo(ID);
   }
   function insertarRamo() {
     setIsActiveInsertRamo(!isActiveInsertRamo);
-    setIsActiveInsertCurso(false);
   }
   function eliminar(ID) {
     ConfirmAlert().then((response) => {
@@ -85,17 +80,11 @@ export default function ListadoRamos() {
       <Header></Header>
       <div id="containerTablas">
         <h1 id="TitlesPages">Listado de ramos</h1>
-        <Button id="btnCursoListado" onClick={insertarCurso}>
-          Insertar Curso
-        </Button>
+
         <Button id="btnCursoListado" onClick={insertarRamo}>
-          Insertar Ramos
+          Insertar Ramo
         </Button>
 
-        <InsertarCurso
-          isActiveCurso={isActiveInsertCurso}
-          cambiarEstado={setIsActiveInsertCurso}
-        ></InsertarCurso>
         <InsertarRamo
           isActiveRamo={isActiveInsertRamo}
           cambiarEstado={setIsActiveInsertRamo}
@@ -110,8 +99,8 @@ export default function ListadoRamos() {
             <tr>
               <th>ID del ramo</th>
               <th>Nombre del ramo</th>
+              <th>Cuenta (cliente)</th>
               <th>HH académicas</th>
-              <th>Pre-requisito</th>
               <th>Relator</th>
               <th>Área</th>
               <th>Operaciones</th>
@@ -122,8 +111,8 @@ export default function ListadoRamos() {
               <tr key={ramo.ID}>
                 <td>{ramo.codigoRamo}</td>
                 <td>{ramo.nombreRamo}</td>
+                <td>{ramo.codigoCuenta}</td>
                 <td>{ramo.hh_academicas}</td>
-                <td>{ramo.pre_requisito}</td>
                 <td>{ramo.nombre}</td>
                 <td>{ramo.nombreArea}</td>
                 <td>
@@ -132,17 +121,17 @@ export default function ListadoRamos() {
                     id="OperationBtns"
                     onClick={() => editarRamo(ramo.ID)}
                   >
-                    <BsPencilSquare />
+                    <RiEditBoxFill id="icons" />
                   </button>
                   <button title="Examinar curso" id="OperationBtns">
-                    <BiShowAlt />
+                  <HiEye id="icons" />
                   </button>
                   <button
                     title="Eliminar curso"
                     id="OperationBtns"
                     onClick={() => eliminar(ramo.ID)}
                   >
-                    <BsTrash />
+                    <BsFillTrashFill id="icons" />
                   </button>
                 </td>
               </tr>

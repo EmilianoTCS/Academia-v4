@@ -5,8 +5,9 @@ import { Navigate } from "react-router-dom";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import Header from "../templates/Header";
-import { BsPencilSquare, BsTrash } from "react-icons/bs";
-import { BiShowAlt } from "react-icons/bi";
+import { BsFillTrashFill } from "react-icons/bs";
+import { RiEditBoxFill } from "react-icons/ri";
+import { HiEye } from "react-icons/hi";
 import "../css/TablasStyles.css";
 import InsertarClientes from "../templates/forms/InsertarClientes";
 import EditarClientes from "../templates/forms/EditarCliente";
@@ -78,7 +79,7 @@ export default function ListadoClientes() {
   return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
-      <div>
+      <div id="containerTablas">
         <h1 id="TitlesPages">Listado de clientes</h1>
 
         <Button id="btn" onClick={insertarCliente}>
@@ -100,11 +101,11 @@ export default function ListadoClientes() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Relator</th>
-              <th>Área</th>
-              <th>Cuenta</th>
-              <th>Código Ramo</th>
-              <th>Nombre del ramo</th>
+              <th>Tipo de cliente</th>
+              <th>Nombre del cliente</th>
+              <th>Referente</th>
+              <th>Córreo referente</th>
+              <th>Cargo referente</th>
               <th>Teléfono</th>
               <th>Operaciones</th>
             </tr>
@@ -125,17 +126,17 @@ export default function ListadoClientes() {
                     id="OperationBtns"
                     onClick={() => editarCliente(cliente.ID)}
                   >
-                    <BsPencilSquare />
+                    <RiEditBoxFill id="icons" />
                   </button>
                   <button title="Examinar curso" id="OperationBtns">
-                    <BiShowAlt />
+                  <HiEye id="icons" />
                   </button>
                   <button
                     title="Eliminar curso"
                     onClick={() => eliminar(cliente.ID)}
                     id="OperationBtns"
                   >
-                    <BsTrash />
+                    <BsFillTrashFill id="icons" />
                   </button>
                 </td>
               </tr>

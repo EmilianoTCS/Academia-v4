@@ -10,32 +10,38 @@ import SendDataService from "../../services/SendDataService";
 import SwitchToggle from "../templates/SwitchToggle";
 import "../css/Prerequisitos.css";
 import TopAlerts from "../templates/alerts/TopAlerts";
+import { RevolvingDot } from "react-loader-spinner";
+
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 export default function Prerequisitos() {
   const [listadoCursos, setlistadoCursos] = useState([""]);
   const [listadoCursosInsert, setlistadoCursosInsert] = useState([""]);
-  const [value, setValue] = useState([""]);
-  const [valueInsert, setValueInsert] = useState([""]);
   const [listadoPrerequisitos, setListadoPrerequisitos] = useState([""]);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
+  const [busqueda, setBusqueda] = useState(false);
+  const [CursoSeleccionado, setCursoSeleccionado] = useState("");
+  const [CursoAInsertar, setCursoAInsertar] = useState("");
 
   // ------------------------- FUNCIONES -------------------------
   function getListadoCursos() {
-    const url = "TASKS/auxiliar/idCurso.php?idCurso";
+    const url = "TASKS/auxiliar/idCurso.php?idCurso"; 
     getDataService(url).then((cursos) => setlistadoCursos(cursos));
   }
-  function getListadoPrerequisitos(value) {
+  function getListadoPrerequisitos() {
     const url = "TASKS/auxiliar/prerequisitos.php";
     const operationUrl = "ID";
-    var data = { ID: value.value };
-    SendDataService(url, operationUrl, data).then((cursos) =>
-      setListadoPrerequisitos(cursos)
+    var data = { ID: CursoSeleccionado };
+    SendDataService(url, operationUrl, data).then(
+      (cursos) => setListadoPrerequisitos(cursos),
+      setBusqueda(true)
     );
   }
-  function getListadoCursosInsert(value) {
+  function getListadoCursosInsert() {
     const url = "TASKS/auxiliar/idCursoInsert.php";
     const operationUrl = "idCurso";
-    var data = { ID: value.value };
+    var data = { ID: CursoAInsertar };
     SendDataService(url, operationUrl, data).then((cursos) =>
       setlistadoCursosInsert(cursos)
     );
@@ -57,79 +63,34 @@ export default function Prerequisitos() {
     setListadoPrerequisitos(nuevosPrerequisitos);
   }
 
-  function handleChangeSelect(value) {
-    setValue(value);
-    getListadoCursosInsert(value);
-    getListadoPrerequisitos(value);
-  }
-  function handleChangeSelectInsert(valueInsert) {
-    setValueInsert(valueInsert);
-  }
   function handleSubmit(e) {
     e.preventDefault();
     const url = "TASKS/coe-insertarPrerequisito.php";
     const operationUrl = "insertarPrerequisito";
     var data = {
-      CursoaConsultar: value.value,
-      PrerequisitoAInsertar: valueInsert[0].value,
+      CursoaConsultar: CursoSeleccionado,
+      PrerequisitoAInsertar: CursoAInsertar,
     };
     console.log(data);
-    SendDataService(url, operationUrl, data);
-    getListadoPrerequisitos(value.value);
+    SendDataService(url, operationUrl, data).then((response) => {
+      TopAlerts(response);
+    });
   }
-  // ------------------------- CONSTANTES -------------------------
 
-  const options = listadoCursos.map((label) => ({
-    label: label.nombreRamo,
-    value: label.ID,
-  }));
-
-  const optionsInsert = listadoCursosInsert.map((label) => ({
-    label: label.nombreRamo,
-    value: label.ID,
-  }));
-
-  // ------------------------- USEEFFECT -------------------------
-
-  useEffect(function () {
-    getListadoCursos();
+  useEffect(
+    function () {
+      getListadoCursos();
+      getListadoPrerequisitos();
+      getListadoCursosInsert();
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    [CursoSeleccionado]
+  );
 
-  // ------------------------- RETURN -------------------------
-
-  return userData.statusConected || userData !== null ? (
-    <>
-      <Header></Header>
-      <h1 id="TitlesPages">Administración de prerequisitos</h1>
-
-      <Form onSubmit={handleSubmit} id="formPrerequisitos">
-        <Card id="CardsPrerequisitos">
-          <h1 id="Subtitles"> Selecciona un curso</h1>
-          <Select
-            options={options}
-            onChange={handleChangeSelect}
-            value={value}
-            defaultInputValue={options[0].nombreRamo}
-          />
-        </Card>
-        <Card id="CardsPrerequisitos">
-          <h1 id="Subtitles"> Selecciona el pre requisito a insertar</h1>
-
-          <Select
-            options={optionsInsert}
-            onChange={handleChangeSelectInsert}
-            value={valueInsert}
-          />
-        </Card>
-        <Button id="CardsPrerequisitos" type="submit">
-          Enviar
-        </Button>
-      </Form>
-      <Card id="itemsPrerequisitos">
-        <h1 id="Subtitles"> Prerequisitos activos</h1>
-
-        <Table responsive>
+  const MainTable = () => {
+    if (busqueda) {
+      return (
+        <Table id="mainTable" hover responsive>
           <thead>
             <tr>
               <th>Codigo</th>
@@ -155,7 +116,83 @@ export default function Prerequisitos() {
             ))}
           </tbody>
         </Table>
-      </Card>
+      );
+    }
+    return (
+      <RevolvingDot
+        visible={true}
+        height="200"
+        width="200"
+        ariaLabel="dna-loading"
+        wrapperStyle={{ margin: "auto auto" }}
+        wrapperClass="dna-wrapper"
+        color="#e10b1c"
+      ></RevolvingDot>
+    );
+  };
+  // ------------------------- CONSTANTES -------------------------
+
+  const options = listadoCursos.map((label) => ({
+    label: label.nombreRamo,
+    value: label.ID,
+  }));
+
+  const optionsInsert = listadoCursosInsert.map((label) => ({
+    label: label.nombreRamo,
+    value: label.ID,
+  }));
+
+  // ------------------------- USEEFFECT -------------------------
+
+  useEffect(function () {
+    getListadoCursos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // ------------------------- RETURN -------------------------
+
+  return userData.statusConected || userData !== null ? (
+    <>
+      <Header></Header>
+      <div id="containerTablas">
+        <h1 id="TitlesPages">Administración de prerrequisitos</h1>
+
+        <Form onSubmit={handleSubmit} id="formPrerequisitos">
+          <Row>
+            <Col>
+              <Card id="CardsPrerequisitos">
+                <h1 id="Subtitles"> Selecciona un curso</h1>
+                <Select
+                  options={options}
+                  onChange={({ value }) => setCursoSeleccionado(value)}
+                  defaultInputValue={options[0].nombreRamo}
+                />
+              </Card>
+            </Col>
+
+            <Col>
+              <Card id="CardsPrerequisitos">
+                <h1 id="Subtitles"> Selecciona el prerrequisito a insertar</h1>
+
+                <Select
+                  options={optionsInsert}
+                  onChange={({ value }) => setCursoAInsertar(value)}
+                />
+              </Card>
+            </Col>
+          </Row>
+
+          <button id="CardsPrerequisitos" className="enviar" type="submit">
+            Enviar
+          </button>
+        </Form>
+
+        <Card id="itemsPrerequisitos">
+          <h1 id="Subtitles"> Prerequisitos activos</h1>
+
+          <MainTable></MainTable>
+        </Card>
+      </div>
     </>
   ) : (
     <Navigate to="/login"></Navigate>

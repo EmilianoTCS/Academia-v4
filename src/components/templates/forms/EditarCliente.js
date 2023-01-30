@@ -20,7 +20,6 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
 
   const handleClose = () => {
     cambiarEstado(false);
-    resetStates();
   };
 
   // ----------------------FUNCIONES----------------------------
@@ -29,19 +28,16 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
     const url = "TASKS/coe-selectClientes.php";
     const operationUrl = "ID";
     const data = { ID: IDCliente };
-    SendDataService(url, operationUrl, data).then((response) =>
-      setResponseID(response)
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      setResponseID(response);
+      setCargoReferente(response[0].cargoReferente);
+      setTipoClientes(response[0].tipo_cliente);
+      setNombreCliente(response[0].nombreCliente);
+      setReferente(response[0].referente);
+      setCorreoReferente(response[0].correoReferente);
+      setTelefonoReferente(response[0].telefonoReferente);
+    });
   }, [IDCliente]);
-  
-  function resetStates() {
-    setTipoClientes("");
-    setNombreCliente("");
-    setReferente("");
-    setCorreoReferente("");
-    setCargoReferente("");
-    setTelefonoReferente("");
-  }
 
   function SendData(e) {
     // e.preventDefault();
@@ -91,18 +87,14 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Actualizar Cliente</Modal.Title>
+          <Modal.Title>Editar Cliente</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
             <div className="form-group">
               <label htmlFor="input_tipoCliente">Tipo de cliente: </label>
               <select
-                value={
-                  tipo_cliente === ""
-                    ? responseID[0].tipo_cliente || ""
-                    : tipo_cliente || ""
-                }
+                value={tipo_cliente || ""}
                 className="form-control"
                 name="input_tipoCliente"
                 id="input_tipoCliente"
@@ -117,11 +109,7 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
             <div>
               <label htmlFor="input_nombreCliente">Nombre del cliente:</label>
               <input
-                value={
-                  nombreCliente === ""
-                    ? responseID[0].nombreCliente || ""
-                    : nombreCliente || ""
-                }
+                value={nombreCliente || ""}
                 type="text"
                 className="form-control"
                 name="input_nombreCliente"
@@ -134,11 +122,7 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
             <div>
               <label htmlFor="input_referente">Referente:</label>
               <input
-                value={
-                  referente === ""
-                    ? responseID[0].referente || ""
-                    : referente || ""
-                }
+                value={referente || ""}
                 type="text"
                 className="form-control"
                 name="input_referente"
@@ -152,11 +136,7 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
                 Correo del referente:
               </label>
               <input
-                value={
-                  correoReferente === ""
-                    ? responseID[0].correoReferente || ""
-                    : correoReferente || ""
-                }
+                value={correoReferente || ""}
                 type="email"
                 className="form-control"
                 name="input_correoReferente"
@@ -168,11 +148,7 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
             <div>
               <label htmlFor="input_cargoReferente">Cargo del referente:</label>
               <input
-                value={
-                  cargoReferente === ""
-                    ? responseID[0].cargoReferente || ""
-                    : cargoReferente || ""
-                }
+                value={cargoReferente || ""}
                 type="text"
                 className="form-control"
                 name="input_cargoReferente"
@@ -187,11 +163,7 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
               </label>
               <input
                 type="number"
-                value={
-                  telefonoReferente === ""
-                    ? responseID[0].telefonoReferente || ""
-                    : telefonoReferente || ""
-                }
+                value={telefonoReferente || ""}
                 className="form-control"
                 name="input_telefonoReferente"
                 id="input_telefonoReferente"

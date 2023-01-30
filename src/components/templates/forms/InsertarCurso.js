@@ -18,11 +18,9 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
   const [codigoCuenta, setCodigoCuenta] = useState("");
   const [codigoRamo, setCodigoRamo] = useState("");
   const [duracion, setDuracion] = useState("");
-  const respuestaServidor = new Set();
   const [valoresFechas, setValoresFechas] = useState([new DateObject()]);
   const fechasFormateadas = [];
   const fechasOrdenadas = [];
-
   const show = isActiveCurso;
 
   const handleClose = () => cambiarEstado(false);
@@ -38,7 +36,7 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
     getDataService(url).then((ramos) => setListRamos(ramos));
   }
   function SendData(e) {
-    // e.preventDefault();
+    e.preventDefault();
     const url = "TASKS/coe-insertarCurso.php";
     const operationUrl = "insertarCurso";
     var data = {
@@ -47,10 +45,10 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
       codigoCuenta: codigoCuenta,
       codigoRamo: codigoRamo,
     };
-    SendDataService(url, operationUrl, data).then(
-      (response) => respuestaServidor.add(response),
-      console.log(respuestaServidor)
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      console.log(response);
+      TopAlerts(response[0]);
+    });
   }
   useEffect(function () {
     obtenerCuentas();
@@ -70,7 +68,7 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
       <>
         <input
           type="button"
-          value="Guardar cambios"
+          value="Aplicar"
           id="btn_guardarFecha"
           onClick={mapeadoFechas}
           style={{

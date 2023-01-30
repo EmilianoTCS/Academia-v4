@@ -23,7 +23,7 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
 
   const handleClose = () => {
     cambiarEstado(false);
-    resetStates();
+
   };
 
   // ----------------------FUNCIONES----------------------------
@@ -32,22 +32,22 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
     const url = "TASKS/coe-selectCuentas.php";
     const operationUrl = "ID";
     const data = { ID: IDCurso };
-    SendDataService(url, operationUrl, data).then((response) =>
-      setResponseID(response)
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      setResponseID(response);
+      console.log(response[0]);
+      setCodigoCuenta(response[0].codigoCuentaEdit);
+      setCodigoRamo(response[0].codigoRamoEdit);
+      setFechaInicio(response[0].fechaInicioEdit);
+      setFechaFin(response[0].fechaFinEdit);
+      setHoraInicio(response[0].horaInicioEdit);
+      setHoraFin(response[0].horaFinEdit);
+    });
   }
   function obtenerCuentas() {
     const url = "TASKS/auxiliar/ListadoCuentas.php?listadoCuentas";
     getDataService(url).then((cuentas) => setListCuentas(cuentas));
   }
-  function resetStates() {
-    setCodigoCuenta("");
-    setCodigoRamo("");
-    setFechaInicio("");
-    setFechaFin("");
-    setHoraInicio("");
-    setHoraFin("");
-  }
+
 
   function obtenerRamos() {
     const url = "TASKS/auxiliar/ListadoNombreRamos.php?listadoRamos";
@@ -72,7 +72,6 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
 
     SendDataService(url, operationUrl, data).then(
       (response) => TopAlerts(response),
-      resetStates(),
       getData()
     );
   }
@@ -120,12 +119,6 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
                 name="cuenta"
                 options={optionsCuentas}
                 onChange={({ value }) => setCodigoCuenta(value)}
-                defaultValue={
-                  codigoCuenta === ""
-                    ? responseID[0].codigoCuentaEdit || ""
-                    : codigoCuenta || ""
-                }
-                defaultInputValue={responseID[0].codigoCuentaEdit}
                 required
               />
             </div>
@@ -136,12 +129,6 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
                 name="codigoRamo"
                 options={optionsRamos}
                 onChange={({ value }) => setCodigoRamo(value)}
-                defaultValue={
-                  codigoRamo === ""
-                    ? responseID[0].codigoRamoEdit || ""
-                    : codigoRamo || ""
-                }
-                defaultInputValue={responseID[0].codigoRamoEdit}
                 required
               />
             </div>
@@ -153,11 +140,7 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
                 name="input_fechaInicio"
                 className="form-control"
                 onChange={({ target }) => setFechaInicio(target.value)}
-                value={
-                  fechaInicio === ""
-                    ? responseID[0].fechaInicioEdit || ""
-                    : fechaInicio || ""
-                }
+                value={fechaInicio || ""}
                 required
               />
             </div>
@@ -169,11 +152,7 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
                 name="input_fechaInicio"
                 className="form-control"
                 onChange={({ target }) => setFechaFin(target.value)}
-                value={
-                  fechaFin === ""
-                    ? responseID[0].fechaFinEdit || ""
-                    : fechaFin || ""
-                }
+                value={fechaFin || ""}
                 required
               />
             </div>
@@ -185,11 +164,7 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
                 className="form-control"
                 id="input_horaInicio"
                 onChange={({ target }) => setHoraInicio(target.value)}
-                value={
-                  horaInicio === ""
-                    ? responseID[0].horaInicioEdit || ""
-                    : horaInicio || ""
-                }
+                value={horaInicio || ""}
                 required
               />
             </div>
@@ -202,11 +177,7 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
                 className="form-control"
                 id="input_horaFin"
                 onChange={({ target }) => setHoraFin(target.value)}
-                value={
-                  horaFin === ""
-                    ? responseID[0].horaFinEdit || ""
-                    : horaFin || ""
-                }
+                value={horaFin || ""}
                 required
               />
             </div>

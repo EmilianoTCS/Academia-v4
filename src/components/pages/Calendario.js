@@ -61,6 +61,13 @@ export default function Calendario() {
     setIsActiveInsertCurso(false);
   }
 
+  // --------------------COMPONENTES---------------------
+  const BotonesInsert = () => {
+    if (userData.username === "administrador") {
+      return <></>;
+    }
+  };
+
   // --------------------CONSTANTES MAP---------------------
 
   const Cursos = CursosApi.map((label) => ({
@@ -124,7 +131,6 @@ export default function Calendario() {
       <Button id="btnCurso" onClick={insertarEvento}>
         Insertar Evento
       </Button>
-
       <InsertarCurso
         isActiveCurso={isActiveInsertCurso}
         cambiarEstado={setIsActiveInsertCurso}
@@ -133,7 +139,7 @@ export default function Calendario() {
         isActiveEvento={isActiveInsertEvento}
         cambiarEstado={setIsActiveInsertEvento}
       ></InsertarEvento>
-      <div>
+      <div style={{ margin: "10px" }}>
         <FullCalendar
           locales={esLocale}
           plugins={[dayGridPlugin, interactionPlugin]}
@@ -144,9 +150,8 @@ export default function Calendario() {
             left: "dayGridMonth,dayGridWeek,dayGridDay",
           }}
           weekends={true}
-          aspectRatio={2}
+          aspectRatio={1.9}
           droppable={true}
-          dragScroll={true}
           locale="es"
           eventSources={[Cursos, Eventos, Feriados]}
           themeSystem="bootstrap5"

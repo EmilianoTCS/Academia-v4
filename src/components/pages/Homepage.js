@@ -5,6 +5,8 @@ import { Navigate } from "react-router-dom";
 import Header from "../templates/Header";
 import PieChart from "../templates/Pie";
 import BarChart from "../templates/Bar";
+import Card from "react-bootstrap/Card";
+
 
 export default function HomePage() {
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
@@ -25,50 +27,60 @@ export default function HomePage() {
       <div id="container_cards">
         {cards.map((singleCard) => (
           <>
-            <div id="coe_carta">
-              <div className="card-header">Cursos</div>
-              <div className="card-body">
-                <h2 className="card-title">{singleCard.totalCursos}</h2>
-                <p className="singleCard-text">Total</p>
-              </div>
-            </div>
-            <div id="coe_carta">
-              <div className="card-header">Colaboradores</div>
-              <div className="card-body">
-                <h2 className="card-title">{singleCard.totalColaboradores}</h2>
-                <p className="card-text">Total</p>
-              </div>
-            </div>
-            <div id="coe_carta">
-              <div className="card-header">Cursos</div>
-              <div className="card-body">
-                <h2 className="card-title">{singleCard.totalFinalizados}</h2>
-                <p className="card-text">Finalizados</p>
-              </div>
-            </div>
-            <div id="coe_carta">
-              <div className="card-header">Porcentaje</div>
-              <div className="card-body">
-                <h2 className="card-title">
+            <Card id="coe_carta">
+              <Card.Body>
+                <Card.Text>Cursos</Card.Text>
+                <Card.Title style={{ fontSize: "50pt" }}>
+                  {singleCard.totalCursos}
+                </Card.Title>
+                <Card.Text>Total</Card.Text>
+              </Card.Body>
+            </Card>
+            <Card id="coe_carta">
+              <Card.Body>
+                <Card.Text>Colaboradores</Card.Text>
+                <Card.Title style={{ fontSize: "50pt" }}>
+                  {singleCard.totalColaboradores}
+                </Card.Title>
+                <Card.Text>Total</Card.Text>
+              </Card.Body>
+            </Card>
+            <Card id="coe_carta">
+              <Card.Body>
+                <Card.Text>Cursos</Card.Text>
+                <Card.Title style={{ fontSize: "50pt" }}>
+                  {singleCard.totalFinalizados}
+                </Card.Title>
+                <Card.Text>Finalizados</Card.Text>
+              </Card.Body>
+            </Card>
+            <Card id="coe_carta">
+              <Card.Body>
+                <Card.Text>Porcentaje</Card.Text>
+                <Card.Title style={{ fontSize: "50pt" }}>
                   {singleCard.porcentajeFinalizados}
-                </h2>
-                <p className="card-text">Finalizados</p>
-              </div>
-            </div>
-            <div id="coe_carta">
-              <div className="card-header">Cursos</div>
-              <div className="card-body">
-                <h2 className="card-title">{singleCard.totalActivos}</h2>
-                <p className="card-text">Activos</p>
-              </div>
-            </div>
-            <div id="coe_carta">
-              <div className="card-header">Cursos</div>
-              <div className="card-body">
-                <h2 className="card-title">{singleCard.totalPendientes}</h2>
-                <p className="card-text">Pendientes</p>
-              </div>
-            </div>
+                </Card.Title>
+                <Card.Text>Finalizados</Card.Text>
+              </Card.Body>
+            </Card>
+            <Card id="coe_carta">
+              <Card.Body>
+                <Card.Text>Cursos</Card.Text>
+                <Card.Title style={{ fontSize: "50pt" }}>
+                  {singleCard.totalActivos}
+                </Card.Title>
+                <Card.Text>Activos</Card.Text>
+              </Card.Body>
+            </Card>
+            <Card id="coe_carta">
+              <Card.Body>
+                <Card.Text>Cursos</Card.Text>
+                <Card.Title style={{ fontSize: "50pt" }}>
+                  {singleCard.totalPendientes}
+                </Card.Title>
+                <Card.Text>Pendientes</Card.Text>
+              </Card.Body>
+            </Card>
           </>
         ))}
       </div>

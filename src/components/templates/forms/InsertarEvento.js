@@ -43,10 +43,9 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
       descripcion: descripcion,
       duracion: duracion,
     };
-    console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      TopAlerts(response);
       console.log(response);
+      TopAlerts(response[0]);
     });
   }
 
@@ -56,7 +55,7 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
       <>
         <input
           type="button"
-          value="Guardar cambios"
+          value="Aplicar"
           id="btn_guardarFecha"
           onClick={mapeadoFechas}
           style={{

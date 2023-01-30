@@ -16,26 +16,24 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
 
   const handleClose = () => {
     cambiarEstado(false);
-    resetStates();
   };
 
   function getData() {
     const url = "TASKS/coe-selectRelatores.php";
     const operationUrl = "ID";
     const data = { ID: IDRelator };
-    SendDataService(url, operationUrl, data).then((response) =>
-      setResponseID(response)
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      setResponseID(response);
+      setRelator(response[0].nombre);
+      setArea(response[0].area);
+    });
   }
-  function resetStates() {
-    setRelator("");
-    setArea("");
-  }
+
 
   function SendData(e) {
     // e.preventDefault();
-    const url = "TASKS/coe-editRamo.php";
-    const operationUrl = "editarRamo";
+    const url = "TASKS/coe-editRelatores.php";
+    const operationUrl = "editarRelatores";
     var data = {
       ID: IDRelator,
       nombre: relator === "" ? responseID[0].nombre : relator,
@@ -43,7 +41,6 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
     };
     SendDataService(url, operationUrl, data).then(
       (response) => TopAlerts(response),
-      resetStates()
     );
   }
   function obtenerAreas() {
@@ -87,7 +84,7 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
                 name="input_Relator"
                 id="input_Relator"
                 onChange={({ target }) => setRelator(target.value)}
-                value={relator === "" ? responseID[0].nombre : relator}
+                value={relator || ""}
                 required
               />
             </div>
@@ -98,9 +95,6 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
                 name="cuenta"
                 options={optionsAreas}
                 onChange={({ value }) => setArea(value)}
-                defaultInputValue={
-                  area === "" ? responseID[0].nombreArea : area
-                }
                 required
               />
             </div>

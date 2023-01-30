@@ -4,12 +4,13 @@ import { Navigate, Link } from "react-router-dom";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import Header from "../templates/Header";
-import { BsPencilSquare, BsTrash } from "react-icons/bs";
-import { BiShowAlt } from "react-icons/bi";
+import { BsFillTrashFill } from "react-icons/bs";
+import { RiEditBoxFill } from "react-icons/ri";
+import { HiEye } from "react-icons/hi";
 import "../css/TablasStyles.css";
 import "../css/InsertarCursoListadoCursosYRamos.css";
 import InsertarCurso from "../templates/forms/InsertarCurso";
-import InsertarRamo from "../templates/forms/InsertarRamo";
+
 import EditarCurso from "../templates/forms/EditarCurso";
 import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 import TopAlerts from "../templates/alerts/TopAlerts";
@@ -25,7 +26,7 @@ export default function ListadoCursos() {
   const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
   const [isActiveEditCurso, setIsActiveEditCurso] = useState(false);
   const [IDCurso, setIDCurso] = useState(null);
-  const [isActiveInsertRamo, setIsActiveInsertRamo] = useState(false);
+
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   //PAGINADOR ---------------------
@@ -60,15 +61,10 @@ export default function ListadoCursos() {
   }
   function insertarCurso() {
     setIsActiveInsertCurso(!isActiveInsertCurso);
-    setIsActiveInsertRamo(false);
   }
   function editarCurso(ID) {
     setIsActiveEditCurso(true);
     setIDCurso(ID);
-  }
-  function insertarRamo() {
-    setIsActiveInsertRamo(!isActiveInsertRamo);
-    setIsActiveInsertCurso(false);
   }
 
   useEffect(
@@ -83,22 +79,15 @@ export default function ListadoCursos() {
     <>
       <Header></Header>
       <div>
-        <div>
+        <div id="containerTablas">
           <h1 id="TitlesPages">Listado de cursos</h1>
           <Button id="btnCursoListado" onClick={insertarCurso}>
             Insertar Curso
-          </Button>
-          <Button id="btnCursoListado" onClick={insertarRamo}>
-            Insertar Ramos
           </Button>
           <InsertarCurso
             isActiveCurso={isActiveInsertCurso}
             cambiarEstado={setIsActiveInsertCurso}
           ></InsertarCurso>
-          <InsertarRamo
-            isActiveRamo={isActiveInsertRamo}
-            cambiarEstado={setIsActiveInsertRamo}
-          ></InsertarRamo>
 
           <EditarCurso
             isActiveEditCurso={isActiveEditCurso}
@@ -135,11 +124,11 @@ export default function ListadoCursos() {
                     id="OperationBtns"
                     onClick={() => editarCurso(curso.ID)}
                   >
-                    <BsPencilSquare />
+                    <RiEditBoxFill id="icons" />
                   </button>
                   <Link to={`/Examinar/${curso.codigoCurso}`}>
                     <button title="Examinar curso" id="OperationBtns">
-                      <BiShowAlt />
+                      <HiEye id="icons" />
                     </button>
                   </Link>
                   <button
@@ -147,7 +136,7 @@ export default function ListadoCursos() {
                     onClick={() => eliminar(curso.ID)}
                     id="OperationBtns"
                   >
-                    <BsTrash />
+                    <BsFillTrashFill id="icons" />
                   </button>
                 </td>
               </tr>

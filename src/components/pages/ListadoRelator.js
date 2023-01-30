@@ -5,8 +5,9 @@ import { Navigate } from "react-router-dom";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import Header from "../templates/Header";
-import { BsPencilSquare, BsTrash } from "react-icons/bs";
-import { BiShowAlt } from "react-icons/bi";
+import { BsFillTrashFill } from "react-icons/bs";
+import { RiEditBoxFill } from "react-icons/ri";
+import { HiEye } from "react-icons/hi";
 import "../css/TablasStyles.css";
 import InsertarRelator from "../templates/forms/InsertarRelator";
 import EditarRelator from "../templates/forms/EditarRelator";
@@ -99,7 +100,6 @@ export default function ListadoRelator() {
               <th>ID</th>
               <th>Relator</th>
               <th>Área</th>
-              <th>Cuenta</th>
               <th>Código Ramo</th>
               <th>Nombre del ramo</th>
               <th>Operaciones</th>
@@ -111,7 +111,6 @@ export default function ListadoRelator() {
                 <td>{relator.ID}</td>
                 <td>{relator.nombre}</td>
                 <td>{relator.nombreArea}</td>
-                <td>{relator.codigoCuenta}</td>
                 <td>{relator.codigoRamo}</td>
                 <td>{relator.nombreRamo}</td>
                 <td>
@@ -120,17 +119,17 @@ export default function ListadoRelator() {
                     id="OperationBtns"
                     onClick={() => editarRelator(relator.ID)}
                   >
-                    <BsPencilSquare />
+                    <RiEditBoxFill id="icons" />
                   </button>
                   <button title="Examinar curso" id="OperationBtns">
-                    <BiShowAlt />
+                  <HiEye id="icons" />
                   </button>
                   <button
                     title="Eliminar curso"
                     onClick={() => eliminar(relator.ID)}
                     id="OperationBtns"
                   >
-                    <BsTrash />
+                    <BsFillTrashFill id="icons" />
                   </button>
                 </td>
               </tr>

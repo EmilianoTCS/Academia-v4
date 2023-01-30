@@ -53,40 +53,42 @@ export default function BasicTabs() {
   return userData.statusConected || userData !== null ? (
     <>
       <Header />
-      <h1 id="TitlesPages">Panel de colaboradores</h1>
-      <div>
-        <Box className="boxTabs">
-          <Box sx={{ borderBottom: 0, borderColor: "divider" }}>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="basic tabs example"
-              TabIndicatorProps={{ style: { background: "#e10b1c" } }}
-              label
-            >
-              <Tab
-                style={{
-                  color: "#e10b1c",
-                  fontSize: "15pt",
-                  zIndex: "0",
-                }}
-                label="Listado"
-                {...a11yProps(0)}
-              />
-              <Tab
-                style={{ color: "#e10b1c", fontSize: "15pt" }}
-                label="Notas"
-                {...a11yProps(1)}
-              />
-            </Tabs>
+      <div id="containerTablas">
+        <h1 id="TitlesPages">Panel de colaboradores</h1>
+        <div>
+          <Box className="boxTabs">
+            <Box sx={{ borderBottom: 0, borderColor: "divider" }}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                aria-label="basic tabs example"
+                TabIndicatorProps={{ style: { background: "#e10b1c" } }}
+                label
+              >
+                <Tab
+                  style={{
+                    color: "#e10b1c",
+                    fontSize: "15pt",
+                    zIndex: "0",
+                  }}
+                  label="Listado"
+                  {...a11yProps(0)}
+                />
+                <Tab
+                  style={{ color: "#e10b1c", fontSize: "15pt" }}
+                  label="Notas"
+                  {...a11yProps(1)}
+                />
+              </Tabs>
+            </Box>
+            <TabPanel value={value} index={0}>
+              <Colaboradores />
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              <NotasColaboradores />
+            </TabPanel>
           </Box>
-          <TabPanel value={value} index={0}>
-            <Colaboradores />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            <NotasColaboradores />
-          </TabPanel>
-        </Box>
+        </div>
       </div>
     </>
   ) : (
