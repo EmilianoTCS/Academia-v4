@@ -3,9 +3,8 @@
   align-self: center;
   justify-content: center;
   border-radius: 50%;
-  width: 80px;
-  margin-left: 58px;
-  
+  width: 60px;
+  margin-left: 68px;
 }
 
 #icons{
@@ -26,6 +25,7 @@
 
 #textLeftSelect{
   margin-left: -10px;
+  font-size: 14px;
 }
 
 ul h4 {
@@ -122,35 +122,34 @@ ul li ul li:hover a {
 
 /*Scroll*/
 
-#sidebar::-webkit-scrollbar {
-  -webkit-appearance: none;
+#containerElement::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: rgb(37, 1, 1);
   
 }
 
-#sidebar::-webkit-scrollbar:vertical {
+#containerElement::-webkit-scrollbar:vertical {
   width:10px;
 }
 
-#sidebar::-webkit-scrollbar-button:increment,.card-body::-webkit-scrollbar-button {
-  display: none;
-} 
 
-#sidebar::-webkit-scrollbar:horizontal {
-  height: 10px;
-}
-
-#sidebar::-webkit-scrollbar-thumb {
-  background-color: #797979;
+#containerElement::-webkit-scrollbar-thumb {
+  background-color: #6d6767;
   border-radius: 20px;
 }
 
-#sidebar::-webkit-scrollbar-track {
+#containerElement::-webkit-scrollbar-track {
   border-radius: 10px;  
 }
+#containerElement::-webkit-scrollbar-thumb:active {
+  background-color: #afa4a4;  }
+
 
 #containerElement{
-  width: 300px;
+  width: 280px;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 /*Boton abrir sidebar*/

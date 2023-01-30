@@ -4,54 +4,65 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 
+
 #container_cards {
-  
-    display: grid;
-    grid-template-columns: repeat(
-        auto-fit,
-        minmax(
-            100px,
-            210px
-        )
-    );
-    width: 100%;
-    justify-content: center;
-    gap: 5px;
-    margin: 1% auto;
+  display: grid;
+  grid-template-columns: repeat(
+      auto-fit,
+      minmax(
+          100px,
+          210px
+      )
+  );
+  width: 100%;
+  justify-content: center;
+  gap: 5px;
+  margin: 1% auto;
 }
-  #coe_carta {
-    text-transform: uppercase;
-    color: white;
-    border-radius: 10px;
-    text-align: center;
-    background-color: rgb(46, 45, 45);
-  }
-  .card-header {
-    font-size: 1pt;
-  }
-  #coe_carta .card-title {
-    font-family: "Roboto Slab", serif;
-    font-size: 5pt;
-  }
-  #coe_carta .card-text {
-    font-family: "Roboto Slab", serif;
-    font-weight: 5;
-    font-size: 15pt;
-  } 
-  #chartsContainer {
-    margin: auto;
-    border-radius: 30px;
-    display: grid;
-   background-color: rgb(46, 45, 45);
-    padding: 2%;
-    max-width: 80%;
-    justify-content: space-evenly;
-    grid-template-columns: repeat(
-        auto-fit,
-        minmax(
-            200px,
-            240px
-        )
-    );
-  }
+#coe_carta {
+  text-transform: uppercase;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  background-color: rgb(46, 45, 45);
+  box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
+  -webkit-box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
+  -moz-box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
+}
+
+#coe_carta:hover{
+  background-color: rgb(66, 66, 66);
+  transition: all ease 0.3s;
+}
+.card-header {
+  font-size: 1pt;
+}
+#coe_carta .card-title {
+  font-family: "Roboto Slab", serif;
+  font-size: 5pt;
+}
+#coe_carta .card-text {
+  font-family: "Roboto Slab", serif;
+  font-weight: 5;
+  font-size: 15pt;
+} 
+#chartsContainer {
+  margin: 20px auto;
+  border-radius: 30px;
+  display: grid;
+  background-color: rgb(46, 45, 45);
+  box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
+  -webkit-box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
+  -moz-box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
+  padding: 2%;
+  max-width: 80%;
+  justify-content: space-evenly;
+  grid-template-columns: repeat(
+      auto-fit,
+      minmax(
+          200px,
+          240px
+      )
+  );
+}
 

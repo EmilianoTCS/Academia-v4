@@ -24,6 +24,7 @@ import RecuperarPassword from "./components/pages/RecuperarPassword";
 import RestablecerPassword from "./components/pages/RestablecerPassword";
 
 import ListadoReferentes from "./EDD/pages/ListadoReferentes";
+import ListadoAnalistas from "./EDD/pages/ListadoAnalistas";
 
 export default function App() {
   return (
@@ -62,6 +63,10 @@ export default function App() {
             <Route
               element={<ListadoReferentes />}
               path="/EDD/ListadoReferentes"
+            ></Route>
+            <Route
+              element={<ListadoAnalistas />}
+              path="/EDD/ListadoAnalistas"
             ></Route>
           </Route>
 

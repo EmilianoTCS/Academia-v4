@@ -1,4 +1,4 @@
-import { Card, Form, Button } from "react-bootstrap";
+import { Card, Form, Container } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import Header from "../templates/Header";
 import Select from "react-select";
@@ -61,6 +61,9 @@ export default function InscribirseCurso() {
   return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
+      <br></br>
+      <br></br>
+      <Container id="fondoTabla">
       <div id="containerTablas">
         <h1 id="TitlesPages">Inscripción de cursos</h1>
         <Form id="formPrerequisitos" onSubmit={SendData}>
@@ -93,6 +96,7 @@ export default function InscribirseCurso() {
           </button>
         </Form>
       </div>
+      </Container>
     </>
   ) : (
     <>

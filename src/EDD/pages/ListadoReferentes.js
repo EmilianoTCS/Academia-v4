@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table } from "react-bootstrap";
+import { Container,Table } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import Header from "../../components/templates/Header";
 import getDataService from "../../services/GetDataService";
@@ -49,6 +49,9 @@ export default function ListadoReferentes() {
   return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
+      <br></br>
+      <br></br>
+      <Container id="fondoTabla">
       <div id="containerTablas">
         <h1 id="TitlesPages">Listado de referentes</h1>
         <Button id="btn" onClick={insertarEDDReferentes}>
@@ -90,6 +93,7 @@ export default function ListadoReferentes() {
           num_boton={num_boton}
         ></Paginador>
       </div>
+      </Container>
     </>
   ) : (
     <>

@@ -1,5 +1,5 @@
 #fondo{
-    background-image:url("/src/sources/fondoForm.png");
+    background-image:url("/public/rose-petals.svg");
     background-repeat: repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -17,7 +17,7 @@ p{
 
 #textStyle{
     color: #fff;
-    background-color: #e10b1c;
+    background-color: #272727;
     padding: 1em;
     border-radius: 10px;
 }

@@ -122,7 +122,7 @@ export default function SideBar(props) {
                     </Link>
                   </li>
                   <li id="textLeftSelect">
-                    <Link to="/FormularioClEDD">
+                    <Link to="/EDD/ListadoAnalistas">
                       <GiStarFormation id="icons" />
                       Listado Analistas/Automatizadores
                     </Link>

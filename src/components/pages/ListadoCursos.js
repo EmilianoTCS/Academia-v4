@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 import { Navigate, Link } from "react-router-dom";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
@@ -16,6 +16,8 @@ import ConfirmAlert from "../templates/alerts/ConfirmAlert";
 import TopAlerts from "../templates/alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Paginador from "../templates/Paginador";
+
+
 
 export default function ListadoCursos() {
   const [cursos, setCursos] = useState([""]);
@@ -78,7 +80,9 @@ export default function ListadoCursos() {
   return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
-      <div>
+      <br></br>
+      <br></br>
+      <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de cursos</h1>
           <Button id="btnCursoListado" onClick={insertarCurso}>
@@ -148,7 +152,7 @@ export default function ListadoCursos() {
           cambiarNumero={setNumBoton}
           num_boton={num_boton}
         ></Paginador>
-      </div>
+      </Container>
     </>
   ) : (
     <Navigate to="/login"></Navigate>

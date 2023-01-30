@@ -1,5 +1,10 @@
+#fondoTabla{
+  border-radius: 2em; 
+  background-color: #fff;
+}
+
 #icons{
-  font-size: 22px;
+  width: 18px;
   margin-right: 13px;
   margin-bottom: 9px;
 }
@@ -7,112 +12,54 @@
 #mainTable{
   justify-content: center;
   align-items: center;
-    width: 98%;
-    margin: 1%;
-    overflow:scroll;
+  overflow:scroll;
   padding: 15px 20px;
+  margin: 1em auto;
+  margin-top: 1em;
 }
 #OperationBtns{
-    border: none;
-    background: none;
+  font-size: 10pt;
+  border: none;
+  background: none;
 }
 #containerTablas{
-  padding: 15px 20px
+  padding-top: 1em;
 }
 #paginador {
-    display: flex;
-    width: min-content;
-    padding: 0px 10px 10px 0;
-    flex-direction: row;
-    list-style: none;
-    margin: 0 0 1% 1%;
-
-  }
-  #paginador li {
-    margin: 2px;
-  }
-  #paginador button {
-    border: none;
-    display: flex;
-    width: 4ch;
-    height: 4ch;
-    align-items: center;
-    justify-content: center;
-    font-family: Monospace;
-    font-size: 15px;
-    border-radius: 50%;
-    text-decoration: none;
-    transition: all 300ms ease;
-    background: #d1cdcd;
-    color: black;
-    font-weight: 600;
-  }
-  #paginador button:hover {
-    transition: all 300ms ease;
-    background: white;
-    color: #e10b1c;
-    border: solid #e10b1c 1px;
-  }
-  #paginador button.active {
-    transition: all 300ms ease;
-    background: #e10b1c;
-    color: white;
-  }
-  #formButtons{
-    border: none;
-    background: #e10b1c;
-    color: white;
-    border-radius: 5px;
-    margin: 5px;
-    font-family: "Roboto Slab", serif;
-    font-weight: 550;
-  }
-  #formButtons:hover{
-   color: #e10b1c;
-   font-weight: 550;
-   background-color: white;
-   border: solid #e10b1c 1px;
-   transition: all 200ms ease;
-
-  }
-
-  /* .pageNumbers {
-    list-style: none;
-    display: flex;
-  }
-  
-  .pageNumbers li {
-    padding: 10px;
-    border: 1px solid white;
-    cursor: pointer;
-  }
-  
-  .pageNumbers li.active {
-    background-color: white;
-    color: black;
-  }
-  
-  .pageNumbers li button {
-    background-color: transparent;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
-  .pageNumbers li button:hover {
-    background-color: white;
-    color: black;
-  }
-  .pageNumbers li button:focus {
-    outline: none;
-  }
-  
-  .loadmore {
-    padding: 1rem;
-    background-color: transparent;
-  
-    color: white;
-    font-size: 1.2rem;
-    border: 1px solid white;
-    cursor: pointer;
-  } */
+  display: flex;
+  width: min-content;
+  padding: 15px 10px 10px 0;
+  flex-direction: row;
+  list-style: none;
+  margin: auto;
+}
+#paginador li {
+  margin: 2px;
+}
+#paginador button {
+  border: none;
+  display: flex;
+  width: 4ch;
+  height: 4ch;
+  align-items: center;
+  justify-content: center;
+  font-family: Monospace;
+  font-size: 15px;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: all 300ms ease;
+  background: #d1cdcd;
+  color: black;
+  font-weight: 600;
+}
+#paginador button:hover {
+  transition: all 300ms ease;
+  background: white;
+  color: #e10b1c;
+  border: solid #e10b1c 1px;
+}
+#paginador button.active {
+  transition: all 300ms ease;
+  background: #e10b1c;
+  color: white;
+}
