@@ -5,25 +5,17 @@
 
   
 #background {
-    height: 100%;
-    background-image: url(https://www.tsoftglobal.com/wp-content/uploads/2021/06/BACKGROUNDS-Nosotros-2.jpg);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-repeat: repeat;
   }
   #pageTitleLogin{
     text-transform: uppercase;
     font-family: "Roboto Slab", serif;
-    /* background-color: #e6e6e6de; */
-    /* background: border-box rgba(19, 14, 14, 0.219); */
+
     color: rgb(255, 255, 255);
     background: rgb(24, 24, 24);
-
-    /* border: solid #e88d8dde 2px ; */
-    /* background: rgb(14,3,4);
-    background: linear-gradient(4deg, rgba(14,3,4,0.4654236694677871) 0%, rgba(255,66,81,0) 95%); */
     
     font-weight: 700;
     font-size: 20pt;

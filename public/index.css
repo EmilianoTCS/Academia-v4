@@ -1,6 +1,30 @@
-#fondo1{
-    background-image:url("/rose-petals.svg");
-    background-repeat: repeat;
-    background-attachment: fixed;
-    background-size: cover;
+#fondo1 {
+  background-image: url("/rose-petals.svg");
+  background-repeat: repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
+
+/*Scroll*/
+
+#fondo1::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: rgb(37, 1, 1);
+}
+
+#fondo1::-webkit-scrollbar:vertical {
+  width: 10px;
+}
+
+#fondo1::-webkit-scrollbar-thumb {
+  background-color: #6d6767;
+  border-radius: 20px;
+}
+
+#fondo1::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+#fondo1::-webkit-scrollbar-thumb:active {
+    background-color: #afa4a4;  }

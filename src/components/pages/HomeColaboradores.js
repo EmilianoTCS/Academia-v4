@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardGroup } from "react-bootstrap";
+import { Card, CardGroup, Container } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import Header from "../templates/Header";
 import Hexagon from "react-hexagon";
@@ -41,18 +41,76 @@ export default function HomeColaboradores() {
   };
 
   return userData.statusConected === true || userData !== null ? (
-    <>        
-    <Header></Header>
-      <div id="fondo">
-        <CardGroup id="cardContainer">
-          {datos.map((dato) => (
-            <Card>
+    <>
+      <Header></Header>
+      <br></br>
+      <br></br>
+      <Container id="fondoTabla">
+        <div id="containerTablas">
+          <CardGroup>
+            {datos.map((dato) => (
+              <Card id="maginCard">
+                <Card id="containerAutomation">
+                  <Card.Body>
+                    <Card.Title>Automation</Card.Title>
+                    <Card id="progressHex">
+                      <Card.Body>
+                        <Hexagon className="hexagono" style={styleHexGreen}>
+                          <text
+                            x="50%"
+                            y="55%"
+                            fill="white"
+                            fontSize="150"
+                            fontWeight="bold"
+                            textAnchor="middle"
+                            fontFamily="Roboto Slab, serif"
+                          >
+                            {dato.porcentajeTotal + "%"}
+                          </text>
+                          <text
+                            x="50%"
+                            y="75%"
+                            fontSize="50"
+                            fill="white"
+                            textAnchor="middle"
+                            fontFamily="Roboto Slab, serif"
+                          >
+                            FINALIZADO
+                          </text>
+                        </Hexagon>
+                      </Card.Body>
+                    </Card>
+                  </Card.Body>
+                </Card>
+                <div id="subCardsContainer">
+                  <Card id="subcards" bg="dark" text="white">
+                    <Card.Body>
+                      <Card.Title id="titles">Cursos pendientes</Card.Title>
+                      <Card.Text>{dato.totalPendientes}</Card.Text>
+                    </Card.Body>
+                  </Card>
+                  <Card id="subcards" bg="dark" text="white">
+                    <Card.Body>
+                      <Card.Title id="titles">Cursos finalizados</Card.Title>
+                      <Card.Text>{dato.totalFinalizados}</Card.Text>
+                    </Card.Body>
+                  </Card>
+                  <Card id="subcards" bg="dark" text="white">
+                    <Card.Body>
+                      <Card.Title id="titles">Promedio general</Card.Title>
+                      <Card.Text>{dato.Promedio}</Card.Text>
+                    </Card.Body>
+                  </Card>
+                </div>
+              </Card>
+            ))}
+            <Card id="maginCard">
               <Card id="containerAutomation">
                 <Card.Body>
-                  <Card.Title>Automation</Card.Title>
+                  <Card.Title>DevOps</Card.Title>
                   <Card id="progressHex">
                     <Card.Body>
-                      <Hexagon className="hexagono" style={styleHexGreen}>
+                      <Hexagon className="hexagono" style={styleHexOrange}>
                         <text
                           x="50%"
                           y="55%"
@@ -62,7 +120,7 @@ export default function HomeColaboradores() {
                           textAnchor="middle"
                           fontFamily="Roboto Slab, serif"
                         >
-                          {dato.porcentajeTotal + "%"}
+                          12%
                         </text>
                         <text
                           x="50%"
@@ -82,81 +140,27 @@ export default function HomeColaboradores() {
               <div id="subCardsContainer">
                 <Card id="subcards" bg="dark" text="white">
                   <Card.Body>
-                    <Card.Title>Cursos pendientes</Card.Title>
-                    <Card.Text>{dato.totalPendientes}</Card.Text>
+                    <Card.Title id="titles">Cursos pendientes</Card.Title>
+                    <Card.Text>5</Card.Text>
                   </Card.Body>
                 </Card>
                 <Card id="subcards" bg="dark" text="white">
                   <Card.Body>
-                    <Card.Title>Cursos finalizados</Card.Title>
-                    <Card.Text>{dato.totalFinalizados}</Card.Text>
+                    <Card.Title id="titles">Cursos finalizados</Card.Title>
+                    <Card.Text>5</Card.Text>
                   </Card.Body>
                 </Card>
                 <Card id="subcards" bg="dark" text="white">
                   <Card.Body>
-                    <Card.Title>Promedio general</Card.Title>
-                    <Card.Text>{dato.Promedio}</Card.Text>
+                    <Card.Title id="titles">Promedio general</Card.Title>
+                    <Card.Text>5</Card.Text>
                   </Card.Body>
                 </Card>
               </div>
             </Card>
-          ))}
-          <Card>
-            <Card id="containerAutomation">
-              <Card.Body>
-                <Card.Title>DevOps</Card.Title>
-                <Card id="progressHex">
-                  <Card.Body>
-                    <Hexagon className="hexagono" style={styleHexOrange}>
-                      <text
-                        x="50%"
-                        y="55%"
-                        fill="white"
-                        fontSize="150"
-                        fontWeight="bold"
-                        textAnchor="middle"
-                        fontFamily="Roboto Slab, serif"
-                      >
-                        12%
-                      </text>
-                      <text
-                        x="50%"
-                        y="75%"
-                        fontSize="50"
-                        fill="white"
-                        textAnchor="middle"
-                        fontFamily="Roboto Slab, serif"
-                      >
-                        FINALIZADO
-                      </text>
-                    </Hexagon>
-                  </Card.Body>
-                </Card>
-              </Card.Body>
-            </Card>
-            <div id="subCardsContainer">
-              <Card id="subcards" bg="dark" text="white">
-                <Card.Body>
-                  <Card.Title>Cursos pendientes</Card.Title>
-                  <Card.Text>5</Card.Text>
-                </Card.Body>
-              </Card>
-              <Card id="subcards" bg="dark" text="white">
-                <Card.Body>
-                  <Card.Title>Cursos finalizados</Card.Title>
-                  <Card.Text>5</Card.Text>
-                </Card.Body>
-              </Card>
-              <Card id="subcards" bg="dark" text="white">
-                <Card.Body>
-                  <Card.Title>Promedio general</Card.Title>
-                  <Card.Text>5</Card.Text>
-                </Card.Body>
-              </Card>
-            </div>
-          </Card>
-        </CardGroup>
-      </div>
+          </CardGroup>
+        </div>
+      </Container>
     </>
   ) : (
     <Navigate to="/login"></Navigate>

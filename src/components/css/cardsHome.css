@@ -25,6 +25,14 @@
   border-radius: 10px;
   text-align: center;
   background-color: rgb(46, 45, 45);
+  box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
+  -webkit-box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
+  -moz-box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
+}
+
+#coe_carta:hover{
+  background-color: rgb(66, 66, 66);
+  transition: all ease 0.3s;
 }
 .card-header {
   font-size: 1pt;
@@ -39,10 +47,13 @@
   font-size: 15pt;
 } 
 #chartsContainer {
-  margin: auto;
+  margin: 20px auto;
   border-radius: 30px;
   display: grid;
   background-color: rgb(46, 45, 45);
+  box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
+  -webkit-box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
+  -moz-box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
   padding: 2%;
   max-width: 80%;
   justify-content: space-evenly;

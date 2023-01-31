@@ -4,7 +4,7 @@
 }
 
 #icons{
-  font-size: 22px;
+  width: 18px;
   margin-right: 13px;
   margin-bottom: 9px;
 }
@@ -14,20 +14,21 @@
   align-items: center;
   overflow:scroll;
   padding: 15px 20px;
-  margin: 2em auto;
+  margin: 1em auto;
   margin-top: 1em;
 }
 #OperationBtns{
+  font-size: 10pt;
   border: none;
   background: none;
 }
 #containerTablas{
-  padding-top: 2em;
+  padding-top: 1em;
 }
 #paginador {
   display: flex;
   width: min-content;
-  padding: 30px 10px 10px 0;
+  padding: 15px 10px 10px 0;
   flex-direction: row;
   list-style: none;
   margin: auto;

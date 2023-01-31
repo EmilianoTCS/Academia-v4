@@ -65,7 +65,7 @@ export default function Administrador() {
       <br></br>
       <br></br>
       <Container id="fondoTabla">
-      <div id="adminContainer">
+      <div id="containerTablas">
         <h1 id="TitlesPages" >Administración de registros</h1>
 
       <Box className="boxTabs">

@@ -91,7 +91,7 @@ export default function InscribirseCurso() {
               </Card>
             </Col>
           </Row>
-          <button id="CardsPrerequisitos" className="enviar" type="submit">
+          <button id="CardsPrerequisitos" className="enviar" type="submit" style={{marginBottom:'20px'}}>
             Enviar
           </button>
         </Form>

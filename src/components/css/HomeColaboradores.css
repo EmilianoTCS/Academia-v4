@@ -1,54 +1,52 @@
-#fondo{
-    background:#FF8300;
+#cardContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 200px;
 }
 
-#cardContainer{
-    align-items: center;
-    margin-top: 2%;
-    z-index: 0;
+#maginCard{
+    margin-bottom: 20px;
 }
-#cardContainer .card-title{
-    text-align: center;
-    
+
+#titles {
+  font-size: 30px;
+  text-align: center;
 }
-#containerAutomation{
-    background-color: #ffffff;
-    padding: 10px;
-    margin: 10px;
-    border: none;
-    
+
+#cardContainer .card-title {
+  text-align: center;
 }
-#subCardsContainer{
-    display: grid;
-    grid-template-columns: repeat(
-        auto-fit,
-        minmax(
-            100px,
-            220px
-        )
-    );
-    
-    justify-content: center;
-    gap: 30px;
-    margin: 1%;
+#containerAutomation {
+  background-color: #ffffff;
+  padding: 10px;
+  margin: 10px;
+  border: none;
 }
-#subcards{
-    margin: 1%;
-    font-family: "Roboto Slab", serif;
+#subCardsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 200px));
+
+  justify-content: center;
+  gap: 10px;
+  margin: 1%;
+}
+#subcards {
+  margin: 1%;
+  font-family: "Roboto Slab", serif;
+  font-size: 10px;
 }
 #subcards p {
-    font-size: 40pt;
-    text-align: center;
+  font-size: 40pt;
+  text-align: center;
 }
-#progressHex{
-    justify-content: center;
-    align-items: center;
-    border: none;
-    background-color: #f2f2f2;
-
+#progressHex {
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: #f2f2f2;
 }
-.hexagono{
-    width: 60%;
-    margin-left: 17%;
-    text-align: center;
+.hexagono {
+  width: 60%;
+  margin-left: 17%;
+  text-align: center;
 }

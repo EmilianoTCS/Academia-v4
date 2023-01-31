@@ -59,52 +59,54 @@ export default function MisCursos() {
       <br></br>
       <br></br>
       <Container id="fondoTabla">
-        <Box className="boxTabs">
-          <Box sx={{ borderBottom: 0, borderColor: "divider" }}>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="basic tabs example"
-              TabIndicatorProps={{ style: { background: "#e10b1c" } }}
-              style={{ color: "#e10b1c", width: "100%", fontSize: "20pt" }}
-              variant="scrollable"
-              scrollButtons="auto"
-            >
-              <Tab
-                style={{ color: "#e10b1c", fontSize: "15pt" }}
-                label="Automation"
-                {...a11yProps(0)}
-              />
-              <Tab
-                style={{ color: "#e10b1c", fontSize: "15pt" }}
-                label="DevOps"
-                {...a11yProps(1)}
-              />
-              <Tab
-                style={{ color: "#e10b1c", fontSize: "15pt" }}
-                label="Certificados"
-                {...a11yProps(2)}
-              />
-              <Tab
-                style={{ color: "#e10b1c", fontSize: "15pt" }}
-                label="Detalle de notas"
-                {...a11yProps(3)}
-              />
-            </Tabs>
+        <div id="containerTablas">
+          <Box className="boxTabs">
+            <Box sx={{ borderBottom: 0, borderColor: "divider" }}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                aria-label="basic tabs example"
+                TabIndicatorProps={{ style: { background: "#e10b1c" } }}
+                style={{ color: "#e10b1c", width: "100%", fontSize: "20pt" }}
+                variant="scrollable"
+                scrollButtons="auto"
+              >
+                <Tab
+                  style={{ color: "#e10b1c", fontSize: "15pt" }}
+                  label="Automation"
+                  {...a11yProps(0)}
+                />
+                <Tab
+                  style={{ color: "#e10b1c", fontSize: "15pt" }}
+                  label="DevOps"
+                  {...a11yProps(1)}
+                />
+                <Tab
+                  style={{ color: "#e10b1c", fontSize: "15pt" }}
+                  label="Certificados"
+                  {...a11yProps(2)}
+                />
+                <Tab
+                  style={{ color: "#e10b1c", fontSize: "15pt" }}
+                  label="Detalle de notas"
+                  {...a11yProps(3)}
+                />
+              </Tabs>
+            </Box>
+            <TabPanel value={value} index={0}>
+              <Automation></Automation>
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              <DevOps></DevOps>
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              <Certificados></Certificados>
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+              <DetalleNotas></DetalleNotas>
+            </TabPanel>
           </Box>
-          <TabPanel value={value} index={0}>
-            <Automation></Automation>
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            <DevOps></DevOps>
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            <Certificados></Certificados>
-          </TabPanel>
-          <TabPanel value={value} index={3}>
-            <DetalleNotas></DetalleNotas>
-          </TabPanel>
-        </Box>
+        </div>
       </Container>
     </div>
   ) : (

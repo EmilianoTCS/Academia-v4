@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import "../css/formStyle.css";
 import Header from "../../components/templates/Header";
-
+import SendDataService from "../../services/SendDataService";
+import TopAlerts from "../../components/templates/alerts/TopAlerts";
 import Container from "react-bootstrap/Container";
-// import Row from "react-bootstrap/Row";
-// import Col from "react-bootstrap/Col";
 
 const FormAnalistas = () => {
   const [nombApellido, setNombApellido] = useState([""]);
@@ -46,8 +45,8 @@ const FormAnalistas = () => {
 
   function SendData(e) {
     e.preventDefault();
-    // const url = "TASKS/coe-insertarCurso.php";
-    // const operationUrl = "insertarCurso";
+    const url = "EDD/creacion/InsertarResultadosAnalistas.php";
+    const operationUrl = "insertarResultadosAnalistas";
     var data = {
       nombApellido: nombApellido,
       nombApellidoAnalista: nombApellidoAnalista,
@@ -73,10 +72,11 @@ const FormAnalistas = () => {
       analistaConocimientosNegocio: analistaConocimientosNegocio,
       observacionesReclamos: observacionesReclamos,
     };
-    console.log(data);
-    // SendDataService(url, operationUrl, data).then((response) => {
-    //   TopAlerts(response[0]);
-    // });
+    
+    SendDataService(url, operationUrl, data).then((response) => {
+      TopAlerts(response);
+      
+    });
   }
 
   return (

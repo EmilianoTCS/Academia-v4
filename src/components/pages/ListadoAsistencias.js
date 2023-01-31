@@ -118,12 +118,13 @@ export default function ListadoAsistencias() {
       );
     }
     return (
+
       <RevolvingDot
         visible={true}
         height="200"
         width="200"
         ariaLabel="dna-loading"
-        wrapperStyle={{ margin: "100px 150px" }}
+        wrapperStyle={{ margin: "20px 44% " }}
         wrapperClass="dna-wrapper"
         color="#e10b1c"
       ></RevolvingDot>
