@@ -1,30 +1,67 @@
 import React, { useState, useEffect } from "react";
 import SendDataService from "../../../services/SendDataService";
-
-import getDataService from "../../../services/GetDataService";
+import TopAlerts from "../../../components/templates/alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import TopAlerts from "../../../components/templates/alerts/TopAlerts";
-const InsertarEDDAnalistas = ({
-  isActiveInsertEDDAnalistas,
-  cambiarEstado,
-}) => {
-  // ----------------------CONSTANTES----------------------------
+import getDataService from "../../../services/GetDataService";
 
+const EditarEDDAnalistas = ({
+  isActiveEditEDDAnalistas,
+  cambiarEstado,
+  IDEvaluacionAnalistas,
+}) => {
   const [fechaInicio, setFechaInicio] = useState("");
   const [fechaFin, setFechaFin] = useState("");
   const [proyecto, setProyecto] = useState("");
   const [nombreCliente, setNombreCliente] = useState("");
+  const [estado, setEstado] = useState("");
   const [nombreEquipo, setNombreEquipo] = useState("");
   const [listClientes, setlistClientes] = useState([]);
   const [listProyectos, setlistProyectos] = useState([]);
+  const [responseID, setResponseID] = useState([]);
   const [listEquipos, setlistEquipos] = useState([]);
 
-  const show = isActiveInsertEDDAnalistas;
+  const show = isActiveEditEDDAnalistas;
 
-  const handleClose = () => cambiarEstado(false);
+  const handleClose = () => {
+    cambiarEstado(false);
+  };
 
-  // ----------------------FUNCIONES----------------------------
+  function getData() {
+    const url = "EDD/seleccion/selectEvaluacionAnalistas.php";
+    const operationUrl = "ID";
+    const data = { IDEvaluacion: IDEvaluacionAnalistas };
+    SendDataService(url, operationUrl, data).then((response) => {
+      setResponseID(response);
+      setFechaInicio(response[0].fechaInicio);
+      setFechaFin(response[0].fechaFin);
+      setProyecto(response[0].proyecto);
+      setNombreCliente(response[0].nombreCliente);
+      setEstado(response[0].estado);
+      setNombreEquipo(response[0].nombreEquipo);
+    });
+  }
+
+  function SendData(e) {
+    e.preventDefault();
+    const url = "EDD/edicion/editarEvaluacionAnalistas.php";
+    const operationUrl = "editarEvaluacion";
+    var data = {
+      ID: IDEvaluacionAnalistas,
+      fechaInicio: fechaInicio === "" ? responseID[0].fechaInicio : fechaInicio,
+      fechaFin: fechaFin === "" ? responseID[0].fechaFin : fechaFin,
+      proyecto: proyecto === "" ? responseID[0].proyecto : proyecto,
+      nombreEquipo:
+        nombreEquipo === "" ? responseID[0].nombreEquipo : nombreEquipo,
+      nombreCliente:
+        nombreCliente === "" ? responseID[0].nombreCliente : nombreCliente,
+      estado: estado === "" ? responseID[0].estado : estado,
+    };
+
+    SendDataService(url, operationUrl, data).then((response) =>
+      TopAlerts(response)
+    );
+  }
   function obtenerClientes() {
     const url = "EDD/seleccion/ListadoClientes.php?listadoClientes";
     getDataService(url).then((response) => setlistClientes(response));
@@ -37,33 +74,19 @@ const InsertarEDDAnalistas = ({
     const url = "EDD/seleccion/ListadoProyectos.php?listadoProyectos";
     getDataService(url).then((response) => setlistProyectos(response));
   }
-
-  function SendData(e) {
-    e.preventDefault();
-    const url = "EDD/creacion/InsertarEvaluacionAnalistas.php";
-    const operationUrl = "insertarEDDAnalistas";
-    var data = {
-      fechaInicio: fechaInicio,
-      fechaFin: fechaFin,
-      proyecto: proyecto,
-      cliente: nombreCliente,
-      nombreEquipo: nombreEquipo,
-    };
-    SendDataService(url, operationUrl, data).then((response) => {
-      TopAlerts(response);
-    });
-  }
-
-  useEffect(function () {
-    obtenerClientes();
-    obtenerProyectos();
-    obtenerEquipos();
-  }, []);
-
-  // ----------------------MAPEADOS----------------------------
+  useEffect(
+    function () {
+      if (IDEvaluacionAnalistas !== null) {
+        obtenerClientes();
+        obtenerProyectos();
+        obtenerEquipos();
+        getData();
+      }
+    },
+    [IDEvaluacionAnalistas]
+  );
 
   // ----------------------RENDER----------------------------
-
   return (
     <>
       <Modal
@@ -73,7 +96,7 @@ const InsertarEDDAnalistas = ({
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Insertar evaluación de analista</Modal.Title>
+          <Modal.Title>Editar evaluación</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
@@ -83,6 +106,7 @@ const InsertarEDDAnalistas = ({
                 required
                 className="form-control"
                 onChange={({ target }) => setNombreCliente(target.value)}
+                value={nombreCliente || ""}
               >
                 {listClientes.map((valor) => (
                   <option value={valor.nombreCliente}>
@@ -91,7 +115,6 @@ const InsertarEDDAnalistas = ({
                 ))}
               </select>
             </div>
-
             <div className="form-group">
               <label htmlFor="input_tipoCliente">Seleccione un equipo:</label>
               <select
@@ -115,6 +138,7 @@ const InsertarEDDAnalistas = ({
                 name="input_fechaInicio"
                 className="form-control"
                 onChange={({ target }) => setFechaInicio(target.value)}
+                value={fechaInicio || ""}
                 required
               />
             </div>
@@ -127,8 +151,10 @@ const InsertarEDDAnalistas = ({
                 className="form-control"
                 onChange={({ target }) => setFechaFin(target.value)}
                 required
+                value={fechaFin || ""}
               />
             </div>
+
             <div className="form-group">
               <label htmlFor="input_tipoCliente">
                 Seleccione su proyecto:{" "}
@@ -140,13 +166,32 @@ const InsertarEDDAnalistas = ({
                 value={proyecto || ""}
               >
                 {listProyectos.map((valor) => (
-                  <option value={valor.nombreProyecto}>
+                  <option
+                    selected={
+                      valor.nombreProyecto === proyecto ? "selected" : ""
+                    }
+                    value={valor.nombreProyecto}
+                  >
                     {valor.nombreProyecto}
                   </option>
                 ))}
               </select>
             </div>
+            <div className="form-group">
+              <label htmlFor="input_tipoCliente">Seleccione su estado: </label>
 
+              <select
+                required
+                className="form-control"
+                onChange={({ target }) => setEstado(target.value)}
+                value={estado || ""}
+              >
+                <option selected="selected">Seleccione un estado nuevo</option>
+                <option value="Programado">Programado</option>
+                <option value="En progreso">En progreso</option>
+                <option value="Finalizado">Finalizado</option>
+              </select>
+            </div>
             <Button
               variant="secondary"
               type="submit"
@@ -161,4 +206,4 @@ const InsertarEDDAnalistas = ({
     </>
   );
 };
-export default InsertarEDDAnalistas;
+export default EditarEDDAnalistas;
