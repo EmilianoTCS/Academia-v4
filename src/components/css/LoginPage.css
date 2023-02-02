@@ -3,33 +3,34 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Roboto+Slab:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
-
+  
 #background {
-    height: 100%;
-    background-image: url(https://www.tsoftglobal.com/wp-content/uploads/2021/06/BACKGROUNDS-Nosotros-2.jpg);
-    width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-repeat: repeat;
   }
   #pageTitleLogin{
     text-transform: uppercase;
     font-family: "Roboto Slab", serif;
-    background-color: #e6e6e6de;
-    background: border-box rgba(172, 172, 172, 0.219);
-    color: black;
+
+    color: rgb(255, 255, 255);
+    background: rgb(24, 24, 24);
+    
     font-weight: 700;
     font-size: 20pt;
     border-radius: 5px;
     width: 50%;
     max-width: 50%;
+    padding: 20px;
     text-align: center;
     position: absolute;
     top: 8%;
     left: 50%;
     transform: translate(-50%, -50%);
+    box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
+-webkit-box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
+-moz-box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
   }
   #form_login {
     position: relative;
@@ -39,10 +40,13 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background: rgb(238, 238, 238);
+    background: rgb(24, 24, 24);
     width: 70%;
     padding: 20px;
     max-width: 500px;
+    box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
+    -webkit-box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
+    -moz-box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
   }
   #form_login h3 {
     text-transform: uppercase;
@@ -50,7 +54,7 @@
     padding: 10px 0px;
     background-color: #e6e6e6de;
     background: border-box rgba(172, 172, 172, 0.219);
-    color: black;
+    color: white;
     font-weight: 700;
     font-size: 20pt;
     border-radius: 5px;
@@ -68,6 +72,7 @@
     font-size: 15pt;
     font-family: "Roboto Slab", serif;
     text-align: left;
+    color: white;
   }
  #form_login div{
     width: 100%;
@@ -77,6 +82,9 @@
   max-width: 80%;
   margin-left: 2%;
   padding: 5px;
+  background-color: #e6e6e6de;
+  background: border-box rgba(172, 172, 172, 0.219);
+  border: none;
 }
 
 
@@ -93,7 +101,11 @@
     border: none;
     box-shadow: none;
     cursor: pointer;
+  }#btn_acceder:hover {
+    background-color: white;
+    color: #e10b1c;
   }
+
   #forgot_password {
     font-family: "Roboto Slab", serif;
     color: rgb(87, 87, 87);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
+import { Container,Table } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
@@ -118,12 +118,13 @@ export default function ListadoAsistencias() {
       );
     }
     return (
+
       <RevolvingDot
         visible={true}
         height="200"
         width="200"
         ariaLabel="dna-loading"
-        wrapperStyle={{ margin: "100px 200px" }}
+        wrapperStyle={{ margin: "20px 44% " }}
         wrapperClass="dna-wrapper"
         color="#e10b1c"
       ></RevolvingDot>
@@ -146,6 +147,9 @@ export default function ListadoAsistencias() {
   return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
+      <br></br>
+      <br></br>
+      <Container id="fondoTabla">
       <div id="containerTablas">
         <h1 id="TitlesPages">Listado de asistencias</h1>
         <div id="FiltrosAsistencias">
@@ -168,6 +172,7 @@ export default function ListadoAsistencias() {
         </div>
         <MainTable></MainTable>
       </div>
+      </Container>
     </>
   ) : (
     <>

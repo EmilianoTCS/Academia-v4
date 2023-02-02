@@ -83,10 +83,10 @@ export default function TopAlerts(props) {
       return MySwal.fire({
         title: "¡Ups!",
         html: `
-        <p>Esta funcionalidad aún no se encuentra disponible. </p>
-        <p>Pronto será habilitada. </p>
+        <p>No cumples con los requisitos para inscribirte en este curso </p>
+        <p>O el curso seleccionado ya finalizó. </p>
         `,
-        icon: "info",
+        icon: "error",
         showConfirmButton: true,
         confirmButtonText: '<i class="fa fa-thumbs-up"></i> Ok!',
       });
@@ -97,11 +97,19 @@ export default function TopAlerts(props) {
         icon: "error",
         showConfirmButton: false,
       });
+    case "errorFechas":
+      return MySwal.fire({
+        title: "Se ha producido un error.",
+        text: "Introduce una fecha válida superior a la de hoy.",
+        icon: "error",
+        timer: 3000,
+        showConfirmButton: false,
+      });
     case "Error":
       return MySwal.fire({
         title: "Se ha producido un error.",
         icon: "error",
-        position: "top-right",
+        position: "top-right",  
         timer: 2500,
         toast: true,
         showConfirmButton: false,

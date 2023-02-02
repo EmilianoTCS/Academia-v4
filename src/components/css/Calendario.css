@@ -2,3 +2,9 @@
     color: black;
     font-weight: 600;
 }
+
+#fondoCalendario{
+    margin: 10px;
+    background-color: white;
+
+}

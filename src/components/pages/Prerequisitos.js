@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, Form, Table } from "react-bootstrap";
+import { Container, Card, Form, Table } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 
 import Header from "../templates/Header";
@@ -154,6 +154,9 @@ export default function Prerequisitos() {
   return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
+      <br></br>
+      <br></br>
+      <Container id="fondoTabla">
       <div id="containerTablas">
         <h1 id="TitlesPages">Administración de prerrequisitos</h1>
 
@@ -193,6 +196,7 @@ export default function Prerequisitos() {
           <MainTable></MainTable>
         </Card>
       </div>
+      </Container>
     </>
   ) : (
     <Navigate to="/login"></Navigate>

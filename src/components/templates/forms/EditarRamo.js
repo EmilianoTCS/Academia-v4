@@ -44,7 +44,6 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
       setRelator(response[0].nombre);
     });
   }
- 
 
   function SendData(e) {
     // e.preventDefault();
@@ -131,16 +130,24 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
                 required
               />
             </div>
-            <div>
-              <label htmlFor="input_Relator">Relator: </label>
-              <Select
-                placeholder="Elige el relator del ramo"
-                name="relator"
-                options={optionsRelatores}
-                onChange={({ value }) => setRelator(value)}
-                required={true}
-  
-              />
+            <div className="form-group">
+              <label htmlFor="input_tipoCliente">Relator:</label>
+              <select
+                required
+                className="form-control"
+                onChange={({ target }) => setRelator(target.value)}
+                defaultChecked={nombreRelator}
+              >
+                {listRelatores.map((valor) => (
+                  <option
+                    selected={valor.nombre === nombreRelator ? "selected" : ""}
+                    value={valor.ID}
+                  >
+                    {valor.nombre}
+                  </option>
+                ))}
+
+              </select>
             </div>
 
             <Button

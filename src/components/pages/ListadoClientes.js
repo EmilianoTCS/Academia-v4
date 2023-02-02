@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Table } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import Header from "../templates/Header";
-import { BsPencilSquare, BsTrash } from "react-icons/bs";
-import { BiShowAlt } from "react-icons/bi";
+import { BsFillTrashFill } from "react-icons/bs";
+import { RiEditBoxFill } from "react-icons/ri";
+import { HiEye } from "react-icons/hi";
 import "../css/TablasStyles.css";
 import InsertarClientes from "../templates/forms/InsertarClientes";
 import EditarClientes from "../templates/forms/EditarCliente";
@@ -27,8 +28,6 @@ export default function ListadoClientes() {
   const [IDCliente, setIDCliente] = useState(null);
   const [num_boton, setNumBoton] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
-
-  
 
   function insertarCliente() {
     setIsActiveInsertCliente(!isActiveInsertCliente);
@@ -78,76 +77,80 @@ export default function ListadoClientes() {
   return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
-      <div id="containerTablas">
-        <h1 id="TitlesPages">Listado de clientes</h1>
+      <br></br>
+      <br></br>
+      <Container id="fondoTabla">
+        <div id="containerTablas">
+          <h1 id="TitlesPages">Listado de clientes</h1>
 
-        <Button id="btn" onClick={insertarCliente}>
-          Insertar Cliente
-        </Button>
+          <Button id="btn" onClick={insertarCliente}>
+            Insertar Cliente
+          </Button>
 
-        <InsertarClientes
-          isActiveCliente={isActiveInsertCliente}
-          cambiarEstado={setIsActiveInsertCliente}
-        ></InsertarClientes>
+          <InsertarClientes
+            isActiveCliente={isActiveInsertCliente}
+            cambiarEstado={setIsActiveInsertCliente}
+          ></InsertarClientes>
 
-        <EditarClientes
-          isActiveEditCliente={isActiveEditCliente}
-          cambiarEstado={setIsActiveEditCliente}
-          IDCliente={IDCliente}
-        ></EditarClientes>
+          <EditarClientes
+            isActiveEditCliente={isActiveEditCliente}
+            cambiarEstado={setIsActiveEditCliente}
+            IDCliente={IDCliente}
+          ></EditarClientes>
 
-        <Table id="mainTable" hover responsive>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Tipo de cliente</th>
-              <th>Nombre del cliente</th>
-              <th>Referente</th>
-              <th>Córreo referente</th>
-              <th>Cargo referente</th>
-              <th>Teléfono</th>
-              <th>Operaciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {cliente.map((cliente) => (
-              <tr key={cliente.ID}>
-                <td>{cliente.ID}</td>
-                <td>{cliente.tipo_cliente}</td>
-                <td>{cliente.nombreCliente}</td>
-                <td>{cliente.referente}</td>
-                <td>{cliente.correoReferente}</td>
-                <td>{cliente.cargoReferente}</td>
-                <td>{cliente.telefonoReferente}</td>
-                <td>
-                  <button
-                    title="Editar cliente"
-                    id="OperationBtns"
-                    onClick={() => editarCliente(cliente.ID)}
-                  >
-                    <BsPencilSquare />
-                  </button>
-                  <button title="Examinar curso" id="OperationBtns">
-                    <BiShowAlt />
-                  </button>
-                  <button
-                    title="Eliminar curso"
-                    onClick={() => eliminar(cliente.ID)}
-                    id="OperationBtns"
-                  >
-                    <BsTrash />
-                  </button>
-                </td>
+          <Table id="mainTable" hover responsive>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Tipo de cliente</th>
+                <th>Nombre del cliente</th>
+                <th>Referente</th>
+                <th>Córreo referente</th>
+                <th>Cargo referente</th>
+                <th>Teléfono</th>
+                <th>Operaciones</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-        <Paginador
-          paginas={paginador}
-          cambiarNumero={setNumBoton}
-          num_boton={num_boton}
-        ></Paginador>
-      </div>
+            </thead>
+            <tbody>
+              {cliente.map((cliente) => (
+                <tr key={cliente.ID}>
+                  <td>{cliente.ID}</td>
+                  <td>{cliente.tipo_cliente}</td>
+                  <td>{cliente.nombreCliente}</td>
+                  <td>{cliente.referente}</td>
+                  <td>{cliente.correoReferente}</td>
+                  <td>{cliente.cargoReferente}</td>
+                  <td>{cliente.telefonoReferente}</td>
+                  <td>
+                    <button
+                      title="Editar cliente"
+                      id="OperationBtns"
+                      onClick={() => editarCliente(cliente.ID)}
+                    >
+                      <RiEditBoxFill id="icons" />
+                    </button>
+                    <button title="Examinar curso" id="OperationBtns">
+                      <HiEye id="icons" />
+                    </button>
+                    <button
+                      title="Eliminar curso"
+                      onClick={() => eliminar(cliente.ID)}
+                      id="OperationBtns"
+                    >
+                      <BsFillTrashFill id="icons" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          <Paginador
+            paginas={paginador}
+            cambiarNumero={setNumBoton}
+            num_boton={num_boton}
+          ></Paginador>
+        </div>
+      </Container>
     </>
   ) : (
     <Navigate to="/login"></Navigate>

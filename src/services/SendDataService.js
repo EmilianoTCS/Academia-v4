@@ -4,6 +4,7 @@ export default function SendDataService(url, operationUrl, data) {
   return fetch(baseURL, {
     method: "post",
     body: JSON.stringify(data),
+
   })
     .then((res) => res.json())
     .then((response) => {

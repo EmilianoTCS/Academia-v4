@@ -43,10 +43,9 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
       descripcion: descripcion,
       duracion: duracion,
     };
-    console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
-      TopAlerts(response);
       console.log(response);
+      TopAlerts(response[0]);
     });
   }
 

@@ -3,9 +3,20 @@
   align-self: center;
   justify-content: center;
   border-radius: 50%;
-  width: 80px;
-  margin-left: 13px;
-  
+  width: 60px;
+  margin-left: 68px;
+}
+
+#icons{
+  font-size: 22px;
+  margin-right: 13px;
+  margin-bottom: 9px;
+}
+
+#iconSidebar{
+  font-size: 22px;
+  margin-bottom: 2.5px;
+
 }
 
 #textLeft{
@@ -13,15 +24,16 @@
 }
 
 #textLeftSelect{
-  margin-left: -30px;
+  margin-left: -10px;
+  font-size: 14px;
 }
 
 ul h4 {
-  font-size: 14pt;
+  font-size: 16pt;
   color: #000;
   font-family: "Roboto Slab", serif;
   text-align: left;
-  margin-left: 10px;
+  margin-left: 52px;
   padding-top: 10;
   justify-content: left;
 }
@@ -30,6 +42,8 @@ ul {
   margin: 0;
   padding: 0;
 }
+
+
 
 ul li{
   color: #000(230, 230, 230);
@@ -56,7 +70,7 @@ ul li ul li:hover a {
 #logout {
   font-family: "Roboto Slab", serif;
   position: relative;
-  margin-left: 16px;
+  margin-left: 62px;
   top: 10px;
   font-size: 13pt;
   background-color: #e10b1c;
@@ -108,35 +122,34 @@ ul li ul li:hover a {
 
 /*Scroll*/
 
-#sidebar::-webkit-scrollbar {
-  -webkit-appearance: none;
+#containerElement::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: rgb(37, 1, 1);
   
 }
 
-#sidebar::-webkit-scrollbar:vertical {
+#containerElement::-webkit-scrollbar:vertical {
   width:10px;
 }
 
-#sidebar::-webkit-scrollbar-button:increment,.card-body::-webkit-scrollbar-button {
-  display: none;
-} 
 
-#sidebar::-webkit-scrollbar:horizontal {
-  height: 10px;
-}
-
-#sidebar::-webkit-scrollbar-thumb {
-  background-color: #797979;
+#containerElement::-webkit-scrollbar-thumb {
+  background-color: #6d6767;
   border-radius: 20px;
 }
 
-#sidebar::-webkit-scrollbar-track {
+#containerElement::-webkit-scrollbar-track {
   border-radius: 10px;  
 }
+#containerElement::-webkit-scrollbar-thumb:active {
+  background-color: #afa4a4;  }
+
 
 #containerElement{
-  width: 200px;
+  width: 280px;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 /*Boton abrir sidebar*/
