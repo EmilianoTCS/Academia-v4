@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useRoute, Redirect } from "wouter";
 import Header from "../../templates/Header";
-import { Table } from "react-bootstrap";
+import { Table, Container } from "react-bootstrap";
 import SendDataService from "../../../services/SendDataService";
 import { AuthContext } from "../../../context/AuthContext";
 
@@ -11,7 +11,7 @@ export default function Curso() {
   const { isLogged } = useContext(AuthContext);
 
   function obtenerDatos() {
-    var url = "TASKS/coe-list_infoidCurso.php";
+    var url = "TASKS/Examinar/coe-list_infoidCurso.php";
     var operationUrl = "codigoCurso";
     var data = { codigoCurso: params.params };
     SendDataService(url, operationUrl, data).then((response) =>
@@ -28,7 +28,9 @@ export default function Curso() {
   return isLogged ? (
     <>
       <Header></Header>
-      <div>
+      <br></br>
+      <br></br>
+      <Container id="fondoTabla">
         <div id="containerTablas">
           <h1 id="TitlesPages">Información por curso</h1>
         </div>
@@ -57,7 +59,7 @@ export default function Curso() {
             ))}
           </tbody>
         </Table>
-      </div>
+        </Container>     
     </>
   ) : (
     <Redirect to="/login"></Redirect>
