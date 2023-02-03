@@ -121,13 +121,29 @@ export default function SideBar(props) {
                       Formulario Referentes
                     </Link>
                   </li>
-                  <li id="textLeftSelect">
+                  <li
+                    id="textLeftSelect"
+                    className={
+                      userData.tipoUsuario === "administrador" ||
+                      userData.tipoUsuario === "capital_humano"
+                        ? ""
+                        : "private"
+                    }
+                  >
                     <Link to="/EDD/ListadoAnalistas">
                       <GiStarFormation id="icons" />
                       Listado Analistas/Automatizadores
                     </Link>
                   </li>
-                  <li id="textLeftSelect">
+                  <li
+                    id="textLeftSelect"
+                    className={
+                      userData.tipoUsuario === "administrador" ||
+                      userData.tipoUsuario === "capital_humano"
+                        ? ""
+                        : "private"
+                    }
+                  >
                     <Link to="/EDD/ListadoReferentes">
                       <GiStarFormation id="icons" />
                       Listado Referentes
@@ -225,7 +241,16 @@ export default function SideBar(props) {
                   </li>
                 </ul>
               </li>
-              <li id="li_Colaboradores" onClick={handleChangeColaboradores}>
+              <li
+                id="li_Colaboradores"
+                onClick={handleChangeColaboradores}
+                className={
+                  userData.tipoUsuario === "administrador" ||
+                  userData.tipoUsuario === "capital_humano"
+                    ? "private"
+                    : ""
+                }
+              >
                 <MdSwitchAccount id="icons" />
                 MI PERFIL
                 <ul

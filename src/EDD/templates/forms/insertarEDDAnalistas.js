@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import SendDataService from "../../../services/SendDataService";
-
 import getDataService from "../../../services/GetDataService";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -73,7 +72,7 @@ const InsertarEDDAnalistas = ({
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Insertar evaluación de analista</Modal.Title>
+          <Modal.Title>Insertar evaluación de analistas</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>

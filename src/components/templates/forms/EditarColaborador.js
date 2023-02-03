@@ -24,7 +24,12 @@ const EditarColaborador = ({
 
   const handleClose = () => {
     cambiarEstado(false);
-
+    setIDCuenta(responseID[0].idCuenta);
+    setNombreCompleto(responseID[0].nombre_completo);
+    setUsuario(responseID[0].usuario);
+    setArea(responseID[0].area);
+    setSubgerencia(responseID[0].subgerencia);
+    setCorreo(responseID[0].correo);
   };
   // ----------------------FUNCIONES----------------------------
 
@@ -43,7 +48,6 @@ const EditarColaborador = ({
     });
   }
 
-
   function SendData(e) {
     // e.preventDefault();
     const url = "TASKS/coe-editColaborador.php";
@@ -59,8 +63,8 @@ const EditarColaborador = ({
       correo: correo === "" ? responseID[0].correo : correo,
     };
 
-    SendDataService(url, operationUrl, data).then(
-      (response) => TopAlerts(response),
+    SendDataService(url, operationUrl, data).then((response) =>
+      TopAlerts(response)
     );
   }
   function obtenerCuentas() {

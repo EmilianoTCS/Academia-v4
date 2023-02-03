@@ -4,7 +4,6 @@ import TopAlerts from "../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import getDataService from "../../../services/GetDataService";
-import Select from "react-select";
 
 const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
   const [relator, setRelator] = useState("");
@@ -16,6 +15,8 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
 
   const handleClose = () => {
     cambiarEstado(false);
+    setRelator(responseID[0].nombre);
+    setArea(responseID[0].area);
   };
 
   function getData() {
@@ -29,7 +30,6 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
     });
   }
 
-
   function SendData(e) {
     // e.preventDefault();
     const url = "TASKS/coe-editRelatores.php";
@@ -39,8 +39,8 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
       nombre: relator === "" ? responseID[0].nombre : relator,
       idArea: area === "" ? responseID[0].idArea : area,
     };
-    SendDataService(url, operationUrl, data).then(
-      (response) => TopAlerts(response),
+    SendDataService(url, operationUrl, data).then((response) =>
+      TopAlerts(response)
     );
   }
   function obtenerAreas() {
@@ -88,16 +88,25 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
                 required
               />
             </div>
+
             <div>
-              <label htmlFor="input_area">Área:</label>
-              <Select
-                placeholder="Elige el área"
-                name="cuenta"
-                options={optionsAreas}
-                onChange={({ value }) => setArea(value)}
+              <label htmlFor="input_fechaInicio">Área: </label>
+              <select
                 required
-              />
+                className="form-control"
+                onChange={({ target }) => setArea(target.value)}
+              >
+                {listArea.map((valor) => (
+                  <option
+                    value={valor.ID}
+                    selected={valor.nombreArea === area ? "selected" : ""}
+                  >
+                    {valor.nombreArea}
+                  </option>
+                ))}
+              </select>
             </div>
+
             <Button
               variant="secondary"
               type="submit"
