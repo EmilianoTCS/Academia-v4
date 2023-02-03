@@ -8,3 +8,125 @@
     background-color: white;
 
 }
+
+.fc-day-today {
+    background-color: #8c6b6b !important;
+}
+
+.fc{
+    background-color: rgba(23, 23, 23, 0.866) !important;
+    border-radius: 20px;
+}
+
+
+.fc .fc-col-header-cell-cushion {
+    display: inline-block;
+    padding: 2px 4px;
+    color: rgb(255, 255, 255) !important;
+    padding: -100px;
+
+}
+
+.fc .fc-daygrid-day-number {
+    position: relative;
+    z-index: 4;
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 9px;
+    color: rgb(255, 255, 255) !important;
+
+}
+
+.fc-direction-ltr .fc-daygrid-event .fc-event-time {
+    margin-right: 3px;
+    color: rgb(0, 0, 0) !important;
+
+}
+.fc-daygrid-dot-event .fc-event-title {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+    overflow: hidden;
+    font-weight: bold;
+    color: rgb(255, 255, 255) !important;
+}
+
+.fc-direction-ltr .fc-button-group > .fc-button:not(:last-child) {
+    color: rgb(255, 255, 255) !important;
+
+}
+.fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
+    margin-left: -1px;
+    color: rgb(255, 255, 255) !important;
+
+}
+.fc .fc-button-primary:disabled {
+    color: rgb(255, 255, 255) !important;
+    color: var(--fc-button-text-color, rgb(0, 0, 0));
+}
+
+.fc-daygrid-block-event .fc-event-time, .fc-daygrid-block-event .fc-event-title {
+    padding: 1px;
+    color: rgb(0, 0, 0) !important;
+
+}
+
+.fc-button-group{
+    margin-top: 10px;
+    padding-left: 1em;
+    
+}
+
+.fc-toolbar-chunk{
+    margin-top: 10px;
+    padding-right: 1em;
+    
+}
+
+.fc-today-button{
+    margin-top: 10px !important;
+    
+}
+
+.fc-daygrid ,.fc-dayGridMonth-view ,.fc-view{
+    padding: 0px 30px 30px 30px;
+}
+
+.fc-dayGridMonth-button ,.fc-button ,.fc-button-primary ,.fc-button-active{
+    background-color: rgb(171, 165, 165) !important;
+    color: black !important;
+    border-radius: 10px !important;
+}
+
+.fc-dayGridMonth-button,.fc-button ,.fc-button-primary ,.fc-button-active:hover{
+    background-color: #ffffff;
+    border-bottom-style: none !important;
+    
+}
+
+.fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
+    margin-left: -1px;
+    color: rgb(0 0 0) !important;
+    border-radius: 10px !important;
+}
+
+.fc-direction-ltr .fc-button-group > .fc-button:not(:last-child) {
+    color: rgb(0 0 0) !important;
+    border-radius: 10px !important;
+}
+
+.fc .fc-button-primary:disabled {
+    color: rgb(0 0 0) !important;
+    border-radius: 10px !important;
+}
+
+.fc .fc-button-primary {
+    color: #fff;
+    color: var(--fc-button-text-color, #fff);
+    background-color: #ffffff;
+    background-color: var(--fc-button-bg-color, #ffffff);
+    border: none !important;
+    border-color: var(--fc-button-border-color, #ffe8e8);
+
+}
