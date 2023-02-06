@@ -129,7 +129,15 @@ export default function SideBar(props) {
                       </button>
                     </Link>
                   </li>
-                  <li id="textLeftSelect">
+                  <li
+                    id="textLeftSelect"
+                    className={
+                      userData.tipoUsuario === "administrador" ||
+                      userData.tipoUsuario === "capital_humano"
+                        ? ""
+                        : "private"
+                    }
+                  >
                     <Link to="/EDD/ListadoAnalistas">
                       <button id="submenuSidebar">
                         <GiStarFormation id="icons" />
@@ -137,7 +145,15 @@ export default function SideBar(props) {
                       </button>
                     </Link>
                   </li>
-                  <li id="textLeftSelect">
+                  <li
+                    id="textLeftSelect"
+                    className={
+                      userData.tipoUsuario === "administrador" ||
+                      userData.tipoUsuario === "capital_humano"
+                        ? ""
+                        : "private"
+                    }
+                  >
                     <Link to="/EDD/ListadoReferentes">
                       <button id="submenuSidebar">
                         <GiStarFormation id="icons" />

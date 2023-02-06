@@ -123,7 +123,12 @@ const EditarEDDAnalistas = ({
                 onChange={({ target }) => setNombreEquipo(target.value)}
               >
                 {listEquipos.map((valor) => (
-                  <option value={valor.nombreEquipo}>
+                  <option
+                    value={valor.nombreEquipo}
+                    selected={
+                      valor.nombreEquipo === nombreEquipo ? "selected" : ""
+                    }
+                  >
                     {valor.nombreEquipo}
                   </option>
                 ))}

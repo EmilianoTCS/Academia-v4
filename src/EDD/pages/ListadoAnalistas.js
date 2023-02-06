@@ -13,6 +13,7 @@ import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
 import { HiEye } from "react-icons/hi";
 import EditarEDDAnalistas from "../templates/forms/editarEDDAnalistas";
+import ConfirmAlert from "../../components/templates/alerts/ConfirmAlert";
 
 export default function ListadoAnalistas() {
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
@@ -43,6 +44,19 @@ export default function ListadoAnalistas() {
     SendDataService(url, operationUrl, data).then((response) =>
       setListAnalistas(response)
     );
+  }
+
+  function eliminar(ID) {
+    ConfirmAlert().then((response) => {
+      if (response === true) {
+        var url = "EDD/administracion/actualizarEstadoEvaluacionAnalistas.php";
+        var operationUrl = "actualizarEvaluacion";
+        var data = { ID: ID };
+        SendDataService(url, operationUrl, data).then((response) =>
+          TopAlerts(response)
+        );
+      }
+    });
   }
 
   function editarEvaluacion(ID) {

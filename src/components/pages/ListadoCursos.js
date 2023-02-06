@@ -17,8 +17,6 @@ import TopAlerts from "../templates/alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Paginador from "../templates/Paginador";
 
-
-
 export default function ListadoCursos() {
   const [cursos, setCursos] = useState([""]);
   const [paginador, setPaginadorCursos] = useState([]);
@@ -55,9 +53,10 @@ export default function ListadoCursos() {
         var url = "TASKS/coe-updateState.php";
         var operationUrl = "updateStateCursos";
         var data = { ID: ID };
-        SendDataService(url, operationUrl, data).then((response) =>
-          TopAlerts(response)
-        );
+        SendDataService(url, operationUrl, data).then((response) => {
+          const { successEdited } = response[0];
+          TopAlerts(successEdited);
+        });
       }
     });
   }
