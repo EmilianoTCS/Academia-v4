@@ -1,3 +1,41 @@
+#buttonSidebar {
+  color: black;
+  font-weight: 600;
+  width: 150%;
+  border: none;
+  background-color: white;
+  text-decoration: none;
+  text-align: left;
+  padding-left: 60px;
+  height: 50px;
+  transition: background-color 116ms ease-out, color 300ms ease-out,
+    box-shadow 300ms ease-out;
+}
+#buttonSidebar:hover {
+  color: #ffffff;
+  background-color: #e10b1c;
+  box-shadow: 0px 2px 20px 0px rgba(54, 52, 52, 0.81);}
+
+#submenuSidebar {
+  color: black;
+  font-weight: 600;
+  width: 180%;
+  border: none;
+  background-color: white;
+  text-decoration: none;
+  text-align: left;
+  padding-left: 60px;
+  height: 45px;
+  transition: background-color 116ms ease-out, color 300ms ease-out,
+  box-shadow 300ms ease-out;
+
+}
+
+#submenuSidebar:hover {
+  color: #ffffff;
+  background-color: #e10b1c;
+  box-shadow: 0px 2px 20px 0px rgba(54, 52, 52, 0.81);}
+
 #User_logo {
   display: flex;
   align-self: center;
@@ -7,25 +45,26 @@
   margin-left: 68px;
 }
 
-#icons{
+#icons {
   font-size: 22px;
   margin-right: 13px;
-  margin-bottom: 9px;
+  margin-bottom: 100px;
 }
 
-#iconSidebar{
+#iconSidebar {
   font-size: 22px;
   margin-bottom: 2.5px;
-
 }
 
-#textLeft{
-  margin-left: -30px;
+#textLeft {
+  margin-left: -80px;
+  font-size: 16px;
 }
 
-#textLeftSelect{
-  margin-left: -10px;
-  font-size: 14px;
+#textLeftSelect {
+  margin-left: -20px;
+  font-size: 15px;
+  margin-top: -13px;
 }
 
 ul h4 {
@@ -43,12 +82,10 @@ ul {
   padding: 0;
 }
 
-
-
-ul li{
+ul li {
   color: #000(230, 230, 230);
   list-style: none;
-  padding: 15px 10px;
+  padding: 8px 7px;
   text-align: left;
   font-family: "Roboto Slab", serif;
 }
@@ -85,26 +122,28 @@ ul li ul li:hover a {
   color: #e10b1c;
   font-weight: 700;
   background-color: #fff;
-
 }
 
-#li_calendario,#li_home{
+#li_calendario,
+#li_home {
   color: black;
   font-weight: 700;
 }
 
-#li_Academia, #li_Colaboradores, #li_Asistencias {
+#li_Academia,
+#li_Colaboradores,
+#li_Asistencias {
   cursor: pointer;
   font-weight: 700;
 }
-#li_Academia.private{
-  display: none;
-}
-#li_Asistencias.private{
+
+.private {
   display: none;
 }
 
-#COE_Academia, #Colaboradores, #Asistencias {
+#COE_Academia,
+#Colaboradores,
+#Asistencias {
   display: none;
 }
 #Asistencias.active {
@@ -126,13 +165,11 @@ ul li ul li:hover a {
   width: 10px;
   height: 10px;
   background-color: rgb(37, 1, 1);
-  
 }
 
 #containerElement::-webkit-scrollbar:vertical {
-  width:10px;
+  width: 10px;
 }
-
 
 #containerElement::-webkit-scrollbar-thumb {
   background-color: #6d6767;
@@ -140,53 +177,51 @@ ul li ul li:hover a {
 }
 
 #containerElement::-webkit-scrollbar-track {
-  border-radius: 10px;  
+  border-radius: 10px;
 }
 #containerElement::-webkit-scrollbar-thumb:active {
-  background-color: #afa4a4;  }
+  background-color: #afa4a4;
+}
 
-
-#containerElement{
+#containerElement {
   width: 280px;
   overflow-y: scroll;
   overflow-x: hidden;
+  border-radius: 10px 0 0 10px;
 }
 
 /*Boton abrir sidebar*/
-.buttonStyleOpen{
-position: absolute;
-right: 0;
-top:0;   
-border: none;
-background: #e10b1c;
-color: white;
-border-radius: 5px;
-margin: 5px;
-padding: 7px;
-border: solid #e10b1c 1px;
-
+.buttonStyleOpen {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: none;
+  background: #e10b1c;
+  color: white;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 7px;
+  border: solid #e10b1c 1px;
 }
 
-.buttonStyleOpen:hover{
-color: #e10b1c;
-background-color: white;
+.buttonStyleOpen:hover {
+  color: #e10b1c;
+  background-color: white;
 }
 
 /*Boton cerrar sidebar*/
 
-.buttonStyleClose{
-border: none;
-background: #e10b1c;
-color: white;
-border-radius: 5px;
-margin: 1px;
-padding: 7px;
-border: solid #e10b1c 1px;
+.buttonStyleClose {
+  border: none;
+  background: #e10b1c;
+  color: white;
+  border-radius: 5px;
+  margin: 1px;
+  padding: 7px;
+  border: solid #e10b1c 1px;
 }
 
-.buttonStyleClose:hover{
-color: #e10b1c;
-background-color: #fff;
+.buttonStyleClose:hover {
+  color: #e10b1c;
+  background-color: #fff;
 }
-
-

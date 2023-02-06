@@ -25,7 +25,6 @@
 #subCardsContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 200px));
-
   justify-content: center;
   gap: 10px;
   margin: 1%;

@@ -5,7 +5,6 @@ import TopAlerts from "../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import getDataService from "../../../services/GetDataService";
-import Select from "react-select";
 
 const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
   // ----------------------CONSTANTES----------------------------
@@ -23,6 +22,10 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
 
   const handleClose = () => {
     cambiarEstado(false);
+    setCodigoRamo(responseID[0].codigoRamo);
+    setNombreRamo(responseID[0].nombreRamo);
+    set_hh_academicas(responseID[0].hh_academicas);
+    setRelator(responseID[0].nombre);
   };
 
   // ----------------------FUNCIONES----------------------------

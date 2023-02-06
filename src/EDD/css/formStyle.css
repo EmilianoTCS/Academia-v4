@@ -12,14 +12,14 @@ p{
 #containerStyle{
     width: 60%;
     font-size: 20px;
-
+    
 }
 
 #textStyle{
     color: #fff;
     background-color: #272727;
     padding: 1em;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
 }
 
 #formStyle{
@@ -30,6 +30,7 @@ p{
 #pruebaFondo{
     background-color: #fff;
     padding: 2em;
+    border-radius: 0 0 10px 10px;
 }
 
 #widhtStyle{

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
 import TopAlerts from "../alerts/TopAlerts";
-import Select from "react-select";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
@@ -48,11 +47,6 @@ const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
 
   // ----------------------MAPEADOS----------------------------
 
-  const optionsCuentas = listCuentas.map((label) => ({
-    label: label.codigoCuenta,
-    value: label.ID,
-  }));
-
   return (
     <>
       <Modal
@@ -66,16 +60,19 @@ const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
-            <div>
-              <label htmlFor="input_fechaInicio">Cuenta: </label>
-              <Select
-                placeholder="Elige una cuenta"
-                name="cuenta"
-                options={optionsCuentas}
-                onChange={({ value }) => setidCuenta(value)}
+            <div className="form-group">
+              <label htmlFor="input_tipoCliente">Cuenta:</label>
+              <select
                 required
-              />
+                className="form-control"
+                onChange={({ target }) => setidCuenta(target.value)}
+              >
+                {listCuentas.map((valor) => (
+                  <option value={valor.ID}>{valor.codigoCuenta}</option>
+                ))}
+              </select>
             </div>
+
             <div>
               <label htmlFor="input_nombreCompleto">Nombre completo:</label>
               <input

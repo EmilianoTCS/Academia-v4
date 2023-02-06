@@ -14,6 +14,7 @@ import AdminRamos from "./Tabs/AdminRamos";
 import AdminRelatores from "./Tabs/AdminRelatores";
 import AdminColaborador from "./Tabs/AdminColaboradores";
 import AdminCliente from "./Tabs/AdminClientes";
+import AdminEDDAnalistas from "./Tabs/AdminEDDAnalistas";
 
 export default function Administrador() {
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
@@ -26,7 +27,7 @@ export default function Administrador() {
 
   function TabPanel(props) {
     const { children, value, index } = props;
-  
+
     return (
       <div
         role="tabpanel"
@@ -42,13 +43,13 @@ export default function Administrador() {
       </div>
     );
   }
-  
+
   TabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.number.isRequired,
     value: PropTypes.number.isRequired,
   };
-  
+
   function a11yProps(index) {
     return {
       id: `simple-tab-${index}`,
@@ -58,71 +59,86 @@ export default function Administrador() {
 
   // ------------------------------------------------------------------
 
-
   return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
       <br></br>
       <br></br>
       <Container id="fondoTabla">
-      <div id="containerTablas">
-        <h1 id="TitlesPages" >Administración de registros</h1>
+        <div id="containerTablas">
+          <h1 id="TitlesPages">Administración de registros</h1>
 
-      <Box className="boxTabs">
-          <Box sx={{ borderBottom: 0, borderColor: "divider" }}>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="basic tabs example"
-              TabIndicatorProps={{ style: { background: "#e10b1c" } }}
-              style={{ color: "#e10b1c", width: "100%", fontSize: "20pt" }}
-              variant="scrollable"
-              scrollButtons="auto"
-            >
-              <Tab
-                style={{ color: "#e10b1c", fontSize: "15pt" }}
-                label="Cursos"
-                {...a11yProps(0)}
-              />
-              <Tab
-                style={{ color: "#e10b1c", fontSize: "15pt" }}
-                label="Ramos"
-                {...a11yProps(1)}
-              />
-              <Tab
-                style={{ color: "#e10b1c", fontSize: "15pt" }}
-                label="Relatores"
-                {...a11yProps(2)}
-              />
-              <Tab
-                style={{ color: "#e10b1c", fontSize: "15pt" }}
-                label="Colaborador"
-                {...a11yProps(3)}
-              />
-              <Tab
-                style={{ color: "#e10b1c", fontSize: "15pt" }}
-                label="Cliente"
-                {...a11yProps(4)}
-              />
-            </Tabs>
+          <Box className="boxTabs">
+            <Box sx={{ borderBottom: 0, borderColor: "divider" }}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                aria-label="basic tabs example"
+                TabIndicatorProps={{ style: { background: "#e10b1c" } }}
+                style={{ color: "#e10b1c", width: "100%", fontSize: "20pt" }}
+                variant="scrollable"
+                scrollButtons="auto"
+              >
+                <Tab
+                  style={{ color: "#e10b1c", fontSize: "15pt" }}
+                  label="Cursos"
+                  {...a11yProps(0)}
+                />
+                <Tab
+                  style={{ color: "#e10b1c", fontSize: "15pt" }}
+                  label="Ramos"
+                  {...a11yProps(1)}
+                />
+                <Tab
+                  style={{ color: "#e10b1c", fontSize: "15pt" }}
+                  label="Relatores"
+                  {...a11yProps(2)}
+                />
+                <Tab
+                  style={{ color: "#e10b1c", fontSize: "15pt" }}
+                  label="Colaboradores"
+                  {...a11yProps(3)}
+                />
+                <Tab
+                  style={{ color: "#e10b1c", fontSize: "15pt" }}
+                  label="Clientes"
+                  {...a11yProps(4)}
+                />
+                <Tab
+                  style={{ color: "#e10b1c", fontSize: "15pt" }}
+                  label="EDD. Analistas"
+                  {...a11yProps(5)}
+                />
+                <Tab
+                  style={{ color: "#e10b1c", fontSize: "15pt" }}
+                  label="EDD. Referentes"
+                  {...a11yProps(6)}
+                />
+              </Tabs>
+            </Box>
+            <TabPanel value={value} index={0}>
+              <AdminCursos></AdminCursos>
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              <AdminRamos></AdminRamos>
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              <AdminRelatores></AdminRelatores>
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+              <AdminColaborador></AdminColaborador>
+            </TabPanel>
+            <TabPanel value={value} index={4}>
+              <AdminCliente></AdminCliente>
+            </TabPanel>
+            <TabPanel value={value} index={5}>
+              <AdminEDDAnalistas></AdminEDDAnalistas>
+            </TabPanel>
+            <TabPanel value={value} index={6}>
+              <p>EDD. Referentes</p>
+            </TabPanel>
           </Box>
-          <TabPanel value={value} index={0}>
-            <AdminCursos></AdminCursos>
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            <AdminRamos></AdminRamos>
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            <AdminRelatores></AdminRelatores>
-          </TabPanel>
-          <TabPanel value={value} index={3}>
-            <AdminColaborador></AdminColaborador>
-          </TabPanel>
-          <TabPanel value={value} index={4}>
-            <AdminCliente></AdminCliente>
-          </TabPanel>
-        </Box>
-      </div>
+        </div>
       </Container>
     </>
   ) : (

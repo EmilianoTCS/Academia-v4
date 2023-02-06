@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Select from "react-select";
 import "../../css/InsertarCursoCalendario.css";
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
@@ -23,7 +22,12 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
 
   const handleClose = () => {
     cambiarEstado(false);
-
+    setCodigoCuenta(responseID[0].codigoCuentaEdit);
+    setCodigoRamo(responseID[0].codigoRamoEdit);
+    setFechaInicio(responseID[0].fechaInicioEdit);
+    setFechaFin(responseID[0].fechaFinEdit);
+    setHoraInicio(responseID[0].horaInicioEdit);
+    setHoraFin(responseID[0].horaFinEdit);
   };
 
   // ----------------------FUNCIONES----------------------------
@@ -34,7 +38,6 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
     const data = { ID: IDCurso };
     SendDataService(url, operationUrl, data).then((response) => {
       setResponseID(response);
-      console.log(response[0]);
       setCodigoCuenta(response[0].codigoCuentaEdit);
       setCodigoRamo(response[0].codigoRamoEdit);
       setFechaInicio(response[0].fechaInicioEdit);
@@ -47,7 +50,6 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
     const url = "TASKS/auxiliar/ListadoCuentas.php?listadoCuentas";
     getDataService(url).then((cuentas) => setListCuentas(cuentas));
   }
-
 
   function obtenerRamos() {
     const url = "TASKS/auxiliar/ListadoNombreRamos.php?listadoRamos";
@@ -114,24 +116,42 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
           <form onSubmit={SendData}>
             <div>
               <label htmlFor="input_fechaInicio">Cuenta: </label>
-              <Select
-                placeholder="Elige una cuenta"
-                name="cuenta"
-                options={optionsCuentas}
-                onChange={({ value }) => setCodigoCuenta(value)}
+              <select
                 required
-              />
+                className="form-control"
+                onChange={({ target }) => setCodigoCuenta(target.value)}
+              >
+                {listCuentas.map((valor) => (
+                  <option
+                    value={valor.ID}
+                    selected={
+                      valor.codigoCuenta === codigoCuenta ? "selected" : ""
+                    }
+                  >
+                    {valor.codigoCuenta}
+                  </option>
+                ))}
+              </select>
             </div>
+
             <div>
               <label htmlFor="input_fechaInicio">Ramo: </label>
-              <Select
-                placeholder="Elige un ramo"
-                name="codigoRamo"
-                options={optionsRamos}
-                onChange={({ value }) => setCodigoRamo(value)}
+              <select
                 required
-              />
+                className="form-control"
+                onChange={({ target }) => setCodigoRamo(target.value)}
+              >
+                {listRamos.map((valor) => (
+                  <option
+                    value={valor.codigoRamo}
+                    selected={valor.codigoRamo === codigoRamo ? "selected" : ""}
+                  >
+                    {valor.nombreRamo}
+                  </option>
+                ))}
+              </select>
             </div>
+
             <div className="md-form md-outline input-with-post-icon datepicker">
               <label htmlFor="input_fechaInicio">Fecha Inicio: </label>
               <input

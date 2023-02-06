@@ -77,7 +77,7 @@ export default function Calendario() {
     description:
       "Curso de " + label.nombreRamo + ", Duración: " + label.duracion,
     sourceId: label.ID,
-    color: `#${randomColorCourses}`,
+    color: `#F2F5A9`,
     display: "block",
   }));
   const Eventos = EventosApi.map((label) => ({
@@ -86,7 +86,8 @@ export default function Calendario() {
     end: label.fecha_hora,
     sourceId: label.ID,
     description: label.descripcion + ", Duración: " + label.duracion,
-    color: `#${randomColorEvents}`,
+    color: `#FACC2E`,
+    display: "block",
   }));
   const Feriados = FeriadosApi.map((label) => ({
     title: label.title,
@@ -125,10 +126,11 @@ export default function Calendario() {
   return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
+      <br></br>
       <Button id="btnCurso" onClick={insertarCurso}>
         Insertar Curso
       </Button>
-      <Button id="btnCurso" onClick={insertarEvento}>
+      <Button id="btnCurso2" onClick={insertarEvento}>
         Insertar Evento
       </Button>
       <InsertarCurso
@@ -154,11 +156,12 @@ export default function Calendario() {
           droppable={true}
           locale="es"
           eventSources={[Cursos, Eventos, Feriados]}
-          themeSystem="bootstrap5"
+          themeSystem="bootstrap"
           eventMouseEnter={handleMouseEnter}
           eventMouseLeave={handleMouseLeave}
         />
       </div>
+      <br></br>
     </>
   ) : (
     <Navigate to="/login"></Navigate>

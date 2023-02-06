@@ -20,6 +20,12 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
 
   const handleClose = () => {
     cambiarEstado(false);
+    setCargoReferente(responseID[0].cargoReferente);
+    setTipoClientes(responseID[0].tipo_cliente);
+    setNombreCliente(responseID[0].nombreCliente);
+    setReferente(responseID[0].referente);
+    setCorreoReferente(responseID[0].correoReferente);
+    setTelefonoReferente(responseID[0].telefonoReferente);
   };
 
   // ----------------------FUNCIONES----------------------------
