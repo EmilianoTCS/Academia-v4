@@ -107,9 +107,9 @@ export default function SideBar(props) {
               <li id="li_Academia" onClick={handleChangeEvaluaciones}>
                 <button id="buttonSidebar">
                   <GiStarFormation id="icons" />
-                  EDD
+                  E. DE DESEMPEÑO
                 </button>
-                <ul
+                <ulsss
                   id="COE_Academia"
                   className={isToggledEvaluaciones ? "active" : ""}
                 >
@@ -161,7 +161,7 @@ export default function SideBar(props) {
                       </button>
                     </Link>
                   </li>
-                </ul>
+                </ulsss>
               </li>
 
               <li
@@ -177,15 +177,15 @@ export default function SideBar(props) {
                 <button id="buttonSidebar">
                   <FaBook id="icons" />
                   COE - ACADEMIA
-                </button >
+                </button>
                 <ul
                   id="COE_Academia"
                   className={isToggledAcademia ? "active" : ""}
                 >
                   <li id="textLeftSelect">
-                  <Link to="/listadoCursos">
+                    <Link to="/listadoCursos">
                       <button id="submenuSidebar">
-                      <ImBook id="icons" />
+                        <ImBook id="icons" />
                         Cursos
                       </button>
                     </Link>
@@ -276,25 +276,36 @@ export default function SideBar(props) {
                   </li>
                 </ul>
               </li>
-              <li id="li_Colaboradores" onClick={handleChangeColaboradores}>
-              <button id="buttonSidebar">
-                <MdSwitchAccount id="icons" />
-                MI PERFIL</button>
+              <li
+                id="li_Colaboradores"
+                onClick={handleChangeColaboradores}
+                className={
+                  userData.tipoUsuario !== "colaborador" ? "private" : ""
+                }
+              >
+                <button id="buttonSidebar">
+                  <MdSwitchAccount id="icons" />
+                  MI PERFIL
+                </button>
                 <ul
                   id="Colaboradores"
                   className={isToggledColaboradores ? "active" : ""}
                 >
                   <li id="textLeftSelect">
                     <Link to="/MisCursos">
-                    <button id="submenuSidebar">
-                    <ImBook id="icons" />
-                    Mis Cursos</button></Link>
+                      <button id="submenuSidebar">
+                        <ImBook id="icons" />
+                        Mis Cursos
+                      </button>
+                    </Link>
                   </li>
                   <li id="textLeftSelect">
                     <Link to="/InscripcionCurso">
-                    <button id="submenuSidebar">
-                    <GiArchiveRegister id="icons" />
-                    Inscribirse a un curso</button></Link>
+                      <button id="submenuSidebar">
+                        <GiArchiveRegister id="icons" />
+                        Inscribirse a un curso
+                      </button>
+                    </Link>
                   </li>
                 </ul>
               </li>

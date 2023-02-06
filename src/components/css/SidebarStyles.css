@@ -136,10 +136,8 @@ ul li ul li:hover a {
   cursor: pointer;
   font-weight: 700;
 }
-#li_Academia.private {
-  display: none;
-}
-#li_Asistencias.private {
+
+.private {
   display: none;
 }
 

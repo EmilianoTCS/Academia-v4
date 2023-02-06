@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Select from "react-select";
 import "../../css/InsertarRamo.css";
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
@@ -62,21 +61,6 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
     obtenerRelatores();
   }, []);
 
-  // ----------------------MAPEADOS----------------------------
-
-  const optionsCuentas = listCuentas.map((label) => ({
-    label: label.codigoCuenta,
-    value: label.ID,
-  }));
-
-  const optionsPrerequisitos = listPrerequisitos.map((label) => ({
-    label: label.nombreRamo,
-    value: label.ID,
-  }));
-  const optionsRelatores = listRelatores.map((label) => ({
-    label: label.nombre,
-    value: label.ID,
-  }));
   // ----------------------RENDER----------------------------
   return (
     <>
@@ -91,15 +75,19 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
-            <div>
-              <label htmlFor="input_fechaInicio">Cuenta (cliente): </label>
-              <Select
+            <div className="form-group">
+              <label htmlFor="input_tipoCliente">Cuenta:</label>
+              <select
+                required
+                className="form-control"
+                onChange={({ target }) => setIDCuenta(target.value)}
                 placeholder="Elige una cuenta"
-                name="cuenta"
-                options={optionsCuentas}
-                onChange={({ value }) => setIDCuenta(value)}
-                required={true}
-              />
+                value={listCuentas[0].ID}
+              >
+                {listCuentas.map((valor) => (
+                  <option value={valor.ID}>{valor.codigoCuenta}</option>
+                ))}
+              </select>
             </div>
             <div>
               <label htmlFor="input_codigoRamo">Código del ramo:</label>
@@ -137,26 +125,35 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
                 required
               />
             </div>
-            <div>
-              <label htmlFor="input_Relator">Relator: </label>
-              <Select
-                placeholder="Elige el relator del ramo"
-                name="relator"
-                options={optionsRelatores}
-                onChange={({ value }) => setRelator(value)}
-                required={true}
-              />
-            </div>
-            <div>
-              <label htmlFor="input_fechaInicio">Prerequisito: </label>
-              <Select
-                placeholder="Elige un pre requisito"
-                name="cuenta"
-                options={optionsPrerequisitos}
-                onChange={({ value }) => setPrerequisito(value)}
+
+            <div className="form-group">
+              <label htmlFor="input_tipoCliente">Relator:</label>
+              <select
                 required
-              />
+                className="form-control"
+                onChange={({ target }) => setRelator(target.value)}
+                placeholder="Elige un relator"
+              >
+                {listRelatores.map((valor) => (
+                  <option value={valor.ID}>{valor.nombre}</option>
+                ))}
+              </select>
             </div>
+            <div className="form-group">
+              <label htmlFor="input_tipoCliente">Prerequisito:</label>
+              <select
+                required
+                className="form-control"
+                onChange={({ target }) => setPrerequisito(target.value)}
+                placeholder="Elige un prerequisito"
+                value={listPrerequisitos[0].ID}
+              >
+                {listPrerequisitos.map((valor) => (
+                  <option value={valor.ID}>{valor.nombreRamo}</option>
+                ))}
+              </select>
+            </div>
+
             <Button
               variant="secondary"
               type="submit"
