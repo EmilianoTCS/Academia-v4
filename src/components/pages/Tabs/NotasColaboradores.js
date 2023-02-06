@@ -112,7 +112,7 @@ export default function NotasColaboradores() {
     } else {
       return (
         <>
-          <Table>
+          <Table responsive>
             <thead>
               <tr>
                 <th>Curso</th>

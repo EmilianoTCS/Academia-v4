@@ -8,6 +8,14 @@
 
 }
 
+
+.fc .fc-toolbar-title {
+    font-size: 1.75em;
+    margin: 0;
+    color: white;
+    text-transform: uppercase;
+}
+
 .fc-day-today {
     background-color: #8c6b6b !important;
 }
