@@ -14,8 +14,24 @@
 #buttonSidebar:hover {
   color: #ffffff;
   background-color: #e10b1c;
-  box-shadow: 0px 2px 20px 0px rgba(54, 52, 52, 0.81);}
+  box-shadow: 0px 2px 20px 0px rgba(54, 52, 52, 0.81);
+}
+#buttonSidebar:hover > #flechaNormal{
+  visibility: 0;
+  opacity: 0;
+  max-height: 0;
+  transition: all 116ms ease-out;
+}
+#buttonSidebar:hover > #flechaWhite{
+  visibility: visible;
+  opacity: 1;
+  max-height: 26px;
+  transition: all 116ms ease-out;
+  position: relative;
+  right: 12px;
 
+  
+}
 #submenuSidebar {
   color: black;
   font-weight: 600;
@@ -25,6 +41,7 @@
   text-decoration: none;
   text-align: left;
   padding-left: 60px;
+  margin-top: 3px;
   height: 45px;
   transition: background-color 116ms ease-out, color 300ms ease-out,
   box-shadow 300ms ease-out;

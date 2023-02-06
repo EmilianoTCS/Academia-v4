@@ -16,13 +16,12 @@ import { IoBookmarks } from "react-icons/io5";
 import { ImAddressBook } from "react-icons/im";
 import { IoIosPeople } from "react-icons/io";
 import { MdAdminPanelSettings } from "react-icons/md";
-import { BsBookFill } from "react-icons/bs";
 import { IoMdListBox } from "react-icons/io";
 import { GoListUnordered } from "react-icons/go";
 import { GiArchiveRegister, GiStarFormation } from "react-icons/gi";
-import { FaClipboardList } from "react-icons/fa";
 
 import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
+import FlechaTsoft from "./img/FlechaTsoft";
 
 export default function SideBar(props) {
   const userData = JSON.parse(localStorage.getItem("userData"));
@@ -30,12 +29,16 @@ export default function SideBar(props) {
   const [isToggledAcademia, setToggleAcademia] = useState(false);
   const [isToggledAsistencias, setToggleAsistencias] = useState(false);
   const [isToggledColaboradores, setToggleColaboradores] = useState(false);
+  const [isToggledTsoft, setToggleTsoft] = useState(false);
   const [show, setShow] = useState(props.isToggled);
   const closeSidebar = () => setShow(false);
   const showSidebar = () => setShow(true);
 
   function handleChangeEvaluaciones() {
     setToggleEvaluaciones(!isToggledEvaluaciones);
+  }
+  function handleChangeTsoft() {
+    setToggleTsoft(!isToggledTsoft);
   }
 
   function handleChangeAcademia() {
@@ -109,7 +112,7 @@ export default function SideBar(props) {
                   <GiStarFormation id="icons" />
                   E. DE DESEMPEÑO
                 </button>
-                <ulsss
+                <ul
                   id="COE_Academia"
                   className={isToggledEvaluaciones ? "active" : ""}
                 >
@@ -161,7 +164,67 @@ export default function SideBar(props) {
                       </button>
                     </Link>
                   </li>
-                </ulsss>
+                </ul>
+              </li>
+
+              <li
+                id="li_Academia"
+                onClick={handleChangeTsoft}
+                className={
+                  userData.tipoUsuario === "administrador" ||
+                  userData.tipoUsuario === "capital_humano"
+                    ? ""
+                    : "private"
+                }
+              >
+                <button id="buttonSidebar">
+                  <FlechaTsoft id={"icons"}></FlechaTsoft>ENTORNO TSOFT
+                </button>
+                <ul
+                  id="COE_Academia"
+                  className={isToggledTsoft ? "active" : ""}
+                >
+                  <li id="textLeftSelect">
+                    <Link to="/Administrador">
+                      <button id="submenuSidebar">
+                        <MdAdminPanelSettings id="icons" />
+                        Administrador
+                      </button>
+                    </Link>
+                  </li>
+                  <li id="textLeftSelect">
+                    <Link to="/listadoClientes">
+                      <button id="submenuSidebar">
+                        <IoIosPeople id="icons" />
+                        Clientes
+                      </button>
+                    </Link>
+                  </li>
+                  <li id="textLeftSelect">
+                    <Link>
+                      <button id="submenuSidebar">
+                        <ImBook id="icons" />
+                        Empleados
+                      </button>
+                    </Link>
+                  </li>
+                  <li id="textLeftSelect">
+                    <Link>
+                      <button id="submenuSidebar">
+                        <ImBook id="icons" />
+                        Equipos
+                      </button>
+                    </Link>
+                  </li>
+                  <li id="textLeftSelect">
+                    <Link>
+                      <button id="submenuSidebar">
+                        <IoBookmarks id="icons" />
+                        Proyectos
+                      </button>
+                    </Link>
+                  </li>
+                </ul>
               </li>
 
               <li
@@ -207,29 +270,14 @@ export default function SideBar(props) {
                     </Link>
                   </li>
                   <li id="textLeftSelect">
-                    <Link to="/listadoClientes">
+                    <Link to="/ListadoAsistencias">
                       <button id="submenuSidebar">
-                        <IoIosPeople id="icons" />
-                        Clientes
+                        <GoListUnordered id="icons" />
+                        Listado de Asistencias
                       </button>
                     </Link>
                   </li>
-                  <li id="textLeftSelect">
-                    <Link to="/Administrador">
-                      <button id="submenuSidebar">
-                        <MdAdminPanelSettings id="icons" />
-                        Administrador
-                      </button>
-                    </Link>
-                  </li>
-                  <li id="textLeftSelect">
-                    <Link to="/Prerequisitos">
-                      <button id="submenuSidebar">
-                        <BsBookFill id="icons" />
-                        Prerrequisitos
-                      </button>
-                    </Link>
-                  </li>
+
                   <li id="textLeftSelect">
                     <Link to="/listadoColaboradores">
                       <button id="submenuSidebar">
@@ -240,6 +288,7 @@ export default function SideBar(props) {
                   </li>
                 </ul>
               </li>
+
               <li>
                 <Link id="li_calendario" to="/Calendario">
                   <button id="buttonSidebar">
@@ -248,34 +297,7 @@ export default function SideBar(props) {
                   </button>
                 </Link>
               </li>
-              <li
-                id="li_Asistencias"
-                onClick={handleChangeAsistencias}
-                className={
-                  userData.tipoUsuario === "administrador" ||
-                  userData.tipoUsuario === "capital_humano"
-                    ? ""
-                    : "private"
-                }
-              >
-                <button id="buttonSidebar">
-                  <FaClipboardList id="icons" />
-                  ASISTENCIAS
-                </button>
-                <ul
-                  id="Asistencias"
-                  className={isToggledAsistencias ? "active" : ""}
-                >
-                  <li id="textLeftSelect">
-                    <Link to="/ListadoAsistencias">
-                      <button id="submenuSidebar">
-                        <GoListUnordered id="icons" />
-                        Listado de Asistencias
-                      </button>
-                    </Link>
-                  </li>
-                </ul>
-              </li>
+
               <li
                 id="li_Colaboradores"
                 onClick={handleChangeColaboradores}

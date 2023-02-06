@@ -1,0 +1,16 @@
+#flechaWhite{
+    padding-right: 12px;
+    margin-top: -3px;
+    visibility: hidden;
+    opacity: 0;
+    max-height: 0;
+
+}
+#flechaNormal{
+    visibility: visible;
+    opacity: 1;
+    padding-right: 12px;
+    margin-top: -3px;
+    max-height: 26px;
+}
+
