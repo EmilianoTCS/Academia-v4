@@ -71,7 +71,6 @@ export default function Prerequisitos() {
       CursoaConsultar: CursoSeleccionado,
       PrerequisitoAInsertar: CursoAInsertar,
     };
-    console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
       TopAlerts(response);
     });
