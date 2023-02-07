@@ -271,12 +271,21 @@ export default function SideBar(props) {
                       </button>
                     </Link>
                   </li>
-
+                  
                   <li id="textLeftSelect">
                     <Link to="/listadoColaboradores">
                       <button id="submenuSidebar">
                         <IoMdListBox id="icons" />
                         Listado de Colaboradores
+                      </button>
+                    </Link>
+                  </li>
+
+                  <li id="textLeftSelect">
+                    <Link to="/Prerequisitos">
+                      <button id="submenuSidebar">
+                        <GoListUnordered id="icons" />
+                        Prerequisitos
                       </button>
                     </Link>
                   </li>
