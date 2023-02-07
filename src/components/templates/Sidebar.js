@@ -16,13 +16,12 @@ import { IoBookmarks } from "react-icons/io5";
 import { ImAddressBook } from "react-icons/im";
 import { IoIosPeople } from "react-icons/io";
 import { MdAdminPanelSettings } from "react-icons/md";
-import { BsBookFill } from "react-icons/bs";
 import { IoMdListBox } from "react-icons/io";
 import { GoListUnordered } from "react-icons/go";
 import { GiArchiveRegister, GiStarFormation } from "react-icons/gi";
-import { FaClipboardList } from "react-icons/fa";
 
 import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
+import FlechaTsoft from "./img/FlechaTsoft";
 
 export default function SideBar(props) {
   const userData = JSON.parse(localStorage.getItem("userData"));
@@ -30,12 +29,16 @@ export default function SideBar(props) {
   const [isToggledAcademia, setToggleAcademia] = useState(false);
   const [isToggledAsistencias, setToggleAsistencias] = useState(false);
   const [isToggledColaboradores, setToggleColaboradores] = useState(false);
+  const [isToggledTsoft, setToggleTsoft] = useState(false);
   const [show, setShow] = useState(props.isToggled);
   const closeSidebar = () => setShow(false);
   const showSidebar = () => setShow(true);
 
   function handleChangeEvaluaciones() {
     setToggleEvaluaciones(!isToggledEvaluaciones);
+  }
+  function handleChangeTsoft() {
+    setToggleTsoft(!isToggledTsoft);
   }
 
   function handleChangeAcademia() {
@@ -107,7 +110,7 @@ export default function SideBar(props) {
               <li id="li_Academia" onClick={handleChangeEvaluaciones}>
                 <button id="buttonSidebar">
                   <GiStarFormation id="icons" />
-                  EDD
+                  E. DE DESEMPEÑO
                 </button>
                 <ul
                   id="COE_Academia"
@@ -166,6 +169,60 @@ export default function SideBar(props) {
 
               <li
                 id="li_Academia"
+                onClick={handleChangeTsoft}
+                className={
+                  userData.tipoUsuario === "administrador" ||
+                  userData.tipoUsuario === "capital_humano"
+                    ? ""
+                    : "private"
+                }
+              >
+                <button id="buttonSidebar">
+                  <FlechaTsoft id={"icons"}></FlechaTsoft>ENTORNO TSOFT
+                </button>
+                <ul
+                  id="COE_Academia"
+                  className={isToggledTsoft ? "active" : ""}
+                >
+                  <li id="textLeftSelect">
+                    <Link to="/Administrador">
+                      <button id="submenuSidebar">
+                        <MdAdminPanelSettings id="icons" />
+                        Administrador
+                      </button>
+                    </Link>
+                  </li>
+                  <li id="textLeftSelect">
+                    <Link to="/listadoClientes">
+                      <button id="submenuSidebar">
+                        <IoIosPeople id="icons" />
+                        Clientes
+                      </button>
+                    </Link>
+                  </li>
+                  <li id="textLeftSelect">
+                    <button id="submenuSidebar">
+                      <ImBook id="icons" />
+                      Empleados
+                    </button>
+                  </li>
+                  <li id="textLeftSelect">
+                    <button id="submenuSidebar">
+                      <ImBook id="icons" />
+                      Equipos
+                    </button>
+                  </li>
+                  <li id="textLeftSelect">
+                    <button id="submenuSidebar">
+                      <IoBookmarks id="icons" />
+                      Proyectos
+                    </button>
+                  </li>
+                </ul>
+              </li>
+
+              <li
+                id="li_Academia"
                 onClick={handleChangeAcademia}
                 className={
                   userData.tipoUsuario === "administrador" ||
@@ -177,15 +234,15 @@ export default function SideBar(props) {
                 <button id="buttonSidebar">
                   <FaBook id="icons" />
                   COE - ACADEMIA
-                </button >
+                </button>
                 <ul
                   id="COE_Academia"
                   className={isToggledAcademia ? "active" : ""}
                 >
                   <li id="textLeftSelect">
-                  <Link to="/listadoCursos">
+                    <Link to="/listadoCursos">
                       <button id="submenuSidebar">
-                      <ImBook id="icons" />
+                        <ImBook id="icons" />
                         Cursos
                       </button>
                     </Link>
@@ -207,29 +264,14 @@ export default function SideBar(props) {
                     </Link>
                   </li>
                   <li id="textLeftSelect">
-                    <Link to="/listadoClientes">
+                    <Link to="/ListadoAsistencias">
                       <button id="submenuSidebar">
-                        <IoIosPeople id="icons" />
-                        Clientes
+                        <GoListUnordered id="icons" />
+                        Listado de Asistencias
                       </button>
                     </Link>
                   </li>
-                  <li id="textLeftSelect">
-                    <Link to="/Administrador">
-                      <button id="submenuSidebar">
-                        <MdAdminPanelSettings id="icons" />
-                        Administrador
-                      </button>
-                    </Link>
-                  </li>
-                  <li id="textLeftSelect">
-                    <Link to="/Prerequisitos">
-                      <button id="submenuSidebar">
-                        <BsBookFill id="icons" />
-                        Prerrequisitos
-                      </button>
-                    </Link>
-                  </li>
+
                   <li id="textLeftSelect">
                     <Link to="/listadoColaboradores">
                       <button id="submenuSidebar">
@@ -240,6 +282,7 @@ export default function SideBar(props) {
                   </li>
                 </ul>
               </li>
+
               <li>
                 <Link id="li_calendario" to="/Calendario">
                   <button id="buttonSidebar">
@@ -248,53 +291,37 @@ export default function SideBar(props) {
                   </button>
                 </Link>
               </li>
+
               <li
-                id="li_Asistencias"
-                onClick={handleChangeAsistencias}
+                id="li_Colaboradores"
+                onClick={handleChangeColaboradores}
                 className={
-                  userData.tipoUsuario === "administrador" ||
-                  userData.tipoUsuario === "capital_humano"
-                    ? ""
-                    : "private"
+                  userData.tipoUsuario !== "colaborador" ? "private" : ""
                 }
               >
                 <button id="buttonSidebar">
-                  <FaClipboardList id="icons" />
-                  ASISTENCIAS
+                  <MdSwitchAccount id="icons" />
+                  MI PERFIL
                 </button>
-                <ul
-                  id="Asistencias"
-                  className={isToggledAsistencias ? "active" : ""}
-                >
-                  <li id="textLeftSelect">
-                    <Link to="/ListadoAsistencias">
-                      <button id="submenuSidebar">
-                        <GoListUnordered id="icons" />
-                        Listado de Asistencias
-                      </button>
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li id="li_Colaboradores" onClick={handleChangeColaboradores}>
-              <button id="buttonSidebar">
-                <MdSwitchAccount id="icons" />
-                MI PERFIL</button>
                 <ul
                   id="Colaboradores"
                   className={isToggledColaboradores ? "active" : ""}
                 >
                   <li id="textLeftSelect">
                     <Link to="/MisCursos">
-                    <button id="submenuSidebar">
-                    <ImBook id="icons" />
-                    Mis Cursos</button></Link>
+                      <button id="submenuSidebar">
+                        <ImBook id="icons" />
+                        Mis Cursos
+                      </button>
+                    </Link>
                   </li>
                   <li id="textLeftSelect">
                     <Link to="/InscripcionCurso">
-                    <button id="submenuSidebar">
-                    <GiArchiveRegister id="icons" />
-                    Inscribirse a un curso</button></Link>
+                      <button id="submenuSidebar">
+                        <GiArchiveRegister id="icons" />
+                        Inscribirse a un curso
+                      </button>
+                    </Link>
                   </li>
                 </ul>
               </li>

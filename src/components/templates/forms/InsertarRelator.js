@@ -4,7 +4,6 @@ import TopAlerts from "../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import getDataService from "../../../services/GetDataService";
-import Select from "react-select";
 
 const InsertarRelator = ({ isActiveRelator, cambiarEstado }) => {
   const [relator, setRelator] = useState("");
@@ -37,11 +36,6 @@ const InsertarRelator = ({ isActiveRelator, cambiarEstado }) => {
   }, []);
   // ----------------------MAPEADOS----------------------------
 
-  const optionsAreas = listArea.map((label) => ({
-    label: label.nombreArea,
-    value: label.ID,
-  }));
-
   // ----------------------RENDER----------------------------
   return (
     <>
@@ -67,15 +61,18 @@ const InsertarRelator = ({ isActiveRelator, cambiarEstado }) => {
                 required
               />
             </div>
-            <div>
-              <label htmlFor="input_area">Área:</label>
-              <Select
-                placeholder="Elige el área"
-                name="area"
-                options={optionsAreas}
-                onChange={({ value }) => setArea(value)}
+
+            <div className="form-group">
+              <label htmlFor="input_tipoCliente">Área:</label>
+              <select
                 required
-              />
+                className="form-control"
+                onChange={({ target }) => setidCuenta(target.value)}
+              >
+                {listArea.map((valor) => (
+                  <option value={valor.ID}>{valor.nombreArea}</option>
+                ))}
+              </select>
             </div>
             <Button
               variant="secondary"
