@@ -198,6 +198,7 @@ export default function Prerequisitos() {
 
             <MainTable></MainTable>
           </Card>
+          <br/>
         </div>
       </Container>
     </>
