@@ -36,40 +36,53 @@ const FormReferentes = () => {
   const [apoyoJefeProyecto, setApoyoJefeProyecto] = useState("");
   const [indiqueReclamosEtc, setIndiqueReclamosEtc] = useState("");
 
+  
+  const respuestas = [];
+
   //  // ----------------------FUNCIONES----------------------------
 
   function SendData(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const url = "EDD/creacion/InsertarResultadosReferentes.php";
-    const operationUrl = "insertarResultadosReferentes";
+    const operationUrl = "insertarResultadosRef";
     var data = {
       nombApellido: nombApellido,
-      nombApellidoClienteEvaluado: nombApellidoClienteEvaluado,
-      nivelComunicacionCE: nivelComunicacionCE,
-      criticasFundamentadasCE: criticasFundamentadasCE,
-      decisionesObjetivamenteCE: decisionesObjetivamenteCE,
-      responsableDeResultadosCE: responsableDeResultadosCE,
-      comunicarConLibertadCE: comunicarConLibertadCE,
-      reconocerEsfuerzoCE: reconocerEsfuerzoCE,
-      conocimientoNegocioCE: conocimientoNegocioCE,
-      gestionarOrganizarCE: gestionarOrganizarCE,
-      actividadesEncomendadasCE: actividadesEncomendadasCE,
-      influirGrupoTrabajoCE: influirGrupoTrabajoCE,
-      indiqueReclamosEtcCE: indiqueReclamosEtcCE,
-      nombApellidoReferenteTSoft: nombApellidoReferenteTSoft,
-      apoyoRefTSoft: apoyoRefTSoft,
-      actividadesEncomendadasRef: actividadesEncomendadasRef,
-      poseeConocimientosRef: poseeConocimientosRef,
-      participacionJefeProyecto: participacionJefeProyecto,
-      apoyoJefeProyecto: apoyoJefeProyecto,
-      indiqueReclamosEtc: indiqueReclamosEtc,
+      nombApellidoRef:nombApellidoClienteEvaluado,
+      respuestas: respuestas,
     };
 
     
     SendDataService(url, operationUrl, data).then((response) => {
-      TopAlerts(response);
-      
+      TopAlerts(response[0]);
+      console.log(response);
+      respuestas.length = 0;
     });
+  }
+
+  function ArrayPush(e) {
+    e.preventDefault();
+    respuestas.push(
+      nivelComunicacionCE,
+      criticasFundamentadasCE,
+      decisionesObjetivamenteCE,
+      responsableDeResultadosCE,
+      comunicarConLibertadCE,
+      reconocerEsfuerzoCE,
+      conocimientoNegocioCE,
+      gestionarOrganizarCE,
+      actividadesEncomendadasCE,
+      influirGrupoTrabajoCE,
+      indiqueReclamosEtcCE,
+      nombApellidoReferenteTSoft,
+      apoyoRefTSoft,
+      actividadesEncomendadasRef,
+      poseeConocimientosRef,
+      participacionJefeProyecto,
+      apoyoJefeProyecto,
+      indiqueReclamosEtc,
+    );
+
+    SendData();
   }
 
   return (
@@ -98,7 +111,7 @@ const FormReferentes = () => {
             </p>
           </Container>
           <div id="pruebaFondo">
-            <Form onSubmit={SendData} id="formStyle">
+            <Form onSubmit={ArrayPush} id="formStyle">
               <h5>
                 Hola, (NOMBRE USER). Cuando envíe este formulario, el
                 propietario verá su nombre y dirección de correo electrónico.

@@ -48,7 +48,9 @@ const FormAnalistas = () => {
   const [pgt23observacionesReclamos, setObservacionesReclamos] = useState("");
 
   const respuestas = [];
-
+  
+ //  // ----------------------FUNCIONES----------------------------
+ 
   function SendData() {
     const url = "EDD/creacion/InsertarResultadosAnalistas.php";
     const operationUrl = "insertarResultadosAnalistas";
