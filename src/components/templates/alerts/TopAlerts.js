@@ -31,6 +31,17 @@ export default function TopAlerts(props) {
         showConfirmButton: true,
         confirmButtonText: '<i class="fa fa-thumbs-up"></i> Ok!',
       });
+    case "SuccessfulAnswered":
+      return MySwal.fire({
+        title: "¡Bien!",
+        html: `
+        <p>Se han registrado tus respuestas. </p>
+        <p>¡Muchas gracias por colaborar!</p>
+        `,
+        icon: "success",
+        showConfirmButton: true,
+        confirmButtonText: '<i class="fa fa-thumbs-up"></i> Ok!',
+      });
     case "successEditedPassword":
       return MySwal.fire({
         title: "¡Bien!",
@@ -109,7 +120,7 @@ export default function TopAlerts(props) {
       return MySwal.fire({
         title: "Se ha producido un error.",
         icon: "error",
-        position: "top-right",  
+        position: "top-right",
         timer: 2500,
         toast: true,
         showConfirmButton: false,

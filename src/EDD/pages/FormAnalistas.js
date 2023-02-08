@@ -9,74 +9,89 @@ import Container from "react-bootstrap/Container";
 const FormAnalistas = () => {
   const [nombApellido, setNombApellido] = useState([""]);
   const [nombApellidoAnalista, setNombApellidoAnalista] = useState([""]);
-  const [analistaComunicaEfectiva, setAnalistaComunicaEfectiva] = useState("");
-  const [analistaRecibirCriticas, setAnalistaRecibirCriticas] = useState("");
-  const [analistaAnticipaHechos, setAnalistaAnticipaHechos] = useState("");
-  const [analistaMuestraIniciativa, setAnalistaMuestraIniciativa] =
+  const [pgt3analistaComunicaEfectiva, setAnalistaComunicaEfectiva] =
     useState("");
-  const [analistaProponerSoluciones, setAnalistaProponerSoluciones] =
+  const [pgt4analistaRecibirCriticas, setAnalistaRecibirCriticas] =
     useState("");
-  const [analistaDeterminacion, setAnalistaDeterminacion] = useState("");
-  const [analistaNegocio, setAnalistaNegocio] = useState("");
-  const [analistaNuevosDesafios, setAnalistaNuevosDesafios] = useState("");
-  const [analistaDesicionesCorrectas, setAnalistaDesicionesCorrectas] =
+  const [pgt5analistaAnticipaHechos, setAnalistaAnticipaHechos] = useState("");
+  const [pgt6analistaMuestraIniciativa, setAnalistaMuestraIniciativa] =
     useState("");
-  const [analistaResponsableResultados, setAnalistaResponsableResultados] =
+  const [pgt7analistaProponerSoluciones, setAnalistaProponerSoluciones] =
     useState("");
-  const [analistaPropiasDesiciones, setAnalistaPropiasDesiciones] =
+  const [pgt8analistaDeterminacion, setAnalistaDeterminacion] = useState("");
+  const [pgt9analistaNegocio, setAnalistaNegocio] = useState("");
+  const [pgt10analistaNuevosDesafios, setAnalistaNuevosDesafios] = useState("");
+  const [pgt11analistaDesicionesCorrectas, setAnalistaDesicionesCorrectas] =
     useState("");
-  const [analistaMetodologia, setAnalistaMetodologia] = useState("");
-  const [analistaComunicarseLibertad, setAnalistaComunicarseLibertad] =
+  const [pgt12analistaResponsableResultados, setAnalistaResponsableResultados] =
     useState("");
-  const [analistaReconocerEsfuerzo, setAnalistaReconocerEsfuerzo] =
+  const [pgt13analistaPropiasDesiciones, setAnalistaPropiasDesiciones] =
     useState("");
-  const [analistaGestionarCorrectamente, setAnalistaGestionarCorrectamente] =
+  const [pgt14analistaMetodologia, setAnalistaMetodologia] = useState("");
+  const [pgt15analistaComunicarseLibertad, setAnalistaComunicarseLibertad] =
     useState("");
-  const [analistaCapacidadAnalitica, setAnalistaCapacidadAnalitica] =
+  const [pgt16analistaReconocerEsfuerzo, setAnalistaReconocerEsfuerzo] =
     useState("");
-  const [analistaInfluirPositivamente, setAnalistaInfluirPositivamente] =
+  const [
+    pgt17analistaGestionarCorrectamente,
+    setAnalistaGestionarCorrectamente,
+  ] = useState("");
+  const [pgt18analistaCapacidadAnalitica, setAnalistaCapacidadAnalitica] =
     useState("");
-  const [analistaDesempeño, setAnalistaDesempeño] = useState("");
-  const [analistaConocimientosTecnicos, setAnalistaConocimientosTecnicos] =
+  const [pgt19analistaInfluirPositivamente, setAnalistaInfluirPositivamente] =
     useState("");
-  const [analistaConocimientosNegocio, setAnalistaConocimientosNegocio] =
+  const [pgt20analistaDesempeño, setAnalistaDesempeño] = useState("");
+  const [pgt21analistaConocimientosTecnicos, setAnalistaConocimientosTecnicos] =
     useState("");
-  const [observacionesReclamos, setObservacionesReclamos] = useState("");
+  const [pgt22analistaConocimientosNegocio, setAnalistaConocimientosNegocio] =
+    useState("");
+  const [pgt23observacionesReclamos, setObservacionesReclamos] = useState("");
 
-  function SendData(e) {
-    e.preventDefault();
+  const respuestas = [];
+
+  function SendData() {
     const url = "EDD/creacion/InsertarResultadosAnalistas.php";
     const operationUrl = "insertarResultadosAnalistas";
     var data = {
       nombApellido: nombApellido,
       nombApellidoAnalista: nombApellidoAnalista,
-      analistaComunicaEfectiva: analistaComunicaEfectiva,
-      analistaRecibirCriticas: analistaRecibirCriticas,
-      analistaAnticipaHechos: analistaAnticipaHechos,
-      analistaMuestraIniciativa: analistaMuestraIniciativa,
-      analistaProponerSoluciones: analistaProponerSoluciones,
-      analistaDeterminacion: analistaDeterminacion,
-      analistaNegocio: analistaNegocio,
-      analistaNuevosDesafios: analistaNuevosDesafios,
-      analistaDesicionesCorrectas: analistaDesicionesCorrectas,
-      analistaResponsableResultados: analistaResponsableResultados,
-      analistaPropiasDesiciones: analistaPropiasDesiciones,
-      analistaMetodologia: analistaMetodologia,
-      analistaComunicarseLibertad: analistaComunicarseLibertad,
-      analistaReconocerEsfuerzo: analistaReconocerEsfuerzo,
-      analistaGestionarCorrectamente: analistaGestionarCorrectamente,
-      analistaCapacidadAnalitica: analistaCapacidadAnalitica,
-      analistaInfluirPositivamente: analistaInfluirPositivamente,
-      analistaDesempeño: analistaDesempeño,
-      analistaConocimientosTecnicos: analistaConocimientosTecnicos,
-      analistaConocimientosNegocio: analistaConocimientosNegocio,
-      observacionesReclamos: observacionesReclamos,
+      respuestas: respuestas,
     };
-    
+
     SendDataService(url, operationUrl, data).then((response) => {
-      TopAlerts(response);
-      
+      TopAlerts(response[0]);
+      console.log(response);
+      respuestas.length = 0;
     });
+  }
+
+  function ArrayPush(e) {
+    e.preventDefault();
+    respuestas.push(
+      pgt3analistaComunicaEfectiva,
+      pgt4analistaRecibirCriticas,
+      pgt5analistaAnticipaHechos,
+      pgt6analistaMuestraIniciativa,
+      pgt7analistaProponerSoluciones,
+      pgt8analistaDeterminacion,
+      pgt9analistaNegocio,
+      pgt10analistaNuevosDesafios,
+      pgt11analistaDesicionesCorrectas,
+      pgt12analistaResponsableResultados,
+      pgt13analistaPropiasDesiciones,
+      pgt14analistaMetodologia,
+      pgt15analistaComunicarseLibertad,
+      pgt16analistaReconocerEsfuerzo,
+      pgt17analistaGestionarCorrectamente,
+      pgt18analistaCapacidadAnalitica,
+      pgt19analistaInfluirPositivamente,
+      pgt20analistaDesempeño,
+      pgt21analistaConocimientosTecnicos,
+      pgt22analistaConocimientosNegocio,
+      pgt23observacionesReclamos
+    );
+
+    SendData();
   }
 
   return (
@@ -105,7 +120,7 @@ const FormAnalistas = () => {
             </p>
           </Container>
           <div id="pruebaFondo">
-            <Form onSubmit={SendData} id="formStyle">
+            <Form onSubmit={ArrayPush} id="formStyle">
               <h4>
                 <div className="isRequired">Obligatorio</div>
                 <br></br>
