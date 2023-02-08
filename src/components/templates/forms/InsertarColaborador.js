@@ -66,6 +66,7 @@ const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
                 required
                 className="form-control"
                 onChange={({ target }) => setidCuenta(target.value)}
+              pla
               >
                 {listCuentas.map((valor) => (
                   <option value={valor.ID}>{valor.codigoCuenta}</option>
