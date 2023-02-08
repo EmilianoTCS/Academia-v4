@@ -26,25 +26,24 @@ export default function Prerequisitos() {
 
   // ------------------------- FUNCIONES -------------------------
   function getListadoCursos() {
-    const url = "TASKS/auxiliar/idCurso.php?idCurso"; 
+    const url = "TASKS/auxiliar/idCurso.php?idCurso";
     getDataService(url).then((cursos) => setlistadoCursos(cursos));
   }
   function getListadoPrerequisitos() {
     const url = "TASKS/auxiliar/prerequisitos.php";
     const operationUrl = "ID";
     var data = { ID: CursoSeleccionado };
-    SendDataService(url, operationUrl, data).then(
-      (cursos) => setListadoPrerequisitos(cursos),
-      setBusqueda(true)
-    );
+    SendDataService(url, operationUrl, data).then((cursos) => {
+      setListadoPrerequisitos(cursos), setBusqueda(true);
+    });
   }
   function getListadoCursosInsert() {
     const url = "TASKS/auxiliar/idCursoInsert.php";
     const operationUrl = "idCurso";
     var data = { ID: CursoAInsertar };
-    SendDataService(url, operationUrl, data).then((cursos) =>
-      setlistadoCursosInsert(cursos)
-    );
+    SendDataService(url, operationUrl, data).then((cursos) => {
+      setlistadoCursosInsert(cursos);
+    });
   }
   function toggleisActivePrerequisito(ID) {
     const url = "TASKS/coe-updateStatePrerequisito.php";
@@ -73,7 +72,7 @@ export default function Prerequisitos() {
     };
     SendDataService(url, operationUrl, data).then((response) => {
       TopAlerts(response);
-      getListadoPrerequisitos()
+      getListadoPrerequisitos();
     });
   }
 
@@ -157,45 +156,48 @@ export default function Prerequisitos() {
       <br></br>
       <br></br>
       <Container id="fondoTabla">
-      <div id="containerTablas">
-        <h1 id="TitlesPages">Administración de prerrequisitos</h1>
+        <div id="containerTablas">
+          <h1 id="TitlesPages">Administración de prerrequisitos</h1>
 
-        <Form onSubmit={handleSubmit} id="formPrerequisitos">
-          <Row>
-            <Col>
-              <Card id="CardsPrerequisitos">
-                <h1 id="Subtitles"> Selecciona un curso</h1>
-                <Select
-                  options={options}
-                  onChange={({ value }) => setCursoSeleccionado(value)}
-                  defaultInputValue={options[0].nombreRamo}
-                />
-              </Card>
-            </Col>
+          <Form onSubmit={handleSubmit} id="formPrerequisitos">
+            <Row>
+              <Col>
+                <Card id="CardsPrerequisitos">
+                  <h1 id="Subtitles"> Selecciona un curso</h1>
+                  <Select
+                    options={options}
+                    onChange={({ value }) => setCursoSeleccionado(value)}
+                    defaultInputValue={options[0].nombreRamo}
+                  />
+                </Card>
+              </Col>
 
-            <Col>
-              <Card id="CardsPrerequisitos">
-                <h1 id="Subtitles"> Selecciona el prerrequisito a insertar</h1>
+              <Col>
+                <Card id="CardsPrerequisitos">
+                  <h1 id="Subtitles">
+                    {" "}
+                    Selecciona el prerrequisito a insertar
+                  </h1>
 
-                <Select
-                  options={optionsInsert}
-                  onChange={({ value }) => setCursoAInsertar(value)}
-                />
-              </Card>
-            </Col>
-          </Row>
+                  <Select
+                    options={optionsInsert}
+                    onChange={({ value }) => setCursoAInsertar(value)}
+                  />
+                </Card>
+              </Col>
+            </Row>
 
-          <button id="CardsPrerequisitos" className="enviar" type="submit">
-            Enviar
-          </button>
-        </Form>
+            <button id="CardsPrerequisitos" className="enviar" type="submit">
+              Enviar
+            </button>
+          </Form>
 
-        <Card id="itemsPrerequisitos">
-          <h1 id="Subtitles"> Prerequisitos activos</h1>
+          <Card id="itemsPrerequisitos">
+            <h1 id="Subtitles"> Prerequisitos activos</h1>
 
-          <MainTable></MainTable>
-        </Card>
-      </div>
+            <MainTable></MainTable>
+          </Card>
+        </div>
       </Container>
     </>
   ) : (
