@@ -90,7 +90,7 @@ const EditarColaborador = ({
         show={show}
         onHide={handleClose}
         backdrop="static"
-        keyboard={false}
+        keyboard={true}
       >
         <Modal.Header closeButton>
           <Modal.Title>Editar Colaborador</Modal.Title>

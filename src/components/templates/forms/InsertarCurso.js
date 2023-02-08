@@ -104,7 +104,7 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
         show={show}
         onHide={handleClose}
         backdrop="static"
-        keyboard={false}
+        keyboard={true}
       >
         <Modal.Header closeButton>
           <Modal.Title>Insertar Curso</Modal.Title>
@@ -117,7 +117,6 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
                 required
                 className="form-control"
                 onChange={({ target }) => setCodigoCuenta(target.value)}
-                value={listCuentas[0].ID}
               >
                 {listCuentas.map((valor) => (
                   <option value={valor.ID}>{valor.codigoCuenta}</option>

@@ -56,12 +56,8 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
     },
     [IDRelator]
   );
-  // ----------------------MAPEADOS----------------------------
 
-  const optionsAreas = listArea.map((label) => ({
-    label: label.nombreArea,
-    value: label.ID,
-  }));
+
   // ----------------------RENDER----------------------------
   return (
     <>
@@ -69,7 +65,7 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
         show={show}
         onHide={handleClose}
         backdrop="static"
-        keyboard={false}
+        keyboard={true}
       >
         <Modal.Header closeButton>
           <Modal.Title>Editar Relator</Modal.Title>

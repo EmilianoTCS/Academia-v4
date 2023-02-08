@@ -70,6 +70,7 @@ export default function ListadoReferentes() {
           </Button>
           <InsertarEDDReferentes
             isActiveInsertEDDReferente={isActiveInsertEDDReferente}
+            cambiarEstado={setIsActiveInsertEDDReferente}
           />
           <EditarEDDReferentes
             isActiveEditEDDReferente={isActiveEditEDDReferente}

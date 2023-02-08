@@ -92,7 +92,7 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
         show={show}
         onHide={handleClose}
         backdrop="static"
-        keyboard={false}
+        keyboard={true}
       >
         <Modal.Header closeButton>
           <Modal.Title>Insertar Evento</Modal.Title>

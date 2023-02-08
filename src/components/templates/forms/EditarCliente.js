@@ -90,7 +90,7 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
         show={show}
         onHide={handleClose}
         backdrop="static"
-        keyboard={false}
+        keyboard={true}
       >
         <Modal.Header closeButton>
           <Modal.Title>Editar Cliente</Modal.Title>

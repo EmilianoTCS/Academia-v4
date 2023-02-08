@@ -68,7 +68,7 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
         show={show}
         onHide={handleClose}
         backdrop="static"
-        keyboard={false}
+        keyboard={true}
       >
         <Modal.Header closeButton>
           <Modal.Title>Insertar Ramo</Modal.Title>
@@ -82,7 +82,6 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
                 className="form-control"
                 onChange={({ target }) => setIDCuenta(target.value)}
                 placeholder="Elige una cuenta"
-                value={listCuentas[0].ID}
               >
                 {listCuentas.map((valor) => (
                   <option value={valor.ID}>{valor.codigoCuenta}</option>
@@ -146,7 +145,6 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
                 className="form-control"
                 onChange={({ target }) => setPrerequisito(target.value)}
                 placeholder="Elige un prerequisito"
-                value={listPrerequisitos[0].ID}
               >
                 {listPrerequisitos.map((valor) => (
                   <option value={valor.ID}>{valor.nombreRamo}</option>

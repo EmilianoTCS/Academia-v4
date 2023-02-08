@@ -49,9 +49,10 @@ export default function ListadoRelator() {
         var url = "TASKS/coe-updateStateRelator.php";
         var operationUrl = "updateStateRelator";
         var data = { ID: ID };
-        SendDataService(url, operationUrl, data).then((response) =>
-          TopAlerts(response)
-        );
+        SendDataService(url, operationUrl, data).then((response) => {
+          const { successEdited } = response[0];
+          TopAlerts(successEdited);
+        });
       }
     });
   }
