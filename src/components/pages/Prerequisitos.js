@@ -34,16 +34,18 @@ export default function Prerequisitos() {
     const operationUrl = "ID";
     var data = { ID: CursoSeleccionado };
     SendDataService(url, operationUrl, data).then((cursos) => {
-      setListadoPrerequisitos(cursos), setBusqueda(true);
+      const { Busqueda } = cursos[0];
+      setBusqueda(Busqueda);
+      setListadoPrerequisitos(cursos);
     });
   }
   function getListadoCursosInsert() {
     const url = "TASKS/auxiliar/idCursoInsert.php";
     const operationUrl = "idCurso";
     var data = { ID: CursoAInsertar };
-    SendDataService(url, operationUrl, data).then((cursos) => {
-      setlistadoCursosInsert(cursos);
-    });
+    SendDataService(url, operationUrl, data).then((cursos) =>
+      setlistadoCursosInsert(cursos)
+    );
   }
   function toggleisActivePrerequisito(ID) {
     const url = "TASKS/coe-updateStatePrerequisito.php";
@@ -70,9 +72,9 @@ export default function Prerequisitos() {
       CursoaConsultar: CursoSeleccionado,
       PrerequisitoAInsertar: CursoAInsertar,
     };
+    console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
       TopAlerts(response);
-      getListadoPrerequisitos();
     });
   }
 
