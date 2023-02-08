@@ -1,44 +1,66 @@
 import React, { useState, useEffect } from "react";
 import SendDataService from "../../../services/SendDataService";
-import getDataService from "../../../services/GetDataService";
+import TopAlerts from "../../../components/templates/alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import TopAlerts from "../../../components/templates/alerts/TopAlerts";
-const InsertarEDDReferentes = ({
-  isActiveInsertEDDReferente,
-  cambiarEstado,
-}) => {
-  // ----------------------CONSTANTES----------------------------
+import getDataService from "../../../services/GetDataService";
 
+const EditarEDDReferentes = ({
+  isActiveEditEDDReferente,
+  cambiarEstado,
+  IDEvaluacionReferente,
+}) => {
   const [fechaInicio, setFechaInicio] = useState("");
   const [fechaFin, setFechaFin] = useState("");
   const [proyecto, setProyecto] = useState("");
   const [nombreCliente, setNombreCliente] = useState("");
+  const [estado, setEstado] = useState("");
   const [nombreEquipo, setNombreEquipo] = useState("");
   const [listClientes, setlistClientes] = useState([]);
   const [listProyectos, setlistProyectos] = useState([]);
+  const [responseID, setResponseID] = useState([]);
   const [listEquipos, setlistEquipos] = useState([]);
-  const show = isActiveInsertEDDReferente;
 
-  const handleClose = () => cambiarEstado(false);
+  const show = isActiveEditEDDReferente;
 
-  // ----------------------FUNCIONES----------------------------
+  const handleClose = () => {
+    cambiarEstado(false);
+  };
+
+  function getData() {
+    const url = "EDD/seleccion/selectEvaluacionReferentes.php";
+    const operationUrl = "ID";
+    const data = { IDEvaluacion: IDEvaluacionReferente };
+    SendDataService(url, operationUrl, data).then((response) => {
+      setResponseID(response);
+      setFechaInicio(response[0].fechaInicio);
+      setFechaFin(response[0].fechaFin);
+      setProyecto(response[0].proyecto);
+      setNombreCliente(response[0].nombreCliente);
+      setEstado(response[0].estado);
+      setNombreEquipo(response[0].nombreEquipo);
+    });
+  }
 
   function SendData(e) {
     e.preventDefault();
-    const url = "EDD/creacion/InsertarEvaluacionReferentes.php";
-    const operationUrl = "insertarEDDReferentes";
+    const url = "EDD/edicion/editarEvaluacionReferentes.php";
+    const operationUrl = "editarEvaluacion";
     var data = {
-      fechaInicio: fechaInicio,
-      fechaFin: fechaFin,
-      proyecto: proyecto,
-      cliente: cliente,
-      nombreCliente: nombreCliente,
-      nombreEquipo: nombreEquipo,
+      ID: IDEvaluacionReferente,
+      fechaInicio: fechaInicio === "" ? responseID[0].fechaInicio : fechaInicio,
+      fechaFin: fechaFin === "" ? responseID[0].fechaFin : fechaFin,
+      proyecto: proyecto === "" ? responseID[0].proyecto : proyecto,
+      nombreEquipo:
+        nombreEquipo === "" ? responseID[0].nombreEquipo : nombreEquipo,
+      nombreCliente:
+        nombreCliente === "" ? responseID[0].nombreCliente : nombreCliente,
+      estado: estado === "" ? responseID[0].estado : estado,
     };
-    SendDataService(url, operationUrl, data).then((response) => {
-      TopAlerts(response);
-    });
+
+    SendDataService(url, operationUrl, data).then((response) =>
+      TopAlerts(response)
+    );
   }
   function obtenerClientes() {
     const url = "EDD/seleccion/ListadoClientes.php?listadoClientes";
@@ -52,15 +74,19 @@ const InsertarEDDReferentes = ({
     const url = "EDD/seleccion/ListadoProyectos.php?listadoProyectos";
     getDataService(url).then((response) => setlistProyectos(response));
   }
-
-  useEffect(function () {
-    obtenerClientes();
-    obtenerProyectos();
-    obtenerEquipos();
-  }, []);
+  useEffect(
+    function () {
+      if (IDEvaluacionReferente !== null) {
+        obtenerClientes();
+        obtenerProyectos();
+        obtenerEquipos();
+        getData();
+      }
+    },
+    [IDEvaluacionReferente]
+  );
 
   // ----------------------RENDER----------------------------
-
   return (
     <>
       <Modal
@@ -70,7 +96,7 @@ const InsertarEDDReferentes = ({
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Insertar evaluación de referentes</Modal.Title>
+          <Modal.Title>Editar evaluación</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
@@ -80,6 +106,7 @@ const InsertarEDDReferentes = ({
                 required
                 className="form-control"
                 onChange={({ target }) => setNombreCliente(target.value)}
+                value={nombreCliente || ""}
               >
                 {listClientes.map((valor) => (
                   <option value={valor.nombreCliente}>
@@ -88,7 +115,6 @@ const InsertarEDDReferentes = ({
                 ))}
               </select>
             </div>
-
             <div className="form-group">
               <label htmlFor="input_tipoCliente">Seleccione un equipo:</label>
               <select
@@ -97,7 +123,12 @@ const InsertarEDDReferentes = ({
                 onChange={({ target }) => setNombreEquipo(target.value)}
               >
                 {listEquipos.map((valor) => (
-                  <option value={valor.nombreEquipo}>
+                  <option
+                    value={valor.nombreEquipo}
+                    selected={
+                      valor.nombreEquipo === nombreEquipo ? "selected" : ""
+                    }
+                  >
                     {valor.nombreEquipo}
                   </option>
                 ))}
@@ -112,6 +143,7 @@ const InsertarEDDReferentes = ({
                 name="input_fechaInicio"
                 className="form-control"
                 onChange={({ target }) => setFechaInicio(target.value)}
+                value={fechaInicio || ""}
                 required
               />
             </div>
@@ -124,6 +156,7 @@ const InsertarEDDReferentes = ({
                 className="form-control"
                 onChange={({ target }) => setFechaFin(target.value)}
                 required
+                value={fechaFin || ""}
               />
             </div>
 
@@ -138,13 +171,32 @@ const InsertarEDDReferentes = ({
                 value={proyecto || ""}
               >
                 {listProyectos.map((valor) => (
-                  <option value={valor.nombreProyecto}>
+                  <option
+                    selected={
+                      valor.nombreProyecto === proyecto ? "selected" : ""
+                    }
+                    value={valor.nombreProyecto}
+                  >
                     {valor.nombreProyecto}
                   </option>
                 ))}
               </select>
             </div>
+            <div className="form-group">
+              <label htmlFor="input_tipoCliente">Seleccione su estado: </label>
 
+              <select
+                required
+                className="form-control"
+                onChange={({ target }) => setEstado(target.value)}
+                value={estado || ""}
+              >
+                <option selected="selected">Seleccione un estado nuevo</option>
+                <option value="Programado">Programado</option>
+                <option value="En progreso">En progreso</option>
+                <option value="Finalizado">Finalizado</option>
+              </select>
+            </div>
             <Button
               variant="secondary"
               type="submit"
@@ -159,4 +211,4 @@ const InsertarEDDReferentes = ({
     </>
   );
 };
-export default InsertarEDDReferentes;
+export default EditarEDDReferentes;

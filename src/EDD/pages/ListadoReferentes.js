@@ -12,6 +12,7 @@ import { HiEye } from "react-icons/hi";
 import Button from "react-bootstrap/Button";
 import "../../components/css/TablasStyles.css";
 import InsertarEDDReferentes from "../templates/forms/InsertarEDDReferentes";
+import EditarEDDReferentes from "../templates/forms/editarEDDReferentes";
 
 export default function ListadoReferentes() {
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
@@ -20,6 +21,9 @@ export default function ListadoReferentes() {
   const [num_boton, setNumBoton] = useState(1);
   const [isActiveInsertEDDReferente, setIsActiveInsertEDDReferente] =
     useState(false);
+  const [isActiveEditEDDReferente, setIsActiveEditEDDReferente] =
+    useState(false);
+  const [IDEvaluacion, setIDEvaluacion] = useState(0);
 
   function obtenerDatosPaginador() {
     var urlPaginador = "paginador/botones_EDDReferentes.php";
@@ -29,6 +33,10 @@ export default function ListadoReferentes() {
   }
   function insertarEDDReferentes() {
     setIsActiveInsertEDDReferente(!isActiveInsertEDDReferente);
+  }
+  function editEDDReferentes(ID) {
+    setIsActiveEditEDDReferente(!isActiveEditEDDReferente);
+    setIDEvaluacion(ID);
   }
   function handleChangePaginador() {
     var url = "EDD/visualizacion/listadoEvaluacionesReferentes.php";
@@ -62,9 +70,12 @@ export default function ListadoReferentes() {
           </Button>
           <InsertarEDDReferentes
             isActiveInsertEDDReferente={isActiveInsertEDDReferente}
-            cambiarEstado={setIsActiveInsertEDDReferente}
           />
-
+          <EditarEDDReferentes
+            isActiveEditEDDReferente={isActiveEditEDDReferente}
+            cambiarEstado={setIsActiveEditEDDReferente}
+            IDEvaluacionReferente={IDEvaluacion}
+          />
           <Table id="mainTable" hover responsive>
             <thead>
               <tr>
@@ -87,7 +98,11 @@ export default function ListadoReferentes() {
                   <td>{referente.nombreCliente}</td>
                   <td>{referente.estado}</td>
                   <td>
-                    <button title="Editar curso" id="OperationBtns">
+                    <button
+                      title="Editar evaluación"
+                      id="OperationBtns"
+                      onClick={() => editEDDReferentes(referente.ID)}
+                    >
                       <RiEditBoxFill id="icons" />
                     </button>
                     <Link>
