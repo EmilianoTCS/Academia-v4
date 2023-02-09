@@ -69,7 +69,7 @@ const InsertarEDDAnalistas = ({
         show={show}
         onHide={handleClose}
         backdrop="static"
-        keyboard={false}
+        keyboard={true}
       >
         <Modal.Header closeButton>
           <Modal.Title>Insertar evaluación de analistas</Modal.Title>

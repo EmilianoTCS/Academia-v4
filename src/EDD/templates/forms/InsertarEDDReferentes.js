@@ -4,6 +4,7 @@ import getDataService from "../../../services/GetDataService";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import TopAlerts from "../../../components/templates/alerts/TopAlerts";
+
 const InsertarEDDReferentes = ({
   isActiveInsertEDDReferente,
   cambiarEstado,
@@ -18,6 +19,7 @@ const InsertarEDDReferentes = ({
   const [listClientes, setlistClientes] = useState([]);
   const [listProyectos, setlistProyectos] = useState([]);
   const [listEquipos, setlistEquipos] = useState([]);
+
   const show = isActiveInsertEDDReferente;
 
   const handleClose = () => cambiarEstado(false);
@@ -32,7 +34,6 @@ const InsertarEDDReferentes = ({
       fechaInicio: fechaInicio,
       fechaFin: fechaFin,
       proyecto: proyecto,
-      cliente: cliente,
       nombreCliente: nombreCliente,
       nombreEquipo: nombreEquipo,
     };
@@ -67,7 +68,7 @@ const InsertarEDDReferentes = ({
         show={show}
         onHide={handleClose}
         backdrop="static"
-        keyboard={false}
+        keyboard={true}
       >
         <Modal.Header closeButton>
           <Modal.Title>Insertar evaluación de referentes</Modal.Title>

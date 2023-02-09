@@ -200,6 +200,7 @@ export default function Prerequisitos() {
           </Card>
           <br/>
         </div>
+        <br />
       </Container>
     </>
   ) : (

@@ -101,6 +101,16 @@ export default function TopAlerts(props) {
         showConfirmButton: true,
         confirmButtonText: '<i class="fa fa-thumbs-up"></i> Ok!',
       });
+    case "errorPrerrequisito":
+      return MySwal.fire({
+        title: "Error!",
+        html: `
+        <p>No puedes añadir un prerrequisito que ya existe. </p>
+        `,
+        icon: "error",
+        showConfirmButton: true,
+        confirmButtonText: '<i class="fa fa-thumbs-up"></i> Ok!',
+      });
     case "repeatedPassword":
       return MySwal.fire({
         title: "Se ha producido un error.",

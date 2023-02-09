@@ -75,12 +75,7 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
     [IDRamo]
   );
 
-  // ----------------------MAPEADOS----------------------------
 
-  const optionsRelatores = listRelatores.map((label) => ({
-    label: label.nombre,
-    value: label.ID,
-  }));
   // ----------------------RENDER----------------------------
   return (
     <>
@@ -88,7 +83,7 @@ const EditarRamo = ({ isActiveEditRamo, cambiarEstado, IDRamo }) => {
         show={show}
         onHide={handleClose}
         backdrop="static"
-        keyboard={false}
+        keyboard={true}
       >
         <Modal.Header closeButton>
           <Modal.Title>Editar Ramo</Modal.Title>

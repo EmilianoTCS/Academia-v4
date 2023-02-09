@@ -84,32 +84,38 @@ const EditarColaborador = ({
 
   // ----------------------MAPEADOS----------------------------
 
-  const optionsCuentas = listCuentas.map((label) => ({
-    label: label.codigoCuenta,
-    value: label.ID,
-  }));
   return (
     <>
       <Modal
         show={show}
         onHide={handleClose}
         backdrop="static"
-        keyboard={false}
+        keyboard={true}
       >
         <Modal.Header closeButton>
           <Modal.Title>Editar Colaborador</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
-            <div>
-              <label htmlFor="input_fechaInicio">Cuenta: </label>
-              <Select
-                placeholder="Elige una cuenta"
-                name="cuenta"
-                options={optionsCuentas}
-                onChange={({ value }) => setIDCuenta(value)}
+            
+            <div className="form-group">
+              <label htmlFor="input_tipoCliente">Seleccione una cuenta:</label>
+              <select
                 required
-              />
+                className="form-control"
+                onChange={({ target }) => setIDCuenta(target.value)}
+              >
+                {listCuentas.map((valor) => (
+                  <option
+                    value={valor.ID}
+                    selected={
+                      valor.ID === idCuenta ? "selected" : ""
+                    }
+                  >
+                    {valor.codigoCuenta}
+                  </option>
+                ))}
+              </select>
             </div>
             <div>
               <label htmlFor="input_nombreCompleto">Nombre completo:</label>
