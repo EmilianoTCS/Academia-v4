@@ -11,6 +11,7 @@ import SwitchToggle from "../templates/SwitchToggle";
 import "../css/Prerequisitos.css";
 import TopAlerts from "../templates/alerts/TopAlerts";
 import { RevolvingDot } from "react-loader-spinner";
+import Alert from "react-bootstrap/Alert";
 
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -21,6 +22,8 @@ export default function Prerequisitos() {
   const [listadoPrerequisitos, setListadoPrerequisitos] = useState([""]);
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [busqueda, setBusqueda] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
+
   const [CursoSeleccionado, setCursoSeleccionado] = useState("");
   const [CursoAInsertar, setCursoAInsertar] = useState("");
 
@@ -34,8 +37,9 @@ export default function Prerequisitos() {
     const operationUrl = "ID";
     var data = { ID: CursoSeleccionado };
     SendDataService(url, operationUrl, data).then((cursos) => {
-      const { Busqueda } = cursos[0];
-      setBusqueda(Busqueda);
+      const { isEmpty } = cursos[0];
+      setBusqueda(true);
+      setIsEmpty(isEmpty);
       setListadoPrerequisitos(cursos);
     });
   }
@@ -89,34 +93,48 @@ export default function Prerequisitos() {
 
   const MainTable = () => {
     if (busqueda) {
-      return (
-        <Table id="mainTable" hover responsive>
-          <thead>
-            <tr>
-              <th>Codigo</th>
-              <th>Nombre del ramo</th>
-              <th>ID del pre_requisito</th>
-              <th>Fecha de modificación</th>
-              <th>Habilitar o Deshabilitar</th>
-            </tr>
-          </thead>
-          <tbody>
-            {listadoPrerequisitos.map((prerequisito) => (
-              <tr key={prerequisito.ID}>
-                <td>{prerequisito.codigoRamo}</td>
-                <td>{prerequisito.nombreRamo}</td>
-                <td>{prerequisito.pre_requisito}</td>
-                <td>{prerequisito.fechaActualizacion}</td>
-                <td
-                  onChange={() => toggleisActivePrerequisito(prerequisito.ID)}
-                >
-                  <SwitchToggle isActive={prerequisito.isActive} />
-                </td>
+      if (!isEmpty) {
+        return (
+          <Table id="mainTable" hover responsive>
+            <thead>
+              <tr>
+                <th>Codigo</th>
+                <th>Nombre del ramo</th>
+                <th>ID del pre_requisito</th>
+                <th>Fecha de modificación</th>
+                <th>Habilitar o Deshabilitar</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      );
+            </thead>
+            <tbody>
+              {listadoPrerequisitos.map((prerequisito) => (
+                <tr key={prerequisito.ID}>
+                  <td>{prerequisito.codigoRamo}</td>
+                  <td>{prerequisito.nombreRamo}</td>
+                  <td>{prerequisito.pre_requisito}</td>
+                  <td>{prerequisito.fechaActualizacion}</td>
+                  <td
+                    onChange={() => toggleisActivePrerequisito(prerequisito.ID)}
+                  >
+                    <SwitchToggle isActive={prerequisito.isActive} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        );
+      } else {
+        return (
+          <>
+            <br />
+            <Alert variant="danger">
+              <Alert.Heading>
+                No existen registros para este filtro.
+              </Alert.Heading>
+            </Alert>
+            <br />
+          </>
+        );
+      }
     }
     return (
       <RevolvingDot
@@ -198,7 +216,7 @@ export default function Prerequisitos() {
 
             <MainTable></MainTable>
           </Card>
-          <br/>
+          <br />
         </div>
         <br />
       </Container>
