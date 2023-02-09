@@ -8,6 +8,7 @@ import TopAlerts from "../../templates/alerts/TopAlerts";
 
 export default function AdminRamos() {
   const [ramos, setRamos] = useState([""]);
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   function obtenerDatosRamos() {
     const url = "TASKS/coe-adminRamos.php?ramos";
     getDataService(url).then((ramos) => setRamos(ramos));
@@ -15,7 +16,7 @@ export default function AdminRamos() {
   function handleChangeisActiveRamos(ID) {
     const url = "TASKS/coe-updateStateRamos.php";
     const operationUrl = "updateStateRamos";
-    var data = { ID: ID };
+    var data = { ID: ID , usuario: userData.username };
     SendDataService(url, operationUrl, data).then((response) => {
       const { successEdited, ...ramo } = response[0];
       actualizarRamo(ramo);
@@ -33,7 +34,6 @@ export default function AdminRamos() {
 
 
   return(
-    
           <Table responsive>
             <thead>
               <tr>
@@ -41,6 +41,7 @@ export default function AdminRamos() {
                 <th>Código Ramo</th>
                 <th>Nombre del Ramo</th>
                 <th>Fecha de modificación </th>
+                <th>Modificado por </th>
                 <th id="th_switch">Habilitar o Deshabilitar</th>
               </tr>
             </thead>
@@ -51,6 +52,7 @@ export default function AdminRamos() {
                   <td>{ramo.codigoRamo}</td>
                   <td>{ramo.nombreRamo}</td>
                   <td>{ramo.date}</td>
+                  <td>{ramo.usuario}</td>
                   <td onChange={() => handleChangeisActiveRamos(ramo.ID)}>
                     <SwitchToggle isActive={ramo.isActive} />
                   </td>
