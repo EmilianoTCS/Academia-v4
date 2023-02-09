@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container,Table } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
@@ -9,6 +9,7 @@ import SwitchToggle from "../templates/SwitchToggle";
 import "../css/CustomButton.css";
 import "../css/ListadoAsistencias.css";
 import TopAlerts from "../templates/alerts/TopAlerts";
+import Alert from "react-bootstrap/Alert";
 import { RevolvingDot } from "react-loader-spinner";
 
 export default function ListadoAsistencias() {
@@ -20,6 +21,7 @@ export default function ListadoAsistencias() {
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   const [busqueda, setBusqueda] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   function obtenerDatosCursos() {
     var url = "TASKS/auxiliar/idCurso.php?idCurso";
@@ -33,10 +35,12 @@ export default function ListadoAsistencias() {
     var url = "TASKS/coe-listAsistencias.php";
     var operationUrl = "ID";
     var data = { ID: cursoSeleccionado, fecha: fechaSeleccionada };
-    SendDataService(url, operationUrl, data).then(
-      (response) => setAsistencias(response),
-      setBusqueda(true)
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      setAsistencias(response);
+      const { isEmpty } = response[0];
+      setBusqueda(true);
+      setIsEmpty(isEmpty);
+    });
   }
   function obtenerDatosFechas() {
     var url = "TASKS/auxiliar/fechasAsistencia.php";
@@ -94,31 +98,44 @@ export default function ListadoAsistencias() {
 
   const MainTable = () => {
     if (busqueda) {
-      return (
-        <Table id="mainTable" hover responsive>
-          <thead>
-            <tr key={1}>
-              <th>Usuarios</th>
-              <th>Estado</th>
-              <th>Operaciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {asistencias.map((item) => (
-              <tr key={item.ID}>
-                <td>{item.usuario}</td>
-                {item.valor === "1" ? <td>Presente</td> : <td>Ausente</td>}
-                <td onChange={() => handleChange(item.ID)}>
-                  <SwitchToggle isActive={item.valor} />
-                </td>
+      if (!isEmpty) {
+        return (
+          <Table id="mainTable" hover responsive>
+            <thead>
+              <tr key={1}>
+                <th>Usuarios</th>
+                <th>Estado</th>
+                <th>Operaciones</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      );
+            </thead>
+            <tbody>
+              {asistencias.map((item) => (
+                <tr key={item.ID}>
+                  <td>{item.usuario}</td>
+                  {item.valor === "1" ? <td>Presente</td> : <td>Ausente</td>}
+                  <td onChange={() => handleChange(item.ID)}>
+                    <SwitchToggle isActive={item.valor} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        );
+      } else {
+        return (
+          <>
+            <br />
+            <Alert variant="danger">
+              <Alert.Heading>
+                No existen registros para este filtro.
+              </Alert.Heading>
+            </Alert>
+            <br />
+          </>
+        );
+      }
     }
     return (
-
       <RevolvingDot
         visible={true}
         height="200"
@@ -150,28 +167,28 @@ export default function ListadoAsistencias() {
       <br></br>
       <br></br>
       <Container id="fondoTabla">
-      <div id="containerTablas">
-        <h1 id="TitlesPages">Listado de asistencias</h1>
-        <div id="FiltrosAsistencias">
-          <Select
-            className="react-select-container"
-            placeholder="Elige un curso"
-            name="cuenta"
-            options={optionsCursos}
-            onChange={({ value }) => setCursoSeleccionado(value)}
-          />
+        <div id="containerTablas">
+          <h1 id="TitlesPages">Listado de asistencias</h1>
+          <div id="FiltrosAsistencias">
+            <Select
+              className="react-select-container"
+              placeholder="Elige un curso"
+              name="cuenta"
+              options={optionsCursos}
+              onChange={({ value }) => setCursoSeleccionado(value)}
+            />
 
-          <Select
-            className="react-select-container"
-            placeholder="Elige una fecha"
-            name="fechas"
-            options={optionsFechas}
-            onChange={({ value }) => setfechaSeleccionada(value)}
-          />
-          <CustomButtonSearch></CustomButtonSearch>
+            <Select
+              className="react-select-container"
+              placeholder="Elige una fecha"
+              name="fechas"
+              options={optionsFechas}
+              onChange={({ value }) => setfechaSeleccionada(value)}
+            />
+            <CustomButtonSearch></CustomButtonSearch>
+          </div>
+          <MainTable></MainTable>
         </div>
-        <MainTable></MainTable>
-      </div>
       </Container>
     </>
   ) : (
