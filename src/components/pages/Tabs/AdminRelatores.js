@@ -8,6 +8,9 @@ import TopAlerts from "../../templates/alerts/TopAlerts";
 
 export default function AdminRelatores() {
   const [relatores, setRelatores] = useState([""]);
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
+
+
   function obtenerDatosRelatores() {
     const url = "TASKS/coe-adminRelator.php?relator";
     getDataService(url).then((relatores) => setRelatores(relatores));
@@ -22,7 +25,7 @@ export default function AdminRelatores() {
   function handleChangeisActiveRelatores(ID) {
     const url = "TASKS/coe-updateStateRelator.php";
     const operationUrl = "updateStateRelator";
-    var data = { ID: ID };
+    var data = { ID: ID , usuario: userData.username };
     SendDataService(url, operationUrl, data).then((response) => {
       const { successEdited, ...relator } = response[0];
       actualizarRelator(relator);
@@ -41,6 +44,7 @@ export default function AdminRelatores() {
           <th>ID</th>
           <th>Nombre</th>
           <th>Fecha de modificación</th>
+          <th>Modificado por</th>
           <th id="th_switch">Habilitar o Deshabilitar</th>
         </tr>
       </thead>
@@ -50,6 +54,7 @@ export default function AdminRelatores() {
             <td>{relator.ID}</td>
             <td>{relator.nombre}</td>
             <td>{relator.date}</td>
+            <td>{relator.usuario}</td>
             <td onChange={() => handleChangeisActiveRelatores(relator.ID)}>
               <SwitchToggle isActive={relator.isActive} />
             </td>

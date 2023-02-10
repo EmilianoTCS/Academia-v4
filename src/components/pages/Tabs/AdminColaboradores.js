@@ -8,6 +8,9 @@ import TopAlerts from "../../templates/alerts/TopAlerts";
 
 export default function AdminColaborador() {
     const [colaboradores, setColaboradores] = useState([""]);
+    const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
+
+
     function obtenerDatosColaboradores() {
         const url = "TASKS/coe-adminColaborador.php?colaborador";
         getDataService(url).then((colaboradores) =>
@@ -17,7 +20,8 @@ export default function AdminColaborador() {
       function handleChangeisActiveColaborador(ID) {
         const url = "TASKS/coe-updateStateColaborador.php";
         const operationUrl = "updateStateColaborador";
-        var data = { ID: ID };
+
+        var data = { ID: ID , ultimoUsuario: userData.username };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited, ...colaborador } = response[0];
           actualizarColaborador(colaborador);
@@ -44,6 +48,7 @@ export default function AdminColaborador() {
                 <th>Usuario</th>
                 <th>Área</th>
                 <th>Fecha de modificación</th>
+                <th>Modificado por</th>
                 <th id="th_switch">Habilitar o Deshabilitar</th>
               </tr>
             </thead>
@@ -52,9 +57,10 @@ export default function AdminColaborador() {
                 <tr key={colaborador.ID}>
                   <td>{colaborador.ID}</td>
                   <td>{colaborador.nombre_completo}</td>
-                  <td>{colaborador.usuario}</td>
+                  <td>{colaborador.usuario1}</td>
                   <td>{colaborador.area}</td>
                   <td>{colaborador.date}</td>
+                  <td>{colaborador.ultimoUsuario}</td>
                   <td
                     onChange={() =>
                       handleChangeisActiveColaborador(colaborador.ID)

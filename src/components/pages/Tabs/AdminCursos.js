@@ -8,6 +8,7 @@ import TopAlerts from "../../templates/alerts/TopAlerts";
 
 export default function AdminCursos() {
   const [cursos, setCursos] = useState([""]);
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   function obtenerDatosCursos() {
     const url = "TASKS/coe-adminCursos.php?cursos";
@@ -19,7 +20,7 @@ export default function AdminCursos() {
   function handleChangeisActiveCursos(ID) {
     const url = "TASKS/coe-updateState.php";
     const operationUrl = "updateStateCursos";
-    var data = { ID: ID };
+    var data = { ID: ID , usuario: userData.username };
     SendDataService(url, operationUrl, data).then((response) => {
       const { successEdited, ...curso } = response[0];
       actualizarCurso(curso);
@@ -43,6 +44,7 @@ export default function AdminCursos() {
             <th>Código Curso</th>
             <th>Código Ramo</th>
             <th>Fecha de modificación</th>
+            <th>Modificado por </th>
             <th id="th_switch">Habilitar o Deshabilitar</th>
           </tr>
         </thead>
@@ -53,6 +55,7 @@ export default function AdminCursos() {
               <td>{curso.codigoCurso}</td>
               <td>{curso.codigoRamo}</td>
               <td>{curso.date}</td>
+              <td>{curso.usuario}</td>
               <td onChange={() => handleChangeisActiveCursos(curso.ID)}>
                 <SwitchToggle isActive={curso.isActive} />
               </td>
