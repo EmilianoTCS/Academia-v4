@@ -6,7 +6,11 @@ import TopAlerts from "../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
+const InsertarClientes = ({
+  isActiveCliente,
+  cambiarEstado,
+  cliente,
+}) => {
   // ----------------------CONSTANTES----------------------------
   const [tipo_cliente, setTipoClientes] = useState("");
   const [nombreCliente, setNombreCliente] = useState("");
@@ -14,6 +18,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
   const [correoReferente, setCorreoReferente] = useState("");
   const [cargoReferente, setCargoReferente] = useState("");
   const [telefonoReferente, setTelefonoReferente] = useState("");
+  const listClientes = cliente;
 
   const show = isActiveCliente;
 
@@ -22,7 +27,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
   // ----------------------FUNCIONES----------------------------
 
   function SendData(e) {
-    // e.preventDefault();
+    e.preventDefault();
     const url = "TASKS/coe-insertarCliente.php";
     const operationUrl = "insertarCliente";
     var data = {
@@ -34,20 +39,21 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
       cargoReferente: cargoReferente,
     };
 
-    SendDataService(url, operationUrl, data).then((response) =>
-      TopAlerts(response)
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      const { successCreated, ...cliente } = response[0];
+      TopAlerts(successCreated);
+      actualizarCliente(cliente);
+    });
+  }
+
+  function actualizarCliente(response) {
+    listClientes.push(response);
   }
 
   // ----------------------RENDER----------------------------
   return (
     <>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={true}
-      >
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
           <Modal.Title>Insertar Cliente</Modal.Title>
         </Modal.Header>
@@ -62,6 +68,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
                 id="input_tipoCliente"
                 onChange={({ target }) => setTipoClientes(target.value)}
               >
+                <option selected>Desplegar lista</option>
                 <option value="interno">Interno</option>
                 <option value="externo">Externo</option>
               </select>

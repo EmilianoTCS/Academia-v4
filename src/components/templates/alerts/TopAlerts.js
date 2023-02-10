@@ -1,5 +1,7 @@
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { Navigate } from "react-router-dom";
+
 export default function TopAlerts(props) {
   const MySwal = withReactContent(Swal);
 
@@ -52,6 +54,8 @@ export default function TopAlerts(props) {
         icon: "success",
         showConfirmButton: true,
         confirmButtonText: '<i class="fa fa-thumbs-up"></i> Ok!',
+      }).then(function () {
+        window.location.href = "https://academiaformacion.netlify.app/login";
       });
     case "changesSaved":
       return MySwal.fire({

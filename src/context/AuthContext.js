@@ -16,7 +16,7 @@ const AuthState = (props) => {
     privateAccess: false,
     tipoUsuario: null,
   });
-  
+
 
   const checkAuth = () => {
     //obtener el usuario del localstorage
