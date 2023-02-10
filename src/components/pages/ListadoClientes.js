@@ -91,12 +91,15 @@ export default function ListadoClientes() {
           <InsertarClientes
             isActiveCliente={isActiveInsertCliente}
             cambiarEstado={setIsActiveInsertCliente}
+            cliente={cliente}
           ></InsertarClientes>
 
           <EditarClientes
             isActiveEditCliente={isActiveEditCliente}
             cambiarEstado={setIsActiveEditCliente}
             IDCliente={IDCliente}
+            setCliente={setCliente}
+            cliente={cliente}
           ></EditarClientes>
 
           <Table id="mainTable" hover responsive>

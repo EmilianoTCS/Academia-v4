@@ -6,7 +6,13 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useCallback } from "react";
 
-const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
+const EditarClientes = ({
+  isActiveEditCliente,
+  cambiarEstado,
+  IDCliente,
+  cliente,
+  setCliente,
+}) => {
   // ----------------------CONSTANTES----------------------------
   const [tipo_cliente, setTipoClientes] = useState("");
   const [nombreCliente, setNombreCliente] = useState("");
@@ -15,6 +21,7 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
   const [cargoReferente, setCargoReferente] = useState("");
   const [telefonoReferente, setTelefonoReferente] = useState("");
   const [responseID, setResponseID] = useState([""]);
+  const listClientes = cliente;
 
   const show = isActiveEditCliente;
 
@@ -46,7 +53,7 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
   }, [IDCliente]);
 
   function SendData(e) {
-    // e.preventDefault();
+    e.preventDefault();
     const url = "TASKS/coe-editClientes.php";
 
     const operationUrl = "editarCliente";
@@ -69,9 +76,18 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
         cargoReferente === "" ? responseID[0].cargoReferente : cargoReferente,
     };
 
-    SendDataService(url, operationUrl, data).then((response) =>
-      TopAlerts(response)
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      const { successEdited, ...cliente } = response[0];
+      TopAlerts(successEdited);
+      actualizarCliente(cliente);
+    });
+
+    function actualizarCliente(cliente) {
+      const nuevosClientes = listClientes.map((c) =>
+        c.ID === cliente.ID ? cliente : c
+      );
+      setCliente(nuevosClientes);
+    }
   }
 
   useEffect(
@@ -86,12 +102,7 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
   // ----------------------RENDER----------------------------
   return (
     <>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={true}
-      >
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
           <Modal.Title>Editar Cliente</Modal.Title>
         </Modal.Header>
@@ -107,6 +118,7 @@ const EditarClientes = ({ isActiveEditCliente, cambiarEstado, IDCliente }) => {
                 onChange={({ target }) => setTipoClientes(target.value)}
                 required
               >
+                <option selected>Desplegar lista</option>
                 <option value="interno">Interno</option>
                 <option value="externo">Externo</option>
               </select>
