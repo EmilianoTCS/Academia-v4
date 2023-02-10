@@ -51,7 +51,7 @@ export default function ListadoRamos() {
       if (response === true) {
         var url = "TASKS/coe-updateStateRamos.php";
         var operationUrl = "updateStateRamos";
-        var data = { ID: ID };
+        var data = { ID: ID, usuario: userData.username  };
         SendDataService(url, operationUrl, data).then((response) =>
           TopAlerts(response)
         );

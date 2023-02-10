@@ -52,7 +52,7 @@ export default function ListadoCursos() {
       if (response === true) {
         var url = "TASKS/coe-updateState.php";
         var operationUrl = "updateStateCursos";
-        var data = { ID: ID };
+        var data = { ID: ID, usuario: userData.username  };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
