@@ -101,6 +101,16 @@ export default function TopAlerts(props) {
         showConfirmButton: true,
         confirmButtonText: '<i class="fa fa-thumbs-up"></i> Ok!',
       });
+    case "errorCursoNoExiste":
+      return MySwal.fire({
+        title: "¡Ups!",
+        html: `
+        <p>Actualmente no existen inscripciones disponibles para este curso.</p>
+        `,
+        icon: "error",
+        showConfirmButton: true,
+        confirmButtonText: '<i class="fa fa-thumbs-up"></i> Ok!',
+      });
     case "errorPrerrequisito":
       return MySwal.fire({
         title: "Error!",

@@ -9,11 +9,13 @@ import TopAlerts from "../templates/alerts/TopAlerts";
 import "../css/IncribirseCurso.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Alert from "react-bootstrap/Alert";
 
 export default function InscribirseCurso() {
   // ----------------------CONSTANTES----------------------------
   const [listCuentas, setListCuentas] = useState([""]);
   const [listadoCursos, setListadoCursos] = useState([""]);
+  const [cambios, setCambios] = useState(false);
 
   const [codigoCuenta, setCodigoCuenta] = useState("");
   const [cursoSeleccionado, setCursoSeleccionado] = useState("");
@@ -40,23 +42,28 @@ export default function InscribirseCurso() {
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
       TopAlerts(response[0]);
+      console.log(response);
     });
   }
+
+  const Alerts = () => {
+    if (!cambios) {
+      return (
+        <>
+          <br />
+          <Alert variant="danger">
+            <Alert.Heading>Por favor Selecciona las opciones.</Alert.Heading>
+          </Alert>
+          <br />
+        </>
+      );
+    }
+  };
 
   useEffect(function () {
     obtenerCuentas();
     obtenerDatosCursos();
   }, []);
-
-  // ----------------------MAPEADOS----------------------------
-  const optionsCuentas = listCuentas.map((label) => ({
-    label: label.codigoCuenta,
-    value: label.ID,
-  }));
-  const optionsCursos = listadoCursos.map((label) => ({
-    label: label.nombreRamo,
-    value: label.ID,
-  }));
 
   return userData.statusConected || userData !== null ? (
     <>
@@ -64,38 +71,57 @@ export default function InscribirseCurso() {
       <br></br>
       <br></br>
       <Container id="fondoTabla">
-      <div id="containerTablas">
-        <h1 id="TitlesPages">Inscripción de cursos</h1>
-        <Form id="formPrerequisitos" onSubmit={SendData}>
-          <Row>
-            <Col>
-              <Card id="CardsPrerequisitos">
-                <h1 id="Subtitles"> Selecciona tu cuenta</h1>
-                <Select
-                  placeholder="Elige una cuenta"
-                  name="cuenta"
-                  options={optionsCuentas}
-                  onChange={({ value }) => setCodigoCuenta(value)}
-                />
-              </Card>
-            </Col>
-            <Col>
-              <Card id="CardsPrerequisitos">
-                <h1 id="Subtitles"> Curso al que desea inscribirse:</h1>
-                <Select
-                  placeholder="Elige un curso"
-                  name="cursos"
-                  options={optionsCursos}
-                  onChange={({ value }) => setCursoSeleccionado(value)}
-                />
-              </Card>
-            </Col>
-          </Row>
-          <button id="CardsPrerequisitos" className="enviar" type="submit" style={{marginBottom:'20px'}}>
-            Enviar
-          </button>
-        </Form>
-      </div>
+        <div id="containerTablas">
+          <h1 id="TitlesPages">Inscripción de cursos</h1>
+          <Form id="formPrerequisitos" onSubmit={SendData}>
+            <Row>
+              <Col>
+                <Card id="CardsPrerequisitos">
+                  <h1 id="Subtitles"> Selecciona tu cuenta</h1>
+                  <select
+                    required
+                    className="form-control"
+                    onChange={({ target }) => {
+                      setCodigoCuenta(target.value), setCambios(true);
+                    }}
+                  >
+                    <option selected>Desplegar lista</option>
+                    {listCuentas.map((valor) => (
+                      <option value={valor.ID}>{valor.codigoCuenta}</option>
+                    ))}
+                  </select>
+                </Card>
+              </Col>
+              <Col>
+                <Card id="CardsPrerequisitos">
+                  <h1 id="Subtitles"> Curso al que desea inscribirse:</h1>
+                  <select
+                    required
+                    className="form-control"
+                    onChange={({ target }) => {
+                      setCursoSeleccionado(target.value);
+                      setCambios(true);
+                    }}
+                  >
+                    <option selected>Desplegar lista</option>
+                    {listadoCursos.map((valor) => (
+                      <option value={valor.ID}>{valor.nombreRamo}</option>
+                    ))}
+                  </select>
+                </Card>
+              </Col>
+            </Row>
+            <button
+              id="CardsPrerequisitos"
+              className="enviar"
+              type="submit"
+              style={{ marginBottom: "20px" }}
+              disabled={!cambios ? true : false}
+            >
+              Enviar
+            </button>
+          </Form>
+        </div>
       </Container>
     </>
   ) : (
