@@ -6,11 +6,7 @@ import TopAlerts from "../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-const InsertarClientes = ({
-  isActiveCliente,
-  cambiarEstado,
-  cliente,
-}) => {
+const InsertarClientes = ({ isActiveCliente, cambiarEstado, cliente }) => {
   // ----------------------CONSTANTES----------------------------
   const [tipo_cliente, setTipoClientes] = useState("");
   const [nombreCliente, setNombreCliente] = useState("");
@@ -66,9 +62,12 @@ const InsertarClientes = ({
                 className="form-control"
                 name="input_tipoCliente"
                 id="input_tipoCliente"
+                placeholder="hola"
                 onChange={({ target }) => setTipoClientes(target.value)}
               >
-                <option selected>Desplegar lista</option>
+                <option hidden selected>
+                  Desplegar lista
+                </option>
                 <option value="interno">Interno</option>
                 <option value="externo">Externo</option>
               </select>
