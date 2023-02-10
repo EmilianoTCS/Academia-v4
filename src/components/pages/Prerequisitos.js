@@ -128,7 +128,7 @@ export default function Prerequisitos() {
             <br />
             <Alert variant="danger">
               <Alert.Heading>
-                No existen registros para este filtro.
+                No existen registros asociados.
               </Alert.Heading>
             </Alert>
             <br />
@@ -136,17 +136,17 @@ export default function Prerequisitos() {
         );
       }
     }
-    return (
-      <RevolvingDot
-        visible={true}
-        height="200"
-        width="200"
-        ariaLabel="dna-loading"
-        wrapperStyle={{ margin: "auto auto" }}
-        wrapperClass="dna-wrapper"
-        color="#e10b1c"
-      ></RevolvingDot>
-    );
+    // return (
+    //   <RevolvingDot
+    //     visible={true}
+    //     height="200"
+    //     width="200"
+    //     ariaLabel="dna-loading"
+    //     wrapperStyle={{ margin: "auto auto" }}
+    //     wrapperClass="dna-wrapper"
+    //     color="#e10b1c"
+    //   ></RevolvingDot>
+    // );
   };
   // ------------------------- CONSTANTES -------------------------
 

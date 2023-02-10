@@ -11,6 +11,7 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
   const [responseID, setResponseID] = useState([""]);
   const [listCuentas, setListCuentas] = useState([""]);
   const [listRamos, setListRamos] = useState([""]);
+  const [idCuenta, setIdCuenta] = useState("");
   const [codigoCuenta, setCodigoCuenta] = useState("");
   const [codigoRamo, setCodigoRamo] = useState("");
   const [fechaInicio, setFechaInicio] = useState("");
@@ -22,6 +23,7 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
 
   const handleClose = () => {
     cambiarEstado(false);
+    setIdCuenta(responseID[0].idCuentaEdit);
     setCodigoCuenta(responseID[0].codigoCuentaEdit);
     setCodigoRamo(responseID[0].codigoRamoEdit);
     setFechaInicio(responseID[0].fechaInicioEdit);
@@ -38,6 +40,7 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
     const data = { ID: IDCurso };
     SendDataService(url, operationUrl, data).then((response) => {
       setResponseID(response);
+      setIdCuenta(response[0].idCuentaEdit);
       setCodigoCuenta(response[0].codigoCuentaEdit);
       setCodigoRamo(response[0].codigoRamoEdit);
       setFechaInicio(response[0].fechaInicioEdit);
@@ -56,26 +59,25 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
     getDataService(url).then((ramos) => setListRamos(ramos));
   }
   function SendData(e) {
-    // e.preventDefault();
+    e.preventDefault();
     const url = "TASKS/coe-editCurso.php";
     const operationUrl = "editarCurso";
     const data = {
       ID: IDCurso,
-      codigoCuenta:
-        codigoCuenta === "" ? responseID[0].idCuentaEdit : codigoCuenta,
+      idCuenta: idCuenta === "" ? responseID[0].idCuentaEdit : idCuenta,
       codigoRamo: codigoRamo === "" ? responseID[0].codigoRamoEdit : codigoRamo,
       fechaInicio:
-        fechaInicio === "" ? responseID[0].fechaInicioEdit : fechaInicio,
+      fechaInicio === "" ? responseID[0].fechaInicioEdit : fechaInicio,
       fechaFin: fechaFin === "" ? responseID[0].fechaFinEdit : fechaFin,
       horaInicio: horaInicio === "" ? responseID[0].horaInicioEdit : horaInicio,
       horaFin: horaFin === "" ? responseID[0].horaFinEdit : horaFin,
     };
-    console.log(data);
 
-    SendDataService(url, operationUrl, data).then(
-      (response) => TopAlerts(response),
-      getData()
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      TopAlerts(response);
+      getData();
+      console.log(response);
+    });
   }
 
   useEffect(
@@ -89,26 +91,11 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
     [IDCurso]
   );
 
-  // ----------------------MAPEADOS----------------------------
-  const optionsRamos = listRamos.map((label) => ({
-    label: label.nombreRamo,
-    value: label.codigoRamo,
-  }));
-  const optionsCuentas = listCuentas.map((label) => ({
-    label: label.codigoCuenta,
-    value: label.ID,
-  }));
-
   // ----------------------RENDER----------------------------
 
   return (
     <>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={true}
-      >
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
           <Modal.Title>Editar Curso</Modal.Title>
         </Modal.Header>
@@ -119,14 +106,14 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
               <select
                 required
                 className="form-control"
-                onChange={({ target }) => setCodigoCuenta(target.value)}
+                onChange={({ target }) => setIdCuenta(target.value)}
               >
                 {listCuentas.map((valor) => (
                   <option
-                    value={valor.ID}
                     selected={
                       valor.codigoCuenta === codigoCuenta ? "selected" : ""
                     }
+                    value={valor.ID}
                   >
                     {valor.codigoCuenta}
                   </option>

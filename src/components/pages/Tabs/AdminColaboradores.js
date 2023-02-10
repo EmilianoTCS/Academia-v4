@@ -21,7 +21,7 @@ export default function AdminColaborador() {
         const url = "TASKS/coe-updateStateColaborador.php";
         const operationUrl = "updateStateColaborador";
 
-        var data = { ID: ID , ultimoUsuario: userData.username };
+        var data = { ID: ID ,  usuario: userData.username };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited, ...colaborador } = response[0];
           actualizarColaborador(colaborador);
@@ -60,7 +60,7 @@ export default function AdminColaborador() {
                   <td>{colaborador.usuario1}</td>
                   <td>{colaborador.area}</td>
                   <td>{colaborador.date}</td>
-                  <td>{colaborador.ultimoUsuario}</td>
+                  <td>{colaborador.usuario}</td>
                   <td
                     onChange={() =>
                       handleChangeisActiveColaborador(colaborador.ID)
