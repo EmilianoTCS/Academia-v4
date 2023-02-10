@@ -68,6 +68,7 @@ const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
                 onChange={({ target }) => setidCuenta(target.value)}
               pla
               >
+                <option selected>Desplegar lista</option>
                 {listCuentas.map((valor) => (
                   <option value={valor.ID}>{valor.codigoCuenta}</option>
                 ))}

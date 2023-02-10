@@ -118,6 +118,8 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
                 className="form-control"
                 onChange={({ target }) => setCodigoCuenta(target.value)}
               >
+                <option selected>Desplegar lista</option>
+
                 {listCuentas.map((valor) => (
                   <option value={valor.ID}>{valor.codigoCuenta}</option>
                 ))}
@@ -133,6 +135,8 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
                 value={listCuentas[0].codigoRamo}
 
               >
+                <option selected>Desplegar lista</option>
+
                 {listRamos.map((valor) => (
                   <option value={valor.codigoRamo}>{valor.nombreRamo}</option>
                 ))}

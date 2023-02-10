@@ -69,6 +69,8 @@ const InsertarRelator = ({ isActiveRelator, cambiarEstado }) => {
                 className="form-control"
                 onChange={({ target }) => setidCuenta(target.value)}
               >
+                <option selected>Desplegar lista</option>
+
                 {listArea.map((valor) => (
                   <option value={valor.ID}>{valor.nombreArea}</option>
                 ))}

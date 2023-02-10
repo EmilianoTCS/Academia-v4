@@ -83,6 +83,8 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
                 onChange={({ target }) => setIDCuenta(target.value)}
                 placeholder="Elige una cuenta"
               >
+                <option selected>Desplegar lista</option>
+                
                 {listCuentas.map((valor) => (
                   <option value={valor.ID}>{valor.codigoCuenta}</option>
                 ))}
@@ -133,6 +135,8 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
                 onChange={({ target }) => setRelator(target.value)}
                 placeholder="Elige un relator"
               >
+                <option selected>Desplegar lista</option>
+
                 {listRelatores.map((valor) => (
                   <option value={valor.ID}>{valor.nombre}</option>
                 ))}
@@ -146,6 +150,8 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
                 onChange={({ target }) => setPrerequisito(target.value)}
                 placeholder="Elige un prerequisito"
               >
+                <option selected>Desplegar lista</option>
+
                 {listPrerequisitos.map((valor) => (
                   <option value={valor.ID}>{valor.nombreRamo}</option>
                 ))}
