@@ -41,7 +41,7 @@ export default function ListadoClientes() {
       if (response === true) {
         var url = "TASKS/coe-updateStateClientes.php";
         var operationUrl = "updateStateClientes";
-        var data = { ID: ID };
+        var data = { ID: ID, usuario: userData.username };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
@@ -91,12 +91,15 @@ export default function ListadoClientes() {
           <InsertarClientes
             isActiveCliente={isActiveInsertCliente}
             cambiarEstado={setIsActiveInsertCliente}
+            cliente={cliente}
           ></InsertarClientes>
 
           <EditarClientes
             isActiveEditCliente={isActiveEditCliente}
             cambiarEstado={setIsActiveEditCliente}
             IDCliente={IDCliente}
+            setCliente={setCliente}
+            cliente={cliente}
           ></EditarClientes>
 
           <Table id="mainTable" hover responsive>
@@ -130,9 +133,9 @@ export default function ListadoClientes() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    <button title="Examinar curso" id="OperationBtns">
+                    {/* <button title="Examinar curso" id="OperationBtns">
                       <HiEye id="icons" />
-                    </button>
+                    </button> */}
                     <button
                       title="Eliminar curso"
                       onClick={() => eliminar(cliente.ID)}

@@ -6,7 +6,7 @@ import TopAlerts from "../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
+const InsertarClientes = ({ isActiveCliente, cambiarEstado, cliente }) => {
   // ----------------------CONSTANTES----------------------------
   const [tipo_cliente, setTipoClientes] = useState("");
   const [nombreCliente, setNombreCliente] = useState("");
@@ -14,6 +14,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
   const [correoReferente, setCorreoReferente] = useState("");
   const [cargoReferente, setCargoReferente] = useState("");
   const [telefonoReferente, setTelefonoReferente] = useState("");
+  const listClientes = cliente;
 
   const show = isActiveCliente;
 
@@ -34,20 +35,21 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
       cargoReferente: cargoReferente,
     };
 
-    SendDataService(url, operationUrl, data).then((response) =>
-      TopAlerts(response)
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      const { successCreated, ...cliente } = response[0];
+      TopAlerts(successCreated);
+      actualizarCliente(cliente);
+    });
+  }
+
+  function actualizarCliente(response) {
+    listClientes.push(response);
   }
 
   // ----------------------RENDER----------------------------
   return (
     <>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={true}
-      >
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
           <Modal.Title>Insertar Cliente</Modal.Title>
         </Modal.Header>
@@ -60,8 +62,10 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
                 className="form-control"
                 name="input_tipoCliente"
                 id="input_tipoCliente"
+                placeholder="hola"
                 onChange={({ target }) => setTipoClientes(target.value)}
               >
+                <option hidden value="">Desplegar lista</option>
                 <option value="interno">Interno</option>
                 <option value="externo">Externo</option>
               </select>
@@ -70,6 +74,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
             <div>
               <label htmlFor="input_nombreCliente">Nombre del cliente:</label>
               <input
+                placeholder="Escriba nombre completo"
                 type="text"
                 className="form-control"
                 name="input_nombreCliente"
@@ -82,6 +87,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
             <div>
               <label htmlFor="input_referente">Referente:</label>
               <input
+                placeholder="Escriba referente"
                 type="text"
                 className="form-control"
                 name="input_referente"
@@ -95,6 +101,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
                 Correo del referente:
               </label>
               <input
+                placeholder="Escriba correo del referente"
                 type="email"
                 className="form-control"
                 name="input_correoReferente"
@@ -106,6 +113,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
             <div>
               <label htmlFor="input_cargoReferente">Cargo del referente:</label>
               <input
+                placeholder="Escriba cargo del referente"
                 type="text"
                 className="form-control"
                 name="input_cargoReferente"
@@ -119,6 +127,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado }) => {
                 Teléfono del referente:
               </label>
               <input
+                placeholder="Escriba telefono del referente"
                 type="number"
                 className="form-control"
                 name="input_telefonoReferente"

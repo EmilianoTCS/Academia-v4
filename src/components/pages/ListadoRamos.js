@@ -51,7 +51,7 @@ export default function ListadoRamos() {
       if (response === true) {
         var url = "TASKS/coe-updateStateRamos.php";
         var operationUrl = "updateStateRamos";
-        var data = { ID: ID };
+        var data = { ID: ID, usuario: userData.username };
         SendDataService(url, operationUrl, data).then((response) =>
           TopAlerts(response)
         );
@@ -91,11 +91,14 @@ export default function ListadoRamos() {
           <InsertarRamo
             isActiveRamo={isActiveInsertRamo}
             cambiarEstado={setIsActiveInsertRamo}
+            ramos={ramos}
           ></InsertarRamo>
           <EditarRamo
             isActiveEditRamo={isActiveEditRamo}
             cambiarEstado={setIsActiveEditRamo}
             IDRamo={IDRamo}
+            setRamos={setRamos}
+            ramos={ramos}
           ></EditarRamo>
           <Table id="mainTable" hover responsive>
             <thead>
@@ -112,7 +115,7 @@ export default function ListadoRamos() {
             <tbody>
               {ramos.map((ramo) => (
                 <tr key={ramo.ID}>
-                  <td>{ramo.codigoRamo}</td>
+                  <td>{ramo.ID}</td>
                   <td>{ramo.nombreRamo}</td>
                   <td>{ramo.codigoCuenta}</td>
                   <td>{ramo.hh_academicas}</td>
@@ -126,9 +129,9 @@ export default function ListadoRamos() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    <button title="Examinar curso" id="OperationBtns">
+                    {/* <button title="Examinar curso" id="OperationBtns">
                       <HiEye id="icons" />
-                    </button>
+                    </button> */}
                     <button
                       title="Eliminar curso"
                       id="OperationBtns"

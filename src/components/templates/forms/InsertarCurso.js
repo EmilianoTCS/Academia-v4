@@ -10,6 +10,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import TopAlerts from "../alerts/TopAlerts";
 
+
 const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
   // ----------------------CONSTANTES----------------------------
   const [listCuentas, setListCuentas] = useState([""]);
@@ -118,6 +119,8 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
                 className="form-control"
                 onChange={({ target }) => setCodigoCuenta(target.value)}
               >
+                <option hidden value="">Desplegar lista</option>
+
                 {listCuentas.map((valor) => (
                   <option value={valor.ID}>{valor.codigoCuenta}</option>
                 ))}
@@ -133,6 +136,8 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
                 value={listCuentas[0].codigoRamo}
 
               >
+                <option hidden value="">Desplegar lista</option>
+
                 {listRamos.map((valor) => (
                   <option value={valor.codigoRamo}>{valor.nombreRamo}</option>
                 ))}
@@ -146,7 +151,7 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
                 onChange={({ target }) => handleChange(target.value)}
                 required
               >
-                <option default>Elige la duración</option>
+                <option hidden value="">Elige la duracion</option>
                 <option value="00:30:00">30min</option>
                 <option value="01:00:00">1:00hs</option>
                 <option value="01:30:00">1:30hs</option>

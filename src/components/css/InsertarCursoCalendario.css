@@ -1,11 +1,11 @@
 #btnCurso{
     background-color: rgb(171, 165, 165);
-    margin-left: 210px;  
-    margin-bottom: -119px;
+    margin-left: 300px;  
+    margin-bottom: -60px;
     margin-right: -150px;
     position: relative;
     border: none;
-    padding: 6px;
+    padding: 7px;
     color: black;
     border-radius: 10px;
 
@@ -14,24 +14,14 @@
 #btnCurso2{
     background-color: rgb(171, 165, 165);
     margin-left: 160px;  
-    margin-bottom: -119px;
+    margin-bottom: -60px;
     margin-right: -150px;
     position: relative;
     border: none;
-    padding: 6px;
+    padding: 7px;
     color: black;
     border-radius: 10px;
 }
-
-
-#btnCurso:hover{
-    background-color: #ffffff;
-}
-#btnCurso2:hover{
-    background-color: #ffffff;
-}
-
-
 
 #datePickerContainer{
     display: flex;
@@ -39,29 +29,27 @@
 }
 
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1300px) {
     #btnCurso{
         margin: 0 0 0 0;
         background-color: rgb(171, 165, 165);    
         border: none;
-        margin-left: 10px;
+        margin-left: 127px;
+        margin-bottom: 22px;
     }
 
-    #btnCurso:hover{
-        background-color: #ffffff;
-    }
+
 }
 
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1300px) {
     #btnCurso2{
         margin: 0 0 0 0;
         background-color: rgb(171, 165, 165);    
         border: none;
-        margin-left: 10px;
+        margin-bottom: 22px;
+        margin-left: 5px;
     }
 
-    #btnCurso2:hover{
-        background-color: #ffffff;
-    }
+
 }

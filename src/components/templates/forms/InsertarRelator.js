@@ -53,6 +53,7 @@ const InsertarRelator = ({ isActiveRelator, cambiarEstado }) => {
             <div>
               <label htmlFor="input_Relator">Relator:</label>
               <input
+              placeholder="Escriba el nombre del relator"
                 type="text"
                 className="form-control"
                 name="input_Relator"
@@ -67,8 +68,10 @@ const InsertarRelator = ({ isActiveRelator, cambiarEstado }) => {
               <select
                 required
                 className="form-control"
-                onChange={({ target }) => setidCuenta(target.value)}
+                onChange={({ target }) => setArea(target.value)}
               >
+                <option hidden value="">Desplegar lista</option>
+
                 {listArea.map((valor) => (
                   <option value={valor.ID}>{valor.nombreArea}</option>
                 ))}

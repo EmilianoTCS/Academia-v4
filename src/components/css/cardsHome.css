@@ -55,7 +55,7 @@
   -webkit-box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
   -moz-box-shadow: -1px 13px 27px -7px rgba(0,0,0,0.82);
   padding: 2%;
-  max-width: 80%;
+  max-width: 70%;
   justify-content: space-evenly;
   grid-template-columns: repeat(
       auto-fit,

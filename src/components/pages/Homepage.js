@@ -80,7 +80,8 @@ return userData.statusConected || userData !== null ? (
       ))}
     </div>
     <div id="chartsContainer">
-      <BarChart data={cards}></BarChart> <PieChart data={cards}></PieChart>
+      {/* <BarChart data={cards}></BarChart>  */}
+      <PieChart data={cards}></PieChart>
     </div>
   </div>
 ) : (

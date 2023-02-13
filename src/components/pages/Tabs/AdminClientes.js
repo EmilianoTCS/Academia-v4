@@ -8,6 +8,8 @@ import TopAlerts from "../../templates/alerts/TopAlerts";
 
 export default function AdminCliente() {
     const [clientes, setClientes] = useState([""]);
+    const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
+
     function obtenerDatosClientes() {
         const url = "TASKS/coe-adminClientes.php?clientes";
         getDataService(url).then((clientes) => setClientes(clientes));
@@ -15,7 +17,7 @@ export default function AdminCliente() {
       function handleChangeisActiveClientes(ID) {
         const url = "TASKS/coe-updateStateClientes.php";
         const operationUrl = "updateStateClientes";
-        var data = { ID: ID };
+        var data = { ID: ID , usuario: userData.username};
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited, ...cliente } = response[0];
           actualizarCliente(cliente);
@@ -45,6 +47,7 @@ export default function AdminCliente() {
                 <th>Teléfono referente</th>
                 <th>Correo referente</th>
                 <th>Fecha de modificación</th>
+                <th>Modificado por </th>
                 <th id="th_switch">Habilitar o Deshabilitar</th>
               </tr>
             </thead>
@@ -57,6 +60,7 @@ export default function AdminCliente() {
                   <td>{cliente.telefonoReferente}</td>
                   <td>{cliente.correoReferente}</td>
                   <td>{cliente.date}</td>
+                  <td>{cliente.usuario}</td>
                   <td onChange={() => handleChangeisActiveClientes(cliente.ID)}>
                     <SwitchToggle isActive={cliente.isActive} />
                   </td>

@@ -6,7 +6,7 @@ import TopAlerts from "../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
+const InsertarRamo = ({ isActiveRamo, cambiarEstado, ramos }) => {
   // ----------------------CONSTANTES----------------------------
 
   const [listCuentas, setListCuentas] = useState([""]);
@@ -18,7 +18,7 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
   const [nombreRamo, setNombreRamo] = useState("");
   const [hh_academicas, set_hh_academicas] = useState("");
   const [prerequisito, setPrerequisito] = useState("");
-
+  const listRamos = ramos;
   const show = isActiveRamo;
 
   const handleClose = () => cambiarEstado(false);
@@ -51,9 +51,14 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
       prerequisito: prerequisito,
       nombreRelator: nombreRelator,
     };
-    SendDataService(url, operationUrl, data).then((response) =>
-      TopAlerts(response)
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      const { successCreated, ...ramo } = response[0];
+      TopAlerts(successCreated);
+      actualizarRamo(ramo);
+    });
+  }
+  function actualizarRamo(ramo) {
+    listRamos.push(ramo);
   }
   useEffect(function () {
     obtenerCuentas();
@@ -64,12 +69,7 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
   // ----------------------RENDER----------------------------
   return (
     <>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={true}
-      >
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
           <Modal.Title>Insertar Ramo</Modal.Title>
         </Modal.Header>
@@ -83,6 +83,9 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
                 onChange={({ target }) => setIDCuenta(target.value)}
                 placeholder="Elige una cuenta"
               >
+                <option hidden value="">Desplegar lista</option>
+
+
                 {listCuentas.map((valor) => (
                   <option value={valor.ID}>{valor.codigoCuenta}</option>
                 ))}
@@ -104,6 +107,7 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
             <div>
               <label htmlFor="input_nombreRamo">Nombre del ramo</label>
               <input
+                placeholder="Escriba el nombre del ramo"
                 type="text"
                 className="form-control"
                 name="input_nombreRamo"
@@ -133,6 +137,9 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
                 onChange={({ target }) => setRelator(target.value)}
                 placeholder="Elige un relator"
               >
+                <option hidden value="">Desplegar lista</option>
+
+
                 {listRelatores.map((valor) => (
                   <option value={valor.ID}>{valor.nombre}</option>
                 ))}
@@ -146,6 +153,8 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado }) => {
                 onChange={({ target }) => setPrerequisito(target.value)}
                 placeholder="Elige un prerequisito"
               >
+                <option hidden value="">Desplegar lista</option>
+
                 {listPrerequisitos.map((valor) => (
                   <option value={valor.ID}>{valor.nombreRamo}</option>
                 ))}

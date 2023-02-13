@@ -5,7 +5,6 @@
 
 #fondoCalendario{
     margin: 10px;
-
 }
 
 
@@ -21,8 +20,10 @@
 }
 
 .fc{
-    background-color: rgba(23, 23, 23, 0.866) !important;
+    background-color: rgba(23, 23, 23, 0.961) !important;
     border-radius: 20px;
+    margin: -30px 100px 0 100px;
+
 }
 
 

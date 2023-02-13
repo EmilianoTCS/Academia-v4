@@ -1,5 +1,7 @@
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { Navigate } from "react-router-dom";
+
 export default function TopAlerts(props) {
   const MySwal = withReactContent(Swal);
 
@@ -49,9 +51,12 @@ export default function TopAlerts(props) {
         <p>Se ha actualizado la clave de tu cuenta, puedes ingresar al enlace para acceder. </p>
         <a href="https://academiaformacion.netlify.app/login">Iniciar sesión</a>
         `,
+        
         icon: "success",
         showConfirmButton: true,
         confirmButtonText: '<i class="fa fa-thumbs-up"></i> Ok!',
+      }).then(function () {
+        window.location.href = "https://academiaformacion.netlify.app/login";
       });
     case "changesSaved":
       return MySwal.fire({
@@ -96,6 +101,16 @@ export default function TopAlerts(props) {
         html: `
         <p>No cumples con los requisitos para inscribirte en este curso </p>
         <p>O el curso seleccionado ya finalizó. </p>
+        `,
+        icon: "error",
+        showConfirmButton: true,
+        confirmButtonText: '<i class="fa fa-thumbs-up"></i> Ok!',
+      });
+    case "errorCursoNoExiste":
+      return MySwal.fire({
+        title: "¡Ups!",
+        html: `
+        <p>Actualmente no existen inscripciones disponibles para este curso.</p>
         `,
         icon: "error",
         showConfirmButton: true,

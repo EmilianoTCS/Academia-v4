@@ -52,7 +52,7 @@ export default function ListadoCursos() {
       if (response === true) {
         var url = "TASKS/coe-updateState.php";
         var operationUrl = "updateStateCursos";
-        var data = { ID: ID };
+        var data = { ID: ID, usuario: userData.username  };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
@@ -129,11 +129,11 @@ export default function ListadoCursos() {
                   >
                     <RiEditBoxFill id="icons" />
                   </button>
-                  <Link to={`/Examinar/${curso.codigoCurso}`}>
+                  {/* <Link to={`/Examinar/${curso.codigoCurso}`} >
                     <button title="Examinar curso" id="OperationBtns">
                       <HiEye id="icons" />
                     </button>
-                  </Link>
+                  </Link> */}
                   <button
                     title="Eliminar curso"
                     onClick={() => eliminar(curso.ID)}
