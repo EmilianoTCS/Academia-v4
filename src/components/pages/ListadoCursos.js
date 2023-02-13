@@ -129,11 +129,11 @@ export default function ListadoCursos() {
                   >
                     <RiEditBoxFill id="icons" />
                   </button>
-                  <Link to={`/Examinar/${curso.codigoCurso}`} >
+                  {/* <Link to={`/Examinar/${curso.codigoCurso}`} >
                     <button title="Examinar curso" id="OperationBtns">
                       <HiEye id="icons" />
                     </button>
-                  </Link>
+                  </Link> */}
                   <button
                     title="Eliminar curso"
                     onClick={() => eliminar(curso.ID)}
