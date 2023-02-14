@@ -4,17 +4,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 
-
 #container_cards {
   display: grid;
   grid-template-columns: repeat(
       auto-fit,
       minmax(
           100px,
-          210px
+          205px
       )
   );
-  width: 100%;
+  width: 96%;
   justify-content: center;
   gap: 5px;
   margin: 1% auto;

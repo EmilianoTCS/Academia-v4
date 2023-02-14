@@ -42,8 +42,6 @@ padding-top: 1em;
   transition: all 116ms ease-out;
   position: relative;
   right: 12px;
-
-  
 }
 #submenuSidebar {
   color: black;
@@ -67,8 +65,8 @@ padding-top: 1em;
   box-shadow: 0px 2px 20px 0px rgba(54, 52, 52, 0.81);}
 
 #User_logo {
-  width: 50%;
-  margin-left: 25%;
+  width: 30%;
+  margin-left: 35%;
 }
 
 #icons {
@@ -83,7 +81,7 @@ padding-top: 1em;
 }
 
 #textLeft {
-  margin-top: 240px;
+  margin-top: 210px;
   margin-left: -80px;
   font-size: 16px;
 }
@@ -217,6 +215,19 @@ ul li ul li:hover a {
   border-radius: 30px 0 0 30px;
   height:75% ;
   margin-top: 119px;
+}
+
+@media screen and (max-width: 1678px) {
+  #containerElement{
+    width: 270px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-radius: 30px 0 0 30px;
+    height:85% ;
+    margin-top: 60px;
+  }
+
+
 }
 
 /*Boton abrir sidebar*/
