@@ -117,8 +117,8 @@ export default function NotasColaboradores() {
               <tr>
                 <th>Curso</th>
                 <th>Usuario</th>
-                <th>Examenes</th>
-                <th>Estado</th>
+                {/* <th>Examenes</th>
+                <th>Estado</th> */}
                 {/* <th>Nota</th>
                 <th>Promedio</th> */}
                 <th>% Aprobación</th>
@@ -130,8 +130,8 @@ export default function NotasColaboradores() {
                 <tr key={nota.ID}>
                   <td>{nota.codigoCurso}</td>
                   <td>{nota.usuario}</td>
-                  <td>{nota.num_evaluaciones}</td>
-                  <td>{nota.estado}</td>
+                  {/* <td>{nota.num_evaluaciones}</td>
+                  <td>{nota.estado}</td> */}
                   {/* <td>{nota.nota}</td>
                   <td>{nota.promedio}</td> */}
                   <td>{nota.porcentaje}</td>
