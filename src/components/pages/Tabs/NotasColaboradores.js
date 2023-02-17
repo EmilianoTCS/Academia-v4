@@ -118,6 +118,7 @@ export default function NotasColaboradores() {
                 <th>Curso</th>
                 <th>Usuario</th>
                 <th>Examenes</th>
+                <th>Estado</th>
                 {/* <th>Nota</th>
                 <th>Promedio</th> */}
                 <th>% Aprobación</th>
@@ -130,6 +131,7 @@ export default function NotasColaboradores() {
                   <td>{nota.codigoCurso}</td>
                   <td>{nota.usuario}</td>
                   <td>{nota.num_evaluaciones}</td>
+                  <td>{nota.estado}</td>
                   {/* <td>{nota.nota}</td>
                   <td>{nota.promedio}</td> */}
                   <td>{nota.porcentaje}</td>
