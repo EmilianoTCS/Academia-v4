@@ -117,10 +117,12 @@ export default function NotasColaboradores() {
               <tr>
                 <th>Curso</th>
                 <th>Usuario</th>
-                <th>Examenes</th>
-                <th>Nota</th>
-                <th>Promedio</th>
+                {/* <th>Examenes</th>
+                <th>Estado</th> */}
+                {/* <th>Nota</th>
+                <th>Promedio</th> */}
                 <th>% Aprobación</th>
+                <th>Resultado</th>
               </tr>
             </thead>
             <tbody>
@@ -128,10 +130,12 @@ export default function NotasColaboradores() {
                 <tr key={nota.ID}>
                   <td>{nota.codigoCurso}</td>
                   <td>{nota.usuario}</td>
-                  <td>{nota.num_evaluaciones}</td>
-                  <td>{nota.nota}</td>
-                  <td>{nota.promedio}</td>
+                  {/* <td>{nota.num_evaluaciones}</td>
+                  <td>{nota.estado}</td> */}
+                  {/* <td>{nota.nota}</td>
+                  <td>{nota.promedio}</td> */}
                   <td>{nota.porcentaje}</td>
+                  <td>{nota.aprobado}</td>
                 </tr>
               ))}
             </tbody>
@@ -163,11 +167,11 @@ export default function NotasColaboradores() {
         </button>
       </div>
       <MainTable></MainTable>
-      <Paginador
-        paginas={paginador}
-        cambiarNumero={setNumBoton}
-        num_boton={num_boton}
-      ></Paginador>
+        <Paginador
+          paginas={paginador}
+          cambiarNumero={setNumBoton}
+          num_boton={num_boton}
+        ></Paginador>
     </>
   );
 }
