@@ -17,11 +17,11 @@
 }
 
 .fc-day-today {
-    background-color: #8c6b6b !important;
+    background-color: #d6d6d6 !important;
 }
 
 .fc{
-    background-color: rgb(128, 128, 128) !important;
+    background-color: rgba(156, 154, 154, 0.948) !important;    
     border-radius: 20px;
     margin: -30px 100px 0 100px;
 

@@ -77,7 +77,7 @@ export default function Calendario() {
     description:
       "Curso de " + label.nombreRamo + ", Duración: " + label.duracion,
     sourceId: label.ID,
-    color: `#F2F5A9`,
+    color: `#FF424E`,
     display: "block",
   }));
   const Eventos = EventosApi.map((label) => ({
@@ -86,7 +86,7 @@ export default function Calendario() {
     end: label.fecha_hora,
     sourceId: label.ID,
     description: label.descripcion + ", Duración: " + label.duracion,
-    color: `#FACC2E`,
+    color: `#00E091`,
     display: "block",
   }));
   const Feriados = FeriadosApi.map((label) => ({
