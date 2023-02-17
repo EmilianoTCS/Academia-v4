@@ -17,8 +17,8 @@ import { ImAddressBook } from "react-icons/im";
 import { IoIosPeople } from "react-icons/io";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { IoMdListBox } from "react-icons/io";
-import { GoListUnordered, GoTasklist } from "react-icons/go";
-import { GiArchiveRegister, GiStarFormation } from "react-icons/gi";
+import { GoTasklist } from "react-icons/go";
+import { GiArchiveRegister } from "react-icons/gi";
 import { TiThList } from "react-icons/ti";
 
 import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
