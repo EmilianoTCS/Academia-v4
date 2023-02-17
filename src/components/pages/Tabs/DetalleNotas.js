@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, Table } from "react-bootstrap";
+import { Card, Table,Container } from "react-bootstrap";
 import SendDataService from "../../../services/SendDataService";
 
 export default function DetalleNotas() {
@@ -21,29 +21,36 @@ export default function DetalleNotas() {
   return (
     <>
       <Card>
+      <Container>
         <Table responsive>
           <thead className="thead-inverse">
             <tr>
               <th>CURSO</th>
-              <th>EXAMENES</th>
-              <th>NOTA</th>
-              <th>PROMEDIO</th>
+              {/* <th>EXAMENES</th>
+              <th>NOTA</th> */}
+              {/* <th>PROMEDIO</th> */}
               <th>% APROBACIÓN</th>
+              {/* <th>Estado</th> */}
+              <th>Resultado</th>
             </tr>
           </thead>
           <tbody>
             {data.map((nota) => (
               <tr>
                 <td>{nota.codigoCurso}</td>
-                <td>{nota.num_evaluaciones}</td>
-                <td>{nota.nota}</td>
-                <td>{nota.promedio}</td>
+                {/* <td>{nota.num_evaluaciones}</td>
+                <td>{nota.nota}</td> */}
+                {/* <td>{nota.promedio}</td> */}
                 <td>{nota.porcentaje}</td>
+                {/* <td>{nota.estado}</td> */}
+                <td>{nota.aprobado}</td>
               </tr>
             ))}
           </tbody>
-        </Table>
+        </Table>      </Container>
       </Card>
+
+
     </>
   );
 }
