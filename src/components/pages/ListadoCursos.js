@@ -110,6 +110,7 @@ export default function ListadoCursos() {
               <th>Fin</th>
               <th>Estado</th>
               <th>Operaciones</th>
+
             </tr>
           </thead>
           <tbody>
