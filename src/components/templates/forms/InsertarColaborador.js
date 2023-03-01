@@ -49,12 +49,7 @@ const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
 
   return (
     <>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={true}
-      >
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
           <Modal.Title>Insertar Colaborador</Modal.Title>
         </Modal.Header>
@@ -66,9 +61,10 @@ const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
                 required
                 className="form-control"
                 onChange={({ target }) => setidCuenta(target.value)}
-              pla
               >
-                <option selected>Desplegar lista</option>
+                <option hidden selected>
+                  Desplegar lista
+                </option>
                 {listCuentas.map((valor) => (
                   <option value={valor.ID}>{valor.codigoCuenta}</option>
                 ))}
