@@ -54,8 +54,8 @@ export default function ListadoCursos() {
         var operationUrl = "updateStateCursos";
         var data = { ID: ID, usuario: userData.username  };
         SendDataService(url, operationUrl, data).then((response) => {
-          const { successEdited } = response[0];
-          TopAlerts(successEdited);
+          const { successEditedCursos } = response[0];
+          TopAlerts(successEditedCursos);
         });
       }
     });
@@ -105,7 +105,7 @@ export default function ListadoCursos() {
               <th>Código del curso</th>
               <th>Código de la Cuenta</th>
               <th>Nombre del curso</th>
-              <th>Sesion</th>
+              <th>Sesión</th>
               <th>Inicio</th>
               <th>Fin</th>
               <th>Estado</th>

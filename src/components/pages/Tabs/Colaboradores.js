@@ -22,6 +22,7 @@ export default function Colaboradores() {
   const [isActiveEditColaborador, setIsActiveEditColaborador] = useState(false);
   const [IDColaborador, setIDColaborador] = useState(null);
   const [num_boton, setNumBoton] = useState(1);
+  const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
   function eliminar(ID) {
     ConfirmAlert().then((response) => {
@@ -30,7 +31,7 @@ export default function Colaboradores() {
         var operationUrl = "updateStateColaborador";
         var data = { ID: ID, usuario: userData.username };
         SendDataService(url, operationUrl, data).then((response) =>
-          TopAlerts(response)
+          TopAlerts('successEdited')
         );
       }
     });

@@ -74,9 +74,8 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
     };
 
     SendDataService(url, operationUrl, data).then((response) => {
-      TopAlerts(response);
+      TopAlerts('successEditedCursos');
       getData();
-      console.log(response);
     });
   }
 

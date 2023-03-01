@@ -53,7 +53,7 @@ export default function ListadoRamos() {
         var operationUrl = "updateStateRamos";
         var data = { ID: ID, usuario: userData.username };
         SendDataService(url, operationUrl, data).then((response) =>
-          TopAlerts(response)
+        TopAlerts('successEdited')
         );
       }
     });

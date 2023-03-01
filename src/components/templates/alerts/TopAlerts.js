@@ -85,6 +85,21 @@ export default function TopAlerts(props) {
         toast: true,
         showConfirmButton: false,
       });
+
+
+      case "successEditedCursos":
+        return MySwal.fire({
+          title: "Se ha actualizado el registro",
+          icon: "success",
+          position: "top-right",
+          timer: 1000,
+          toast: true,
+          showConfirmButton: false,
+        }).then(function(){
+          window.location = "/listadoCursos";
+          });
+
+
     case "errorRepeated":
       return MySwal.fire({
         title: "Se ha producido un error.",
@@ -138,9 +153,11 @@ export default function TopAlerts(props) {
         title: "Se ha producido un error.",
         text: "Introduce una fecha válida superior a la de hoy.",
         icon: "error",
-        timer: 3000,
+        timer: 1200,
         showConfirmButton: false,
-      });
+      }).then(function(){
+        location.reload;
+        });
     case "Error":
       return MySwal.fire({
         title: "Se ha producido un error.",

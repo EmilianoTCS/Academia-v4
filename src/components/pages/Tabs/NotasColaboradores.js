@@ -79,8 +79,7 @@ export default function NotasColaboradores() {
         <Select
           options={optionsCursos}
           placeholder="Elige un curso"
-          onChange={({ value, label }) => {
-            setCursoSelected(value), SetNombreCursoSelected(label);
+          onChange={({ value, label }) => { setCursoSelected(value), SetNombreCursoSelected(label);
           }}
           name="codigoCurso"
           defaultInputValue={nombreCursoSelected}
