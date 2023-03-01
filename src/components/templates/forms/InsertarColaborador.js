@@ -62,9 +62,7 @@ const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
                 className="form-control"
                 onChange={({ target }) => setidCuenta(target.value)}
               >
-                <option hidden selected>
-                  Desplegar lista
-                </option>
+                <option hidden value="">Desplegar lista</option>
                 {listCuentas.map((valor) => (
                   <option value={valor.ID}>{valor.codigoCuenta}</option>
                 ))}
@@ -74,6 +72,7 @@ const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
             <div>
               <label htmlFor="input_nombreCompleto">Nombre completo:</label>
               <input
+                placeholder="Escriba nombre completo"
                 type="text"
                 className="form-control"
                 name="input_nombreCompleto"
@@ -85,6 +84,7 @@ const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
             <div>
               <label htmlFor="input_usuario">Usuario:</label>
               <input
+                placeholder="Escriba usuario"
                 type="text"
                 className="form-control"
                 name="input_usuario"
@@ -96,6 +96,7 @@ const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
             <div>
               <label htmlFor="input_area">Área:</label>
               <input
+                placeholder="Escriba el area"
                 type="text"
                 className="form-control"
                 name="input_area"
@@ -107,6 +108,7 @@ const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
             <div>
               <label htmlFor="input_subgerencia">Subgerencia:</label>
               <input
+                placeholder="Escriba Subgerencia"
                 type="text"
                 className="form-control"
                 name="input_subgerencia"
@@ -118,6 +120,7 @@ const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
             <div>
               <label htmlFor="input_correo">Correo:</label>
               <input
+                placeholder="Escriba correo"
                 type="email"
                 className="form-control"
                 name="input_correo"

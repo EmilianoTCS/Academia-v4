@@ -21,7 +21,7 @@ const EditarRamo = ({
   const [hh_academicas, set_hh_academicas] = useState("");
   const listRamos = ramos;
   const [nombreRelator, setRelator] = useState("");
-
+  const [idRelator, setidRelator] = useState("");
   const [responseID, setResponseID] = useState([""]);
 
   const show = isActiveEditRamo;
@@ -32,6 +32,7 @@ const EditarRamo = ({
     setNombreRamo(responseID[0].nombreRamo);
     set_hh_academicas(responseID[0].hh_academicas);
     setRelator(responseID[0].nombre);
+    setidRelator(responseID[0].idRelator)
   };
 
   // ----------------------FUNCIONES----------------------------
@@ -51,27 +52,30 @@ const EditarRamo = ({
       setNombreRamo(response[0].nombreRamo);
       set_hh_academicas(response[0].hh_academicas);
       setRelator(response[0].nombre);
+      setidRelator(responseID[0].idRelator)
     });
   }
 
   function SendData(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const url = "TASKS/coe-editRamo.php";
     const operationUrl = "editarRamo";
     var data = {
       ID: IDRamo,
+      idRelator : idRelator === "" ? responseID[0].idRelator : idRelator,
       codigoRamo: codigoRamo === "" ? responseID[0].codigoRamo : codigoRamo,
       nombreRamo: nombreRamo === "" ? responseID[0].nombreRamo : nombreRamo,
       hh_academicas:
         hh_academicas === "" ? responseID[0].hh_academicas : hh_academicas,
       nombreRelator:
-        nombreRelator === "" ? responseID[0].nombre : nombreRelator,
+        nombreRelator === "" ? responseID[0].idRelator : nombreRelator,
     };
-    console.log(data);
+
     SendDataService(url, operationUrl, data).then((response) => {
       const { successEdited, ...ramo } = response[0];
       TopAlerts(successEdited);
       actualizarRamo(ramo);
+      
     });
   }
   function actualizarRamo(ramo) {
@@ -136,13 +140,15 @@ const EditarRamo = ({
                 required
               />
             </div>
-            <div className="form-group">
+            <div>
               <label htmlFor="input_tipoCliente">Relator:</label>
               <select
                 required
                 className="form-control"
                 onChange={({ target }) => setRelator(target.value)}
               >
+
+                
                 {listRelatores.map((valor) => (
                   <option
                     selected={valor.nombre === nombreRelator ? "selected" : ""}
@@ -164,7 +170,6 @@ const EditarRamo = ({
             </Button>
           </form>
         </Modal.Body>
-        <Modal.Footer></Modal.Footer>
       </Modal>
     </>
   );

@@ -129,9 +129,9 @@ export default function ListadoRamos() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    <button title="Examinar curso" id="OperationBtns">
+                    {/* <button title="Examinar curso" id="OperationBtns">
                       <HiEye id="icons" />
-                    </button>
+                    </button> */}
                     <button
                       title="Eliminar curso"
                       id="OperationBtns"

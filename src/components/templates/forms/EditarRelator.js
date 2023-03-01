@@ -57,16 +57,10 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
     [IDRelator]
   );
 
-
   // ----------------------RENDER----------------------------
   return (
     <>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={true}
-      >
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
           <Modal.Title>Editar Relator</Modal.Title>
         </Modal.Header>
@@ -92,10 +86,14 @@ const EditarRelator = ({ isActiveEditRelator, cambiarEstado, IDRelator }) => {
                 className="form-control"
                 onChange={({ target }) => setArea(target.value)}
               >
+                <option hidden value="">
+                  Desplegar lista
+                </option>
+
                 {listArea.map((valor) => (
                   <option
-                    value={valor.ID}
                     selected={valor.nombreArea === area ? "selected" : ""}
+                    value={valor.ID}
                   >
                     {valor.nombreArea}
                   </option>

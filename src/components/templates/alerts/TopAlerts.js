@@ -51,6 +51,7 @@ export default function TopAlerts(props) {
         <p>Se ha actualizado la clave de tu cuenta, puedes ingresar al enlace para acceder. </p>
         <a href="https://academiaformacion.netlify.app/login">Iniciar sesión</a>
         `,
+        
         icon: "success",
         showConfirmButton: true,
         confirmButtonText: '<i class="fa fa-thumbs-up"></i> Ok!',

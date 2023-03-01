@@ -59,7 +59,7 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
     getDataService(url).then((ramos) => setListRamos(ramos));
   }
   function SendData(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const url = "TASKS/coe-editCurso.php";
     const operationUrl = "editarCurso";
     const data = {

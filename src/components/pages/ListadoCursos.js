@@ -83,7 +83,7 @@ export default function ListadoCursos() {
       <br></br>
       <Container id="fondoTabla">
         <div id="containerTablas">
-          <h1 id="TitlesPages">Listado de cursos</h1>
+          <h1 id="TitlesPages">Listado de cursos por sesiones</h1>
           <Button id="btnCursoListado" onClick={insertarCurso}>
             Insertar Curso
           </Button>
@@ -105,10 +105,12 @@ export default function ListadoCursos() {
               <th>Código del curso</th>
               <th>Código de la Cuenta</th>
               <th>Nombre del curso</th>
+              <th>Sesion</th>
               <th>Inicio</th>
               <th>Fin</th>
               <th>Estado</th>
               <th>Operaciones</th>
+
             </tr>
           </thead>
           <tbody>
@@ -118,6 +120,7 @@ export default function ListadoCursos() {
                 <td>{curso.codigoCurso}</td>
                 <td>{curso.codigoCuenta}</td>
                 <td>{curso.nombreRamo}</td>
+                <th>{curso.sesion}</th>
                 <td>{curso.inicio}</td>
                 <td>{curso.fin}</td>
                 <td>{curso.estado}</td>
@@ -129,11 +132,11 @@ export default function ListadoCursos() {
                   >
                     <RiEditBoxFill id="icons" />
                   </button>
-                  <Link to={`/Examinar/${curso.codigoCurso}`} >
+                  {/* <Link to={`/Examinar/${curso.codigoCurso}`} >
                     <button title="Examinar curso" id="OperationBtns">
                       <HiEye id="icons" />
                     </button>
-                  </Link>
+                  </Link> */}
                   <button
                     title="Eliminar curso"
                     onClick={() => eliminar(curso.ID)}

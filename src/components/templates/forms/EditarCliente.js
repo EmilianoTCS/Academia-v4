@@ -53,7 +53,7 @@ const EditarClientes = ({
   }, [IDCliente]);
 
   function SendData(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const url = "TASKS/coe-editClientes.php";
 
     const operationUrl = "editarCliente";
@@ -118,7 +118,7 @@ const EditarClientes = ({
                 onChange={({ target }) => setTipoClientes(target.value)}
                 required
               >
-                <option selected>Desplegar lista</option>
+                <option hidden value="">Desplegar lista</option>
                 <option value="interno">Interno</option>
                 <option value="externo">Externo</option>
               </select>

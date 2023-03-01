@@ -7,9 +7,9 @@
     background: #e10b1c;
     color: white;
     border-radius: 5px;
-    margin: 5px;
     font-family: "Roboto Slab", serif;
-    font-weight: 550;
+    font-weight: 551;
+    padding: 5px;
 }
 #btn_resetFilters.active:hover{
     color: #e10b1c;
@@ -19,7 +19,7 @@
     transition: all 200ms ease;
 }
 .reactSelect{
-    width: 200px;
+    width: 250px;
     margin-right: 4px;
 }
 

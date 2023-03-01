@@ -23,7 +23,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado, cliente }) => {
   // ----------------------FUNCIONES----------------------------
 
   function SendData(e) {
-    e.preventDefault();
+    // e.preventDefault();
     const url = "TASKS/coe-insertarCliente.php";
     const operationUrl = "insertarCliente";
     var data = {
@@ -65,9 +65,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado, cliente }) => {
                 placeholder="hola"
                 onChange={({ target }) => setTipoClientes(target.value)}
               >
-                <option hidden selected>
-                  Desplegar lista
-                </option>
+                <option hidden value="">Desplegar lista</option>
                 <option value="interno">Interno</option>
                 <option value="externo">Externo</option>
               </select>
@@ -76,6 +74,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado, cliente }) => {
             <div>
               <label htmlFor="input_nombreCliente">Nombre del cliente:</label>
               <input
+                placeholder="Escriba nombre completo"
                 type="text"
                 className="form-control"
                 name="input_nombreCliente"
@@ -88,6 +87,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado, cliente }) => {
             <div>
               <label htmlFor="input_referente">Referente:</label>
               <input
+                placeholder="Escriba referente"
                 type="text"
                 className="form-control"
                 name="input_referente"
@@ -101,6 +101,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado, cliente }) => {
                 Correo del referente:
               </label>
               <input
+                placeholder="Escriba correo del referente"
                 type="email"
                 className="form-control"
                 name="input_correoReferente"
@@ -112,6 +113,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado, cliente }) => {
             <div>
               <label htmlFor="input_cargoReferente">Cargo del referente:</label>
               <input
+                placeholder="Escriba cargo del referente"
                 type="text"
                 className="form-control"
                 name="input_cargoReferente"
@@ -125,6 +127,7 @@ const InsertarClientes = ({ isActiveCliente, cambiarEstado, cliente }) => {
                 Teléfono del referente:
               </label>
               <input
+                placeholder="Escriba telefono del referente"
                 type="number"
                 className="form-control"
                 name="input_telefonoReferente"

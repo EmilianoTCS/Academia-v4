@@ -33,7 +33,7 @@ return userData.statusConected || userData !== null ? (
           </Card>
           <Card id="coe_carta">
             <Card.Body>
-              <Card.Text>Colaboradores</Card.Text>
+              <Card.Text style={{ fontSize: "14pt" }}>Colaboradores</Card.Text>
               <Card.Title style={{ fontSize: "50pt" }}>
                 {singleCard.totalColaboradores}
               </Card.Title>

@@ -5,11 +5,11 @@ import Select from "react-select";
 import getDataService from "../../services/GetDataService";
 import React, { useState, useEffect } from "react";
 import SendDataService from "../../services/SendDataService";
-import TopAlerts from "../templates/alerts/TopAlerts";
 import "../css/IncribirseCurso.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Alert from "react-bootstrap/Alert";
+import TopAlerts from "../templates/alerts/TopAlerts";
 
 export default function InscribirseCurso() {
   // ----------------------CONSTANTES----------------------------
@@ -42,7 +42,6 @@ export default function InscribirseCurso() {
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
       TopAlerts(response[0]);
-      console.log(response);
     });
   }
 
@@ -85,7 +84,7 @@ export default function InscribirseCurso() {
                       setCodigoCuenta(target.value), setCambios(true);
                     }}
                   >
-                    <option selected>Desplegar lista</option>
+                    <option hidden value="">Desplegar lista</option>
                     {listCuentas.map((valor) => (
                       <option value={valor.ID}>{valor.codigoCuenta}</option>
                     ))}
@@ -103,7 +102,7 @@ export default function InscribirseCurso() {
                       setCambios(true);
                     }}
                   >
-                    <option selected>Desplegar lista</option>
+                    <option hidden value="">Desplegar lista</option>
                     {listadoCursos.map((valor) => (
                       <option value={valor.ID}>{valor.nombreRamo}</option>
                     ))}

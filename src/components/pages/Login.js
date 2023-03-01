@@ -86,8 +86,8 @@ export default function Login() {
               >
                 Acceder
               </button>
-              <Link id="forgot_password" className="small" to="/RecuperarPassword">
-                Olvidaste la contraseña?
+              <Link id="forgot_password" className="small" style={{color:"white"}} to="/RecuperarPassword">
+                ¿Olvidaste la contraseña?
               </Link>
             </div>
             {hasError && <ErrorMessage></ErrorMessage>}

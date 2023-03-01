@@ -11,16 +11,17 @@
 .fc .fc-toolbar-title {
     font-size: 1.75em;
     margin: 0;
-    color: white;
+    color: rgb(0, 0, 0);
     text-transform: uppercase;
+    margin-left: 40px;
 }
 
 .fc-day-today {
-    background-color: #8c6b6b !important;
+    background-color: #d6d6d6 !important;
 }
 
 .fc{
-    background-color: rgba(23, 23, 23, 0.961) !important;
+    background-color: rgba(156, 154, 154, 0.948) !important;    
     border-radius: 20px;
     margin: -30px 100px 0 100px;
 
@@ -30,19 +31,20 @@
 .fc .fc-col-header-cell-cushion {
     display: inline-block;
     padding: 2px 4px;
-    color: rgb(255, 255, 255) !important;
+    color: rgb(0, 0, 0) !important;
     padding: -100px;
 
 }
 
+
 .fc .fc-daygrid-day-number {
     position: relative;
+    margin-right: 17px;
     z-index: 4;
     font-size: 18px;
     font-weight: 500;
     text-decoration: none;
-    padding: 9px;
-    color: rgb(255, 255, 255) !important;
+    color: rgb(0, 0, 0) !important;
 
 }
 
@@ -61,7 +63,7 @@
 }
 
 .fc-direction-ltr .fc-button-group > .fc-button:not(:last-child) {
-    color: rgb(255, 255, 255) !important;
+    color:rgb(171, 165, 165) !important;
 
 }
 .fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
@@ -71,7 +73,6 @@
 }
 .fc .fc-button-primary:disabled {
     color: rgb(255, 255, 255) !important;
-    color: var(--fc-button-text-color, rgb(0, 0, 0));
 }
 
 .fc-daygrid-block-event .fc-event-time, .fc-daygrid-block-event .fc-event-title {
@@ -102,8 +103,8 @@
 }
 
 .fc-dayGridMonth-button ,.fc-button ,.fc-button-primary ,.fc-button-active{
-    background-color: rgb(171, 165, 165) !important;
-    color: black !important;
+    background-color: rgb(0, 0, 0) !important;
+    color: rgb(255, 246, 246) !important;
     border-radius: 10px !important;
 }
 
@@ -115,17 +116,17 @@
 
 .fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
     margin-left: -1px;
-    color: rgb(0 0 0) !important;
+    color: rgb(255, 255, 255) !important;
     border-radius: 10px !important;
 }
 
 .fc-direction-ltr .fc-button-group > .fc-button:not(:last-child) {
-    color: rgb(0 0 0) !important;
+    color: rgb(255, 255, 255) !important;
     border-radius: 10px !important;
 }
 
 .fc .fc-button-primary:disabled {
-    color: rgb(0 0 0) !important;
+    color: rgb(255, 255, 255) !important;
     border-radius: 10px !important;
 }
 
@@ -138,3 +139,4 @@
     border-color: var(--fc-button-border-color, #ffe8e8);
 
 }
+
