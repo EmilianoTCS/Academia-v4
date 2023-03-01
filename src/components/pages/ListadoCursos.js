@@ -42,7 +42,9 @@ export default function ListadoCursos() {
     var data = {
       num_boton: num_boton,
     };
-    SendDataService(url, operationUrl, data).then((data) => setCursos(data));
+    SendDataService(url, operationUrl, data).then((data) => {
+      setCursos(data), console.log(data);
+    });
   }
 
   //PAGINADOR ---------------------
@@ -52,10 +54,10 @@ export default function ListadoCursos() {
       if (response === true) {
         var url = "TASKS/coe-updateState.php";
         var operationUrl = "updateStateCursos";
-        var data = { ID: ID, usuario: userData.username  };
+        var data = { ID: ID, usuario: userData.username };
         SendDataService(url, operationUrl, data).then((response) => {
-          const { successEditedCursos } = response[0];
-          TopAlerts(successEditedCursos);
+          const { successEdited } = response[0];
+          TopAlerts(successEdited);
         });
       }
     });
@@ -110,7 +112,6 @@ export default function ListadoCursos() {
               <th>Fin</th>
               <th>Estado</th>
               <th>Operaciones</th>
-
             </tr>
           </thead>
           <tbody>

@@ -1,6 +1,5 @@
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { Navigate } from "react-router-dom";
 
 export default function TopAlerts(props) {
   const MySwal = withReactContent(Swal);
@@ -14,6 +13,8 @@ export default function TopAlerts(props) {
         timer: 2500,
         toast: true,
         showConfirmButton: false,
+      }).then(function () {
+        location.reload();
       });
     case "errorRegisterRepeated":
       return MySwal.fire({
@@ -51,7 +52,7 @@ export default function TopAlerts(props) {
         <p>Se ha actualizado la clave de tu cuenta, puedes ingresar al enlace para acceder. </p>
         <a href="https://academiaformacion.netlify.app/login">Iniciar sesión</a>
         `,
-        
+
         icon: "success",
         showConfirmButton: true,
         confirmButtonText: '<i class="fa fa-thumbs-up"></i> Ok!',
@@ -75,6 +76,8 @@ export default function TopAlerts(props) {
         timer: 2500,
         toast: true,
         showConfirmButton: false,
+      }).then(function () {
+        location.reload();
       });
     case "successEdited":
       return MySwal.fire({
@@ -84,21 +87,19 @@ export default function TopAlerts(props) {
         timer: 2500,
         toast: true,
         showConfirmButton: false,
+      }).then(function () {
+        location.reload();
       });
 
-
-      case "successEditedCursos":
-        return MySwal.fire({
-          title: "Se ha actualizado el registro",
-          icon: "success",
-          position: "top-right",
-          timer: 1000,
-          toast: true,
-          showConfirmButton: false,
-        }).then(function(){
-          window.location = "/listadoCursos";
-          });
-
+    case "successEnabled":
+      return MySwal.fire({
+        title: "Se ha actualizado el registro",
+        icon: "success",
+        position: "top-right",
+        timer: 2500,
+        toast: true,
+        showConfirmButton: false,
+      });
 
     case "errorRepeated":
       return MySwal.fire({
@@ -155,9 +156,9 @@ export default function TopAlerts(props) {
         icon: "error",
         timer: 1200,
         showConfirmButton: false,
-      }).then(function(){
-        location.reload;
-        });
+      }).then(function () {
+        location.reload();
+      });
     case "Error":
       return MySwal.fire({
         title: "Se ha producido un error.",

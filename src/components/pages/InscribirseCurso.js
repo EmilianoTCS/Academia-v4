@@ -42,6 +42,7 @@ export default function InscribirseCurso() {
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
       TopAlerts(response[0]);
+      console.log(response);
     });
   }
 
@@ -84,7 +85,9 @@ export default function InscribirseCurso() {
                       setCodigoCuenta(target.value), setCambios(true);
                     }}
                   >
-                    <option hidden value="">Desplegar lista</option>
+                    <option hidden value="">
+                      Desplegar lista
+                    </option>
                     {listCuentas.map((valor) => (
                       <option value={valor.ID}>{valor.codigoCuenta}</option>
                     ))}
@@ -102,7 +105,9 @@ export default function InscribirseCurso() {
                       setCambios(true);
                     }}
                   >
-                    <option hidden value="">Desplegar lista</option>
+                    <option hidden value="">
+                      Desplegar lista
+                    </option>
                     {listadoCursos.map((valor) => (
                       <option value={valor.ID}>{valor.nombreRamo}</option>
                     ))}

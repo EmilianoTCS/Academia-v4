@@ -79,7 +79,8 @@ export default function NotasColaboradores() {
         <Select
           options={optionsCursos}
           placeholder="Elige un curso"
-          onChange={({ value, label }) => { setCursoSelected(value), SetNombreCursoSelected(label);
+          onChange={({ value, label }) => {
+            setCursoSelected(value), SetNombreCursoSelected(label);
           }}
           name="codigoCurso"
           defaultInputValue={nombreCursoSelected}
@@ -166,11 +167,11 @@ export default function NotasColaboradores() {
         </button>
       </div>
       <MainTable></MainTable>
-        <Paginador
-          paginas={paginador}
-          cambiarNumero={setNumBoton}
-          num_boton={num_boton}
-        ></Paginador>
+      <Paginador
+        paginas={paginador}
+        cambiarNumero={setNumBoton}
+        num_boton={num_boton}
+      ></Paginador>
     </>
   );
 }
