@@ -54,16 +54,20 @@ export default function ListadoAsistencias() {
   function handleChange(ID) {
     const url = "TASKS/coe-updateStateAsistencias.php";
     const operationUrl = "updateStateAsistencias";
-    var data = {
+    var data = { 
+      ID: ID,
       IDRegistro: ID,
       IDCurso: cursoSeleccionado,
       Fecha: fechaSeleccionada,
+      usuarioModi: userData.username 
     };
 
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successEdited, ...asistencia } = response[0];
+      console.log(response);
+      const { successEnabled, ...asistencia } = response[0];
       actualizarAsistencia(asistencia);
-      TopAlerts(successEdited);
+      TopAlerts(successEnabled);
+      
     });
   }
   function actualizarAsistencia(asistencia) {
@@ -105,6 +109,7 @@ export default function ListadoAsistencias() {
               <tr key={1}>
                 <th>Usuarios</th>
                 <th>Estado</th>
+                <th>Modificado por </th>
                 <th>Operaciones</th>
               </tr>
             </thead>
@@ -113,9 +118,11 @@ export default function ListadoAsistencias() {
                 <tr key={item.ID}>
                   <td>{item.usuario}</td>
                   {item.valor === "1" ? <td>Presente</td> : <td>Ausente</td>}
+                  <td>{item.usuarioModi}</td>
                   <td onChange={() => handleChange(item.ID)}>
                     <SwitchToggle isActive={item.valor} />
                   </td>
+                  
                 </tr>
               ))}
             </tbody>
