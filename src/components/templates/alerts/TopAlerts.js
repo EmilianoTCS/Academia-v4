@@ -156,8 +156,6 @@ export default function TopAlerts(props) {
         icon: "error",
         timer: 1200,
         showConfirmButton: false,
-      }).then(function () {
-        location.reload();
       });
     case "Error":
       return MySwal.fire({

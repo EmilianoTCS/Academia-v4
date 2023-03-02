@@ -67,14 +67,14 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
       idCuenta: idCuenta === "" ? responseID[0].idCuentaEdit : idCuenta,
       codigoRamo: codigoRamo === "" ? responseID[0].codigoRamoEdit : codigoRamo,
       fechaInicio:
-      fechaInicio === "" ? responseID[0].fechaInicioEdit : fechaInicio,
+        fechaInicio === "" ? responseID[0].fechaInicioEdit : fechaInicio,
       fechaFin: fechaFin === "" ? responseID[0].fechaFinEdit : fechaFin,
       horaInicio: horaInicio === "" ? responseID[0].horaInicioEdit : horaInicio,
       horaFin: horaFin === "" ? responseID[0].horaFinEdit : horaFin,
     };
 
     SendDataService(url, operationUrl, data).then((response) => {
-      TopAlerts('successEditedCursos');
+      TopAlerts("successEditedCursos");
       getData();
     });
   }

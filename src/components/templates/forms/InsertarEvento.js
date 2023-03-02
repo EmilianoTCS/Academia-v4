@@ -35,7 +35,7 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
   }
 
   function SendData(e) {
-    // e.preventDefault();
+    e.preventDefault();
     const url = "TASKS/coe-insertarEvento.php";
     const operationUrl = "insertarEvento";
     var data = {
@@ -89,12 +89,7 @@ const InsertarEvento = ({ isActiveEvento, cambiarEstado }) => {
   // ----------------------RENDER----------------------------
   return (
     <>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={true}
-      >
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
           <Modal.Title>Insertar Evento</Modal.Title>
         </Modal.Header>
