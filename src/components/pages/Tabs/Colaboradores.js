@@ -31,7 +31,7 @@ export default function Colaboradores() {
         var operationUrl = "updateStateColaborador";
         var data = { ID: ID, usuario: userData.username };
         SendDataService(url, operationUrl, data).then((response) =>
-          TopAlerts('successEdited')
+          TopAlerts("successEdited")
         );
       }
     });
@@ -99,7 +99,7 @@ export default function Colaboradores() {
             <th>Nombre Completo</th>
             <th>Usuario</th>
             <th>Área</th>
-            <th>CodigoCuenta</th>
+            <th>Código Cuenta</th>
             <th>Correo</th>
             <th>Operaciones</th>
           </tr>
@@ -119,7 +119,7 @@ export default function Colaboradores() {
                   id="OperationBtns"
                   onClick={() => editarColaborador(colaborador.ID)}
                 >
-                    <RiEditBoxFill id="icons" />
+                  <RiEditBoxFill id="icons" />
                 </button>
                 {/* <button title="Examinar curso" id="OperationBtns">
                 <HiEye id="icons" />
@@ -129,7 +129,7 @@ export default function Colaboradores() {
                   id="OperationBtns"
                   onClick={() => eliminar(colaborador.ID)}
                 >
-                    <BsFillTrashFill id="icons" />
+                  <BsFillTrashFill id="icons" />
                 </button>
               </td>
             </tr>

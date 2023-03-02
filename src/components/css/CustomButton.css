@@ -4,3 +4,9 @@
     border-radius: 5px;
     color: white;
 }
+#btn_guardarFechaDisabled{
+    background-color: #6c6465;
+    border: none;
+    border-radius: 5px;
+    color: white;
+}

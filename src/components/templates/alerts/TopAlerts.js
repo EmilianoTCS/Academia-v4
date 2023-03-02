@@ -13,18 +13,20 @@ export default function TopAlerts(props) {
         timer: 2500,
         toast: true,
         showConfirmButton: false,
+        timerProgressBar: true,
       }).then(function () {
         location.reload();
       });
     case "errorRegisterRepeated":
       return MySwal.fire({
         title: "Se ha producido un error.",
-        text: "Ya existe un registrado con esos datos.",
+        text: "Ya existe un registro con esos datos.",
         icon: "error",
         position: "top-right",
         timer: 2500,
         toast: true,
         showConfirmButton: false,
+        timerProgressBar: true,
       });
     case "SuccessfulDelivery":
       return MySwal.fire({
@@ -67,6 +69,7 @@ export default function TopAlerts(props) {
         timer: 2500,
         toast: true,
         showConfirmButton: false,
+        timerProgressBar: true,
       });
     case "successDeleted":
       return MySwal.fire({
@@ -76,6 +79,7 @@ export default function TopAlerts(props) {
         timer: 2500,
         toast: true,
         showConfirmButton: false,
+        timerProgressBar: true,
       }).then(function () {
         location.reload();
       });
@@ -87,6 +91,7 @@ export default function TopAlerts(props) {
         timer: 2500,
         toast: true,
         showConfirmButton: false,
+        timerProgressBar: true,
       }).then(function () {
         location.reload();
       });
@@ -99,6 +104,7 @@ export default function TopAlerts(props) {
         timer: 2500,
         toast: true,
         showConfirmButton: false,
+        timerProgressBar: true,
       });
 
     case "errorRepeated":
@@ -110,6 +116,7 @@ export default function TopAlerts(props) {
         timer: 2500,
         toast: true,
         showConfirmButton: false,
+        timerProgressBar: true,
       });
     case "errorRequisitos":
       return MySwal.fire({
@@ -148,6 +155,7 @@ export default function TopAlerts(props) {
         text: "No puedes utilizar la contraseña actual.",
         icon: "error",
         showConfirmButton: false,
+        timerProgressBar: true,
       });
     case "errorFechas":
       return MySwal.fire({
@@ -156,6 +164,7 @@ export default function TopAlerts(props) {
         icon: "error",
         timer: 1200,
         showConfirmButton: false,
+        timerProgressBar: true,
       });
     case "Error":
       return MySwal.fire({

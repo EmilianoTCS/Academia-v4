@@ -13,7 +13,7 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
   const [listRamos, setListRamos] = useState([""]);
   const [idCuenta, setIdCuenta] = useState("");
   const [codigoCuenta, setCodigoCuenta] = useState("");
-  const [codigoRamo, setCodigoRamo] = useState("");
+  const [idRamoEdit, setidRamoEdit] = useState("");
   const [fechaInicio, setFechaInicio] = useState("");
   const [fechaFin, setFechaFin] = useState("");
   const [horaInicio, setHoraInicio] = useState("");
@@ -25,7 +25,7 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
     cambiarEstado(false);
     setIdCuenta(responseID[0].idCuentaEdit);
     setCodigoCuenta(responseID[0].codigoCuentaEdit);
-    setCodigoRamo(responseID[0].codigoRamoEdit);
+    setidRamoEdit(responseID[0].idRamoEdit);
     setFechaInicio(responseID[0].fechaInicioEdit);
     setFechaFin(responseID[0].fechaFinEdit);
     setHoraInicio(responseID[0].horaInicioEdit);
@@ -39,10 +39,11 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
     const operationUrl = "ID";
     const data = { ID: IDCurso };
     SendDataService(url, operationUrl, data).then((response) => {
+      (response);
       setResponseID(response);
       setIdCuenta(response[0].idCuentaEdit);
       setCodigoCuenta(response[0].codigoCuentaEdit);
-      setCodigoRamo(response[0].codigoRamoEdit);
+      setidRamoEdit(response[0].idRamoEdit);
       setFechaInicio(response[0].fechaInicioEdit);
       setFechaFin(response[0].fechaFinEdit);
       setHoraInicio(response[0].horaInicioEdit);
@@ -59,22 +60,23 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
     getDataService(url).then((ramos) => setListRamos(ramos));
   }
   function SendData(e) {
-    // e.preventDefault();
+    e.preventDefault();
     const url = "TASKS/coe-editCurso.php";
     const operationUrl = "editarCurso";
     const data = {
       ID: IDCurso,
       idCuenta: idCuenta === "" ? responseID[0].idCuentaEdit : idCuenta,
-      codigoRamo: codigoRamo === "" ? responseID[0].codigoRamoEdit : codigoRamo,
+      idRamoEdit: idRamoEdit === "" ? responseID[0].idRamoEdit : idRamoEdit,
       fechaInicio:
         fechaInicio === "" ? responseID[0].fechaInicioEdit : fechaInicio,
       fechaFin: fechaFin === "" ? responseID[0].fechaFinEdit : fechaFin,
       horaInicio: horaInicio === "" ? responseID[0].horaInicioEdit : horaInicio,
       horaFin: horaFin === "" ? responseID[0].horaFinEdit : horaFin,
     };
-
+    (data);
     SendDataService(url, operationUrl, data).then((response) => {
-      TopAlerts("successEditedCursos");
+      
+      TopAlerts(response);
       getData();
     });
   }
@@ -125,12 +127,12 @@ const EditarCurso = ({ isActiveEditCurso, cambiarEstado, IDCurso }) => {
               <select
                 required
                 className="form-control"
-                onChange={({ target }) => setCodigoRamo(target.value)}
+                onChange={({ target }) => setidRamoEdit(target.value)}
               >
                 {listRamos.map((valor) => (
                   <option
-                    value={valor.codigoRamo}
-                    selected={valor.codigoRamo === codigoRamo ? "selected" : ""}
+                    value={valor.ID}
+                    selected={valor.ID === idRamoEdit ? "selected" : ""}
                   >
                     {valor.nombreRamo}
                   </option>

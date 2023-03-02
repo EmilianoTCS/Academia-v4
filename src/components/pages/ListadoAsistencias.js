@@ -4,7 +4,6 @@ import { Navigate } from "react-router-dom";
 import getDataService from "../../services/GetDataService";
 import SendDataService from "../../services/SendDataService";
 import Header from "../templates/Header";
-import Select from "react-select";
 import SwitchToggle from "../templates/SwitchToggle";
 import "../css/CustomButton.css";
 import "../css/ListadoAsistencias.css";
@@ -22,6 +21,7 @@ export default function ListadoAsistencias() {
 
   const [busqueda, setBusqueda] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
+  const [isEmptyFechas, setIsEmptyFechas] = useState(false);
 
   function obtenerDatosCursos() {
     var url = "TASKS/auxiliar/idCurso.php?idCurso";
@@ -46,28 +46,27 @@ export default function ListadoAsistencias() {
     var url = "TASKS/auxiliar/fechasAsistencia.php";
     var operationUrl = "ID";
     var data = { ID: cursoSeleccionado };
-    SendDataService(url, operationUrl, data).then((response) =>
-      setListadoFechas(response)
-    );
+    SendDataService(url, operationUrl, data).then((response) => {
+      const { isEmpty } = response[0];
+      setIsEmptyFechas(isEmpty);
+      setListadoFechas(response);
+    });
   }
 
   function handleChange(ID) {
     const url = "TASKS/coe-updateStateAsistencias.php";
     const operationUrl = "updateStateAsistencias";
-    var data = { 
-      ID: ID,
+    var data = {
       IDRegistro: ID,
       IDCurso: cursoSeleccionado,
       Fecha: fechaSeleccionada,
-      usuarioModi: userData.username 
+      usuarioModi: userData.username,
     };
 
     SendDataService(url, operationUrl, data).then((response) => {
-      console.log(response);
       const { successEnabled, ...asistencia } = response[0];
       actualizarAsistencia(asistencia);
       TopAlerts(successEnabled);
-      
     });
   }
   function actualizarAsistencia(asistencia) {
@@ -93,8 +92,9 @@ export default function ListadoAsistencias() {
         <input
           type="button"
           value="Buscar"
-          id="btn_guardarFecha"
+          id={isEmptyFechas ? "btn_guardarFechaDisabled" : "btn_guardarFecha"}
           onClick={obtenerDatos}
+          disabled={isEmptyFechas ? true : false}
         ></input>
       </>
     );
@@ -122,7 +122,6 @@ export default function ListadoAsistencias() {
                   <td onChange={() => handleChange(item.ID)}>
                     <SwitchToggle isActive={item.valor} />
                   </td>
-                  
                 </tr>
               ))}
             </tbody>
@@ -155,17 +154,6 @@ export default function ListadoAsistencias() {
     );
   };
 
-  // ----------------------MAPEADOS----------------------------
-
-  const optionsCursos = listadoCursos.map((label) => ({
-    label: label.nombreRamo,
-    value: label.ID,
-  }));
-  const optionsFechas = listadoFechas.map((label) => ({
-    label: label.fechas,
-    value: label.fechas,
-  }));
-
   // ----------------------RENDER----------------------------
 
   return userData.statusConected || userData !== null ? (
@@ -177,21 +165,36 @@ export default function ListadoAsistencias() {
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de asistencias</h1>
           <div id="FiltrosAsistencias">
-            <Select
-              className="react-select-container"
-              placeholder="Elige un curso"
-              name="cuenta"
-              options={optionsCursos}
-              onChange={({ value }) => setCursoSeleccionado(value)}
-            />
+            <div className="form-group">
+              <select
+                required
+                className="form-control"
+                onChange={({ target }) => setCursoSeleccionado(target.value)}
+              >
+                <option hidden value="">
+                  Elige un curso
+                </option>
 
-            <Select
-              className="react-select-container"
-              placeholder="Elige una fecha"
-              name="fechas"
-              options={optionsFechas}
-              onChange={({ value }) => setfechaSeleccionada(value)}
-            />
+                {listadoCursos.map((valor) => (
+                  <option value={valor.ID}>{valor.nombreRamo}</option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group">
+              <select
+                required
+                className="form-control"
+                onChange={({ target }) => setfechaSeleccionada(target.value)}
+              >
+                <option hidden value="">
+                  Elige una fecha
+                </option>
+                {listadoFechas.map((valor) => (
+                  <option value={valor.fechas}>{valor.fechas}</option>
+                ))}
+              </select>
+            </div>
+
             <CustomButtonSearch></CustomButtonSearch>
           </div>
           <MainTable></MainTable>

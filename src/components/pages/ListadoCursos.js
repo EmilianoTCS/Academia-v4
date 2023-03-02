@@ -43,7 +43,7 @@ export default function ListadoCursos() {
       num_boton: num_boton,
     };
     SendDataService(url, operationUrl, data).then((data) => {
-      setCursos(data), console.log(data);
+      setCursos(data), (data);
     });
   }
 
