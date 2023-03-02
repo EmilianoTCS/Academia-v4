@@ -15,7 +15,7 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
   const [listCuentas, setListCuentas] = useState([""]);
   const [listRamos, setListRamos] = useState([""]);
   const [codigoCuenta, setCodigoCuenta] = useState("");
-  const [codigoRamo, setCodigoRamo] = useState("");
+  const [idRamo, setIDRamo] = useState("");
   const [duracion, setDuracion] = useState("");
   const [valoresFechas, setValoresFechas] = useState([new DateObject()]);
   const fechasFormateadas = [];
@@ -42,7 +42,7 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
       duracion: duracion,
       fechasOrdenadas: fechasOrdenadas[0],
       codigoCuenta: codigoCuenta,
-      codigoRamo: codigoRamo,
+      idRamo: idRamo,
     };
     console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
@@ -129,15 +129,14 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
               <select
                 required
                 className="form-control"
-                onChange={({ target }) => setCodigoRamo(target.value)}
-                value={listCuentas[0].codigoRamo}
+                onChange={({ target }) => setIDRamo(target.value)}
               >
                 <option hidden value="">
                   Desplegar lista
                 </option>
 
                 {listRamos.map((valor) => (
-                  <option value={valor.codigoRamo}>{valor.nombreRamo}</option>
+                  <option value={valor.ID}>{valor.nombreRamo}</option>
                 ))}
               </select>
             </div>

@@ -25,7 +25,7 @@ export default function ListadoCursos() {
   const operationUrl = "pagina";
   const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
   const [isActiveEditCurso, setIsActiveEditCurso] = useState(false);
-  const [IDCurso, setIDCurso] = useState(null);
+  // const [IDCurso, setIDCurso] = useState(null);
 
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
@@ -65,10 +65,10 @@ export default function ListadoCursos() {
   function insertarCurso() {
     setIsActiveInsertCurso(!isActiveInsertCurso);
   }
-  function editarCurso(ID) {
-    setIsActiveEditCurso(true);
-    setIDCurso(ID);
-  }
+  // function editarCurso(ID) {
+  //   setIsActiveEditCurso(true);
+  //   setIDCurso(ID);
+  // }
 
   useEffect(
     function () {
@@ -126,13 +126,13 @@ export default function ListadoCursos() {
                 <td>{curso.fin}</td>
                 <td>{curso.estado}</td>
                 <td>
-                  <button
+                  {/* <button
                     title="Editar curso"
                     id="OperationBtns"
                     onClick={() => editarCurso(curso.ID)}
                   >
                     <RiEditBoxFill id="icons" />
-                  </button>
+                  </button> */}
                   {/* <Link to={`/Examinar/${curso.codigoCurso}`} >
                     <button title="Examinar curso" id="OperationBtns">
                       <HiEye id="icons" />
