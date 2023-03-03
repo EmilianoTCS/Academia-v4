@@ -141,17 +141,7 @@ export default function ListadoAsistencias() {
         );
       }
     }
-    return (
-      <RevolvingDot
-        visible={true}
-        height="200"
-        width="200"
-        ariaLabel="dna-loading"
-        wrapperStyle={{ margin: "20px 44% " }}
-        wrapperClass="dna-wrapper"
-        color="#e10b1c"
-      ></RevolvingDot>
-    );
+    return <div className="spinner"></div>;
   };
 
   // ----------------------RENDER----------------------------
@@ -161,7 +151,7 @@ export default function ListadoAsistencias() {
       <Header></Header>
       <br></br>
       <br></br>
-      <Container id="fondoTabla">
+      <Container id="fondoTabla1">
         <div id="containerTablas">
           <h1 id="TitlesPages">Listado de asistencias</h1>
           <div id="FiltrosAsistencias">

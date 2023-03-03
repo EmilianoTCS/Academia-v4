@@ -94,11 +94,11 @@ export default function ListadoCursos() {
             cambiarEstado={setIsActiveInsertCurso}
           ></InsertarCurso>
 
-          <EditarCurso
+          {/* <EditarCurso
             isActiveEditCurso={isActiveEditCurso}
             cambiarEstado={setIsActiveEditCurso}
             IDCurso={IDCurso}
-          ></EditarCurso>
+          ></EditarCurso> */}
         </div>
         <Table id="mainTable" hover responsive>
           <thead>
@@ -139,6 +139,7 @@ export default function ListadoCursos() {
                     </button>
                   </Link> */}
                   <button
+                    style={{marginLeft:32}}
                     title="Eliminar curso"
                     onClick={() => eliminar(curso.ID)}
                     id="OperationBtns"
