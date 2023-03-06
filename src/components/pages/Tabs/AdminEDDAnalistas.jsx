@@ -22,9 +22,9 @@ export default function AdminEDDAnalistas() {
     var data = { ID: ID };
     SendDataService(url, operationUrl, data).then((response) => {
       console.log(response);
-      const { successEdited, ...evaluacion } = response[0];
+      const { successEnabled, ...evaluacion } = response[0];
       actualizarEvaluacion(evaluacion);
-      TopAlerts(successEdited);
+      TopAlerts(successEnabled);
     });
   }
   function actualizarEvaluacion(evaluacion) {

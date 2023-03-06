@@ -16,11 +16,11 @@ export default function AdminRamos() {
   function handleChangeisActiveRamos(ID) {
     const url = "TASKS/coe-updateStateRamos.php";
     const operationUrl = "updateStateRamos";
-    var data = { ID: ID , usuario: userData.username };
+    var data = { ID: ID, usuario: userData.username };
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successEdited, ...ramo } = response[0];
+      const { successEnabled, ...ramo } = response[0];
       actualizarRamo(ramo);
-      TopAlerts(successEdited);
+      TopAlerts(successEnabled);
     });
   }
   function actualizarRamo(ramo) {
@@ -32,33 +32,32 @@ export default function AdminRamos() {
     obtenerDatosRamos();
   }, []);
 
-
-  return(
-          <Table responsive>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Código Ramo</th>
-                <th>Nombre del Ramo</th>
-                <th>Fecha de modificación </th>
-                <th>Modificado por </th>
-                <th id="th_switch">Habilitar o Deshabilitar</th>
-              </tr>
-            </thead>
-            <tbody>
-              {ramos.map((ramo) => (
-                <tr key={ramo.ID}>
-                  <td>{ramo.ID}</td>
-                  <td>{ramo.codigoRamo}</td>
-                  <td>{ramo.nombreRamo}</td>
-                  <td>{ramo.date}</td>
-                  <td>{ramo.usuario}</td>
-                  <td onChange={() => handleChangeisActiveRamos(ramo.ID)}>
-                    <SwitchToggle isActive={ramo.isActive} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-)
+  return (
+    <Table responsive>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Código Ramo</th>
+          <th>Nombre del Ramo</th>
+          <th>Fecha de modificación </th>
+          <th>Modificado por </th>
+          <th id="th_switch">Habilitar o Deshabilitar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {ramos.map((ramo) => (
+          <tr key={ramo.ID}>
+            <td>{ramo.ID}</td>
+            <td>{ramo.codigoRamo}</td>
+            <td>{ramo.nombreRamo}</td>
+            <td>{ramo.date}</td>
+            <td>{ramo.usuario}</td>
+            <td onChange={() => handleChangeisActiveRamos(ramo.ID)}>
+              <SwitchToggle isActive={ramo.isActive} />
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </Table>
+  );
 }

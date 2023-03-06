@@ -27,9 +27,9 @@ export default function AdminRelatores() {
     const operationUrl = "updateStateRelator";
     var data = { ID: ID , usuario: userData.username };
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successEdited, ...relator } = response[0];
+      const { successEnabled, ...relator } = response[0];
       actualizarRelator(relator);
-      TopAlerts(successEdited);
+      TopAlerts(successEnabled);
     });
   }
 

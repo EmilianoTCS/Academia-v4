@@ -1,17 +1,44 @@
-#FiltrosAsistencias{
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-    width: 500px;
+#fondoTabla1{
+    border-radius: 2em; 
+    background-color: #fff;
+    padding-bottom: 1em;
+  }
+
+.spinner {
+    border: 5px solid rgba(0, 0, 0, 0.295);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border-left-color: rgb(255, 0, 0);
+    margin:60px auto;
+    animation: spin 1s ease infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+
+#FiltrosAsistencias {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  width: 500px;
 }
-.DatePicker{
-    height: 38px;
-    background-color: hsl(0, 0%, 100%);
-    border-color: hsl(0, 0%, 80%);
-    border-radius: 4px;
-    border-style: solid;
-    border-width: 1px;
+.DatePicker {
+  height: 38px;
+  background-color: hsl(0, 0%, 100%);
+  border-color: hsl(0, 0%, 80%);
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
 }
-.react-select-container{
-    width: 200px;
+.react-select-container {
+  width: 200px;
 }

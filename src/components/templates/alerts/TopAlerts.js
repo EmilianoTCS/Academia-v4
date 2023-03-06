@@ -1,6 +1,5 @@
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { Navigate } from "react-router-dom";
 
 export default function TopAlerts(props) {
   const MySwal = withReactContent(Swal);
@@ -14,16 +13,20 @@ export default function TopAlerts(props) {
         timer: 2500,
         toast: true,
         showConfirmButton: false,
+        timerProgressBar: true,
+      }).then(function () {
+        location.reload();
       });
     case "errorRegisterRepeated":
       return MySwal.fire({
         title: "Se ha producido un error.",
-        text: "Ya existe un registrado con esos datos.",
+        text: "Ya existe un registro con esos datos.",
         icon: "error",
         position: "top-right",
         timer: 2500,
         toast: true,
         showConfirmButton: false,
+        timerProgressBar: true,
       });
     case "SuccessfulDelivery":
       return MySwal.fire({
@@ -51,7 +54,7 @@ export default function TopAlerts(props) {
         <p>Se ha actualizado la clave de tu cuenta, puedes ingresar al enlace para acceder. </p>
         <a href="https://academiaformacion.netlify.app/login">Iniciar sesión</a>
         `,
-        
+
         icon: "success",
         showConfirmButton: true,
         confirmButtonText: '<i class="fa fa-thumbs-up"></i> Ok!',
@@ -66,6 +69,7 @@ export default function TopAlerts(props) {
         timer: 2500,
         toast: true,
         showConfirmButton: false,
+        timerProgressBar: true,
       });
     case "successDeleted":
       return MySwal.fire({
@@ -75,6 +79,9 @@ export default function TopAlerts(props) {
         timer: 2500,
         toast: true,
         showConfirmButton: false,
+        timerProgressBar: true,
+      }).then(function () {
+        location.reload();
       });
     case "successEdited":
       return MySwal.fire({
@@ -84,7 +91,22 @@ export default function TopAlerts(props) {
         timer: 2500,
         toast: true,
         showConfirmButton: false,
+        timerProgressBar: true,
+      }).then(function () {
+        location.reload();
       });
+
+    case "successEnabled":
+      return MySwal.fire({
+        title: "Se ha actualizado el registro",
+        icon: "success",
+        position: "top-right",
+        timer: 2500,
+        toast: true,
+        showConfirmButton: false,
+        timerProgressBar: true,
+      });
+
     case "errorRepeated":
       return MySwal.fire({
         title: "Se ha producido un error.",
@@ -94,6 +116,7 @@ export default function TopAlerts(props) {
         timer: 2500,
         toast: true,
         showConfirmButton: false,
+        timerProgressBar: true,
       });
     case "errorRequisitos":
       return MySwal.fire({
@@ -132,14 +155,16 @@ export default function TopAlerts(props) {
         text: "No puedes utilizar la contraseña actual.",
         icon: "error",
         showConfirmButton: false,
+        timerProgressBar: true,
       });
     case "errorFechas":
       return MySwal.fire({
         title: "Se ha producido un error.",
         text: "Introduce una fecha válida superior a la de hoy.",
         icon: "error",
-        timer: 3000,
+        timer: 1200,
         showConfirmButton: false,
+        timerProgressBar: true,
       });
     case "Error":
       return MySwal.fire({

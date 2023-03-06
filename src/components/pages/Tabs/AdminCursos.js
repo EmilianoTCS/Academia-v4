@@ -20,11 +20,11 @@ export default function AdminCursos() {
   function handleChangeisActiveCursos(ID) {
     const url = "TASKS/coe-updateState.php";
     const operationUrl = "updateStateCursos";
-    var data = { ID: ID , usuario: userData.username };
+    var data = { ID: ID, usuario: userData.username };
     SendDataService(url, operationUrl, data).then((response) => {
-      const { successEdited, ...curso } = response[0];
+      const { successEnabled, ...curso } = response[0];
       actualizarCurso(curso);
-      TopAlerts(successEdited);
+      TopAlerts(successEnabled);
     });
   }
   function actualizarCurso(curso) {
@@ -37,32 +37,31 @@ export default function AdminCursos() {
   }, []);
 
   return (
-      <Table responsive>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Código Curso</th>
-            <th>Código Ramo</th>
-            <th>Fecha de modificación</th>
-            <th>Modificado por </th>
-            <th id="th_switch">Habilitar o Deshabilitar</th>
+    <Table responsive>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Código Curso</th>
+          <th>Código Ramo</th>
+          <th>Fecha de modificación</th>
+          <th>Modificado por </th>
+          <th id="th_switch">Habilitar o Deshabilitar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {cursos.map((curso) => (
+          <tr key={curso.ID}>
+            <td>{curso.ID}</td>
+            <td>{curso.codigoCurso}</td>
+            <td>{curso.nombreRamo}</td>
+            <td>{curso.date}</td>
+            <td>{curso.usuario}</td>
+            <td onChange={() => handleChangeisActiveCursos(curso.ID)}>
+              <SwitchToggle isActive={curso.isActive} />
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {cursos.map((curso) => (
-            <tr key={curso.ID}>
-              <td>{curso.ID}</td>
-              <td>{curso.codigoCurso}</td>
-              <td>{curso.codigoRamo}</td>
-              <td>{curso.date}</td>
-              <td>{curso.usuario}</td>
-              <td onChange={() => handleChangeisActiveCursos(curso.ID)}>
-                <SwitchToggle isActive={curso.isActive} />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-
+        ))}
+      </tbody>
+    </Table>
   );
 }

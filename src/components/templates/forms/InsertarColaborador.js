@@ -49,12 +49,7 @@ const InsertarColaborador = ({ isActiveColaborador, cambiarEstado }) => {
 
   return (
     <>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={true}
-      >
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
           <Modal.Title>Insertar Colaborador</Modal.Title>
         </Modal.Header>

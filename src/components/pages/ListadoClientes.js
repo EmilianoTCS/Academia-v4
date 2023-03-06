@@ -109,7 +109,7 @@ export default function ListadoClientes() {
                 <th>Tipo de cliente</th>
                 <th>Nombre del cliente</th>
                 <th>Referente</th>
-                <th>Córreo referente</th>
+                <th>Correo referente</th>
                 <th>Cargo referente</th>
                 <th>Teléfono</th>
                 <th>Operaciones</th>

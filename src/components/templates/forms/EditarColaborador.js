@@ -64,7 +64,7 @@ const EditarColaborador = ({
     };
 
     SendDataService(url, operationUrl, data).then((response) =>
-      TopAlerts(response)
+      TopAlerts('successEdited')
     );
   }
   function obtenerCuentas() {

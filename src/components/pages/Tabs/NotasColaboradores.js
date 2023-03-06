@@ -167,11 +167,11 @@ export default function NotasColaboradores() {
         </button>
       </div>
       <MainTable></MainTable>
-        <Paginador
-          paginas={paginador}
-          cambiarNumero={setNumBoton}
-          num_boton={num_boton}
-        ></Paginador>
+      <Paginador
+        paginas={paginador}
+        cambiarNumero={setNumBoton}
+        num_boton={num_boton}
+      ></Paginador>
     </>
   );
 }

@@ -52,9 +52,10 @@ export default function ListadoRamos() {
         var url = "TASKS/coe-updateStateRamos.php";
         var operationUrl = "updateStateRamos";
         var data = { ID: ID, usuario: userData.username };
-        SendDataService(url, operationUrl, data).then((response) =>
-          TopAlerts(response)
-        );
+        SendDataService(url, operationUrl, data).then((response) => {
+          const { successEdited } = response[0];
+          TopAlerts(successEdited);
+        });
       }
     });
   }

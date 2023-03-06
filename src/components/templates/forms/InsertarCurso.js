@@ -10,13 +10,12 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import TopAlerts from "../alerts/TopAlerts";
 
-
 const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
   // ----------------------CONSTANTES----------------------------
   const [listCuentas, setListCuentas] = useState([""]);
   const [listRamos, setListRamos] = useState([""]);
   const [codigoCuenta, setCodigoCuenta] = useState("");
-  const [codigoRamo, setCodigoRamo] = useState("");
+  const [idRamo, setIDRamo] = useState("");
   const [duracion, setDuracion] = useState("");
   const [valoresFechas, setValoresFechas] = useState([new DateObject()]);
   const fechasFormateadas = [];
@@ -36,15 +35,16 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
     getDataService(url).then((ramos) => setListRamos(ramos));
   }
   function SendData(e) {
-    // e.preventDefault();
+    e.preventDefault();
     const url = "TASKS/coe-insertarCurso.php";
     const operationUrl = "insertarCurso";
     var data = {
       duracion: duracion,
       fechasOrdenadas: fechasOrdenadas[0],
       codigoCuenta: codigoCuenta,
-      codigoRamo: codigoRamo,
+      idRamo: idRamo,
     };
+    console.log(data);
     SendDataService(url, operationUrl, data).then((response) => {
       console.log(response);
       TopAlerts(response[0]);
@@ -101,12 +101,7 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
 
   return (
     <>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={true}
-      >
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
         <Modal.Header closeButton>
           <Modal.Title>Insertar Curso</Modal.Title>
         </Modal.Header>
@@ -119,7 +114,9 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
                 className="form-control"
                 onChange={({ target }) => setCodigoCuenta(target.value)}
               >
-                <option hidden value="">Desplegar lista</option>
+                <option hidden value="">
+                  Desplegar lista
+                </option>
 
                 {listCuentas.map((valor) => (
                   <option value={valor.ID}>{valor.codigoCuenta}</option>
@@ -132,26 +129,27 @@ const InsertarCurso = ({ isActiveCurso, cambiarEstado }) => {
               <select
                 required
                 className="form-control"
-                onChange={({ target }) => setCodigoRamo(target.value)}
-                value={listCuentas[0].codigoRamo}
-
+                onChange={({ target }) => setIDRamo(target.value)}
               >
-                <option hidden value="">Desplegar lista</option>
+                <option hidden value="">
+                  Desplegar lista
+                </option>
 
                 {listRamos.map((valor) => (
-                  <option value={valor.codigoRamo}>{valor.nombreRamo}</option>
+                  <option value={valor.ID}>{valor.nombreRamo}</option>
                 ))}
               </select>
             </div>
 
-    
             <div>
               <label>Duración: </label>
               <Form.Select
                 onChange={({ target }) => handleChange(target.value)}
                 required
               >
-                <option hidden value="">Elige la duracion</option>
+                <option hidden value="">
+                  Elige la duracion
+                </option>
                 <option value="00:30:00">30min</option>
                 <option value="01:00:00">1:00hs</option>
                 <option value="01:30:00">1:30hs</option>

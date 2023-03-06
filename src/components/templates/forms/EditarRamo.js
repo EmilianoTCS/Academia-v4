@@ -32,7 +32,7 @@ const EditarRamo = ({
     setNombreRamo(responseID[0].nombreRamo);
     set_hh_academicas(responseID[0].hh_academicas);
     setRelator(responseID[0].nombre);
-    setidRelator(responseID[0].idRelator)
+    setidRelator(responseID[0].idRelator);
   };
 
   // ----------------------FUNCIONES----------------------------
@@ -52,17 +52,17 @@ const EditarRamo = ({
       setNombreRamo(response[0].nombreRamo);
       set_hh_academicas(response[0].hh_academicas);
       setRelator(response[0].nombre);
-      setidRelator(responseID[0].idRelator)
+      setidRelator(response[0].idRelator);
     });
   }
 
   function SendData(e) {
-    // e.preventDefault();
+    e.preventDefault();
     const url = "TASKS/coe-editRamo.php";
     const operationUrl = "editarRamo";
     var data = {
       ID: IDRamo,
-      idRelator : idRelator === "" ? responseID[0].idRelator : idRelator,
+      idRelator: idRelator === "" ? responseID[0].idRelator : idRelator,
       codigoRamo: codigoRamo === "" ? responseID[0].codigoRamo : codigoRamo,
       nombreRamo: nombreRamo === "" ? responseID[0].nombreRamo : nombreRamo,
       hh_academicas:
@@ -70,12 +70,12 @@ const EditarRamo = ({
       nombreRelator:
         nombreRelator === "" ? responseID[0].idRelator : nombreRelator,
     };
+    console.log(data);
 
     SendDataService(url, operationUrl, data).then((response) => {
       const { successEdited, ...ramo } = response[0];
       TopAlerts(successEdited);
       actualizarRamo(ramo);
-      
     });
   }
   function actualizarRamo(ramo) {
@@ -147,8 +147,6 @@ const EditarRamo = ({
                 className="form-control"
                 onChange={({ target }) => setRelator(target.value)}
               >
-
-                
                 {listRelatores.map((valor) => (
                   <option
                     selected={valor.nombre === nombreRelator ? "selected" : ""}

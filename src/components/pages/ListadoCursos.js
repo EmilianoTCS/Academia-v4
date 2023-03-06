@@ -25,7 +25,7 @@ export default function ListadoCursos() {
   const operationUrl = "pagina";
   const [isActiveInsertCurso, setIsActiveInsertCurso] = useState(false);
   const [isActiveEditCurso, setIsActiveEditCurso] = useState(false);
-  const [IDCurso, setIDCurso] = useState(null);
+  // const [IDCurso, setIDCurso] = useState(null);
 
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 
@@ -42,7 +42,9 @@ export default function ListadoCursos() {
     var data = {
       num_boton: num_boton,
     };
-    SendDataService(url, operationUrl, data).then((data) => setCursos(data));
+    SendDataService(url, operationUrl, data).then((data) => {
+      setCursos(data), (data);
+    });
   }
 
   //PAGINADOR ---------------------
@@ -52,7 +54,7 @@ export default function ListadoCursos() {
       if (response === true) {
         var url = "TASKS/coe-updateState.php";
         var operationUrl = "updateStateCursos";
-        var data = { ID: ID, usuario: userData.username  };
+        var data = { ID: ID, usuario: userData.username };
         SendDataService(url, operationUrl, data).then((response) => {
           const { successEdited } = response[0];
           TopAlerts(successEdited);
@@ -63,10 +65,10 @@ export default function ListadoCursos() {
   function insertarCurso() {
     setIsActiveInsertCurso(!isActiveInsertCurso);
   }
-  function editarCurso(ID) {
-    setIsActiveEditCurso(true);
-    setIDCurso(ID);
-  }
+  // function editarCurso(ID) {
+  //   setIsActiveEditCurso(true);
+  //   setIDCurso(ID);
+  // }
 
   useEffect(
     function () {
@@ -92,11 +94,11 @@ export default function ListadoCursos() {
             cambiarEstado={setIsActiveInsertCurso}
           ></InsertarCurso>
 
-          <EditarCurso
+          {/* <EditarCurso
             isActiveEditCurso={isActiveEditCurso}
             cambiarEstado={setIsActiveEditCurso}
             IDCurso={IDCurso}
-          ></EditarCurso>
+          ></EditarCurso> */}
         </div>
         <Table id="mainTable" hover responsive>
           <thead>
@@ -105,12 +107,11 @@ export default function ListadoCursos() {
               <th>Código del curso</th>
               <th>Código de la Cuenta</th>
               <th>Nombre del curso</th>
-              <th>Sesion</th>
+              <th>Sesión</th>
               <th>Inicio</th>
               <th>Fin</th>
               <th>Estado</th>
               <th>Operaciones</th>
-
             </tr>
           </thead>
           <tbody>
@@ -125,19 +126,20 @@ export default function ListadoCursos() {
                 <td>{curso.fin}</td>
                 <td>{curso.estado}</td>
                 <td>
-                  <button
+                  {/* <button
                     title="Editar curso"
                     id="OperationBtns"
                     onClick={() => editarCurso(curso.ID)}
                   >
                     <RiEditBoxFill id="icons" />
-                  </button>
+                  </button> */}
                   {/* <Link to={`/Examinar/${curso.codigoCurso}`} >
                     <button title="Examinar curso" id="OperationBtns">
                       <HiEye id="icons" />
                     </button>
                   </Link> */}
                   <button
+                    style={{marginLeft:32}}
                     title="Eliminar curso"
                     onClick={() => eliminar(curso.ID)}
                     id="OperationBtns"
