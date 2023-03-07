@@ -71,22 +71,22 @@ export default function Calendario() {
   // --------------------CONSTANTES MAP---------------------
 
   const Cursos = CursosApi.map((label) => ({
-    title: label.codigoRamo,
+    title: "Curso de: " + label.codigoRamo,
     start: label.fecha_hora,
     end: label.fecha_hora,
     description:
       "Curso de " + label.nombreRamo + ", Duración: " + label.duracion,
     sourceId: label.ID,
-    color: `#FF424E`,
+    color: `#3B9212`,
     display: "block",
   }));
   const Eventos = EventosApi.map((label) => ({
-    title: label.titulo,
+    title: "Entrega de evaluación " + label.titulo,
     start: label.fecha_hora,
     end: label.fecha_hora,
     sourceId: label.ID,
     description: label.descripcion + ", Duración: " + label.duracion,
-    color: `#00E091`,
+    color: `#0D98BA`,
     display: "block",
   }));
   const Feriados = FeriadosApi.map((label) => ({

@@ -90,6 +90,7 @@ export default function ListadoAsistencias() {
     return (
       <>
         <input
+        
           type="button"
           value="Buscar"
           id={isEmptyFechas ? "btn_guardarFechaDisabled" : "btn_guardarFecha"}

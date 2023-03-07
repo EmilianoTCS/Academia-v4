@@ -78,13 +78,27 @@
 
 }
 
+.fc .fc-daygrid-day-frame{
+    border: solid 1px rgb(171, 171, 171);
+
+}
+
+.fc-scrollgrid-sync-inner{
+    border: solid 1px rgb(171, 171, 171);
+}
+
+
+.fc .fc-scrollgrid-section > * {
+    border-top-width: 0;
+    border-left-width: 0;
+}
 
 .fc-day-today {
-    background-color: #d6d6d6 !important;
+    background-color: #f5c8c8 !important;
 }
 
 .fc{
-    background-color: rgba(156, 154, 154, 0.948) !important;    
+    background-color: rgba(232, 229, 229, 0.948) !important;    
     border-radius: 20px;
     /* margin: -30px 100px 0 100px; */
 

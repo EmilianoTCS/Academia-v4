@@ -46,7 +46,7 @@ export default function AdminCliente() {
           <th>Correo referente</th>
           <th>Fecha de modificación</th>
           <th>Modificado por </th>
-          <th id="th_switch">Habilitar o Deshabilitar</th>
+          <th id="th_switch">Estado</th>
         </tr>
       </thead>
       <tbody>

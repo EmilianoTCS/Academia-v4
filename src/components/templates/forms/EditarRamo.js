@@ -102,7 +102,7 @@ const EditarRamo = ({
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
-            <div>
+            {/* <div>
               <label htmlFor="input_codigoRamo">Código del ramo: </label>
               <input
                 type="text"
@@ -139,7 +139,7 @@ const EditarRamo = ({
                 onChange={({ target }) => set_hh_academicas(target.value)}
                 required
               />
-            </div>
+            </div> */}
             <div>
               <label htmlFor="input_tipoCliente">Relator:</label>
               <select

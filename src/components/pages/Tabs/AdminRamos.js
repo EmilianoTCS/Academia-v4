@@ -41,7 +41,7 @@ export default function AdminRamos() {
           <th>Nombre del Ramo</th>
           <th>Fecha de modificación </th>
           <th>Modificado por </th>
-          <th id="th_switch">Habilitar o Deshabilitar</th>
+          <th id="th_switch">Estado</th>
         </tr>
       </thead>
       <tbody>

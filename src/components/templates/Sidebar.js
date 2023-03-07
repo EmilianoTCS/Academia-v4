@@ -236,7 +236,7 @@ export default function SideBar(props) {
                 >
                   <button id="buttonSidebar">
                     <FaBook id="icons" />
-                    COE - ACADEMIA
+                    FACTORY DEVOPS
                   </button>
                   <ul
                     id="COE_Academia"
