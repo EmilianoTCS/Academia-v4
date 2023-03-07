@@ -1,20 +1,83 @@
+/* *{
+    border: solid 2px white;
+} */
+
+
 .Feriados{
     color: black;
     font-weight: 600;
 }
-
+ 
 #fondoCalendario{
-    margin: 10px;
-}
+    margin: 3px;
+} 
 
 
 .fc .fc-toolbar-title {
-    font-size: 1.75em;
-    margin: 0;
+    /* font-size: 1.75em;
+    margin: 0; */
     color: rgb(0, 0, 0);
     text-transform: uppercase;
-    margin-left: 40px;
+    /* margin-left: 40px; */
 }
+
+@media screen and (max-width: 616px) {
+    .fc-toolbar-title{
+        position: relative;
+        left: -183px;
+        top: -37px;
+        color: rgb(0, 0, 0);  
+        white-space: nowrap;  
+        text-transform: uppercase;
+    }
+    .fc-toolbar-chunk{
+        padding-top: 20px;
+    }
+    
+    
+    .fc-toolbar-chunk:nth-child(3){
+        position: relative;
+        left: -55px;
+        display: flex;
+        flex-direction: row;
+    
+    }
+    
+    .fc-toolbar-chunk:nth-child(2){
+        width: 20%;
+    }
+
+}
+
+@media screen and (max-width: 400px) {
+    .fc-toolbar-title{
+        position: relative;
+        left: -183px;
+        top: -37px;
+        color: rgb(0, 0, 0);  
+        white-space: nowrap;  
+        text-transform: uppercase;
+    }
+    .fc-toolbar-chunk{
+        padding-top: 20px;
+    }
+    
+    
+    .fc-toolbar-chunk:nth-child(3){
+        position: relative;
+        left: -40px;
+        bottom: -20px;
+        display: flex;
+        flex-direction: column
+    
+    }
+    
+    .fc-toolbar-chunk:nth-child(2){
+        width: 20%;
+    }
+
+}
+
 
 .fc-day-today {
     background-color: #d6d6d6 !important;
@@ -23,7 +86,7 @@
 .fc{
     background-color: rgba(156, 154, 154, 0.948) !important;    
     border-radius: 20px;
-    margin: -30px 100px 0 100px;
+    /* margin: -30px 100px 0 100px; */
 
 }
 
@@ -107,6 +170,7 @@
     color: rgb(255, 246, 246) !important;
     border-radius: 10px !important;
 }
+
 
 .fc-dayGridMonth-button,.fc-button ,.fc-button-primary ,.fc-button-active:hover{
     background-color: #ffffff;

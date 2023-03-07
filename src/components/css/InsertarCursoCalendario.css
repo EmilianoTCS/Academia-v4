@@ -1,7 +1,7 @@
 #btnCurso{
     background-color: rgb(0, 0, 0);
-    margin-left: 298px;  
-    margin-bottom: -60px;
+    margin-left: 195px;  
+    margin-bottom: -104px;
     margin-right: -150px;
     position: relative;
     border: none;
@@ -14,7 +14,7 @@
 #btnCurso2{
     background-color: rgb(0, 0, 0);
     margin-left: 153px;  
-    margin-bottom: -60px;
+    margin-bottom: -104px;
     margin-right: -150px;
     position: relative;
     border: none;
@@ -32,9 +32,9 @@
 @media screen and (max-width: 1300px) {
     #btnCurso{
         margin: 0 0 0 0;
-        background-color: rgb(171, 165, 165);    
+        background-color: rgb(0, 0, 0);    
         border: none;
-        margin-left: 127px;
+        margin-left: 10px;
         margin-bottom: 22px;
     }
 
@@ -45,7 +45,7 @@
 @media screen and (max-width: 1300px) {
     #btnCurso2{
         margin: 0 0 0 0;
-        background-color: rgb(171, 165, 165);    
+        background-color: rgb(0, 0, 0);    
         border: none;
         margin-bottom: 22px;
         margin-left: 5px;

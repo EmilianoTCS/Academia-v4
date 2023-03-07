@@ -230,6 +230,22 @@ ul li ul li:hover a {
 
 }
 
+/* 
+@media screen and (max-width: 1000px) {
+  .buttonStyleOpen{
+    position: relative;
+    right: 0;
+    top: 30px;
+    border: none;
+    background: #e10b1c;
+    color: white;
+    border-radius: 5px;
+    margin: 120px 5px 3px 3px;
+    padding: 7px;
+    border: solid #e10b1c 1px;
+  }
+} */
+
 /*Boton abrir sidebar*/
 .buttonStyleOpen {
   position: absolute;
