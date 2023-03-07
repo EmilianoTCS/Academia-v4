@@ -10,3 +10,27 @@
     border-radius: 5px;
     color: white;
 }
+
+@media screen and (max-width: 450px) {
+    #btn_guardarFecha{
+        background-color: #e10b1c;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        position: relative;
+        left: -280px;
+        top: 45px;
+        margin-bottom: 2em;
+        padding: 7px;
+    }
+    #btn_guardarFechaDisabled{
+        background-color: #6c6465;
+        border: none;
+        border-radius: 5px;
+        position: relative;
+        left: -280px;
+        top: 45px;
+        margin-bottom: 2em;
+        padding: 7px;
+    }    
+}

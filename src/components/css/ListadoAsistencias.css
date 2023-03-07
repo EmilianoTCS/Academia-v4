@@ -24,14 +24,19 @@
     }
   }
 
+@media screen and (max-width: 450px) {
+  .form-control:nth-child(1){
+    width: 135px;
+}
+}
 
 #FiltrosAsistencias {
   display: flex;
   flex-direction: row;
   gap: 5px;
-  width: 500px;
+  width: 400px;
 }
-.DatePicker {
+/* .DatePicker {
   height: 38px;
   background-color: hsl(0, 0%, 100%);
   border-color: hsl(0, 0%, 80%);
@@ -41,4 +46,4 @@
 }
 .react-select-container {
   width: 200px;
-}
+} */

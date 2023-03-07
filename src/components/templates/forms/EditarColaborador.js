@@ -129,7 +129,7 @@ const EditarColaborador = ({
                 required
               />
             </div>
-            <div>
+            {/* <div>
               <label htmlFor="input_usuario">Usuario:</label>
               <input
                 type="text"
@@ -140,7 +140,7 @@ const EditarColaborador = ({
                 onChange={({ target }) => setUsuario(target.value)}
                 required
               />
-            </div>
+            </div> */}
             <div>
               <label htmlFor="input_area">Área:</label>
               <input

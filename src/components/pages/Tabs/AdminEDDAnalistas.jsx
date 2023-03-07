@@ -47,7 +47,7 @@ export default function AdminEDDAnalistas() {
             <th>Nombre del Cliente</th>
             <th>Estado</th>
             <th>Fecha de actualización</th>
-            <th id="th_switch">Habilitar o Deshabilitar</th>
+            <th id="th_switch">Estado</th>
           </tr>
         </thead>
         <tbody>
