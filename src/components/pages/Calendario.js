@@ -76,7 +76,12 @@ export default function Calendario() {
     start: label.fecha_hora,
     end: label.fecha_hora,
     description:
-      "Curso de " + label.nombreRamo + ", Duración: " + label.duracion,
+      label.fecha_hora +
+      ", " +
+      "Curso de " +
+      label.nombreRamo +
+      ", Duración: " +
+      label.duracion,
     sourceId: label.ID,
     color: `#3B9212`,
     display: "block",
@@ -86,7 +91,12 @@ export default function Calendario() {
     start: label.fecha_hora,
     end: label.fecha_hora,
     sourceId: label.ID,
-    description: label.descripcion + ", Duración: " + label.duracion,
+    description:
+      label.fecha_hora +
+      ", " +
+      label.descripcion +
+      ", Duración: " +
+      label.duracion,
     color: `#0D98BA`,
     display: "block",
   }));
