@@ -127,7 +127,7 @@ export default function Calendario() {
   return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
-      <Container>
+      <Container id="containerCalendario">
         <br></br>
         <Button id="btnCurso" onClick={insertarCurso}>
           Insertar Curso
