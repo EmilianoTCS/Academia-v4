@@ -167,7 +167,7 @@ export default function Calendario() {
           <div id="leyendas">
             <div id="rowLeyenda">
               <div className="leyendasColor"></div>
-              <h6>Curso</h6>
+              <h6>Cursos</h6>
             </div>
 
             <div id="rowLeyenda">
