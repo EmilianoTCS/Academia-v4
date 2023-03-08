@@ -13,6 +13,7 @@ import InsertarCurso from "../templates/forms/InsertarCurso";
 import InsertarEvento from "../templates/forms/InsertarEvento";
 import Button from "react-bootstrap/Button";
 import "../css/InsertarCursoCalendario.css";
+import { Container } from "react-bootstrap";
 export default function Calendario() {
   const [CursosApi, setCursosApi] = useState([""]);
   const [EventosApi, setEventosApi] = useState([""]);
@@ -126,42 +127,62 @@ export default function Calendario() {
   return userData.statusConected || userData !== null ? (
     <>
       <Header></Header>
-      <br></br>
-      <Button id="btnCurso" onClick={insertarCurso}>
-        Insertar Curso
-      </Button>
-      <Button id="btnCurso2" onClick={insertarEvento}>
-        Insertar Evento
-      </Button>
-      <InsertarCurso
-        isActiveCurso={isActiveInsertCurso}
-        cambiarEstado={setIsActiveInsertCurso}
-      ></InsertarCurso>
-      <InsertarEvento
-        isActiveEvento={isActiveInsertEvento}
-        cambiarEstado={setIsActiveInsertEvento}
-      ></InsertarEvento>
-      <div id="fondoCalendario">
-        <FullCalendar
-          locales={esLocale}
-          plugins={[dayGridPlugin, interactionPlugin]}
-          initialView="dayGridMonth"
-          headerToolbar={{
-            right: "prev,next today",
-            center: "title",
-            left: "dayGridMonth,dayGridWeek,dayGridDay",
-          }}
-          weekends={true}
-          aspectRatio={1.9}
-          droppable={true}
-          locale="es"
-          eventSources={[Cursos, Eventos, Feriados]}
-          themeSystem="bootstrap"
-          eventMouseEnter={handleMouseEnter}
-          eventMouseLeave={handleMouseLeave}
-        />
-      </div>
-      <br></br>
+      <Container>
+        <br></br>
+        <Button id="btnCurso" onClick={insertarCurso}>
+          Insertar Curso
+        </Button>
+        <Button id="btnCurso2" onClick={insertarEvento}>
+          Insertar Evento
+        </Button>
+        <InsertarCurso
+          isActiveCurso={isActiveInsertCurso}
+          cambiarEstado={setIsActiveInsertCurso}
+        ></InsertarCurso>
+        <InsertarEvento
+          isActiveEvento={isActiveInsertEvento}
+          cambiarEstado={setIsActiveInsertEvento}
+        ></InsertarEvento>
+
+        <div id="fondoCalendario">
+          <FullCalendar
+            locales={esLocale}
+            plugins={[dayGridPlugin, interactionPlugin]}
+            initialView="dayGridMonth"
+            headerToolbar={{
+              right: "prev,next today",
+              center: "title",
+              left: "dayGridMonth,dayGridWeek,dayGridDay",
+            }}
+            weekends={true}
+            aspectRatio={1.9}
+            droppable={true}
+            locale="es"
+            eventSources={[Cursos, Eventos, Feriados]}
+            themeSystem="bootstrap"
+            eventMouseEnter={handleMouseEnter}
+            eventMouseLeave={handleMouseLeave}
+          />
+
+          <div id="leyendas">
+            <div id="rowLeyenda">
+              <div className="leyendasColor"></div>
+              <h6>Cursos</h6>
+            </div>
+
+            <div id="rowLeyenda">
+              <div className="leyendas2Color"></div>
+              <h6>Evaluaciones</h6>
+            </div>
+
+            <div id="rowLeyenda">
+              <div className="leyendas3Color"></div>
+              <h6>Feriados</h6>
+            </div>
+          </div>
+        </div>
+        <br></br>
+      </Container>
     </>
   ) : (
     <Navigate to="/login"></Navigate>
