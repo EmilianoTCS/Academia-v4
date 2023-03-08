@@ -139,6 +139,7 @@ export default function Calendario() {
       <Header></Header>
       <Container id="containerCalendario">
         <br></br>
+        <br></br>
         <Button id="btnCurso" onClick={insertarCurso}>
           Insertar Curso
         </Button>
