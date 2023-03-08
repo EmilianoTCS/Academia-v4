@@ -7,7 +7,10 @@
     color: black;
     font-weight: 600;
 }
- 
+#containerCalendario{
+    width: 90%;
+    max-width: 100%;
+}
 #fondoCalendario{
     margin: 3px;
 
