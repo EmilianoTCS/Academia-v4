@@ -10,7 +10,211 @@
  
 #fondoCalendario{
     margin: 3px;
-} 
+
+}
+
+#rowLeyenda{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+
+#leyendas{
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+    position: relative;
+    top: -25px;
+    left: 50px;
+
+}
+
+.leyendasColor{
+    background-color: #3B9212;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    position: relative;
+    top: 2px;
+    
+}
+
+.leyendas2Color{
+    background-color: #0D98BA;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    position: relative;
+    top: 2px;
+}
+
+.leyendas3Color{
+    background-color: #89c992;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    position: relative;
+    top: 2px;
+}
+
+@media screen and (max-width: 780px) {
+    #rowLeyenda{
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+    }
+    
+    
+    #leyendas{
+        display: flex;
+        flex-direction: row;
+        gap: 55px;
+        position: relative;
+        top: -25px;
+        left: 50px;
+    
+    }
+    
+    .leyendasColor{
+        background-color: #3B9212;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        position: relative;
+        top: 2px;
+        
+    }
+    
+    .leyendas2Color{
+        background-color: #0D98BA;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        position: relative;
+        top: 2px;
+    }
+    
+    .leyendas3Color{
+        background-color: #89c992;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        position: relative;
+        top: 2px;
+    }
+
+
+}
+
+@media screen and (max-width: 550px) {
+    #rowLeyenda{
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+    }
+    
+    
+    #leyendas{
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        position: relative;
+        top: -25px;
+        left: 10px;
+    
+    }
+    
+    .leyendasColor{
+        background-color: #3B9212;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        position: relative;
+        top: 2px;
+        
+    }
+    
+    .leyendas2Color{
+        background-color: #0D98BA;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        position: relative;
+        top: 2px;
+    }
+    
+    .leyendas3Color{
+        background-color: #89c992;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        position: relative;
+        top: 2px;
+    }
+
+
+}
+
+
+
+@media screen and (max-width: 400px) {
+    #rowLeyenda{
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+    }
+    
+    
+    #leyendas{
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        position: relative;
+        top: -25px;
+        left: 10px;
+    
+    }
+    
+    .leyendasColor{
+        font-size: 5px;
+        background-color: #3B9212;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        position: relative;
+        top: 2px;
+        
+    }
+    
+    .leyendas2Color{
+        font-size: 5px;
+        background-color: #0D98BA;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        position: relative;
+        top: 2px;
+    }
+    
+    .leyendas3Color{
+        font-size: 5px;
+        background-color: #89c992;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        position: relative;
+        top: 2px;
+    }
+
+
+}
+
+
+
+
+
+
 
 
 .fc .fc-toolbar-title {
@@ -48,6 +252,8 @@
     }
 
 }
+
+
 
 @media screen and (max-width: 400px) {
     .fc-toolbar-title{
