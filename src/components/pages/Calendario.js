@@ -164,7 +164,7 @@ export default function Calendario() {
               center: "title",
               left: "dayGridMonth,dayGridWeek,dayGridDay",
             }}
-            weekends={true}
+            weekends={false}
             aspectRatio={1.9}
             droppable={true}
             locale="es"

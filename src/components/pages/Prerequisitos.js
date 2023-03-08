@@ -53,7 +53,7 @@ export default function Prerequisitos() {
   }
   function toggleisActivePrerequisito(ID) {
     const url = "TASKS/coe-updateStatePrerequisito.php";
-    var data = { ID: ID, IDCurso: value.value };
+    var data = { ID: ID, IDCurso: CursoSeleccionado };
     var operationUrl = "updateStatePrerequisito";
     SendDataService(url, operationUrl, data).then((response) => {
       const { successEdited, ...prerequisitos } = response[0];
@@ -127,9 +127,7 @@ export default function Prerequisitos() {
           <>
             <br />
             <Alert variant="danger">
-              <Alert.Heading>
-                No existen registros asociados.
-              </Alert.Heading>
+              <Alert.Heading>No existen registros asociados.</Alert.Heading>
             </Alert>
             <br />
           </>
