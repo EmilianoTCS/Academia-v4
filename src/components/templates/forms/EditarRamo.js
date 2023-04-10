@@ -70,7 +70,6 @@ const EditarRamo = ({
       nombreRelator:
         nombreRelator === "" ? responseID[0].idRelator : nombreRelator,
     };
-    console.log(data);
 
     SendDataService(url, operationUrl, data).then((response) => {
       const { successEdited, ...ramo } = response[0];
@@ -145,7 +144,7 @@ const EditarRamo = ({
               <select
                 required
                 className="form-control"
-                onChange={({ target }) => setRelator(target.value)}
+                onChange={({ target }) => setidRelator(target.value)}
               >
                 {listRelatores.map((valor) => (
                   <option

@@ -40,7 +40,7 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado, ramos }) => {
   }
 
   function SendData(e) {
-    // e.preventDefault();
+    e.preventDefault();
     const url = "TASKS/coe-insertarRamo.php";
     const operationUrl = "insertarRamo";
     var data = {
@@ -83,8 +83,9 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado, ramos }) => {
                 onChange={({ target }) => setIDCuenta(target.value)}
                 placeholder="Elige una cuenta"
               >
-                <option hidden value="">Desplegar lista</option>
-
+                <option hidden value="">
+                  Desplegar lista
+                </option>
 
                 {listCuentas.map((valor) => (
                   <option value={valor.ID}>{valor.codigoCuenta}</option>
@@ -137,8 +138,9 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado, ramos }) => {
                 onChange={({ target }) => setRelator(target.value)}
                 placeholder="Elige un relator"
               >
-                <option hidden value="">Desplegar lista</option>
-
+                <option hidden value="">
+                  Desplegar lista
+                </option>
 
                 {listRelatores.map((valor) => (
                   <option value={valor.ID}>{valor.nombre}</option>
@@ -153,7 +155,9 @@ const InsertarRamo = ({ isActiveRamo, cambiarEstado, ramos }) => {
                 onChange={({ target }) => setPrerequisito(target.value)}
                 placeholder="Elige un prerequisito"
               >
-                <option hidden value="">Desplegar lista</option>
+                <option hidden value="">
+                  Desplegar lista
+                </option>
 
                 {listPrerequisitos.map((valor) => (
                   <option value={valor.ID}>{valor.nombreRamo}</option>
