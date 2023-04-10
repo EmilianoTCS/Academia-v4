@@ -110,7 +110,7 @@ const EditarEDDAnalistas = ({
                 ))}
               </select>
             </div>
-            <div className="form-group">
+            {/* <div className="form-group">
               <label htmlFor="input_tipoCliente">Seleccione un equipo:</label>
               <select
                 required
@@ -128,7 +128,7 @@ const EditarEDDAnalistas = ({
                   </option>
                 ))}
               </select>
-            </div>
+            </div> */}
 
             <div className="md-form md-outline input-with-post-icon datepicker">
               <label htmlFor="input_fechaInicio">Fecha Inicio: </label>
@@ -190,6 +190,7 @@ const EditarEDDAnalistas = ({
                 <option value="Programado">Programado</option>
                 <option value="En progreso">En progreso</option>
                 <option value="Finalizado">Finalizado</option>
+                <option value="Inactivo">Inactivo</option>
               </select>
             </div>
             <Button

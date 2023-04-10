@@ -11,7 +11,10 @@ import "../../components/css/TablasStyles.css";
 import InsertarEDDAnalistas from "../templates/forms/insertarEDDAnalistas";
 import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
+
 import { HiEye } from "react-icons/hi";
+import { GrUserAdd } from "react-icons/gr";
+
 import EditarEDDAnalistas from "../templates/forms/editarEDDAnalistas";
 import ConfirmAlert from "../../components/templates/alerts/ConfirmAlert";
 
@@ -51,7 +54,7 @@ export default function ListadoAnalistas() {
       if (response === true) {
         var url = "EDD/administracion/actualizarEstadoEvaluacionAnalistas.php";
         var operationUrl = "actualizarEvaluacion";
-        var data = { ID: ID };
+        var data = { ID: ID, usuario: userData.username };
         SendDataService(url, operationUrl, data).then((response) =>
           TopAlerts(response)
         );
@@ -121,11 +124,17 @@ export default function ListadoAnalistas() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    <Link>
+
+                    <Link to={`/EDD/ResultadoListadoAnalistas/${analistas.codigoEvaluacion}`}>
                       <button title="Examinar evaluación" id="OperationBtns">
                         <HiEye id="icons" />
                       </button>
                     </Link>
+                    
+                      <button title="Agregar usuario" id="OperationBtns">
+                        <GrUserAdd id="icons" />
+                      </button>
+                    
                     <button
                       title="Eliminar curso"
                       onClick={() => eliminar(analistas.ID)}

@@ -8,6 +8,8 @@ import TopAlerts from "../../templates/alerts/TopAlerts";
 
 export default function AdminEDDAnalistas() {
     const [listAnalistas, setListAnalistas] = useState([""]);
+    const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
+
 
   function obtenerDatosEDDAnalistas() {
     const url = "EDD/seleccion/listadoEvaluacionesAnalistas.php?listadoEvaluaciones";
@@ -19,9 +21,8 @@ export default function AdminEDDAnalistas() {
   function handleChangeisActiveEvaluacion(ID) {
     const url = "EDD/administracion/actualizarEstadoEvaluacionAnalistas.php";
     const operationUrl = "actualizarEvaluacion";
-    var data = { ID: ID };
+    var data = { ID: ID, usuario: userData.username };
     SendDataService(url, operationUrl, data).then((response) => {
-      console.log(response);
       const { successEnabled, ...evaluacion } = response[0];
       actualizarEvaluacion(evaluacion);
       TopAlerts(successEnabled);
@@ -47,6 +48,7 @@ export default function AdminEDDAnalistas() {
             <th>Nombre del Cliente</th>
             <th>Estado</th>
             <th>Fecha de actualización</th>
+            <th>Modificado por </th>
             <th id="th_switch">Estado</th>
           </tr>
         </thead>
@@ -60,6 +62,7 @@ export default function AdminEDDAnalistas() {
                   <td>{analistas.nombreCliente}</td>
                   <td>{analistas.estado}</td>
                   <td>{analistas.fechaActualizacion}</td>
+                  <td>{analistas.usuario}</td>
               <td onChange={() => handleChangeisActiveEvaluacion(analistas.ID)}>
                 <SwitchToggle isActive={analistas.isActive} />
               </td>
