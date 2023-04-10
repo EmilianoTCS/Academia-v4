@@ -18,7 +18,7 @@ import { IoIosPeople } from "react-icons/io";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { IoMdListBox } from "react-icons/io";
 import { GoTasklist } from "react-icons/go";
-import { GiArchiveRegister } from "react-icons/gi";
+import { GiArchiveRegister,GiStarFormation } from "react-icons/gi";
 import { TiThList } from "react-icons/ti";
 
 import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
@@ -110,7 +110,7 @@ export default function SideBar(props) {
                     </button>
                   </Link>
                 </li>
-                {/* <li id="li_Academia" onClick={handleChangeEvaluaciones}>
+                <li id="li_Academia" onClick={handleChangeEvaluaciones}>
                   <button id="buttonSidebar">
                     <GiStarFormation id="icons" />
                     E. DE DESEMPEÑO
@@ -168,7 +168,7 @@ export default function SideBar(props) {
                       </Link>
                     </li>
                   </ul>
-                </li> */}
+                </li>
 
                 <li
                   id="li_Academia"
@@ -203,7 +203,7 @@ export default function SideBar(props) {
                         </button>
                       </Link>
                     </li>
-                    {/* <li id="textLeftSelect">
+                    <li id="textLeftSelect">
                       <button id="submenuSidebar">
                         <ImBook id="icons" />
                         Empleados
@@ -220,7 +220,7 @@ export default function SideBar(props) {
                         <IoBookmarks id="icons" />
                         Proyectos
                       </button>
-                    </li> */}
+                    </li>
                   </ul>
                 </li>
 
