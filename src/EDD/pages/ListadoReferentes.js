@@ -9,6 +9,8 @@ import TopAlerts from "../../components/templates/alerts/TopAlerts";
 import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
 import { HiEye } from "react-icons/hi";
+import { GrUserAdd } from "react-icons/gr";
+
 import Button from "react-bootstrap/Button";
 import "../../components/css/TablasStyles.css";
 import InsertarEDDReferentes from "../templates/forms/InsertarEDDReferentes";
@@ -111,6 +113,9 @@ export default function ListadoReferentes() {
                         <HiEye id="icons" />
                       </button>
                     </Link>
+                      <button title="Agregar usuario" id="OperationBtns">
+                        <GrUserAdd id="icons" />
+                      </button>
                     <button title="Eliminar curso" id="OperationBtns">
                       <BsFillTrashFill id="icons" />
                     </button>

@@ -26,6 +26,10 @@ import RestablecerPassword from "./components/pages/RestablecerPassword";
 import ListadoReferentes from "./EDD/pages/ListadoReferentes";
 import ListadoAnalistas from "./EDD/pages/ListadoAnalistas";
 
+import ResultadoListadoAnalistas from "./EDD/pages/ResultadoListadoAnalistas";
+import ResultadoListadoReferentes from "./EDD/pages/ResultadoListadoReferentes";
+
+
 export default function App() {
   return (
     <AuthState>
@@ -67,6 +71,14 @@ export default function App() {
             <Route
               element={<ListadoAnalistas />}
               path="/EDD/ListadoAnalistas"
+            ></Route>
+            <Route
+              path="/EDD/ResultadoAnalistas/:CodigoEvaluacion"
+              element={<ResultadoListadoAnalistas />}
+            ></Route>
+            <Route
+              path="/EDD/ResultadoReferentes"
+              element={<ResultadoListadoReferentes />}
             ></Route>
           </Route>
 
