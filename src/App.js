@@ -29,6 +29,9 @@ import ListadoAnalistas from "./EDD/pages/ListadoAnalistas";
 import ResultadoListadoAnalistas from "./EDD/pages/ResultadoListadoAnalistas";
 import ResultadoListadoReferentes from "./EDD/pages/ResultadoListadoReferentes";
 
+import ListadoEmpleados from "./components/pages/ListadoEmpleados";
+import ListadoEquipos from "./components/pages/ListadoEquipos";
+
 
 export default function App() {
   return (
@@ -77,9 +80,21 @@ export default function App() {
               element={<ResultadoListadoAnalistas />}
             ></Route>
             <Route
-              path="/EDD/ResultadoReferentes"
+              path="/EDD/ResultadoReferentes/:CodigoEvaluacion"
               element={<ResultadoListadoReferentes />}
             ></Route>
+            <Route
+              element={<ListadoEmpleados />}
+              path="/listadoEmpleados"
+            ></Route>
+            <Route
+              element={<ListadoEquipos />}
+              path="/ListadoEquipos"
+            ></Route>
+            {/* <Route
+              element={<ListadoAnalistas />}
+              path="/EDD/ListadoAnalistas"
+            ></Route>  */}
           </Route>
 
           <Route

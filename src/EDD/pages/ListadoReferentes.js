@@ -108,7 +108,7 @@ export default function ListadoReferentes() {
                     >
                       <RiEditBoxFill id="icons" />
                     </button>
-                    <Link>
+                    <Link to={`/EDD/ResultadoReferentes/${referente.codigoEvaluacion}`}>
                       <button title="Examinar evaluación" id="OperationBtns">
                         <HiEye id="icons" />
                       </button>

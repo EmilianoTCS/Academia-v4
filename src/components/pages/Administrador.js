@@ -15,6 +15,7 @@ import AdminRelatores from "./Tabs/AdminRelatores";
 import AdminColaborador from "./Tabs/AdminColaboradores";
 import AdminCliente from "./Tabs/AdminClientes";
 import AdminEDDAnalistas from "./Tabs/AdminEDDAnalistas";
+import AdminEDDReferentes from "./Tabs/AdminEDDReferentes";
 
 export default function Administrador() {
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
@@ -135,7 +136,7 @@ export default function Administrador() {
               <AdminEDDAnalistas></AdminEDDAnalistas>
             </TabPanel>
             <TabPanel value={value} index={6}>
-              <p>EDD. Referentes</p>
+            <AdminEDDReferentes></AdminEDDReferentes>
             </TabPanel>
           </Box>
         </div>

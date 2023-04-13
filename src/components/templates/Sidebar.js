@@ -203,23 +203,32 @@ export default function SideBar(props) {
                         </button>
                       </Link>
                     </li>
+
                     <li id="textLeftSelect">
+                    <Link to="/listadoEmpleados">
                       <button id="submenuSidebar">
                         <ImBook id="icons" />
                         Empleados
                       </button>
+                      </Link>
                     </li>
+
                     <li id="textLeftSelect">
+                    <Link to="/listadoEquipos">
                       <button id="submenuSidebar">
                         <ImBook id="icons" />
                         Equipos
                       </button>
+                      </Link>
                     </li>
+
                     <li id="textLeftSelect">
+                    <Link to="/listadoProyectos">
                       <button id="submenuSidebar">
                         <IoBookmarks id="icons" />
                         Proyectos
                       </button>
+                      </Link>
                     </li>
                   </ul>
                 </li>

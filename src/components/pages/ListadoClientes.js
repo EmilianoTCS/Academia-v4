@@ -137,7 +137,7 @@ export default function ListadoClientes() {
                       <HiEye id="icons" />
                     </button> */}
                     <button
-                      title="Eliminar curso"
+                      title="Eliminar cliente"
                       onClick={() => eliminar(cliente.ID)}
                       id="OperationBtns"
                     >
