@@ -31,7 +31,7 @@ import ResultadoListadoReferentes from "./EDD/pages/ResultadoListadoReferentes";
 
 import ListadoEmpleados from "./components/pages/ListadoEmpleados";
 import ListadoEquipos from "./components/pages/ListadoEquipos";
-
+import ListadoProyectos from "./components/pages/ListadoProyectos";
 
 export default function App() {
   return (
@@ -87,14 +87,11 @@ export default function App() {
               element={<ListadoEmpleados />}
               path="/listadoEmpleados"
             ></Route>
+            <Route element={<ListadoEquipos />} path="/ListadoEquipos"></Route>
             <Route
-              element={<ListadoEquipos />}
-              path="/ListadoEquipos"
+              element={<ListadoProyectos />}
+              path="/listadoProyectos"
             ></Route>
-            {/* <Route
-              element={<ListadoAnalistas />}
-              path="/EDD/ListadoAnalistas"
-            ></Route>  */}
           </Route>
 
           <Route
