@@ -91,10 +91,6 @@ export default function App() {
               element={<ListadoEquipos />}
               path="/ListadoEquipos"
             ></Route>
-            {/* <Route
-              element={<ListadoAnalistas />}
-              path="/EDD/ListadoAnalistas"
-            ></Route>  */}
           </Route>
 
           <Route

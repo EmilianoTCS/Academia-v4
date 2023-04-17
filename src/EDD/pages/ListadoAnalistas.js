@@ -9,6 +9,7 @@ import TopAlerts from "../../components/templates/alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import "../../components/css/TablasStyles.css";
 import InsertarEDDAnalistas from "../templates/forms/insertarEDDAnalistas";
+import InsertarUsuarioEvaluaciones from "../templates/insertarUsuarioEvaluacion";
 import { BsFillTrashFill } from "react-icons/bs";
 import { RiEditBoxFill } from "react-icons/ri";
 
@@ -28,6 +29,9 @@ export default function ListadoAnalistas() {
     useState(false);
   const [isActiveEditEDDAnalistas, setIsActiveEditEDDAnalistas] =
     useState(false);
+    const [isActiveUsuarioEvaluaciones, setIsActiveUsuarioEvaluaciones] =
+    useState(false);
+
 
   function obtenerDatosPaginador() {
     var urlPaginador = "paginador/botones_EDDAnalistas.php";
@@ -38,6 +42,11 @@ export default function ListadoAnalistas() {
   function insertarEDDAnalistas() {
     setIsActiveInsertEDDAnalistas(!isActiveInsertEDDAnalistas);
   }
+
+  function insertarUsuarioEvaluaciones() {
+    setIsActiveUsuarioEvaluaciones(!isActiveUsuarioEvaluaciones);
+  }
+
   function handleChangePaginador() {
     var url = "EDD/visualizacion/listadoEvaluacionesAnalistas.php";
     var operationUrl = "pagina";
@@ -95,6 +104,13 @@ export default function ListadoAnalistas() {
             cambiarEstado={setIsActiveEditEDDAnalistas}
             IDEvaluacionAnalistas={IDEvaluacion}
           ></EditarEDDAnalistas>
+
+          <InsertarUsuarioEvaluaciones
+            isActiveUsuarioEvaluaciones={isActiveUsuarioEvaluaciones}
+            cambiarEstado={setIsActiveUsuarioEvaluaciones}
+          />
+
+
           <Table id="mainTable" hover responsive>
             <thead>
               <tr>
@@ -131,7 +147,7 @@ export default function ListadoAnalistas() {
                       </button>
                     </Link>
                     
-                      <button title="Agregar usuario" id="OperationBtns">
+                    <button id="OperationBtns" onClick={insertarUsuarioEvaluaciones}>
                         <GrUserAdd id="icons" />
                       </button>
                     
