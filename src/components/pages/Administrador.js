@@ -16,7 +16,9 @@ import AdminColaborador from "./Tabs/AdminColaboradores";
 import AdminCliente from "./Tabs/AdminClientes";
 import AdminEDDAnalistas from "./Tabs/AdminEDDAnalistas";
 import AdminEDDReferentes from "./Tabs/AdminEDDReferentes";
-
+import AdminProyectos from "./Tabs/AdminProyectos";
+import AdminEquipos from "./Tabs/AdminEquipos";
+import AdminEmpleados from "./Tabs/AdminEmpleados";
 export default function Administrador() {
   const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
   const [value, setValue] = React.useState(0);
@@ -107,13 +109,28 @@ export default function Administrador() {
                 />
                 <Tab
                   style={{ color: "#e10b1c", fontSize: "15pt" }}
-                  label="EDD. Analistas"
+                  label="Proyectos"
                   {...a11yProps(5)}
                 />
                 <Tab
                   style={{ color: "#e10b1c", fontSize: "15pt" }}
-                  label="EDD. Referentes"
+                  label="Equipos"
                   {...a11yProps(6)}
+                />
+                <Tab
+                  style={{ color: "#e10b1c", fontSize: "15pt" }}
+                  label="Empleados"
+                  {...a11yProps(7)}
+                />
+                <Tab
+                  style={{ color: "#e10b1c", fontSize: "15pt" }}
+                  label="EDD. Analistas"
+                  {...a11yProps(8)}
+                />
+                <Tab
+                  style={{ color: "#e10b1c", fontSize: "15pt" }}
+                  label="EDD. Referentes"
+                  {...a11yProps(9)}
                 />
               </Tabs>
             </Box>
@@ -133,10 +150,19 @@ export default function Administrador() {
               <AdminCliente></AdminCliente>
             </TabPanel>
             <TabPanel value={value} index={5}>
-              <AdminEDDAnalistas></AdminEDDAnalistas>
+              <AdminProyectos></AdminProyectos>
             </TabPanel>
             <TabPanel value={value} index={6}>
-            <AdminEDDReferentes></AdminEDDReferentes>
+              <AdminEquipos></AdminEquipos>
+            </TabPanel>
+            <TabPanel value={value} index={7}>
+              <AdminEmpleados></AdminEmpleados>
+            </TabPanel>
+            <TabPanel value={value} index={8}>
+              <AdminEDDAnalistas></AdminEDDAnalistas>
+            </TabPanel>
+            <TabPanel value={value} index={9}>
+              <AdminEDDReferentes></AdminEDDReferentes>
             </TabPanel>
           </Box>
         </div>

@@ -5,7 +5,6 @@ import TopAlerts from "../alerts/TopAlerts";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import getDataService from "../../../services/GetDataService";
-import { useCallback } from "react";
 
 const EditarEquipos = ({
   isActiveEditEquipo,
@@ -20,13 +19,15 @@ const EditarEquipos = ({
   const [nombreProyecto, setNombreProyecto] = useState("");
   const [nombreApellido, setNombreApellido] = useState("");
   const [nombreArea, setNombreArea] = useState("");
+  const [idProyecto, setidProyecto] = useState("");
+  const [idEmpleado, setidEmpleado] = useState("");
+  const [idArea, setidArea] = useState("");
   const [responseID, setResponseID] = useState([""]);
-  const [listadoEmpleados,setListEmpleados]=useState([""]);
-  const [listadoClientes,setListClientes]=useState([""]);
-  const [listadoProyectos,setListProyectos]=useState([""]);
-  const [listadoArea,setListArea]=useState([""]);
+  const [listadoEmpleados, setListEmpleados] = useState([""]);
+  const [listadoClientes, setListClientes] = useState([""]);
+  const [listadoProyectos, setListProyectos] = useState([""]);
+  const [listadoArea, setListArea] = useState([""]);
 
-  
   const listEquipos = equipo;
 
   const show = isActiveEditEquipo;
@@ -53,23 +54,31 @@ const EditarEquipos = ({
       setNombreProyecto(response[0].nombreProyecto);
       setNombreApellido(response[0].nombreApellido);
       setNombreArea(response[0].nombreArea);
-      console.log(response);
+      setidProyecto(response[0].idProyecto);
+      setidEmpleado(response[0].idEmpleado);
+      setidArea(response[0].idArea);
     });
-}
+  }
 
   function obtenerEmpleados() {
     const url = "TASKS/auxiliar/ListadoEmpleados.php?listadoEmpleados";
-    getDataService(url).then((empleados) => setListEmpleados(empleados));
+    getDataService(url).then((empleados) => {
+      setListEmpleados(empleados);
+    });
   }
 
   function obtenerClientes() {
     const url = "TASKS/auxiliar/ListadoClientes.php?listadoClientes";
-    getDataService(url).then((clientes) => setListClientes(clientes));
+    getDataService(url).then((clientes) => {
+      setListClientes(clientes);
+    });
   }
 
   function obtenerProyectos() {
     const url = "TASKS/auxiliar/ListadoProyectos.php?listadoProyectos";
-    getDataService(url).then((proyectos) => setListProyectos(proyectos));
+    getDataService(url).then((proyectos) => {
+      setListProyectos(proyectos);
+    });
   }
 
   function obtenerArea() {
@@ -84,11 +93,17 @@ const EditarEquipos = ({
     const operationUrl = "editEquipos";
     var data = {
       ID: IDEquipo,
-      nombreApellido:nombreApellido === "" ? responseID[0].nombreApellido : nombreApellido,
-      cargo:cargo === "" ? responseID[0].cargo : cargo,
+      nombreEquipo:
+        nombreEquipo === "" ? responseID[0].nombreEquipo : nombreEquipo,
+      cliente: cliente === "" ? responseID[0].cliente : cliente,
+      nombreProyecto: idProyecto === "" ? responseID[0].idProyecto : idProyecto,
+      nombreApellido: idEmpleado === "" ? responseID[0].idEmpleado : idEmpleado,
+      nombreArea: idArea === "" ? responseID[0].idArea : idArea,
     };
 
     SendDataService(url, operationUrl, data).then((response) => {
+      response;
+
       const { successEdited, ...equipo } = response[0];
       TopAlerts(successEdited);
       actualizarEquipo(equipo);
@@ -124,7 +139,7 @@ const EditarEquipos = ({
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={SendData}>
-          <div>
+            <div>
               <label htmlFor="input_nombreEquipo">Nombre del equipo:</label>
               <input
                 placeholder="Escriba nombre de equipo"
@@ -139,11 +154,11 @@ const EditarEquipos = ({
             </div>
 
             <div className="form-group">
-              <label htmlFor="input_tipoCliente">Tipo de Cliente: </label>
+              <label htmlFor="input_tipoCliente">Cliente: </label>
               <select
                 required
                 className="form-control"
-                value={cliente || ""}
+                defaultValue={cliente || ""}
                 name="input_Cliente"
                 id="input_Cliente"
                 onChange={({ target }) => setCliente(target.value)}
@@ -164,15 +179,17 @@ const EditarEquipos = ({
               <select
                 required
                 className="form-control"
-                value={nombreProyecto || ""}
+                defaultValue={idProyecto || ""}
                 name="input_proyecto"
                 id="input_proyecto"
-                onChange={({ target }) => setNombreProyecto(target.value)}
+                onChange={({ target }) => setidProyecto(target.value)}
               >
                 {listadoProyectos.map((valor) => (
                   <option
                     value={valor.ID}
-                    selected={valor.nombreProyecto === nombreProyecto ? "selected" : ""}
+                    selected={
+                      valor.nombreProyecto === nombreProyecto ? "selected" : ""
+                    }
                   >
                     {valor.nombreProyecto}
                   </option>
@@ -186,14 +203,16 @@ const EditarEquipos = ({
                 required
                 className="form-control"
                 name="input_nombreApellido"
-                value={nombreApellido || ""}
+                defaultValue={idEmpleado || ""}
                 id="input_nombreApellido"
-                onChange={({ target }) => setNombreApellido(target.value)}
+                onChange={({ target }) => setidEmpleado(target.value)}
               >
                 {listadoEmpleados.map((valor) => (
                   <option
                     value={valor.ID}
-                    selected={valor.nombreApellido === nombreApellido ? "selected" : ""}
+                    selected={
+                      valor.nombreApellido === nombreApellido ? "selected" : ""
+                    }
                   >
                     {valor.nombreApellido}
                   </option>
@@ -201,16 +220,15 @@ const EditarEquipos = ({
               </select>
             </div>
 
-
             <div className="form-group">
-              <label htmlFor="input_nombreArea">Nombre del area: </label>
+              <label htmlFor="input_nombreArea">Nombre del área: </label>
               <select
                 required
                 className="form-control"
                 name="input_nombreArea"
-                value={nombreArea || ""}
+                defaultValue={idArea || ""}
                 id="input_nombreArea"
-                onChange={({ target }) => setNombreArea(target.value)}
+                onChange={({ target }) => setidArea(target.value)}
               >
                 {listadoArea.map((valor) => (
                   <option
