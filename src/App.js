@@ -33,6 +33,17 @@ import ListadoEmpleados from "./components/pages/ListadoEmpleados";
 import ListadoEquipos from "./components/pages/ListadoEquipos";
 import ListadoProyectos from "./components/pages/ListadoProyectos";
 
+import AdminCursos from "./components/pages/Tabs/AdminCursos";
+import AdminRamos from "./components/pages/Tabs/AdminRamos";
+import AdminRelatores from "./components/pages/Tabs/AdminRelatores";
+import AdminColaborador from "./components/pages/Tabs/AdminColaboradores";
+import AdminCliente from "./components/pages/Tabs/AdminClientes";
+import AdminEDDAnalistas from "./components/pages/Tabs/AdminEDDAnalistas";
+import AdminEDDReferentes from "./components/pages/Tabs/AdminEDDReferentes";
+import AdminProyectos from "./components/pages/Tabs/AdminProyectos";
+import AdminEquipos from "./components/pages/Tabs/AdminEquipos";
+import AdminEmpleados from "./components/pages/Tabs/AdminEmpleados";
+
 export default function App() {
   return (
     <AuthState>
@@ -41,6 +52,25 @@ export default function App() {
           <Route element={<Login />} path="/"></Route>
           <Route element={<Login />} path="/Login"></Route>
           <Route element={<PrivateRoute />}>
+            <Route element={<AdminCliente />} path="/adminClientes"></Route>
+            <Route
+              element={<AdminColaborador />}
+              path="/adminColaboradores"
+            ></Route> 
+            <Route element={<AdminCursos />} path="/adminCursos"></Route>
+             <Route
+              element={<AdminEDDAnalistas />}
+              path="/adminEDDAnalistas"
+            ></Route>
+            <Route
+              element={<AdminEDDReferentes />}
+              path="/adminEDDReferentes"
+            ></Route>
+            <Route element={<AdminEmpleados />} path="/adminEmpleados"></Route>
+            <Route element={<AdminRamos />} path="/adminRamos"></Route>
+            <Route element={<AdminRelatores />} path="/adminRelatores"></Route>
+            <Route element={<AdminProyectos />} path="/adminProyectos"></Route>
+            <Route element={<AdminEquipos />} path="/adminEquipos"></Route> 
             <Route path="/home" element={<Homepage />}></Route>
             <Route element={<ListadoCursos />} path="/listadoCursos"></Route>
             <Route element={<ListadoRamos />} path="/listadoRamos"></Route>

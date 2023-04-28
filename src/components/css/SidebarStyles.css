@@ -81,7 +81,7 @@ padding-top: 1em;
 }
 
 #textLeft {
-  margin-top: 210px;
+  margin-top: 1px;
   margin-left: -80px;
   font-size: 16px;
 }
@@ -209,7 +209,7 @@ ul li ul li:hover a {
 }
 
 #containerElement {
-  width: 270px;
+  width: 20px;
   overflow-y: scroll;
   overflow-x: hidden;
   border-radius: 30px 0 0 30px;
@@ -248,15 +248,15 @@ ul li ul li:hover a {
 
 /*Boton abrir sidebar*/
 .buttonStyleOpen {
-  position: absolute;
   right: 0;
   top: 0;
   border: none;
   background: #e10b1c;
   color: white;
   border-radius: 5px;
-  margin: 120px 5px 3px 3px;
-  padding: 7px;
+  margin: 10px 0px 0px 10px;
+  justify-content: flex-end;
+  padding: 8px;
   border: solid #e10b1c 1px;
 }
 
@@ -272,12 +272,19 @@ ul li ul li:hover a {
   background: #e10b1c;
   color: white;
   border-radius: 5px;
-  margin: 1px 1px 1px 220px;
-  padding: 7px;
+  margin: 7px 1px -40px 253px;
+  padding: 8px;
   border: solid #e10b1c 1px;
 }
+
 
 .buttonStyleClose:hover {
   color: #e10b1c;
   background-color: #fff;
 }
+
+
+.offcanvas-size-xl {
+  --bs-offcanvas-width: min(23vw, 600px) !important;
+}
+

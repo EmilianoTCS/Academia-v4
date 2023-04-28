@@ -6,6 +6,9 @@ import Header from "../templates/Header";
 import PieChart from "../templates/Pie";
 import BarChart from "../templates/Bar";
 import Card from "react-bootstrap/Card";
+
+
+
 export default function HomePage() {
 const userData = JSON.parse(localStorage.getItem("userData")) ?? null;
 const [cards, setCards] = useState([""]);
@@ -19,6 +22,7 @@ useEffect(function () {
 return userData.statusConected || userData !== null ? (
   <div>
     <Header></Header>
+    
     <div id="container_cards">
       {cards.map((singleCard) => (
         <>

@@ -33,13 +33,7 @@ export default function Header() {
           <FaBars></FaBars>
         </button> */}
 
-        <button
-          className="buttonStyleOpen"
-          variant="primary"
-          onClick={handleSideBar}
-        >
-          <i className="bi bi-arrow-bar-left"></i>
-        </button>
+
         <SideBar isToggled={toggleSidebar}></SideBar>
       </div>
     </>

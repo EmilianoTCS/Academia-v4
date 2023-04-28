@@ -1,7 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
-
 import Header from "../templates/Header";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";

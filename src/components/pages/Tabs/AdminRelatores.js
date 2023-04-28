@@ -2,9 +2,12 @@ import React from "react";
 import { useEffect, useState } from "react";
 import getDataService from "../../../services/GetDataService";
 import SendDataService from "../../../services/SendDataService";
-import { Table } from "react-bootstrap";
+import { Table, Container } from "react-bootstrap";
 import SwitchToggle from "../../templates/SwitchToggle";
 import TopAlerts from "../../templates/alerts/TopAlerts";
+import Header from "../../templates/Header";
+import LinkTab from "../../templates/LinkTab"
+
 
 export default function AdminRelatores() {
   const [relatores, setRelatores] = useState([""]);
@@ -37,7 +40,15 @@ export default function AdminRelatores() {
     obtenerDatosRelatores();
   }, []);
 
-  return (
+  return (<div><LinkTab></LinkTab>
+
+  <br></br>
+  <br></br>
+
+  <Container id="fondoTabla">
+    <div id="containerTablas">
+    <h1 id="TitlesPages">Administración de registros de relatores</h1>
+    <h6 id="ustedEsta">Usted está en Administrador {'>'} Relatores</h6>
     <Table responsive>
       <thead>
         <tr>
@@ -61,6 +72,7 @@ export default function AdminRelatores() {
           </tr>
         ))}
       </tbody>
-    </Table>
+    </Table></div>      </Container>
+    </div>
   );
 }

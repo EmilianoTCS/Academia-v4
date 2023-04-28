@@ -67,6 +67,7 @@ export default function InscribirseCurso() {
 
   return userData.statusConected || userData !== null ? (
     <>
+
       <Header></Header>
       <br></br>
       <br></br>
